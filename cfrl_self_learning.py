@@ -21,8 +21,8 @@ TARGET_UPDATE = 10
 NUM_EPISODES = 1000000
 
 # Define paths to save and load models in Google Drive
-MODEL_SAVE_PATH = 'Connect4_Agent_Model2.pth'
-TRAINER_SAVE_PATH = 'Connect4_Agent_Trainer2.pth'
+MODEL_SAVE_PATH = 'Connect4_Agent_Model.pth'
+TRAINER_SAVE_PATH = 'Connect4_Agent_Trainer.pth'
 # Set up devices
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print("Using device:", device)
@@ -354,10 +354,13 @@ class AgentLogic:
         
         if max_q_value < 0.5 and EPSILON > 0.1:
             # Use logic-based or MCTS if Q-values are too low or begging of stage
-            mcts = self.monte_carlo_tree_search(env, num_simulations=current_episode)
-            if mcts is not None:
-                logging.debug(f"Player{current_player}: Using MCTS for action: {mcts}")
-                return mcts
+            if current_episode >10000:# Set the cap for the number of simulation
+                set_simulations=10000
+            else:
+                set_simulations=current_episode
+            mcts = self.monte_carlo_tree_search(env, num_simulations= set_simulations)          if mcts is not None:
+            logging.debug(f"Player{current_player}: Using MCTS for action: {mcts}")
+            return mcts
         logging.debug(f"Player{current_player}:selected: Column {action}, Q-value: {max_q_value:.3f}")
         return action
 

@@ -189,28 +189,23 @@ class AgentLogic:
 
     def normalize_q_values(self,q_values):
         """
-        Normalize Q-values to the range [0, 1].
+        Normalize Q-values to a probability distribution using softmax.
         
         Args:
             q_values (torch.Tensor or np.ndarray): Input Q-values.
             
         Returns:
-            torch.Tensor: Normalized Q-values in the range [0, 1].
+            torch.Tensor: Q-values normalized to a probability distribution.
         """
         if isinstance(q_values, np.ndarray):  # Convert NumPy array to PyTorch tensor
-            q_values = torch.tensor(q_values)
+            q_values = torch.tensor(q_values, dtype=torch.float32)
 
-        q_min = torch.min(q_values)
-        q_max = torch.max(q_values)
-
-        # Avoid division by zero
-        if q_max == q_min:
-            return torch.ones_like(q_values)  # All normalized values are 1 if Q-values are identical
-
-        return (q_values - q_min) / (q_max - q_min)  # Min-max normalization
+        # Apply softmax to normalize Q-values into probabilities
+        q_values_softmax = torch.softmax(q_values, dim=0)
+        return q_values_softmax
 
 
-    def combined_action(self, env):
+    def combined_action(self, env,current_episode):
         """
         Decide the action for the AI (Player 2) using logical rules, MCTS, and DQN.
         """
@@ -230,10 +225,14 @@ class AgentLogic:
         
         if max_q_value < 0.5 or EPSILON > 0.5:
             # Use logic-based or MCTS if Q-values are too low or begging of stage
-            action = self.monte_carlo_tree_search(env, num_simulations=10000)
-            if action is not None:
-                logging.debug(f"Player{current_player}: Using MCTS for action: {action}")
-                return action
+            if current_episode >10000:# Set the cap for the number of simulation
+                set_simulations=10000
+            else:
+                set_simulations=current_episode
+            mcts = self.monte_carlo_tree_search(env, num_simulations= set_simulations)
+            if mcts is not None:
+                logging.debug(f"Player{current_player}: Using MCTS for action: {mcts}")
+                return mcts
         logging.debug(f"Player{current_player}:selected: Column {action}, Q-value: {max_q_value:.3f}")
         return action
 
