@@ -223,17 +223,20 @@ class AgentLogic:
         action = max(valid_q_values, key=lambda a: valid_q_values[a])
         max_q_value = valid_q_values[action]
         
-        if max_q_value < 0.5 or EPSILON > 0.5:
-            # Use logic-based or MCTS if Q-values are too low or begging of stage
-            if current_episode >10000:# Set the cap for the number of simulation
-                set_simulations=10000
+        if max_q_value < 0.5 and EPSILON > 0.1:
+            # Use logic-based or MCTS if Q-values are too low or it's the beginning of training
+            if current_episode > 10000:  # Set a cap for the number of simulations
+                set_simulations = 10000
             else:
-                set_simulations=current_episode
-            mcts = self.monte_carlo_tree_search(env, num_simulations= set_simulations)
+                set_simulations = current_episode
+
+            # Perform Monte Carlo Tree Search
+            mcts = self.monte_carlo_tree_search(env, num_simulations=set_simulations)
             if mcts is not None:
-                logging.debug(f"Player{current_player}: Using MCTS for action: {mcts}")
+                logging.debug(f"Player {current_player}: Using MCTS for action: {mcts}")
                 return mcts
-        logging.debug(f"Player{current_player}:selected: Column {action}, Q-value: {max_q_value:.3f}")
+        # Log and return the action chosen by Q-value
+        logging.debug(f"Player {current_player}: Selected Column {action}, Q-value: {max_q_value:.3f}")
         return action
 
     def calculate_reward(self, env, last_action, current_player):
