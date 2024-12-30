@@ -1,2 +1,120 @@
 2024-12-30 16:50:06,223 - ERROR - Error loading checkpoint: module 'torch' has no attribute 'exists'
 2024-12-30 16:50:06,232 - ERROR - Error loading checkpoint: module 'torch' has no attribute 'exists'
+2024-12-30 16:52:46,687 - ERROR - Error loading checkpoint: module 'torch' has no attribute 'exists'
+2024-12-30 16:52:46,694 - ERROR - Error loading checkpoint: module 'torch' has no attribute 'exists'
+2024-12-30 16:53:02,452 - INFO - Batch 1-100: Trainer Wins: 54, Agent Wins: 46, Draws: 0, EPSILON: 1.0Trainer total reward: 0.9299999999999999, Agent total reward:-0.07 
+2024-12-30 16:53:02,452 - INFO - Epsilon decayed to 0.99999
+2024-12-30 16:55:28,323 - ERROR - Error loading checkpoint: module 'torch' has no attribute 'exists'
+2024-12-30 16:55:28,330 - ERROR - Error loading checkpoint: module 'torch' has no attribute 'exists'
+2024-12-30 16:55:47,600 - INFO - Batch 1-100: Trainer Wins: 57, Agent Wins: 41, Draws: 2, EPSILON: 1.0Trainer total reward: 0.96, Agent total reward:0.98 
+2024-12-30 16:55:47,600 - INFO - Epsilon decayed to 0.99999
+2024-12-30 17:01:13,769 - ERROR - Error loading checkpoint: module 'torch' has no attribute 'exists'
+2024-12-30 17:01:13,776 - ERROR - Error loading checkpoint: module 'torch' has no attribute 'exists'
+2024-12-30 17:01:28,367 - INFO - Batch 1-100: Trainer Wins: 55, Agent Wins: 45, Draws: 0, EPSILON: 1.0Trainer total reward: -0.09, Agent total reward:0.92 
+2024-12-30 17:01:28,368 - INFO - Epsilon decayed to 0.99999
+2024-12-30 17:21:25,660 - ERROR - Error loading checkpoint: module 'torch' has no attribute 'exists'
+2024-12-30 17:21:25,667 - ERROR - Error loading checkpoint: module 'torch' has no attribute 'exists'
+2024-12-30 17:21:31,816 - INFO - Batch 1-100: Trainer Wins: 1, Agent Wins: 0, Draws: 0, EPSILON: 1.0Trainer total reward: 20.94, Agent total reward:20.45 
+2024-12-30 17:21:31,824 - INFO - Batch 1-100: Trainer Wins: 2, Agent Wins: 0, Draws: 0, EPSILON: 1.0Trainer total reward: 0.9299999999999999, Agent total reward:0.95 
+2024-12-30 17:21:32,271 - INFO - Batch 1-100: Trainer Wins: 3, Agent Wins: 0, Draws: 0, EPSILON: 1.0Trainer total reward: 5.87, Agent total reward:0.37 
+2024-12-30 17:21:32,272 - INFO - Batch 1-100: Trainer Wins: 4, Agent Wins: 0, Draws: 0, EPSILON: 1.0Trainer total reward: 0.9299999999999999, Agent total reward:-0.07 
+2024-12-30 17:21:32,274 - INFO - Batch 1-100: Trainer Wins: 4, Agent Wins: 1, Draws: 0, EPSILON: 1.0Trainer total reward: 9.95, Agent total reward:0.94 
+2024-12-30 17:21:32,333 - INFO - Batch 1-100: Trainer Wins: 4, Agent Wins: 2, Draws: 0, EPSILON: 1.0Trainer total reward: -0.09, Agent total reward:0.92 
+2024-12-30 17:21:32,337 - INFO - Batch 1-100: Trainer Wins: 4, Agent Wins: 3, Draws: 0, EPSILON: 1.0Trainer total reward: 14.940000000000001, Agent total reward:1.43 
+2024-12-30 17:21:32,346 - INFO - Batch 1-100: Trainer Wins: 4, Agent Wins: 4, Draws: 0, EPSILON: 1.0Trainer total reward: -0.09, Agent total reward:1.43 
+2024-12-30 17:21:32,350 - INFO - Batch 1-100: Trainer Wins: 5, Agent Wins: 4, Draws: 0, EPSILON: 1.0Trainer total reward: 0.94, Agent total reward:4.95 
+2024-12-30 17:21:32,563 - INFO - Batch 1-100: Trainer Wins: 6, Agent Wins: 4, Draws: 0, EPSILON: 1.0Trainer total reward: 0.91, Agent total reward:-0.09 
+2024-12-30 17:21:32,740 - INFO - Batch 1-100: Trainer Wins: 7, Agent Wins: 4, Draws: 0, EPSILON: 1.0Trainer total reward: 0.94, Agent total reward:-0.060000000000000005 
+2024-12-30 17:21:32,746 - INFO - Batch 1-100: Trainer Wins: 7, Agent Wins: 5, Draws: 0, EPSILON: 1.0Trainer total reward: -0.05, Agent total reward:0.96 
+2024-12-30 17:21:32,837 - INFO - Batch 1-100: Trainer Wins: 8, Agent Wins: 5, Draws: 0, EPSILON: 1.0Trainer total reward: 15.95, Agent total reward:0.94 
+2024-12-30 17:21:33,212 - INFO - Batch 1-100: Trainer Wins: 9, Agent Wins: 5, Draws: 0, EPSILON: 1.0Trainer total reward: 20.91, Agent total reward:4.88 
+2024-12-30 17:21:33,213 - INFO - Batch 1-100: Trainer Wins: 10, Agent Wins: 5, Draws: 0, EPSILON: 1.0Trainer total reward: 0.92, Agent total reward:-0.08 
+2024-12-30 17:21:33,214 - INFO - Batch 1-100: Trainer Wins: 11, Agent Wins: 5, Draws: 0, EPSILON: 1.0Trainer total reward: 0.96, Agent total reward:-0.04 
+2024-12-30 17:21:33,578 - INFO - Batch 1-100: Trainer Wins: 12, Agent Wins: 5, Draws: 0, EPSILON: 1.0Trainer total reward: 15.830000000000002, Agent total reward:0.3099999999999999 
+2024-12-30 17:21:33,665 - INFO - Batch 1-100: Trainer Wins: 13, Agent Wins: 5, Draws: 0, EPSILON: 1.0Trainer total reward: 5.88, Agent total reward:-0.12999999999999998 
+2024-12-30 17:21:33,668 - INFO - Batch 1-100: Trainer Wins: 14, Agent Wins: 5, Draws: 0, EPSILON: 1.0Trainer total reward: 0.89, Agent total reward:0.4 
+2024-12-30 17:21:33,675 - INFO - Batch 1-100: Trainer Wins: 14, Agent Wins: 6, Draws: 0, EPSILON: 1.0Trainer total reward: -0.10999999999999999, Agent total reward:5.91 
+2024-12-30 17:21:33,689 - INFO - Batch 1-100: Trainer Wins: 15, Agent Wins: 6, Draws: 0, EPSILON: 1.0Trainer total reward: 1.38, Agent total reward:19.91 
+2024-12-30 17:21:34,006 - INFO - Batch 1-100: Trainer Wins: 16, Agent Wins: 6, Draws: 0, EPSILON: 1.0Trainer total reward: 20.95, Agent total reward:1.44 
+2024-12-30 17:21:34,007 - INFO - Batch 1-100: Trainer Wins: 17, Agent Wins: 6, Draws: 0, EPSILON: 1.0Trainer total reward: 5.97, Agent total reward:-0.04 
+2024-12-30 17:21:34,008 - INFO - Batch 1-100: Trainer Wins: 18, Agent Wins: 6, Draws: 0, EPSILON: 1.0Trainer total reward: 1.94, Agent total reward:-0.08 
+2024-12-30 17:21:34,407 - INFO - Batch 1-100: Trainer Wins: 19, Agent Wins: 6, Draws: 0, EPSILON: 1.0Trainer total reward: 25.89, Agent total reward:0.86 
+2024-12-30 17:21:34,410 - INFO - Batch 1-100: Trainer Wins: 20, Agent Wins: 6, Draws: 0, EPSILON: 1.0Trainer total reward: 0.9, Agent total reward:0.41000000000000003 
+2024-12-30 17:21:34,411 - INFO - Batch 1-100: Trainer Wins: 21, Agent Wins: 6, Draws: 0, EPSILON: 1.0Trainer total reward: 0.88, Agent total reward:-0.11999999999999998 
+2024-12-30 17:21:34,411 - INFO - Batch 1-100: Trainer Wins: 21, Agent Wins: 7, Draws: 0, EPSILON: 1.0Trainer total reward: 0.8799999999999999, Agent total reward:30.93 
+2024-12-30 17:21:34,794 - INFO - Batch 1-100: Trainer Wins: 22, Agent Wins: 7, Draws: 0, EPSILON: 1.0Trainer total reward: 5.86, Agent total reward:-0.15 
+2024-12-30 17:21:34,795 - INFO - Batch 1-100: Trainer Wins: 22, Agent Wins: 8, Draws: 0, EPSILON: 1.0Trainer total reward: -0.16, Agent total reward:2.89 
+2024-12-30 17:21:34,826 - INFO - Batch 1-100: Trainer Wins: 23, Agent Wins: 8, Draws: 0, EPSILON: 1.0Trainer total reward: 0.88, Agent total reward:-0.11999999999999998 
+2024-12-30 17:21:34,933 - INFO - Batch 1-100: Trainer Wins: 23, Agent Wins: 9, Draws: 0, EPSILON: 1.0Trainer total reward: -0.18000000000000002, Agent total reward:0.83 
+2024-12-30 17:21:34,933 - INFO - Batch 1-100: Trainer Wins: 24, Agent Wins: 9, Draws: 0, EPSILON: 1.0Trainer total reward: 0.89, Agent total reward:1.42 
+2024-12-30 17:21:34,933 - INFO - Batch 1-100: Trainer Wins: 25, Agent Wins: 9, Draws: 0, EPSILON: 1.0Trainer total reward: 0.9299999999999999, Agent total reward:-0.07 
+2024-12-30 17:21:35,345 - INFO - Batch 1-100: Trainer Wins: 25, Agent Wins: 10, Draws: 0, EPSILON: 1.0Trainer total reward: 0.38, Agent total reward:10.9 
+2024-12-30 17:21:35,345 - INFO - Batch 1-100: Trainer Wins: 26, Agent Wins: 10, Draws: 0, EPSILON: 1.0Trainer total reward: 0.94, Agent total reward:-0.060000000000000005 
+2024-12-30 17:21:35,345 - INFO - Batch 1-100: Trainer Wins: 26, Agent Wins: 11, Draws: 0, EPSILON: 1.0Trainer total reward: -0.11999999999999998, Agent total reward:0.89 
+2024-12-30 17:21:35,346 - INFO - Batch 1-100: Trainer Wins: 26, Agent Wins: 12, Draws: 0, EPSILON: 1.0Trainer total reward: 5.93, Agent total reward:15.940000000000001 
+2024-12-30 17:21:35,347 - INFO - Batch 1-100: Trainer Wins: 27, Agent Wins: 12, Draws: 0, EPSILON: 1.0Trainer total reward: 5.910000000000001, Agent total reward:0.41 
+2024-12-30 17:21:35,348 - INFO - Batch 1-100: Trainer Wins: 27, Agent Wins: 13, Draws: 0, EPSILON: 1.0Trainer total reward: -0.10999999999999999, Agent total reward:30.96 
+2024-12-30 17:21:35,788 - INFO - Batch 1-100: Trainer Wins: 27, Agent Wins: 14, Draws: 0, EPSILON: 1.0Trainer total reward: 0.88, Agent total reward:10.89 
+2024-12-30 17:21:35,788 - INFO - Batch 1-100: Trainer Wins: 27, Agent Wins: 15, Draws: 0, EPSILON: 1.0Trainer total reward: 4.870000000000001, Agent total reward:7.41 
+2024-12-30 17:21:35,888 - INFO - Batch 1-100: Trainer Wins: 28, Agent Wins: 15, Draws: 0, EPSILON: 1.0Trainer total reward: 0.88, Agent total reward:-0.11999999999999998 
+2024-12-30 17:21:35,888 - INFO - Batch 1-100: Trainer Wins: 29, Agent Wins: 15, Draws: 0, EPSILON: 1.0Trainer total reward: 5.89, Agent total reward:-0.11999999999999998 
+2024-12-30 17:21:35,902 - INFO - Batch 1-100: Trainer Wins: 30, Agent Wins: 15, Draws: 0, EPSILON: 1.0Trainer total reward: 25.939999999999998, Agent total reward:0.9099999999999999 
+2024-12-30 17:21:35,915 - INFO - Batch 1-100: Trainer Wins: 30, Agent Wins: 16, Draws: 0, EPSILON: 1.0Trainer total reward: 0.42, Agent total reward:15.95 
+2024-12-30 17:21:36,174 - INFO - Batch 1-100: Trainer Wins: 30, Agent Wins: 17, Draws: 0, EPSILON: 1.0Trainer total reward: 0.3799999999999999, Agent total reward:10.9 
+2024-12-30 17:21:36,175 - INFO - Batch 1-100: Trainer Wins: 31, Agent Wins: 17, Draws: 0, EPSILON: 1.0Trainer total reward: 25.93, Agent total reward:0.38999999999999996 
+2024-12-30 17:21:36,537 - INFO - Batch 1-100: Trainer Wins: 32, Agent Wins: 17, Draws: 0, EPSILON: 1.0Trainer total reward: 1.35, Agent total reward:1.8800000000000001 
+2024-12-30 17:21:36,538 - INFO - Batch 1-100: Trainer Wins: 33, Agent Wins: 17, Draws: 0, EPSILON: 1.0Trainer total reward: 15.98, Agent total reward:0.45999999999999996 
+2024-12-30 17:21:36,551 - INFO - Batch 1-100: Trainer Wins: 34, Agent Wins: 17, Draws: 0, EPSILON: 1.0Trainer total reward: 0.88, Agent total reward:-0.11999999999999998 
+2024-12-30 17:21:36,562 - INFO - Batch 1-100: Trainer Wins: 34, Agent Wins: 18, Draws: 0, EPSILON: 1.0Trainer total reward: -0.09, Agent total reward:0.92 
+2024-12-30 17:21:36,575 - INFO - Batch 1-100: Trainer Wins: 35, Agent Wins: 18, Draws: 0, EPSILON: 1.0Trainer total reward: 0.95, Agent total reward:0.46 
+2024-12-30 17:21:36,753 - INFO - Batch 1-100: Trainer Wins: 36, Agent Wins: 18, Draws: 0, EPSILON: 1.0Trainer total reward: 0.89, Agent total reward:-0.10999999999999999 
+2024-12-30 17:21:37,045 - INFO - Batch 1-100: Trainer Wins: 37, Agent Wins: 18, Draws: 0, EPSILON: 1.0Trainer total reward: 0.84, Agent total reward:-0.16 
+2024-12-30 17:21:37,129 - INFO - Batch 1-100: Trainer Wins: 37, Agent Wins: 19, Draws: 0, EPSILON: 1.0Trainer total reward: 1.86, Agent total reward:0.83 
+2024-12-30 17:21:37,131 - INFO - Batch 1-100: Trainer Wins: 38, Agent Wins: 19, Draws: 0, EPSILON: 1.0Trainer total reward: 0.91, Agent total reward:9.93 
+2024-12-30 17:21:37,131 - INFO - Batch 1-100: Trainer Wins: 38, Agent Wins: 20, Draws: 0, EPSILON: 1.0Trainer total reward: -0.060000000000000005, Agent total reward:0.95 
+2024-12-30 17:21:37,132 - INFO - Batch 1-100: Trainer Wins: 39, Agent Wins: 20, Draws: 0, EPSILON: 1.0Trainer total reward: 40.94, Agent total reward:0.88 
+2024-12-30 17:21:37,247 - INFO - Batch 1-100: Trainer Wins: 40, Agent Wins: 20, Draws: 0, EPSILON: 1.0Trainer total reward: 0.9, Agent total reward:-0.09999999999999999 
+2024-12-30 17:21:37,316 - INFO - Batch 1-100: Trainer Wins: 40, Agent Wins: 21, Draws: 0, EPSILON: 1.0Trainer total reward: -0.12999999999999998, Agent total reward:5.890000000000001 
+2024-12-30 17:21:37,317 - INFO - Batch 1-100: Trainer Wins: 41, Agent Wins: 21, Draws: 0, EPSILON: 1.0Trainer total reward: 5.91, Agent total reward:0.9199999999999999 
+2024-12-30 17:21:37,514 - INFO - Batch 1-100: Trainer Wins: 41, Agent Wins: 22, Draws: 0, EPSILON: 1.0Trainer total reward: -0.09, Agent total reward:0.92 
+2024-12-30 17:21:37,514 - INFO - Batch 1-100: Trainer Wins: 42, Agent Wins: 22, Draws: 0, EPSILON: 1.0Trainer total reward: 10.969999999999999, Agent total reward:-0.05 
+2024-12-30 17:21:37,564 - INFO - Batch 1-100: Trainer Wins: 42, Agent Wins: 23, Draws: 0, EPSILON: 1.0Trainer total reward: -0.10999999999999999, Agent total reward:1.92 
+2024-12-30 17:21:37,686 - INFO - Batch 1-100: Trainer Wins: 43, Agent Wins: 23, Draws: 0, EPSILON: 1.0Trainer total reward: 0.9, Agent total reward:-0.09999999999999999 
+2024-12-30 17:21:37,815 - INFO - Batch 1-100: Trainer Wins: 44, Agent Wins: 23, Draws: 0, EPSILON: 1.0Trainer total reward: 0.87, Agent total reward:-0.12999999999999998 
+2024-12-30 17:21:37,816 - INFO - Batch 1-100: Trainer Wins: 45, Agent Wins: 23, Draws: 0, EPSILON: 1.0Trainer total reward: 15.93, Agent total reward:0.41 
+2024-12-30 17:21:37,816 - INFO - Batch 1-100: Trainer Wins: 46, Agent Wins: 23, Draws: 0, EPSILON: 1.0Trainer total reward: 0.91, Agent total reward:0.41999999999999993 
+2024-12-30 17:21:37,816 - INFO - Batch 1-100: Trainer Wins: 47, Agent Wins: 23, Draws: 0, EPSILON: 1.0Trainer total reward: 0.9299999999999999, Agent total reward:-0.07 
+2024-12-30 17:21:38,065 - INFO - Batch 1-100: Trainer Wins: 48, Agent Wins: 23, Draws: 0, EPSILON: 1.0Trainer total reward: 0.89, Agent total reward:-0.10999999999999999 
+2024-12-30 17:21:38,187 - INFO - Batch 1-100: Trainer Wins: 49, Agent Wins: 23, Draws: 0, EPSILON: 1.0Trainer total reward: 1.37, Agent total reward:6.4 
+2024-12-30 17:21:38,188 - INFO - Batch 1-100: Trainer Wins: 50, Agent Wins: 23, Draws: 0, EPSILON: 1.0Trainer total reward: 10.96, Agent total reward:5.46 
+2024-12-30 17:21:38,189 - INFO - Batch 1-100: Trainer Wins: 51, Agent Wins: 23, Draws: 0, EPSILON: 1.0Trainer total reward: 15.940000000000001, Agent total reward:1.44 
+2024-12-30 17:21:38,191 - INFO - Batch 1-100: Trainer Wins: 52, Agent Wins: 23, Draws: 0, EPSILON: 1.0Trainer total reward: 20.95, Agent total reward:5.9399999999999995 
+2024-12-30 17:21:38,200 - INFO - Batch 1-100: Trainer Wins: 52, Agent Wins: 24, Draws: 0, EPSILON: 1.0Trainer total reward: -0.09, Agent total reward:0.92 
+2024-12-30 17:21:38,354 - INFO - Batch 1-100: Trainer Wins: 52, Agent Wins: 25, Draws: 0, EPSILON: 1.0Trainer total reward: -0.08, Agent total reward:0.9299999999999999 
+2024-12-30 17:21:38,400 - INFO - Batch 1-100: Trainer Wins: 53, Agent Wins: 25, Draws: 0, EPSILON: 1.0Trainer total reward: 0.92, Agent total reward:-0.08 
+2024-12-30 17:21:38,679 - INFO - Batch 1-100: Trainer Wins: 54, Agent Wins: 25, Draws: 0, EPSILON: 1.0Trainer total reward: 5.890000000000001, Agent total reward:0.8999999999999999 
+2024-12-30 17:21:38,971 - INFO - Batch 1-100: Trainer Wins: 54, Agent Wins: 26, Draws: 0, EPSILON: 1.0Trainer total reward: 14.860000000000001, Agent total reward:1.8599999999999999 
+2024-12-30 17:21:38,972 - INFO - Batch 1-100: Trainer Wins: 55, Agent Wins: 26, Draws: 0, EPSILON: 1.0Trainer total reward: 0.9299999999999999, Agent total reward:0.44 
+2024-12-30 17:21:38,972 - INFO - Batch 1-100: Trainer Wins: 55, Agent Wins: 27, Draws: 0, EPSILON: 1.0Trainer total reward: 10.42, Agent total reward:0.9 
+2024-12-30 17:21:38,972 - INFO - Batch 1-100: Trainer Wins: 56, Agent Wins: 27, Draws: 0, EPSILON: 1.0Trainer total reward: 5.92, Agent total reward:0.42 
+2024-12-30 17:21:38,972 - INFO - Batch 1-100: Trainer Wins: 57, Agent Wins: 27, Draws: 0, EPSILON: 1.0Trainer total reward: 0.87, Agent total reward:-0.12999999999999998 
+2024-12-30 17:21:38,972 - INFO - Batch 1-100: Trainer Wins: 57, Agent Wins: 28, Draws: 0, EPSILON: 1.0Trainer total reward: 2.44, Agent total reward:20.94 
+2024-12-30 17:21:38,973 - INFO - Batch 1-100: Trainer Wins: 58, Agent Wins: 28, Draws: 0, EPSILON: 1.0Trainer total reward: 20.94, Agent total reward:0.41 
+2024-12-30 17:21:39,119 - INFO - Batch 1-100: Trainer Wins: 58, Agent Wins: 29, Draws: 0, EPSILON: 1.0Trainer total reward: 0.4, Agent total reward:5.91 
+2024-12-30 17:21:39,237 - INFO - Batch 1-100: Trainer Wins: 58, Agent Wins: 30, Draws: 0, EPSILON: 1.0Trainer total reward: 4.86, Agent total reward:1.37 
+2024-12-30 17:21:39,238 - INFO - Batch 1-100: Trainer Wins: 59, Agent Wins: 30, Draws: 0, EPSILON: 1.0Trainer total reward: 20.94, Agent total reward:-0.09999999999999999 
+2024-12-30 17:21:39,601 - INFO - Batch 1-100: Trainer Wins: 59, Agent Wins: 31, Draws: 0, EPSILON: 1.0Trainer total reward: 24.9, Agent total reward:0.86 
+2024-12-30 17:21:39,602 - INFO - Batch 1-100: Trainer Wins: 59, Agent Wins: 32, Draws: 0, EPSILON: 1.0Trainer total reward: 15.430000000000001, Agent total reward:1.41 
+2024-12-30 17:21:39,660 - INFO - Batch 1-100: Trainer Wins: 59, Agent Wins: 33, Draws: 0, EPSILON: 1.0Trainer total reward: -0.12999999999999998, Agent total reward:1.3900000000000001 
+2024-12-30 17:21:39,660 - INFO - Batch 1-100: Trainer Wins: 59, Agent Wins: 34, Draws: 0, EPSILON: 1.0Trainer total reward: -0.10999999999999999, Agent total reward:1.41 
+2024-12-30 17:21:39,662 - INFO - Batch 1-100: Trainer Wins: 59, Agent Wins: 35, Draws: 0, EPSILON: 1.0Trainer total reward: 0.97, Agent total reward:0.96 
+2024-12-30 17:21:39,747 - INFO - Batch 1-100: Trainer Wins: 60, Agent Wins: 35, Draws: 0, EPSILON: 1.0Trainer total reward: 0.89, Agent total reward:-0.10999999999999999 
+2024-12-30 17:21:39,747 - INFO - Batch 1-100: Trainer Wins: 61, Agent Wins: 35, Draws: 0, EPSILON: 1.0Trainer total reward: 0.95, Agent total reward:-0.05 
+2024-12-30 17:21:39,990 - INFO - Batch 1-100: Trainer Wins: 62, Agent Wins: 35, Draws: 0, EPSILON: 1.0Trainer total reward: 0.84, Agent total reward:-0.16 
+2024-12-30 17:21:39,992 - INFO - Batch 1-100: Trainer Wins: 63, Agent Wins: 35, Draws: 0, EPSILON: 1.0Trainer total reward: 5.96, Agent total reward:-0.05 
+2024-12-30 17:21:39,993 - INFO - Batch 1-100: Trainer Wins: 63, Agent Wins: 36, Draws: 0, EPSILON: 1.0Trainer total reward: -0.04, Agent total reward:5.98 
+2024-12-30 17:21:39,993 - INFO - Batch 1-100: Trainer Wins: 63, Agent Wins: 37, Draws: 0, EPSILON: 1.0Trainer total reward: -0.07, Agent total reward:0.94 
+2024-12-30 17:21:39,993 - INFO - Epsilon decayed to 0.99999
+2024-12-30 17:22:16,229 - INFO - Batch 101-200: Trainer Wins: 64, Agent Wins: 37, Draws: 0, EPSILON: 0.99999Trainer total reward: 0.89, Agent total reward:-0.10999999999999999 
+2024-12-30 17:22:16,229 - INFO - Batch 101-200: Trainer Wins: 65, Agent Wins: 37, Draws: 0, EPSILON: 0.99999Trainer total reward: 5.970000000000001, Agent total reward:-0.04 
+2024-12-30 17:22:18,239 - INFO - Batch 101-200: Trainer Wins: 66, Agent Wins: 37, Draws: 0, EPSILON: 0.99999Trainer total reward: 10.880000000000003, Agent total reward:1.39 

@@ -9,7 +9,7 @@ from AgentLogic import AgentLogic
 from utils import load_model_checkpoint, save_model
 from worker import run_single_episode
 import os
-
+import logging
 # Number of workers for ProcessPoolExecutor
 num_workers = os.cpu_count()
 
@@ -37,7 +37,7 @@ def periodic_updates(
     return EPSILON
 
 def main():
-    logger = setup_logger("log.txt")
+    logger = setup_logger("log.txt",logging.DEBUG)
     
     policy_net_1, target_net_1, optimizer_1, replay_buffer_1, start_episode_1 = load_model_checkpoint(
         TRAINER_SAVE_PATH, None, None, None, None, LEARNING_RATE, REPLAY_BUFFER_SIZE, logger, device
@@ -76,12 +76,11 @@ def main():
                     agent_2_wins += 1
                 else:
                     draws += 1
-
-            logger.info(
-                f"Batch {episode}-{episode + GAMES_PER_BATCH - 1}: Trainer Wins: {agent_1_wins}, "
-                f"Agent Wins: {agent_2_wins}, Draws: {draws}, EPSILON: {EPSILON}"
-                f"Trainer total reward: {total_reward_1}, Agent total reward:{total_reward_2} "
-            )
+                logger.info(
+                    f"Batch {episode}-{episode + GAMES_PER_BATCH - 1}: Trainer Wins: {agent_1_wins}, "
+                    f"Agent Wins: {agent_2_wins}, Draws: {draws}, EPSILON: {EPSILON}"
+                    f"Trainer total reward: {total_reward_1}, Agent total reward:{total_reward_2} "
+                )
 
             if len(replay_buffer_1) >= BATCH_SIZE:
                 train_agent(policy_net_1, target_net_1, optimizer_1, replay_buffer_1)

@@ -1,0 +1,4 @@
+2024-12-30 17:04:27,036 - ERROR - Error loading checkpoint: module 'torch' has no attribute 'exists'
+2024-12-30 17:04:27,067 - ERROR - Error loading checkpoint: module 'torch' has no attribute 'exists'
+2024-12-30 17:05:16,893 - INFO - Batch 1-100: Trainer Wins: 54, Agent Wins: 46, Draws: 0, EPSILON: 1.0Trainer total reward: 5.86, Agent total reward:-0.15 
+2024-12-30 17:05:16,901 - INFO - Epsilon decayed to 0.99999
