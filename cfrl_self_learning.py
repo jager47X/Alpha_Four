@@ -10,15 +10,15 @@ import random
 import os
 from scipy.special import softmax
 # Hyperparameters
-BATCH_SIZE = 64
+BATCH_SIZE = 32
 GAMMA = 0.99
 LEARNING_RATE = 0.001
 EPSILON = 1.0
 EPSILON_DECAY = 0.99999
 EPSILON_MIN = 0.01
-REPLAY_BUFFER_SIZE = 10000
-TARGET_UPDATE = 10
-NUM_EPISODES = 1000000
+REPLAY_BUFFER_SIZE = 1000
+TARGET_UPDATE = 100
+NUM_EPISODES = 50000
 
 # Define paths to save and load models in Google Drive
 MODEL_SAVE_PATH = 'Connect4_Agent_Model.pth'
@@ -576,9 +576,9 @@ def setup_logger(log_file, level=logging.INFO):
     logger.addHandler(handler)
 
     # Add handler to console as well
-    console_handler = logging.StreamHandler()
-    console_handler.setFormatter(formatter)
-    logger.addHandler(console_handler)
+#    console_handler = logging.StreamHandler()
+ #   console_handler.setFormatter(formatter)
+  #  logger.addHandler(console_handler)
 
     return logger
 # Function to load model checkpoints
@@ -711,9 +711,10 @@ def main():
     draws = 0
 
     env = Connect4()
-    logger.info(f"Starting episode: {current_episode}")
+    print(f"Starting episode: {current_episode}")
 
     for episode in range(1, NUM_EPISODES + 1):
+        print(f"Current episode: {episode}/{NUM_EPISODES}")
         logger.debug(f"Current episode: {episode}")
         state = env.reset()
         done = False
@@ -780,7 +781,7 @@ def main():
         # Train both agents
         train_agent(policy_net_1, target_net_1, optimizer_1, replay_buffer_1)
         train_agent(policy_net_2, target_net_2, optimizer_2, replay_buffer_2)
-        logger.debug(f"Training completed for episode {episode}")
+        print(f"Training completed for episode {episode}")
 
         # Perform periodic updates
         EPSILON = periodic_updates(
