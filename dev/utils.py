@@ -27,7 +27,8 @@ def load_model_checkpoint(model_path, policy_net, target_net, optimizer, replay_
             start_episode = 0
 
     except Exception as e:
-        logger.error(f"Error loading checkpoint: {e}")
+        logger.error(f"Error loading checkpoint:{model_path} {e}")
+        
         start_episode = 0
 
     return policy_net, target_net, optimizer, replay_buffer, start_episode

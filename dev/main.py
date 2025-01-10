@@ -11,7 +11,8 @@ from worker import run_single_episode
 import os
 import logging
 # Number of workers for ProcessPoolExecutor
-num_workers = os.cpu_count()
+num_workers = 6
+
 
 # Update target networks, decay epsilon, and save models periodically
 def periodic_updates(
@@ -37,7 +38,7 @@ def periodic_updates(
     return EPSILON
 
 def main():
-    logger = setup_logger("log.txt",logging.DEBUG)
+    logger = setup_logger("log.txt",logging.INFO)
     
     policy_net_1, target_net_1, optimizer_1, replay_buffer_1, start_episode_1 = load_model_checkpoint(
         TRAINER_SAVE_PATH, None, None, None, None, LEARNING_RATE, REPLAY_BUFFER_SIZE, logger, device
@@ -50,7 +51,7 @@ def main():
     global EPSILON
 
     agent_1_wins, agent_2_wins, draws = 0, 0, 0
-    GAMES_PER_BATCH = 100
+    GAMES_PER_BATCH = 1
 
     with ProcessPoolExecutor(max_workers=num_workers) as executor:
         for episode in range(1, NUM_EPISODES + 1, GAMES_PER_BATCH):

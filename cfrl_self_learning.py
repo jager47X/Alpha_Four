@@ -4,12 +4,108 @@ import numpy as np
 import random
 from collections import deque
 import torch.optim as optim
-#from connect4 import Connect4  # Import the Connect4 class
 import logging
-import random
 import os
-from scipy.special import softmax
-# Hyperparameters
+
+# ------------- Memmap-based Replay Buffer ------------- #
+class DiskReplayBuffer:
+    """
+    A Replay Buffer that stores data on disk via NumPy memmap files.
+    This helps avoid running out of CPU/GPU RAM for large buffers.
+    """
+    def __init__(
+        self,
+        capacity: int,
+        state_shape=(6, 7),
+        prefix_path="replay_buffer",
+        device="cpu"
+    ):
+        """
+        Args:
+            capacity (int): Max number of transitions to store.
+            state_shape (tuple): Shape of each state (6,7) for Connect4.
+            prefix_path (str): Prefix for the .dat files on disk.
+            device (str): 'cpu' or 'cuda'.
+        """
+        self.capacity = capacity
+        self.state_shape = state_shape
+        self.device = device
+        self.ptr = 0
+        self.full = False
+
+        # Create memmap files for states, next_states, actions, rewards, dones
+        self.states = np.memmap(
+            f"{prefix_path}_states.dat",
+            dtype=np.float32,
+            mode="w+",  # Overwrite on each run. Use "r+" to resume existing.
+            shape=(capacity, *state_shape),
+        )
+        self.next_states = np.memmap(
+            f"{prefix_path}_next_states.dat",
+            dtype=np.float32,
+            mode="w+",
+            shape=(capacity, *state_shape),
+        )
+        self.actions = np.memmap(
+            f"{prefix_path}_actions.dat",
+            dtype=np.int32,
+            mode="w+",
+            shape=(capacity,),
+        )
+        self.rewards = np.memmap(
+            f"{prefix_path}_rewards.dat",
+            dtype=np.float32,
+            mode="w+",
+            shape=(capacity,),
+        )
+        self.dones = np.memmap(
+            f"{prefix_path}_dones.dat",
+            dtype=np.bool_,
+            mode="w+",
+            shape=(capacity,),
+        )
+
+    def push(self, state, action, reward, next_state, done):
+        """Store one transition. Overwrites oldest if at capacity."""
+        self.states[self.ptr] = state
+        self.actions[self.ptr] = action
+        self.rewards[self.ptr] = reward
+        self.next_states[self.ptr] = next_state
+        self.dones[self.ptr] = done
+
+        # Advance pointer
+        self.ptr += 1
+        if self.ptr >= self.capacity:
+            self.ptr = 0
+            self.full = True
+
+    def __len__(self):
+        return self.capacity if self.full else self.ptr
+
+    def sample(self, batch_size):
+        """Sample a random batch from the buffer, returning torch Tensors."""
+        max_idx = self.capacity if self.full else self.ptr
+        if batch_size > max_idx:
+            raise ValueError(f"Not enough samples: have {max_idx}, need {batch_size}.")
+
+        idxs = np.random.choice(max_idx, batch_size, replace=False)
+
+        states_batch = self.states[idxs]
+        actions_batch = self.actions[idxs]
+        rewards_batch = self.rewards[idxs]
+        next_states_batch = self.next_states[idxs]
+        dones_batch = self.dones[idxs]
+
+        states_tensor = torch.tensor(states_batch, dtype=torch.float32, device=self.device)
+        actions_tensor = torch.tensor(actions_batch, dtype=torch.long, device=self.device)
+        rewards_tensor = torch.tensor(rewards_batch, dtype=torch.float32, device=self.device)
+        next_states_tensor = torch.tensor(next_states_batch, dtype=torch.float32, device=self.device)
+        dones_tensor = torch.tensor(dones_batch, dtype=torch.bool, device=self.device)
+
+        return states_tensor, actions_tensor, rewards_tensor, next_states_tensor, dones_tensor
+
+
+# ------------- Hyperparameters ------------- #
 BATCH_SIZE = 32
 GAMMA = 0.99
 LEARNING_RATE = 0.001
@@ -17,24 +113,28 @@ EPSILON = 1.0
 EPSILON_DECAY = 0.99999
 EPSILON_MIN = 0.01
 REPLAY_BUFFER_SIZE = 1000
+ 
 TARGET_UPDATE = 100
-NUM_EPISODES = 50000
+NUM_EPISODES = 100000
 
-# Define paths to save and load models in Google Drive
 MODEL_SAVE_PATH = 'Connect4_Agent_Model.pth'
 TRAINER_SAVE_PATH = 'Connect4_Agent_Trainer.pth'
-# Set up devices
+
+# ------------- Device Setup ------------- #
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print("Using device:", device)
+
+# ------------- Connect4 Environment ------------- #
 class Connect4:
     def __init__(self):
-        self.board = np.zeros((6, 7), dtype=int)  # 6 rows, 7 columns
+        self.board = np.zeros((6, 7), dtype=int)
         self.current_player = 1
 
     def reset(self):
         self.board = np.zeros((6, 7), dtype=int)
         self.current_player = 1
         return self.board
+
     def get_board(self):
         return self.board
 
@@ -46,18 +146,20 @@ class Connect4:
             return False
         return True
 
-    def make_move(self, action,warning):
-        if not self.is_valid_action(action) and warning==1:
+    def make_move(self, action, warning):
+        if not self.is_valid_action(action) and warning == 1:
             logging.error("Invalid action!")
-        for row in range(5, -1, -1):  # Start from the bottom row
+        for row in range(5, -1, -1):
             if self.board[row, action] == 0:
                 self.board[row, action] = self.current_player
                 break
-        self.current_player = 3 - self.current_player  # Switch player (1 -> 2, 2 -> 1)
+        self.current_player = 3 - self.current_player  # Switch player
+
     def changeTurn(self):
         self.current_player = 3 - self.current_player
+
     def check_winner(self):
-        # Check horizontal, vertical, and diagonal for a win
+        # Check horizontal, vertical, and diagonal
         for row in range(6):
             for col in range(7 - 3):
                 if self.board[row, col] != 0 and \
@@ -82,31 +184,27 @@ class Connect4:
                    np.all([self.board[row + i, col - i] == self.board[row, col] for i in range(4)]):
                     return self.board[row, col]
 
-        return 0  # No winner yet
+        return 0  # No winner
 
     def is_draw(self):
         return np.all(self.board != 0)
 
     def get_valid_actions(self):
         return [col for col in range(7) if self.is_valid_action(col)]
-    
+
     def copy(self):
-        """Return a deep copy of the current environment state."""
         copied_env = Connect4()
         copied_env.board = self.board.copy()
         copied_env.current_player = self.current_player
         return copied_env
 
-"""#DQN.py"""
 
-
-
+# ------------- DQN Model ------------- #
 class DQN(nn.Module):
     def __init__(self, device=None):
         super(DQN, self).__init__()
         self.device = device or torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-        # Layer definitions
         self.fc1 = nn.Linear(6 * 7, 512)
         self.bn1 = nn.BatchNorm1d(512)
         self.fc2 = nn.Linear(512, 1024)
@@ -121,41 +219,30 @@ class DQN(nn.Module):
         self.bn6 = nn.BatchNorm1d(64)
         self.fc7 = nn.Linear(64, 7)
 
-        # Dropout layers for regularization
         self.dropout1 = nn.Dropout(0.3)
         self.dropout2 = nn.Dropout(0.3)
         self.dropout3 = nn.Dropout(0.3)
 
-        # Activation function
         self.activation = nn.ReLU()
 
     def forward(self, x):
-        x = x.view(-1, 6 * 7)  # Flatten the input
-
-        # Layer forward passes with condition for batch normalization
+        x = x.view(-1, 6 * 7)
         x = self.activation(self.bn1(self.fc1(x)) if x.size(0) > 1 else self.fc1(x))
-        x = self.dropout1(x)  # Apply dropout
+        x = self.dropout1(x)
         x = self.activation(self.bn2(self.fc2(x)) if x.size(0) > 1 else self.fc2(x))
         x = self.activation(self.bn3(self.fc3(x)) if x.size(0) > 1 else self.fc3(x))
-        x = self.dropout2(x)  # Apply dropout
+        x = self.dropout2(x)
         x = self.activation(self.bn4(self.fc4(x)) if x.size(0) > 1 else self.fc4(x))
         x = self.activation(self.bn5(self.fc5(x)) if x.size(0) > 1 else self.fc5(x))
-        x = self.dropout3(x)  # Apply dropout
+        x = self.dropout3(x)
         x = self.activation(self.bn6(self.fc6(x)) if x.size(0) > 1 else self.fc6(x))
         return self.fc7(x)
 
-"""#AgentLogic.py
 
-#Connect4gui.py
-"""
+# ------------- Agent Logic ------------- #
 class AgentLogic:
-    def __init__(self,policy_net):
-        """
-        Initialize the AgentLogic class with a policy network and device.
-
-        :param policy_net: The neural network model for predicting Q-values.
-        """
-        self.policy_net=policy_net
+    def __init__(self, policy_net):
+        self.policy_net = policy_net
 
     def get_win_move(self, env, player,debug=1):
         """
@@ -199,7 +286,72 @@ class AgentLogic:
             logging.debug(f"No blocking move found for Player {player}.")
         return None
 
+    def monte_carlo_tree_search(self, env, num_simulations=1000):
+        # Simplified version from your code to fit here
+        class MCTSNode:
+            def __init__(self, state, parent=None):
+                self.state = state.copy()
+                self.parent = parent
+                self.children = []
+                self.visits = 0
+                self.wins = 0
 
+            def ucb_score(self, c=1.414):
+                if self.visits == 0:
+                    return float('inf')
+                return (self.wins / self.visits) + c * np.sqrt(np.log(self.parent.visits) / self.visits)
+
+        root = MCTSNode(env)
+
+        for sim in range(num_simulations):
+            node = root
+            # Selection
+            while node.children:
+                node = max(node.children, key=lambda n: n.ucb_score())
+            # Expansion
+            if not node.children and not node.state.check_winner():
+                valid_actions = node.state.get_valid_actions()
+                for move in valid_actions:
+                    temp_env = node.state.copy()
+                    temp_env.make_move(move, 0)
+                    node.children.append(MCTSNode(temp_env, parent=node))
+            # Simulation
+            if not node.children:
+                continue
+            current_state = node.state.copy()
+            while not current_state.check_winner() and not current_state.is_draw():
+                valid_actions = current_state.get_valid_actions()
+                if not valid_actions:
+                    break
+                move = random.choice(valid_actions)
+                current_state.make_move(move, 0)
+            winner = current_state.check_winner()
+            # Backprop
+            current_node = node
+            while current_node is not None:
+                current_node.visits += 1
+                if winner == 2:
+                    current_node.wins += 1
+                elif winner == 1:
+                    current_node.wins -= 1
+                current_node = current_node.parent
+
+        if not root.children:
+            valid_actions = env.get_valid_actions()
+            if valid_actions:
+                return random.choice(valid_actions)
+            raise RuntimeError("Board is full.")
+
+        best_child = max(root.children, key=lambda n: n.visits)
+        best_move = None
+        for action, child in zip(env.get_valid_actions(), root.children):
+            if child == best_child:
+                best_move = action
+                break
+        if best_move is None:
+            valid_actions = env.get_valid_actions()
+            best_move = random.choice(valid_actions)
+        return best_move
     def logic_based_action(self, env, current_player,debug=1):
         """
         Use logic to decide the move (winning or blocking).
@@ -226,148 +378,29 @@ class AgentLogic:
         return None
 
 
-    def monte_carlo_tree_search(self, env, num_simulations=1000):
-        """
-        Monte Carlo Tree Search for decision-making in Connect4.
-        Returns the column index of the best move.
-        """
-        class MCTSNode:
-            def __init__(self, state, parent=None):
-                self.state = state.copy()
-                self.parent = parent
-                self.children = []
-                self.visits = 0
-                self.wins = 0
-
-            def ucb_score(self, exploration_constant=1.414):
-                if self.visits == 0:
-                    return float('inf')
-                win_rate = self.wins / self.visits
-                exploration_term = exploration_constant * \
-                    (np.sqrt(np.log(self.parent.visits) / self.visits))
-                return win_rate + exploration_term
-
-        root = MCTSNode(env)
-        logging.debug(f"Starting MCTS with {num_simulations} simulations.")
-
-        for current_simulation in range(num_simulations):
-            node = root
-
-            # Selection: Traverse tree using UCB
-            while node.children:
-                node = max(node.children, key=lambda n: n.ucb_score())
-                #logging.debug(f"Selected node with UCB score: {node.ucb_score()}")
-
-            # Expansion: Create child nodes if not terminal
-            if not node.children and not node.state.check_winner():
-                valid_actions = node.state.get_valid_actions()
-                #logging.debug(f"Expanding node. Valid actions: {valid_actions}")
-                for move in valid_actions:
-                    temp_env = node.state.copy()
-                    logic_based_move =self.logic_based_action(temp_env,temp_env.current_player,0)#check 3 in rows
-                    if logic_based_move is not None:
-                        move = logic_based_move
-                    temp_env.make_move(move, 0)
-                    child_node = MCTSNode(temp_env, parent=node)
-                    node.children.append(child_node)
-
-            # If no children were created, skip to next simulation
-            if not node.children:
-                #logging.debug("No children created. Skipping simulation.")
-                continue
-
-            # Simulation: Randomly play out the game
-            current_state = node.state.copy()
-            while not current_state.check_winner() and not current_state.is_draw():
-                valid_actions = current_state.get_valid_actions()
-                if not valid_actions:
-                    #logging.debug("No valid actions available during simulation.")
-                    break
-                logic_based_move =self.logic_based_action(current_state,temp_env.current_player,0)#check 3 in rows
-                if logic_based_move is not None:
-                        move = logic_based_move
-                else:
-                    move = random.choice(valid_actions)
-                current_state.make_move(move, 0)
-
-            # Backpropagation: Update visits and wins
-            winner = current_state.check_winner()
-            current_node = node
-            while current_node is not None:
-                current_node.visits += 1
-                if winner == 2:  # Adjust for current player
-                    current_node.wins += 1
-                elif winner == 1:
-                    current_node.wins -= 1
-                current_node = current_node.parent
-            logging.debug(f"process:{current_simulation}/{num_simulations} ")
-
-        # Ensure children exist before selecting the best move
-        if not root.children:
-            #logging.warning("MCTS failed to generate children nodes. Falling back to random valid action.")
-            valid_actions = env.get_valid_actions()
-            if valid_actions:
-                logic_based_move =self.logic_based_action(env,temp_env.current_player,0)#check 3 in rows
-                if logic_based_move is not None:
-                    return logic_based_move
-                return random.choice(valid_actions)
-            else:
-                logging.critical("No valid actions available.")
-                raise RuntimeError("Board is already full.")
-
-        # Select the best child node based on visits
-        best_child = max(root.children, key=lambda n: n.visits)
-
-        # Find the corresponding action for the best child node
-        best_move = None
-        for action, child in zip(env.get_valid_actions(), root.children):
-            if child == best_child:
-                best_move = action
-                break
-
-        if best_move is None:
-            logging.warning("Failed to find the best move. Falling back to random valid action.")
-            best_move = random.choice(env.get_valid_actions())
-
-        logging.debug(f"Best move selected: {best_move} with {best_child.visits} visits.")
-        return best_move
-
-
-
-    def combined_action(self, env,current_episode):
-        """
-        Decide the action for the AI (Player 2) using logical rules, MCTS, and DQN.
-        """
-        current_player = env.current_player
-        device = self.policy_net.device  # Access the device from the policy_net
-        state_tensor = torch.tensor(env.board, dtype=torch.float32).unsqueeze(0).to(device)
+    def combined_action(self, env, current_episode):
+        # Q-values
+        state_tensor = torch.tensor(env.board, dtype=torch.float32).unsqueeze(0).to(self.policy_net.device)
         q_values = self.policy_net(state_tensor).detach().cpu().numpy().squeeze()
-        q_values =normalize_q_values(q_values)
+
+        # Softmax or any normalization
+        q_values = normalize_q_values(q_values)
         valid_actions = env.get_valid_actions()
-        valid_q_values = {action: q_values[action] for action in valid_actions}
-        
-        formatted_q_values = {action: f"{q_value:.3f}" for action, q_value in valid_q_values.items()}
-        logging.debug(f"Q-values: {formatted_q_values}")
-        # Select the action with the highest Q-value
-        action = max(valid_q_values, key=lambda a: valid_q_values[a])
-        max_q_value = valid_q_values[action]
-        
-        if max_q_value < 0.5 and EPSILON > 0.1:
-            # Use logic-based or MCTS if Q-values are too low or it's the beginning of training
-            if current_episode > 10000:  # Set a cap for the number of simulations
-                set_simulations = 10000
+        valid_qs = {a: q_values[a] for a in valid_actions}
+        action = max(valid_qs, key=lambda a: valid_qs[a])
+        max_q = valid_qs[action]
+
+        # If the max Q is too low, or early in training, do MCTS
+        if max_q < 0.5 and EPSILON > 0.1:
+            if current_episode > 10000:
+                sims = 10000
             else:
-                set_simulations = current_episode
-
-            # Perform Monte Carlo Tree Search
-            mcts = self.monte_carlo_tree_search(env, num_simulations=set_simulations)
-            if mcts is not None:
-                logging.debug(f"Player {current_player}: Using MCTS for action: {mcts}")
-                return mcts
-        # Log and return the action chosen by Q-value
-        logging.debug(f"Player {current_player}: Selected Column {action}, Q-value: {max_q_value:.3f}")
+                sims = current_episode
+            mcts_action = self.monte_carlo_tree_search(env, sims)
+            logging.debug(f"MCTS used level={sims}")
+            return mcts_action
+        logging.debug(f"Confident with Q-Value{max_q}")
         return action
-
 
     def calculate_reward(self, env, last_action, current_player):
         """
@@ -396,10 +429,9 @@ class AgentLogic:
             return 0.0, 0  # Neutral reward and no win status
         
         # Additional rewards for strategic moves
-        logging.debug("Checking if there is any 3 in rows")
         if self.detect_double_three_in_a_row(env, current_player):
             logging.debug(f"Action {last_action} made two '3 in a row' patterns for Player {current_player}.")
-            return 5.0, 0  # High reward, no immediate win
+            return 5.0, 0  # High reward, immediate win
         elif self.is_WinBlock_move(env,last_action,current_player):
             logging.debug(f"Action {last_action} is a winning or blocking move for Player {opponent}.")
             return 0.5, 0  # Small reward, no immediate win
@@ -410,8 +442,9 @@ class AgentLogic:
 
     def detect_double_three_in_a_row(self, env, current_player):
         """
-        Check if there are two separate "3 in a row" patterns on the board for the given player,
-        where each pattern has one empty slot that can be filled to create a "4 in a row."
+        Detect if the current player has two distinct "3 in a row" patterns on the board.
+        Each pattern must have one empty slot that can be filled to create a "4 in a row."
+        This indicates an immediate win scenario since blocking one pattern will create another.
 
         Args:
             env (Connect4): The current game environment.
@@ -424,8 +457,8 @@ class AgentLogic:
         potential_winning_columns = set()
 
         # Check horizontal "3 in a row"
-        for row in range(6):
-            for col_start in range(7 - 3):  # Only consider ranges where "3 in a row" is possible
+        for row in range(6):  # Iterate over all rows
+            for col_start in range(7 - 3):  # Check only ranges where "3 in a row" is possible
                 line = board[row, col_start:col_start + 4]
                 if np.count_nonzero(line == current_player) == 3 and np.count_nonzero(line == 0) == 1:
                     empty_col = col_start + np.where(line == 0)[0][0]
@@ -433,17 +466,16 @@ class AgentLogic:
                         potential_winning_columns.add(empty_col)
 
         # Check vertical "3 in a row"
-        for col in range(7):
-            for row_start in range(6 - 3):  # Only consider ranges where "3 in a row" is possible
+        for col in range(7):  # Iterate over all columns
+            for row_start in range(6 - 3):  # Check only ranges where "3 in a row" is possible
                 line = board[row_start:row_start + 4, col]
                 if np.count_nonzero(line == current_player) == 3 and np.count_nonzero(line == 0) == 1:
-                    empty_row = row_start + np.where(line == 0)[0][0]
-                    if env.is_valid_action(col):
+                    if env.is_valid_action(col):  # Only valid columns can be considered
                         potential_winning_columns.add(col)
 
         # Check diagonal (top-left to bottom-right)
-        for row_start in range(6 - 3):
-            for col_start in range(7 - 3):
+        for row_start in range(6 - 3):  # Iterate over possible starting rows
+            for col_start in range(7 - 3):  # Iterate over possible starting columns
                 line = [board[row_start + i, col_start + i] for i in range(4)]
                 if np.count_nonzero(line == current_player) == 3 and np.count_nonzero(line == 0) == 1:
                     empty_idx = np.where(np.array(line) == 0)[0][0]
@@ -452,8 +484,8 @@ class AgentLogic:
                         potential_winning_columns.add(empty_col)
 
         # Check diagonal (bottom-left to top-right)
-        for row_start in range(6 - 3):
-            for col_start in range(3, 7):
+        for row_start in range(6 - 3):  # Iterate over possible starting rows
+            for col_start in range(3, 7):  # Iterate over possible starting columns
                 line = [board[row_start + i, col_start - i] for i in range(4)]
                 if np.count_nonzero(line == current_player) == 3 and np.count_nonzero(line == 0) == 1:
                     empty_idx = np.where(np.array(line) == 0)[0][0]
@@ -461,13 +493,18 @@ class AgentLogic:
                     if env.is_valid_action(empty_col):
                         potential_winning_columns.add(empty_col)
 
-        # Ensure at least two distinct columns exist
+        # Return True if at least two distinct potential winning columns are found
         if len(potential_winning_columns) >= 2:
-            logging.debug(f"Player {current_player} has two '3 in a row' patterns! Winning columns: {potential_winning_columns}")
+            logging.debug(f"Player {current_player} has two '3 in a row' patterns! Winning columns: {list(potential_winning_columns)}")
             return True
 
         logging.debug(f"No double '3 in a row' patterns detected for Player {current_player}.")
         return False
+
+
+
+
+
 
     def is_WinBlock_move(self, env, last_move_col, current_player):
         """
@@ -524,87 +561,64 @@ class AgentLogic:
 
         logging.debug("No win/block detected after last move.")
         return False
+# ------------- Training Utilities ------------- #
+def normalize_q_values(q_values):
+    if isinstance(q_values, np.ndarray):
+        q_values = torch.tensor(q_values, dtype=torch.float32)
+    return torch.softmax(q_values, dim=0)
 
-
-
-# Training function for a single agent
 def train_agent(policy_net, target_net, optimizer, replay_buffer):
     if len(replay_buffer) < BATCH_SIZE:
-        logger.info("Not enough data to train")
-        return  # Not enough data to train
+        return  # not enough data
 
-    # Sample mini-batch from replay buffer
-    batch = random.sample(replay_buffer, BATCH_SIZE)
-    states, actions, rewards, next_states, dones = zip(*batch)
+    # Sample from disk-based replay buffer
+    states, actions, rewards, next_states, dones = replay_buffer.sample(BATCH_SIZE)
 
-    states = torch.tensor(np.array(states), dtype=torch.float32).to(device)
-    actions = torch.tensor(actions, dtype=torch.long).to(device)
-    rewards = torch.tensor(rewards, dtype=torch.float32).to(device)
-    next_states = torch.tensor(next_states, dtype=torch.float32).to(device)
-    dones = torch.tensor(dones, dtype=torch.bool).to(device)
-
-
-    # Compute current Q-values
+    # Current Q
     q_values = policy_net(states).gather(1, actions.unsqueeze(1)).squeeze(1)
+    # Target Q
+    with torch.no_grad():
+        next_q_values = target_net(next_states).max(dim=1)[0]
+        targets = rewards + (1 - dones.float()) * GAMMA * next_q_values
 
-    # Compute target Q-values
-    next_q_values = target_net(next_states).max(1)[0]
-    targets = rewards + (1 - dones.float()) * GAMMA * next_q_values
-
-    # Compute loss and optimize
     loss = nn.MSELoss()(q_values, targets)
     optimizer.zero_grad()
     loss.backward()
     optimizer.step()
 
-
-# Function to generate unique log file name
 def get_log_file_name():
     log_num = 1
     while os.path.exists(f"log{log_num}.txt"):
         log_num += 1
     return f"log{log_num}.txt"
 
-# Set up logging
 def setup_logger(log_file, level=logging.INFO):
     handler = logging.FileHandler(log_file)
     formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
     handler.setFormatter(formatter)
-
     logger = logging.getLogger()
     logger.setLevel(level)
     logger.addHandler(handler)
-
-    # Add handler to console as well
-#    console_handler = logging.StreamHandler()
- #   console_handler.setFormatter(formatter)
-  #  logger.addHandler(console_handler)
-
     return logger
-# Function to load model checkpoints
-def load_model_checkpoint(model_path, policy_net, target_net, optimizer, replay_buffer, learning_rate, buffer_size, logger, device):
+
+def load_model_checkpoint(model_path, policy_net, target_net, optimizer,
+                          replay_buffer, learning_rate, buffer_size, logger, device):
     try:
-        # Ensure networks are initialized
         if policy_net is None:
-            logger.info("Initializing policy network...")
             policy_net = DQN().to(device)
         if target_net is None:
-            logger.info("Initializing target network...")
             target_net = DQN().to(device)
             target_net.load_state_dict(policy_net.state_dict())
             target_net.eval()
         if optimizer is None:
-            logger.info("Initializing optimizer...")
             optimizer = torch.optim.Adam(policy_net.parameters(), lr=learning_rate)
         if replay_buffer is None:
-            logger.info("Initializing replay buffer...")
-            replay_buffer = deque(maxlen=buffer_size)
+            # Not used here since we use DiskReplayBuffer
+            pass
 
-        # Attempt to load the checkpoint
         if os.path.exists(model_path):
             checkpoint = torch.load(model_path, map_location=device)
             logger.info(f"Checkpoint file path: {model_path} verified.")
-            # Check if the checkpoint is structured
             if 'model_state_dict' in checkpoint:
                 policy_net.load_state_dict(checkpoint['model_state_dict'])
                 optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
@@ -612,24 +626,23 @@ def load_model_checkpoint(model_path, policy_net, target_net, optimizer, replay_
                 logger.info(f"Loaded model from {model_path}, starting from episode {start_episode}.")
             else:
                 policy_net.load_state_dict(checkpoint)
-                start_episode = 0  # Raw state dict, no episode info
+                start_episode = 0
                 logger.info(f"Loaded raw state_dict from {model_path}. Starting from episode {start_episode}.")
         else:
-            logger.error(f"Checkpoint file path {model_path} does not exist. Starting fresh training.")
+            logger.error(f"Checkpoint file {model_path} does not exist. Starting fresh.")
             start_episode = 0
 
     except Exception as e:
-        # Handle loading failure
-        logger.critical(f"Failed to load model from {model_path}: {e}. Starting fresh training.")
+        logger.critical(f"Failed to load model from {model_path}: {e}. Starting fresh.")
         policy_net = DQN().to(device)
         target_net = DQN().to(device)
         target_net.load_state_dict(policy_net.state_dict())
         target_net.eval()
         optimizer = torch.optim.Adam(policy_net.parameters(), lr=learning_rate)
-        replay_buffer = deque(maxlen=buffer_size)
         start_episode = 0
 
     return policy_net, target_net, optimizer, replay_buffer, start_episode
+
 def save_model(model_path, policy_net, optimizer, current_episode, logger):
     try:
         torch.save({
@@ -641,173 +654,159 @@ def save_model(model_path, policy_net, optimizer, current_episode, logger):
     except Exception as e:
         logger.critical(f"Failed to save model checkpoint to {model_path}: {e}")
 
-# Update target networks, decay epsilon, and save models periodically
 def periodic_updates(
-        episode, policy_net_1, target_net_1, policy_net_2, target_net_2,
-                    optimizer_1,optimizer_2,
-                     TRAINER_SAVE_PATH, MODEL_SAVE_PATH, EPSILON, EPSILON_MIN, 
-                     EPSILON_DECAY, TARGET_UPDATE, logger):
+    episode,
+    policy_net_1, target_net_1,
+    policy_net_2, target_net_2,
+    optimizer_1, optimizer_2,
+    TRAINER_SAVE_PATH, MODEL_SAVE_PATH,
+    EPSILON, EPSILON_MIN, EPSILON_DECAY, TARGET_UPDATE, logger
+):
     try:
-        # Update target networks periodically
         if episode % TARGET_UPDATE == 0:
             target_net_1.load_state_dict(policy_net_1.state_dict())
             target_net_2.load_state_dict(policy_net_2.state_dict())
             logger.info("Target networks updated")
 
-        # Decay epsilon
         EPSILON = max(EPSILON_MIN, EPSILON * EPSILON_DECAY)
         logger.info(f"Epsilon decayed to {EPSILON}")
 
-        # Save models periodically
         if episode % TARGET_UPDATE == 0:
             save_model(TRAINER_SAVE_PATH, policy_net_1, optimizer_1, episode, logger)
             save_model(MODEL_SAVE_PATH, policy_net_2, optimizer_2, episode, logger)
             logger.info(f"Models saved at episode {episode}")
-
     except Exception as e:
         logger.error(f"Error during periodic updates at episode {episode}: {e}")
     return EPSILON
 
 
-
-def normalize_q_values(q_values):
-    """
-    Normalize Q-values to a probability distribution using softmax.
-    
-    Args:
-        q_values (torch.Tensor or np.ndarray): Input Q-values.
-        
-    Returns:
-        torch.Tensor: Q-values normalized to a probability distribution.
-    """
-    if isinstance(q_values, np.ndarray):  # Convert NumPy array to PyTorch tensor
-        q_values = torch.tensor(q_values, dtype=torch.float32)
-
-    # Apply softmax to normalize Q-values into probabilities
-    q_values_softmax = torch.softmax(q_values, dim=0)
-    return q_values_softmax
-
-
-# Main function
+# ------------- Main Training Loop ------------- #
 def main():
     global EPSILON, NUM_EPISODES
 
+    log_file_name = get_log_file_name()
+    logger = setup_logger(log_file_name, logging.DEBUG)
+    print("Starting Initialization")
 
-    # Load checkpoints for policy_net_1 and policy_net_2
-    policy_net_1, target_net_1, optimizer_1, replay_buffer_1, start_episode_1 = load_model_checkpoint(
+    # Instead of a deque, set up two DiskReplayBuffers
+    replay_buffer_1 = DiskReplayBuffer(
+        capacity=REPLAY_BUFFER_SIZE,
+        state_shape=(6, 7),
+        prefix_path="trainer_buffer",
+        device=device
+    )
+    replay_buffer_2 = DiskReplayBuffer(
+        capacity=REPLAY_BUFFER_SIZE,
+        state_shape=(6, 7),
+        prefix_path="model_buffer",
+        device=device
+    )
+
+    # Load or initialize the two networks (policy and target for each agent)
+    policy_net_1, target_net_1, optimizer_1, _, start_ep_1 = load_model_checkpoint(
         TRAINER_SAVE_PATH, None, None, None, None, LEARNING_RATE, REPLAY_BUFFER_SIZE, logger, device
     )
-    policy_net_2, target_net_2, optimizer_2, replay_buffer_2, start_episode_2 = load_model_checkpoint(
+    policy_net_2, target_net_2, optimizer_2, _, start_ep_2 = load_model_checkpoint(
         MODEL_SAVE_PATH, None, None, None, None, LEARNING_RATE, REPLAY_BUFFER_SIZE, logger, device
     )
-    # Determine NUM_EPISODES based on starting episodes
-    current_episode = min(start_episode_1, start_episode_2)
-    NUM_EPISODES -= current_episode  # Adjust NUM_EPISODES by subtracting current_episode
-    logger.info(f"NUM_EPISODES adjusted to {NUM_EPISODES} after subtracting the current episode.")
 
-    
-    agent_1_wins = 0
-    agent_2_wins = 0
-    draws = 0
+    current_episode = min(start_ep_1, start_ep_2)
+    NUM_EPISODES -= current_episode
+    logger.info(f"NUM_EPISODES adjusted to {NUM_EPISODES} after subtracting {current_episode}.")
 
+    agent_1_wins, agent_2_wins, draws = 0, 0, 0
     env = Connect4()
-    print(f"Starting episode: {current_episode}")
-
+    print("Starting Initialization is over, now training.")
     for episode in range(1, NUM_EPISODES + 1):
-        print(f"Current episode: {episode}/{NUM_EPISODES}")
-        logger.debug(f"Current episode: {episode}")
+        logger.info(f"==== Starting episode {episode} / {NUM_EPISODES} ====")
         state = env.reset()
         done = False
-        total_reward_1, total_reward_2 = 0, 0
         agent_logic_1 = AgentLogic(policy_net_1)
         agent_logic_2 = AgentLogic(policy_net_2)
-
+        total_reward_1=0
+        total_reward_2=0
         while not done:
-            # Agent 1's turn
-            action_1 =agent_logic_1.logic_based_action(env,1)
+            # 1) Agent 1's turn
+            action_1 = agent_logic_1.logic_based_action(env, 1)
             if action_1 is not None:
                 logging.debug(f"Trainer: Logic-based action (win/block): {action_1}")
             elif EPSILON > random.random():
                 valid_actions = env.get_valid_actions()
-                logging.debug(f"valid actions{valid_actions}")
-                action_1 = random.choice(valid_actions)#error
-                logger.debug(f"Trainer: RAND choice:{action_1}")
+                action_1 = random.choice(valid_actions)
+                logging.debug(f"Trainer: Random Choice: {action_1}")
             else:
-                action_1 = agent_logic_1.combined_action(env,episode)  # Use combined_action
-                logger.debug(f"Trainer: combinedAction choice:{action_1}")
-            
-            env.make_move(action_1,1)
-            logging.debug("After action_1: board")
-            logger.debug(env.get_board())
-            # Calculate reward for Agent 1
-            reward_1,win_status  = agent_logic_1.calculate_reward(env, action_1, current_player=1)
-
+                action_1 = agent_logic_1.combined_action(env, episode)
+                logging.debug(f"Trainer: Combined Method: {action_1}")
+ 
+            env.make_move(action_1, 1)
+            reward_1, win_status = agent_logic_1.calculate_reward(env, action_1, current_player=1)
+            total_reward_1+=reward_1
             next_state = env.board.copy()
-            
-            replay_buffer_1.append((state, action_1, reward_1, next_state, done))
+            # Push to disk-based buffer for agent_1
+            replay_buffer_1.push(state, action_1, reward_1, next_state, done)
             state = next_state
-            total_reward_1 += reward_1
-            logger.debug(f"Trainer: reward: {reward_1}, Total reward: {total_reward_1}")
-            done = win_status != 0 or env.is_draw()  # Use win_status to determine game over
-            # Agent 2's turn            
+            done = (win_status != 0) or env.is_draw()
+
+            # 2) Agent 2's turn (only if not done)
             if not done:
-                action_2 =agent_logic_2.logic_based_action(env,2)
+                action_2 = agent_logic_2.logic_based_action(env, 2)
                 if action_2 is not None:
-                    logging.debug(f"Trainer: Logic-based action (win/block): {action_2}")
+                    logging.debug(f"Agent: Logic-based action (win/block): {action_2}")
                 elif EPSILON > random.random():
                     valid_actions = env.get_valid_actions()
-                    logging.debug(f"valid actions{valid_actions}")
                     action_2 = random.choice(valid_actions)
-                    logger.debug(f"Agent: RAND choice:{action_2}")
+                    logging.debug(f"Agent: Random Choice: {action_2}")
                 else:
-                    action_2 = agent_logic_2.combined_action(env,episode)  # Use combined_action
-                    logger.debug(f"Agent: combinedAction choice:{action_2}")
-                env.make_move(action_2,1)
-                # Calculate reward for Agent 2
-                logging.debug("After action_2: board")
-                logger.debug(env.get_board())
-            reward_2,win_status = agent_logic_2.calculate_reward(env, action_2, current_player=2)
+                    action_2 = agent_logic_2.combined_action(env, episode)
+                    logging.debug(f"Agent: Combined Method: {action_2}")
+                env.make_move(action_2, 1)
+                reward_2, win_status = agent_logic_2.calculate_reward(env, action_2, current_player=2)
+                total_reward_2+=reward_2
+        
+                next_state = env.board.copy()
+                done = (win_status != 0) or env.is_draw()
 
-            next_state = env.board.copy()
-            done = win_status!= 0 or env.is_draw()
-            replay_buffer_2.append((state, action_2, reward_2, next_state, done))
-            state = next_state
-            total_reward_2 += reward_2
-            logger.debug(f"Agent: reward: {reward_2}, Total reward: {total_reward_2}")
-            if done and win_status==2: #evaluation for player 1 after player2 win
-                total_reward_1-=1
+                # Push to disk-based buffer for agent_2
+                replay_buffer_2.push(state, action_2, reward_2, next_state, done)
+                state = next_state
 
-
-        # Train both agents
+        # After the episode ends, train both agents
         train_agent(policy_net_1, target_net_1, optimizer_1, replay_buffer_1)
         train_agent(policy_net_2, target_net_2, optimizer_2, replay_buffer_2)
-        print(f"Training completed for episode {episode}")
 
-        # Perform periodic updates
-        EPSILON = periodic_updates(
-        episode, policy_net_1, target_net_1, policy_net_2, target_net_2,optimizer_1,optimizer_2,
-        TRAINER_SAVE_PATH, MODEL_SAVE_PATH, EPSILON, EPSILON_MIN, EPSILON_DECAY,
-        TARGET_UPDATE, logger)
+        # Periodic updates
         
+        EPSILON = periodic_updates(
+            episode,
+            policy_net_1, target_net_1,
+            policy_net_2, target_net_2,
+            optimizer_1, optimizer_2,
+            TRAINER_SAVE_PATH, MODEL_SAVE_PATH,
+            EPSILON, EPSILON_MIN, EPSILON_DECAY,
+            TARGET_UPDATE, logger
+        )
 
-
-        # Show the progress every episode
-        if env.check_winner() == 1:
+        # Check final outcome for logging
+        final_winner = env.check_winner()
+        if final_winner == 1:
             agent_1_wins += 1
-            winner = "Agent 1"
-        elif env.check_winner() == 2:
+            winner_str = "Agent 1"
+        elif final_winner == 2:
             agent_2_wins += 1
-            winner = "Agent 2"
+            winner_str = "Agent 2"
         else:
             draws += 1
-            winner = "Draw"
-        logger.info(f"episode {episode}: Player {winner} wins! (Agent 1 Wins: {agent_1_wins}, Agent 2 Wins: {agent_2_wins}, Draws: {draws})")
+            winner_str = "Draw"
+        print(
+            f"Episode {episode} / {NUM_EPISODES} Winner: {winner_str}. "
+            f"(Agent1 wins={agent_1_wins} Total Reward:{total_reward_1}, Agent2 wins={agent_2_wins} Total Reward:{total_reward_2}, draws={draws})"
+        )
+        logger.info(
+            f"Episode {episode} / {NUM_EPISODES} Winner: {winner_str}. "
+            f"(Agent1 wins={agent_1_wins} Total Reward:{total_reward_1}, Agent2 wins={agent_2_wins} Total Reward:{total_reward_2}, draws={draws})"
+        )
 
-    
     logger.info("Training complete")
 
-
 if __name__ == "__main__":
-    log_file_name = get_log_file_name()
-    logger = setup_logger(log_file_name,logging.DEBUG)
     main()

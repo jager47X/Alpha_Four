@@ -1,0 +1,1206 @@
+2025-01-04 21:46:28,596 - INFO - Checkpoint file path: Connect4_Agent_Trainer.pth verified.
+2025-01-04 21:46:28,598 - INFO - Loaded model from Connect4_Agent_Trainer.pth, starting from episode 800.
+2025-01-04 21:46:28,657 - INFO - Checkpoint file path: Connect4_Agent_Model.pth verified.
+2025-01-04 21:46:28,659 - INFO - Loaded model from Connect4_Agent_Model.pth, starting from episode 800.
+2025-01-04 21:46:28,659 - INFO - NUM_EPISODES adjusted to 49200 after subtracting 800.
+2025-01-04 21:46:28,659 - INFO - ==== Starting episode 1 / 49200 ====
+2025-01-04 21:46:28,695 - INFO - Epsilon decayed to 0.99999
+2025-01-04 21:46:28,695 - INFO - Episode 1 / 49200 Winner: Agent 2. (Agent1 wins=0 Total Reward:-0.15, Agent2 wins=1 Total Reward:0.86, draws=0)
+2025-01-04 21:46:28,696 - INFO - ==== Starting episode 2 / 49200 ====
+2025-01-04 21:46:28,735 - INFO - Epsilon decayed to 0.9999800001000001
+2025-01-04 21:46:28,736 - INFO - Episode 2 / 49200 Winner: Agent 2. (Agent1 wins=0 Total Reward:-0.16, Agent2 wins=2 Total Reward:0.85, draws=0)
+2025-01-04 21:46:28,736 - INFO - ==== Starting episode 3 / 49200 ====
+2025-01-04 21:46:28,952 - INFO - Epsilon decayed to 0.9999700002999992
+2025-01-04 21:46:28,952 - INFO - Episode 3 / 49200 Winner: Agent 2. (Agent1 wins=0 Total Reward:-0.13999999999999999, Agent2 wins=3 Total Reward:0.87, draws=0)
+2025-01-04 21:46:28,952 - INFO - ==== Starting episode 4 / 49200 ====
+2025-01-04 21:46:29,000 - INFO - Epsilon decayed to 0.9999600005999962
+2025-01-04 21:46:29,001 - INFO - Episode 4 / 49200 Winner: Agent 2. (Agent1 wins=0 Total Reward:-0.12999999999999998, Agent2 wins=4 Total Reward:0.88, draws=0)
+2025-01-04 21:46:29,001 - INFO - ==== Starting episode 5 / 49200 ====
+2025-01-04 21:46:29,060 - INFO - Epsilon decayed to 0.9999500009999903
+2025-01-04 21:46:29,060 - INFO - Episode 5 / 49200 Winner: Agent 1. (Agent1 wins=1 Total Reward:0.86, Agent2 wins=4 Total Reward:-0.13999999999999999, draws=0)
+2025-01-04 21:46:29,060 - INFO - ==== Starting episode 6 / 49200 ====
+2025-01-04 21:46:29,091 - INFO - Epsilon decayed to 0.9999400014999804
+2025-01-04 21:46:29,092 - INFO - Episode 6 / 49200 Winner: Agent 1. (Agent1 wins=2 Total Reward:0.91, Agent2 wins=4 Total Reward:-0.09, draws=0)
+2025-01-04 21:46:29,092 - INFO - ==== Starting episode 7 / 49200 ====
+2025-01-04 21:46:29,133 - INFO - Epsilon decayed to 0.9999300020999654
+2025-01-04 21:46:29,133 - INFO - Episode 7 / 49200 Winner: Agent 1. (Agent1 wins=3 Total Reward:0.9, Agent2 wins=4 Total Reward:-0.09999999999999999, draws=0)
+2025-01-04 21:46:29,133 - INFO - ==== Starting episode 8 / 49200 ====
+2025-01-04 21:46:29,172 - INFO - Epsilon decayed to 0.9999200027999444
+2025-01-04 21:46:29,172 - INFO - Episode 8 / 49200 Winner: Agent 2. (Agent1 wins=3 Total Reward:-0.10999999999999999, Agent2 wins=5 Total Reward:0.9, draws=0)
+2025-01-04 21:46:29,173 - INFO - ==== Starting episode 9 / 49200 ====
+2025-01-04 21:46:29,208 - INFO - Epsilon decayed to 0.9999100035999164
+2025-01-04 21:46:29,208 - INFO - Episode 9 / 49200 Winner: Agent 1. (Agent1 wins=4 Total Reward:0.9, Agent2 wins=5 Total Reward:-0.09999999999999999, draws=0)
+2025-01-04 21:46:29,208 - INFO - ==== Starting episode 10 / 49200 ====
+2025-01-04 21:46:29,278 - INFO - Epsilon decayed to 0.9999000044998805
+2025-01-04 21:46:29,278 - INFO - Episode 10 / 49200 Winner: Agent 2. (Agent1 wins=4 Total Reward:-0.19000000000000003, Agent2 wins=6 Total Reward:0.82, draws=0)
+2025-01-04 21:46:29,278 - INFO - ==== Starting episode 11 / 49200 ====
+2025-01-04 21:46:29,331 - INFO - Epsilon decayed to 0.9998900054998355
+2025-01-04 21:46:29,332 - INFO - Episode 11 / 49200 Winner: Agent 2. (Agent1 wins=4 Total Reward:-0.11999999999999998, Agent2 wins=7 Total Reward:0.89, draws=0)
+2025-01-04 21:46:29,332 - INFO - ==== Starting episode 12 / 49200 ====
+2025-01-04 21:46:29,369 - INFO - Epsilon decayed to 0.9998800065997806
+2025-01-04 21:46:29,372 - INFO - Episode 12 / 49200 Winner: Agent 1. (Agent1 wins=5 Total Reward:0.89, Agent2 wins=7 Total Reward:-0.10999999999999999, draws=0)
+2025-01-04 21:46:29,372 - INFO - ==== Starting episode 13 / 49200 ====
+2025-01-04 21:46:29,436 - INFO - Epsilon decayed to 0.9998700077997147
+2025-01-04 21:46:29,437 - INFO - Episode 13 / 49200 Winner: Agent 1. (Agent1 wins=6 Total Reward:0.84, Agent2 wins=7 Total Reward:-0.16, draws=0)
+2025-01-04 21:46:29,437 - INFO - ==== Starting episode 14 / 49200 ====
+2025-01-04 21:46:29,514 - INFO - Epsilon decayed to 0.9998600090996367
+2025-01-04 21:46:29,515 - INFO - Episode 14 / 49200 Winner: Draw. (Agent1 wins=6 Total Reward:-0.21000000000000005, Agent2 wins=7 Total Reward:-0.20000000000000004, draws=1)
+2025-01-04 21:46:29,515 - INFO - ==== Starting episode 15 / 49200 ====
+2025-01-04 21:46:29,563 - INFO - Epsilon decayed to 0.9998500104995457
+2025-01-04 21:46:29,564 - INFO - Episode 15 / 49200 Winner: Agent 2. (Agent1 wins=6 Total Reward:-0.13999999999999999, Agent2 wins=8 Total Reward:0.87, draws=1)
+2025-01-04 21:46:29,564 - INFO - ==== Starting episode 16 / 49200 ====
+2025-01-04 21:46:29,616 - INFO - Epsilon decayed to 0.9998400119994407
+2025-01-04 21:46:29,616 - INFO - Episode 16 / 49200 Winner: Agent 2. (Agent1 wins=6 Total Reward:-0.15, Agent2 wins=9 Total Reward:0.86, draws=1)
+2025-01-04 21:46:29,617 - INFO - ==== Starting episode 17 / 49200 ====
+2025-01-04 21:46:29,658 - INFO - Epsilon decayed to 0.9998300135993208
+2025-01-04 21:46:29,659 - INFO - Episode 17 / 49200 Winner: Agent 1. (Agent1 wins=7 Total Reward:0.88, Agent2 wins=9 Total Reward:-0.11999999999999998, draws=1)
+2025-01-04 21:46:29,659 - INFO - ==== Starting episode 18 / 49200 ====
+2025-01-04 21:46:29,702 - INFO - Epsilon decayed to 0.9998200152991848
+2025-01-04 21:46:29,703 - INFO - Episode 18 / 49200 Winner: Agent 1. (Agent1 wins=8 Total Reward:0.86, Agent2 wins=9 Total Reward:-0.13999999999999999, draws=1)
+2025-01-04 21:46:29,703 - INFO - ==== Starting episode 19 / 49200 ====
+2025-01-04 21:46:29,748 - INFO - Epsilon decayed to 0.999810017099032
+2025-01-04 21:46:29,749 - INFO - Episode 19 / 49200 Winner: Agent 2. (Agent1 wins=8 Total Reward:-0.12999999999999998, Agent2 wins=10 Total Reward:0.88, draws=1)
+2025-01-04 21:46:29,749 - INFO - ==== Starting episode 20 / 49200 ====
+2025-01-04 21:46:29,796 - INFO - Epsilon decayed to 0.999800018998861
+2025-01-04 21:46:29,796 - INFO - Episode 20 / 49200 Winner: Agent 2. (Agent1 wins=8 Total Reward:-0.12999999999999998, Agent2 wins=11 Total Reward:0.88, draws=1)
+2025-01-04 21:46:29,797 - INFO - ==== Starting episode 21 / 49200 ====
+2025-01-04 21:46:29,833 - INFO - Epsilon decayed to 0.999790020998671
+2025-01-04 21:46:29,834 - INFO - Episode 21 / 49200 Winner: Agent 1. (Agent1 wins=9 Total Reward:0.89, Agent2 wins=11 Total Reward:-0.10999999999999999, draws=1)
+2025-01-04 21:46:29,834 - INFO - ==== Starting episode 22 / 49200 ====
+2025-01-04 21:46:29,871 - INFO - Epsilon decayed to 0.999780023098461
+2025-01-04 21:46:29,872 - INFO - Episode 22 / 49200 Winner: Agent 1. (Agent1 wins=10 Total Reward:0.89, Agent2 wins=11 Total Reward:-0.10999999999999999, draws=1)
+2025-01-04 21:46:29,872 - INFO - ==== Starting episode 23 / 49200 ====
+2025-01-04 21:46:29,915 - INFO - Epsilon decayed to 0.9997700252982301
+2025-01-04 21:46:29,915 - INFO - Episode 23 / 49200 Winner: Agent 2. (Agent1 wins=10 Total Reward:-0.11999999999999998, Agent2 wins=12 Total Reward:0.89, draws=1)
+2025-01-04 21:46:29,915 - INFO - ==== Starting episode 24 / 49200 ====
+2025-01-04 21:46:29,946 - INFO - Epsilon decayed to 0.9997600275979772
+2025-01-04 21:46:29,953 - INFO - Episode 24 / 49200 Winner: Agent 1. (Agent1 wins=11 Total Reward:0.91, Agent2 wins=12 Total Reward:-0.09, draws=1)
+2025-01-04 21:46:29,954 - INFO - ==== Starting episode 25 / 49200 ====
+2025-01-04 21:46:29,990 - INFO - Epsilon decayed to 0.9997500299977012
+2025-01-04 21:46:29,990 - INFO - Episode 25 / 49200 Winner: Agent 2. (Agent1 wins=11 Total Reward:-0.11999999999999998, Agent2 wins=13 Total Reward:0.89, draws=1)
+2025-01-04 21:46:29,991 - INFO - ==== Starting episode 26 / 49200 ====
+2025-01-04 21:46:30,021 - INFO - Epsilon decayed to 0.9997400324974013
+2025-01-04 21:46:30,024 - INFO - Episode 26 / 49200 Winner: Agent 1. (Agent1 wins=12 Total Reward:0.91, Agent2 wins=13 Total Reward:-0.09, draws=1)
+2025-01-04 21:46:30,024 - INFO - ==== Starting episode 27 / 49200 ====
+2025-01-04 21:46:30,049 - INFO - Epsilon decayed to 0.9997300350970764
+2025-01-04 21:46:30,053 - INFO - Episode 27 / 49200 Winner: Agent 2. (Agent1 wins=12 Total Reward:-0.08, Agent2 wins=14 Total Reward:0.9299999999999999, draws=1)
+2025-01-04 21:46:30,054 - INFO - ==== Starting episode 28 / 49200 ====
+2025-01-04 21:46:30,086 - INFO - Epsilon decayed to 0.9997200377967255
+2025-01-04 21:46:30,087 - INFO - Episode 28 / 49200 Winner: Agent 1. (Agent1 wins=13 Total Reward:0.91, Agent2 wins=14 Total Reward:-0.09, draws=1)
+2025-01-04 21:46:30,087 - INFO - ==== Starting episode 29 / 49200 ====
+2025-01-04 21:46:30,160 - INFO - Epsilon decayed to 0.9997100405963475
+2025-01-04 21:46:30,161 - INFO - Episode 29 / 49200 Winner: Draw. (Agent1 wins=13 Total Reward:-0.21000000000000005, Agent2 wins=14 Total Reward:-0.20000000000000004, draws=2)
+2025-01-04 21:46:30,161 - INFO - ==== Starting episode 30 / 49200 ====
+2025-01-04 21:46:30,218 - INFO - Epsilon decayed to 0.9997000434959415
+2025-01-04 21:46:30,218 - INFO - Episode 30 / 49200 Winner: Agent 2. (Agent1 wins=13 Total Reward:-0.13999999999999999, Agent2 wins=15 Total Reward:0.87, draws=2)
+2025-01-04 21:46:30,218 - INFO - ==== Starting episode 31 / 49200 ====
+2025-01-04 21:46:30,252 - INFO - Epsilon decayed to 0.9996900464955066
+2025-01-04 21:46:30,254 - INFO - Episode 31 / 49200 Winner: Agent 2. (Agent1 wins=13 Total Reward:-0.09999999999999999, Agent2 wins=16 Total Reward:0.91, draws=2)
+2025-01-04 21:46:30,254 - INFO - ==== Starting episode 32 / 49200 ====
+2025-01-04 21:46:30,275 - INFO - Epsilon decayed to 0.9996800495950418
+2025-01-04 21:46:30,275 - INFO - Episode 32 / 49200 Winner: Agent 1. (Agent1 wins=14 Total Reward:0.96, Agent2 wins=16 Total Reward:-0.04, draws=2)
+2025-01-04 21:46:30,275 - INFO - ==== Starting episode 33 / 49200 ====
+2025-01-04 21:46:30,314 - INFO - Epsilon decayed to 0.9996700527945458
+2025-01-04 21:46:30,314 - INFO - Episode 33 / 49200 Winner: Agent 2. (Agent1 wins=14 Total Reward:-0.10999999999999999, Agent2 wins=17 Total Reward:0.9, draws=2)
+2025-01-04 21:46:30,314 - INFO - ==== Starting episode 34 / 49200 ====
+2025-01-04 21:46:30,336 - INFO - Epsilon decayed to 0.9996600560940179
+2025-01-04 21:46:30,336 - INFO - Episode 34 / 49200 Winner: Agent 2. (Agent1 wins=14 Total Reward:-0.05, Agent2 wins=18 Total Reward:0.96, draws=2)
+2025-01-04 21:46:30,336 - INFO - ==== Starting episode 35 / 49200 ====
+2025-01-04 21:46:30,377 - INFO - Epsilon decayed to 0.999650059493457
+2025-01-04 21:46:30,379 - INFO - Episode 35 / 49200 Winner: Agent 2. (Agent1 wins=14 Total Reward:-0.11999999999999998, Agent2 wins=19 Total Reward:0.89, draws=2)
+2025-01-04 21:46:30,379 - INFO - ==== Starting episode 36 / 49200 ====
+2025-01-04 21:46:30,414 - INFO - Epsilon decayed to 0.9996400629928621
+2025-01-04 21:46:30,419 - INFO - Episode 36 / 49200 Winner: Agent 1. (Agent1 wins=15 Total Reward:0.9, Agent2 wins=19 Total Reward:-0.09999999999999999, draws=2)
+2025-01-04 21:46:30,420 - INFO - ==== Starting episode 37 / 49200 ====
+2025-01-04 21:46:30,447 - INFO - Epsilon decayed to 0.9996300665922322
+2025-01-04 21:46:30,453 - INFO - Episode 37 / 49200 Winner: Agent 2. (Agent1 wins=15 Total Reward:-0.08, Agent2 wins=20 Total Reward:0.9299999999999999, draws=2)
+2025-01-04 21:46:30,454 - INFO - ==== Starting episode 38 / 49200 ====
+2025-01-04 21:46:30,512 - INFO - Epsilon decayed to 0.9996200702915663
+2025-01-04 21:46:30,513 - INFO - Episode 38 / 49200 Winner: Agent 2. (Agent1 wins=15 Total Reward:-0.17, Agent2 wins=21 Total Reward:0.84, draws=2)
+2025-01-04 21:46:30,513 - INFO - ==== Starting episode 39 / 49200 ====
+2025-01-04 21:46:30,543 - INFO - Epsilon decayed to 0.9996100740908634
+2025-01-04 21:46:30,543 - INFO - Episode 39 / 49200 Winner: Agent 1. (Agent1 wins=16 Total Reward:0.92, Agent2 wins=21 Total Reward:-0.08, draws=2)
+2025-01-04 21:46:30,543 - INFO - ==== Starting episode 40 / 49200 ====
+2025-01-04 21:46:30,589 - INFO - Epsilon decayed to 0.9996000779901226
+2025-01-04 21:46:30,589 - INFO - Episode 40 / 49200 Winner: Agent 1. (Agent1 wins=17 Total Reward:0.89, Agent2 wins=21 Total Reward:-0.10999999999999999, draws=2)
+2025-01-04 21:46:30,589 - INFO - ==== Starting episode 41 / 49200 ====
+2025-01-04 21:46:30,646 - INFO - Epsilon decayed to 0.9995900819893427
+2025-01-04 21:46:30,646 - INFO - Episode 41 / 49200 Winner: Agent 2. (Agent1 wins=17 Total Reward:-0.15, Agent2 wins=22 Total Reward:0.86, draws=2)
+2025-01-04 21:46:30,646 - INFO - ==== Starting episode 42 / 49200 ====
+2025-01-04 21:46:30,686 - INFO - Epsilon decayed to 0.9995800860885229
+2025-01-04 21:46:30,688 - INFO - Episode 42 / 49200 Winner: Agent 1. (Agent1 wins=18 Total Reward:0.88, Agent2 wins=22 Total Reward:-0.11999999999999998, draws=2)
+2025-01-04 21:46:30,688 - INFO - ==== Starting episode 43 / 49200 ====
+2025-01-04 21:46:30,739 - INFO - Epsilon decayed to 0.9995700902876621
+2025-01-04 21:46:30,740 - INFO - Episode 43 / 49200 Winner: Agent 2. (Agent1 wins=18 Total Reward:-0.15, Agent2 wins=23 Total Reward:0.86, draws=2)
+2025-01-04 21:46:30,740 - INFO - ==== Starting episode 44 / 49200 ====
+2025-01-04 21:46:30,800 - INFO - Epsilon decayed to 0.9995600945867592
+2025-01-04 21:46:30,801 - INFO - Episode 44 / 49200 Winner: Agent 1. (Agent1 wins=19 Total Reward:0.84, Agent2 wins=23 Total Reward:-0.16, draws=2)
+2025-01-04 21:46:30,801 - INFO - ==== Starting episode 45 / 49200 ====
+2025-01-04 21:46:30,831 - INFO - Epsilon decayed to 0.9995500989858134
+2025-01-04 21:46:30,836 - INFO - Episode 45 / 49200 Winner: Agent 1. (Agent1 wins=20 Total Reward:0.9, Agent2 wins=23 Total Reward:-0.09999999999999999, draws=2)
+2025-01-04 21:46:30,836 - INFO - ==== Starting episode 46 / 49200 ====
+2025-01-04 21:46:30,909 - INFO - Epsilon decayed to 0.9995401034848236
+2025-01-04 21:46:30,909 - INFO - Episode 46 / 49200 Winner: Agent 1. (Agent1 wins=21 Total Reward:0.83, Agent2 wins=23 Total Reward:-0.17, draws=2)
+2025-01-04 21:46:30,909 - INFO - ==== Starting episode 47 / 49200 ====
+2025-01-04 21:46:30,943 - INFO - Epsilon decayed to 0.9995301080837887
+2025-01-04 21:46:30,943 - INFO - Episode 47 / 49200 Winner: Agent 2. (Agent1 wins=21 Total Reward:-0.09, Agent2 wins=24 Total Reward:0.92, draws=2)
+2025-01-04 21:46:30,943 - INFO - ==== Starting episode 48 / 49200 ====
+2025-01-04 21:46:31,016 - INFO - Epsilon decayed to 0.9995201127827079
+2025-01-04 21:46:31,016 - INFO - Episode 48 / 49200 Winner: Agent 1. (Agent1 wins=22 Total Reward:0.83, Agent2 wins=24 Total Reward:-0.17, draws=2)
+2025-01-04 21:46:31,017 - INFO - ==== Starting episode 49 / 49200 ====
+2025-01-04 21:46:31,086 - INFO - Epsilon decayed to 0.9995101175815801
+2025-01-04 21:46:31,087 - INFO - Episode 49 / 49200 Winner: Agent 2. (Agent1 wins=22 Total Reward:-0.18000000000000002, Agent2 wins=25 Total Reward:0.83, draws=2)
+2025-01-04 21:46:31,087 - INFO - ==== Starting episode 50 / 49200 ====
+2025-01-04 21:46:31,122 - INFO - Epsilon decayed to 0.9995001224804044
+2025-01-04 21:46:31,122 - INFO - Episode 50 / 49200 Winner: Agent 2. (Agent1 wins=22 Total Reward:-0.09999999999999999, Agent2 wins=26 Total Reward:0.91, draws=2)
+2025-01-04 21:46:31,122 - INFO - ==== Starting episode 51 / 49200 ====
+2025-01-04 21:46:31,176 - INFO - Epsilon decayed to 0.9994901274791796
+2025-01-04 21:46:31,176 - INFO - Episode 51 / 49200 Winner: Agent 2. (Agent1 wins=22 Total Reward:-0.15, Agent2 wins=27 Total Reward:0.86, draws=2)
+2025-01-04 21:46:31,176 - INFO - ==== Starting episode 52 / 49200 ====
+2025-01-04 21:46:31,257 - INFO - Epsilon decayed to 0.9994801325779049
+2025-01-04 21:46:31,257 - INFO - Episode 52 / 49200 Winner: Agent 2. (Agent1 wins=22 Total Reward:-0.21000000000000005, Agent2 wins=28 Total Reward:0.7999999999999999, draws=2)
+2025-01-04 21:46:31,258 - INFO - ==== Starting episode 53 / 49200 ====
+2025-01-04 21:46:31,302 - INFO - Epsilon decayed to 0.9994701377765792
+2025-01-04 21:46:31,302 - INFO - Episode 53 / 49200 Winner: Agent 1. (Agent1 wins=23 Total Reward:0.87, Agent2 wins=28 Total Reward:-0.12999999999999998, draws=2)
+2025-01-04 21:46:31,302 - INFO - ==== Starting episode 54 / 49200 ====
+2025-01-04 21:46:31,358 - INFO - Epsilon decayed to 0.9994601430752015
+2025-01-04 21:46:31,359 - INFO - Episode 54 / 49200 Winner: Agent 2. (Agent1 wins=23 Total Reward:-0.13999999999999999, Agent2 wins=29 Total Reward:0.87, draws=2)
+2025-01-04 21:46:31,359 - INFO - ==== Starting episode 55 / 49200 ====
+2025-01-04 21:46:31,388 - INFO - Epsilon decayed to 0.9994501484737708
+2025-01-04 21:46:31,394 - INFO - Episode 55 / 49200 Winner: Agent 1. (Agent1 wins=24 Total Reward:0.9299999999999999, Agent2 wins=29 Total Reward:-0.07, draws=2)
+2025-01-04 21:46:31,394 - INFO - ==== Starting episode 56 / 49200 ====
+2025-01-04 21:46:31,454 - INFO - Epsilon decayed to 0.9994401539722861
+2025-01-04 21:46:31,455 - INFO - Episode 56 / 49200 Winner: Agent 1. (Agent1 wins=25 Total Reward:0.83, Agent2 wins=29 Total Reward:-0.17, draws=2)
+2025-01-04 21:46:31,455 - INFO - ==== Starting episode 57 / 49200 ====
+2025-01-04 21:46:31,492 - INFO - Epsilon decayed to 0.9994301595707464
+2025-01-04 21:46:31,493 - INFO - Episode 57 / 49200 Winner: Agent 1. (Agent1 wins=26 Total Reward:0.9, Agent2 wins=29 Total Reward:-0.09999999999999999, draws=2)
+2025-01-04 21:46:31,493 - INFO - ==== Starting episode 58 / 49200 ====
+2025-01-04 21:46:31,577 - INFO - Epsilon decayed to 0.9994201652691508
+2025-01-04 21:46:31,577 - INFO - Episode 58 / 49200 Winner: Agent 1. (Agent1 wins=27 Total Reward:0.8099999999999999, Agent2 wins=29 Total Reward:-0.19000000000000003, draws=2)
+2025-01-04 21:46:31,577 - INFO - ==== Starting episode 59 / 49200 ====
+2025-01-04 21:46:31,635 - INFO - Epsilon decayed to 0.9994101710674982
+2025-01-04 21:46:31,636 - INFO - Episode 59 / 49200 Winner: Agent 1. (Agent1 wins=28 Total Reward:0.86, Agent2 wins=29 Total Reward:-0.13999999999999999, draws=2)
+2025-01-04 21:46:31,636 - INFO - ==== Starting episode 60 / 49200 ====
+2025-01-04 21:46:31,710 - INFO - Epsilon decayed to 0.9994001769657875
+2025-01-04 21:46:31,710 - INFO - Episode 60 / 49200 Winner: Agent 1. (Agent1 wins=29 Total Reward:0.8099999999999999, Agent2 wins=29 Total Reward:-0.19000000000000003, draws=2)
+2025-01-04 21:46:31,710 - INFO - ==== Starting episode 61 / 49200 ====
+2025-01-04 21:46:31,749 - INFO - Epsilon decayed to 0.9993901829640179
+2025-01-04 21:46:31,750 - INFO - Episode 61 / 49200 Winner: Agent 1. (Agent1 wins=30 Total Reward:0.9, Agent2 wins=29 Total Reward:-0.09999999999999999, draws=2)
+2025-01-04 21:46:31,750 - INFO - ==== Starting episode 62 / 49200 ====
+2025-01-04 21:46:31,819 - INFO - Epsilon decayed to 0.9993801890621884
+2025-01-04 21:46:31,819 - INFO - Episode 62 / 49200 Winner: Agent 2. (Agent1 wins=30 Total Reward:-0.17, Agent2 wins=30 Total Reward:0.84, draws=2)
+2025-01-04 21:46:31,819 - INFO - ==== Starting episode 63 / 49200 ====
+2025-01-04 21:46:31,875 - INFO - Epsilon decayed to 0.9993701952602978
+2025-01-04 21:46:31,876 - INFO - Episode 63 / 49200 Winner: Agent 1. (Agent1 wins=31 Total Reward:0.85, Agent2 wins=30 Total Reward:-0.15, draws=2)
+2025-01-04 21:46:31,876 - INFO - ==== Starting episode 64 / 49200 ====
+2025-01-04 21:46:31,914 - INFO - Epsilon decayed to 0.9993602015583453
+2025-01-04 21:46:31,915 - INFO - Episode 64 / 49200 Winner: Agent 2. (Agent1 wins=31 Total Reward:-0.10999999999999999, Agent2 wins=31 Total Reward:0.9, draws=2)
+2025-01-04 21:46:31,915 - INFO - ==== Starting episode 65 / 49200 ====
+2025-01-04 21:46:31,947 - INFO - Epsilon decayed to 0.9993502079563297
+2025-01-04 21:46:31,954 - INFO - Episode 65 / 49200 Winner: Agent 1. (Agent1 wins=32 Total Reward:0.91, Agent2 wins=31 Total Reward:-0.09, draws=2)
+2025-01-04 21:46:31,954 - INFO - ==== Starting episode 66 / 49200 ====
+2025-01-04 21:46:31,989 - INFO - Epsilon decayed to 0.9993402144542501
+2025-01-04 21:46:31,989 - INFO - Episode 66 / 49200 Winner: Agent 1. (Agent1 wins=33 Total Reward:0.9, Agent2 wins=31 Total Reward:-0.09999999999999999, draws=2)
+2025-01-04 21:46:31,989 - INFO - ==== Starting episode 67 / 49200 ====
+2025-01-04 21:46:32,029 - INFO - Epsilon decayed to 0.9993302210521057
+2025-01-04 21:46:32,030 - INFO - Episode 67 / 49200 Winner: Agent 1. (Agent1 wins=34 Total Reward:0.89, Agent2 wins=31 Total Reward:-0.10999999999999999, draws=2)
+2025-01-04 21:46:32,030 - INFO - ==== Starting episode 68 / 49200 ====
+2025-01-04 21:46:32,087 - INFO - Epsilon decayed to 0.9993202277498952
+2025-01-04 21:46:32,088 - INFO - Episode 68 / 49200 Winner: Agent 1. (Agent1 wins=35 Total Reward:0.86, Agent2 wins=31 Total Reward:-0.13999999999999999, draws=2)
+2025-01-04 21:46:32,088 - INFO - ==== Starting episode 69 / 49200 ====
+2025-01-04 21:46:32,131 - INFO - Epsilon decayed to 0.9993102345476177
+2025-01-04 21:46:32,132 - INFO - Episode 69 / 49200 Winner: Agent 1. (Agent1 wins=36 Total Reward:0.89, Agent2 wins=31 Total Reward:-0.10999999999999999, draws=2)
+2025-01-04 21:46:32,132 - INFO - ==== Starting episode 70 / 49200 ====
+2025-01-04 21:46:32,166 - INFO - Epsilon decayed to 0.9993002414452723
+2025-01-04 21:46:32,170 - INFO - Episode 70 / 49200 Winner: Agent 1. (Agent1 wins=37 Total Reward:0.9, Agent2 wins=31 Total Reward:-0.09999999999999999, draws=2)
+2025-01-04 21:46:32,170 - INFO - ==== Starting episode 71 / 49200 ====
+2025-01-04 21:46:32,212 - INFO - Epsilon decayed to 0.9992902484428579
+2025-01-04 21:46:32,213 - INFO - Episode 71 / 49200 Winner: Agent 1. (Agent1 wins=38 Total Reward:0.88, Agent2 wins=31 Total Reward:-0.11999999999999998, draws=2)
+2025-01-04 21:46:32,213 - INFO - ==== Starting episode 72 / 49200 ====
+2025-01-04 21:46:32,261 - INFO - Epsilon decayed to 0.9992802555403735
+2025-01-04 21:46:32,261 - INFO - Episode 72 / 49200 Winner: Agent 1. (Agent1 wins=39 Total Reward:0.88, Agent2 wins=31 Total Reward:-0.11999999999999998, draws=2)
+2025-01-04 21:46:32,262 - INFO - ==== Starting episode 73 / 49200 ====
+2025-01-04 21:46:32,300 - INFO - Epsilon decayed to 0.9992702627378182
+2025-01-04 21:46:32,301 - INFO - Episode 73 / 49200 Winner: Agent 1. (Agent1 wins=40 Total Reward:0.89, Agent2 wins=31 Total Reward:-0.10999999999999999, draws=2)
+2025-01-04 21:46:32,301 - INFO - ==== Starting episode 74 / 49200 ====
+2025-01-04 21:46:32,332 - INFO - Epsilon decayed to 0.9992602700351908
+2025-01-04 21:46:32,339 - INFO - Episode 74 / 49200 Winner: Agent 2. (Agent1 wins=40 Total Reward:-0.10999999999999999, Agent2 wins=32 Total Reward:0.9, draws=2)
+2025-01-04 21:46:32,339 - INFO - ==== Starting episode 75 / 49200 ====
+2025-01-04 21:46:32,383 - INFO - Epsilon decayed to 0.9992502774324905
+2025-01-04 21:46:32,384 - INFO - Episode 75 / 49200 Winner: Agent 2. (Agent1 wins=40 Total Reward:-0.12999999999999998, Agent2 wins=33 Total Reward:0.88, draws=2)
+2025-01-04 21:46:32,384 - INFO - ==== Starting episode 76 / 49200 ====
+2025-01-04 21:46:32,414 - INFO - Epsilon decayed to 0.9992402849297163
+2025-01-04 21:46:32,422 - INFO - Episode 76 / 49200 Winner: Agent 2. (Agent1 wins=40 Total Reward:-0.09, Agent2 wins=34 Total Reward:0.92, draws=2)
+2025-01-04 21:46:32,422 - INFO - ==== Starting episode 77 / 49200 ====
+2025-01-04 21:46:32,466 - INFO - Epsilon decayed to 0.999230292526867
+2025-01-04 21:46:32,467 - INFO - Episode 77 / 49200 Winner: Agent 1. (Agent1 wins=41 Total Reward:0.88, Agent2 wins=34 Total Reward:-0.11999999999999998, draws=2)
+2025-01-04 21:46:32,467 - INFO - ==== Starting episode 78 / 49200 ====
+2025-01-04 21:46:32,523 - INFO - Epsilon decayed to 0.9992203002239418
+2025-01-04 21:46:32,523 - INFO - Episode 78 / 49200 Winner: Agent 1. (Agent1 wins=42 Total Reward:0.84, Agent2 wins=34 Total Reward:-0.16, draws=2)
+2025-01-04 21:46:32,523 - INFO - ==== Starting episode 79 / 49200 ====
+2025-01-04 21:46:32,550 - INFO - Epsilon decayed to 0.9992103080209396
+2025-01-04 21:46:32,555 - INFO - Episode 79 / 49200 Winner: Agent 1. (Agent1 wins=43 Total Reward:0.92, Agent2 wins=34 Total Reward:-0.08, draws=2)
+2025-01-04 21:46:32,555 - INFO - ==== Starting episode 80 / 49200 ====
+2025-01-04 21:46:32,576 - INFO - Epsilon decayed to 0.9992003159178594
+2025-01-04 21:46:32,576 - INFO - Episode 80 / 49200 Winner: Agent 1. (Agent1 wins=44 Total Reward:0.96, Agent2 wins=34 Total Reward:-0.04, draws=2)
+2025-01-04 21:46:32,576 - INFO - ==== Starting episode 81 / 49200 ====
+2025-01-04 21:46:32,620 - INFO - Epsilon decayed to 0.9991903239147003
+2025-01-04 21:46:32,620 - INFO - Episode 81 / 49200 Winner: Agent 1. (Agent1 wins=45 Total Reward:0.88, Agent2 wins=34 Total Reward:-0.11999999999999998, draws=2)
+2025-01-04 21:46:32,620 - INFO - ==== Starting episode 82 / 49200 ====
+2025-01-04 21:46:32,661 - INFO - Epsilon decayed to 0.9991803320114612
+2025-01-04 21:46:32,666 - INFO - Episode 82 / 49200 Winner: Agent 2. (Agent1 wins=45 Total Reward:-0.12999999999999998, Agent2 wins=35 Total Reward:0.88, draws=2)
+2025-01-04 21:46:32,666 - INFO - ==== Starting episode 83 / 49200 ====
+2025-01-04 21:46:32,707 - INFO - Epsilon decayed to 0.9991703402081411
+2025-01-04 21:46:32,707 - INFO - Episode 83 / 49200 Winner: Agent 1. (Agent1 wins=46 Total Reward:0.89, Agent2 wins=35 Total Reward:-0.10999999999999999, draws=2)
+2025-01-04 21:46:32,707 - INFO - ==== Starting episode 84 / 49200 ====
+2025-01-04 21:46:32,738 - INFO - Epsilon decayed to 0.9991603485047391
+2025-01-04 21:46:32,740 - INFO - Episode 84 / 49200 Winner: Agent 2. (Agent1 wins=46 Total Reward:-0.09999999999999999, Agent2 wins=36 Total Reward:0.91, draws=2)
+2025-01-04 21:46:32,740 - INFO - ==== Starting episode 85 / 49200 ====
+2025-01-04 21:46:32,768 - INFO - Epsilon decayed to 0.9991503569012541
+2025-01-04 21:46:32,774 - INFO - Episode 85 / 49200 Winner: Agent 2. (Agent1 wins=46 Total Reward:-0.09999999999999999, Agent2 wins=37 Total Reward:0.91, draws=2)
+2025-01-04 21:46:32,774 - INFO - ==== Starting episode 86 / 49200 ====
+2025-01-04 21:46:32,814 - INFO - Epsilon decayed to 0.9991403653976851
+2025-01-04 21:46:32,814 - INFO - Episode 86 / 49200 Winner: Agent 1. (Agent1 wins=47 Total Reward:0.9, Agent2 wins=37 Total Reward:-0.09999999999999999, draws=2)
+2025-01-04 21:46:32,814 - INFO - ==== Starting episode 87 / 49200 ====
+2025-01-04 21:46:32,868 - INFO - Epsilon decayed to 0.9991303739940312
+2025-01-04 21:46:32,869 - INFO - Episode 87 / 49200 Winner: Agent 2. (Agent1 wins=47 Total Reward:-0.15, Agent2 wins=38 Total Reward:0.86, draws=2)
+2025-01-04 21:46:32,869 - INFO - ==== Starting episode 88 / 49200 ====
+2025-01-04 21:46:32,915 - INFO - Epsilon decayed to 0.9991203826902912
+2025-01-04 21:46:32,916 - INFO - Episode 88 / 49200 Winner: Agent 2. (Agent1 wins=47 Total Reward:-0.13999999999999999, Agent2 wins=39 Total Reward:0.87, draws=2)
+2025-01-04 21:46:32,916 - INFO - ==== Starting episode 89 / 49200 ====
+2025-01-04 21:46:32,966 - INFO - Epsilon decayed to 0.9991103914864644
+2025-01-04 21:46:32,968 - INFO - Episode 89 / 49200 Winner: Agent 2. (Agent1 wins=47 Total Reward:-0.16, Agent2 wins=40 Total Reward:0.85, draws=2)
+2025-01-04 21:46:32,968 - INFO - ==== Starting episode 90 / 49200 ====
+2025-01-04 21:46:33,025 - INFO - Epsilon decayed to 0.9991004003825495
+2025-01-04 21:46:33,025 - INFO - Episode 90 / 49200 Winner: Agent 1. (Agent1 wins=48 Total Reward:0.85, Agent2 wins=40 Total Reward:-0.15, draws=2)
+2025-01-04 21:46:33,025 - INFO - ==== Starting episode 91 / 49200 ====
+2025-01-04 21:46:33,068 - INFO - Epsilon decayed to 0.9990904093785458
+2025-01-04 21:46:33,068 - INFO - Episode 91 / 49200 Winner: Agent 2. (Agent1 wins=48 Total Reward:-0.12999999999999998, Agent2 wins=41 Total Reward:0.88, draws=2)
+2025-01-04 21:46:33,068 - INFO - ==== Starting episode 92 / 49200 ====
+2025-01-04 21:46:33,095 - INFO - Epsilon decayed to 0.9990804184744521
+2025-01-04 21:46:33,102 - INFO - Episode 92 / 49200 Winner: Agent 2. (Agent1 wins=48 Total Reward:-0.09, Agent2 wins=42 Total Reward:0.92, draws=2)
+2025-01-04 21:46:33,102 - INFO - ==== Starting episode 93 / 49200 ====
+2025-01-04 21:46:33,146 - INFO - Epsilon decayed to 0.9990704276702673
+2025-01-04 21:46:33,147 - INFO - Episode 93 / 49200 Winner: Agent 1. (Agent1 wins=49 Total Reward:0.87, Agent2 wins=42 Total Reward:-0.12999999999999998, draws=2)
+2025-01-04 21:46:33,147 - INFO - ==== Starting episode 94 / 49200 ====
+2025-01-04 21:46:33,211 - INFO - Epsilon decayed to 0.9990604369659907
+2025-01-04 21:46:33,212 - INFO - Episode 94 / 49200 Winner: Agent 1. (Agent1 wins=50 Total Reward:0.85, Agent2 wins=42 Total Reward:-0.15, draws=2)
+2025-01-04 21:46:33,212 - INFO - ==== Starting episode 95 / 49200 ====
+2025-01-04 21:46:33,268 - INFO - Epsilon decayed to 0.9990504463616211
+2025-01-04 21:46:33,269 - INFO - Episode 95 / 49200 Winner: Agent 2. (Agent1 wins=50 Total Reward:-0.16, Agent2 wins=43 Total Reward:0.85, draws=2)
+2025-01-04 21:46:33,269 - INFO - ==== Starting episode 96 / 49200 ====
+2025-01-04 21:46:33,339 - INFO - Epsilon decayed to 0.9990404558571575
+2025-01-04 21:46:33,340 - INFO - Episode 96 / 49200 Winner: Agent 2. (Agent1 wins=50 Total Reward:-0.19000000000000003, Agent2 wins=44 Total Reward:0.82, draws=2)
+2025-01-04 21:46:33,340 - INFO - ==== Starting episode 97 / 49200 ====
+2025-01-04 21:46:33,389 - INFO - Epsilon decayed to 0.999030465452599
+2025-01-04 21:46:33,391 - INFO - Episode 97 / 49200 Winner: Agent 2. (Agent1 wins=50 Total Reward:-0.12999999999999998, Agent2 wins=45 Total Reward:0.88, draws=2)
+2025-01-04 21:46:33,391 - INFO - ==== Starting episode 98 / 49200 ====
+2025-01-04 21:46:33,415 - INFO - Epsilon decayed to 0.9990204751479446
+2025-01-04 21:46:33,419 - INFO - Episode 98 / 49200 Winner: Agent 1. (Agent1 wins=51 Total Reward:0.9299999999999999, Agent2 wins=45 Total Reward:-0.07, draws=2)
+2025-01-04 21:46:33,419 - INFO - ==== Starting episode 99 / 49200 ====
+2025-01-04 21:46:33,469 - INFO - Epsilon decayed to 0.9990104849431931
+2025-01-04 21:46:33,470 - INFO - Episode 99 / 49200 Winner: Agent 2. (Agent1 wins=51 Total Reward:-0.12999999999999998, Agent2 wins=46 Total Reward:0.88, draws=2)
+2025-01-04 21:46:33,470 - INFO - ==== Starting episode 100 / 49200 ====
+2025-01-04 21:46:33,504 - INFO - Target networks updated
+2025-01-04 21:46:33,504 - INFO - Epsilon decayed to 0.9990004948383437
+2025-01-04 21:46:33,532 - INFO - Model checkpoint saved to Connect4_Agent_Trainer.pth at episode 100.
+2025-01-04 21:46:33,559 - INFO - Model checkpoint saved to Connect4_Agent_Model.pth at episode 100.
+2025-01-04 21:46:33,559 - INFO - Models saved at episode 100
+2025-01-04 21:46:33,559 - INFO - Episode 100 / 49200 Winner: Agent 1. (Agent1 wins=52 Total Reward:0.9, Agent2 wins=46 Total Reward:-0.09999999999999999, draws=2)
+2025-01-04 21:46:33,559 - INFO - ==== Starting episode 101 / 49200 ====
+2025-01-04 21:46:33,601 - INFO - Epsilon decayed to 0.9989905048333954
+2025-01-04 21:46:33,602 - INFO - Episode 101 / 49200 Winner: Agent 2. (Agent1 wins=52 Total Reward:-0.12999999999999998, Agent2 wins=47 Total Reward:0.88, draws=2)
+2025-01-04 21:46:33,602 - INFO - ==== Starting episode 102 / 49200 ====
+2025-01-04 21:46:33,637 - INFO - Epsilon decayed to 0.998980514928347
+2025-01-04 21:46:33,638 - INFO - Episode 102 / 49200 Winner: Agent 1. (Agent1 wins=53 Total Reward:0.9, Agent2 wins=47 Total Reward:-0.09999999999999999, draws=2)
+2025-01-04 21:46:33,638 - INFO - ==== Starting episode 103 / 49200 ====
+2025-01-04 21:46:33,669 - INFO - Epsilon decayed to 0.9989705251231978
+2025-01-04 21:46:33,670 - INFO - Episode 103 / 49200 Winner: Agent 2. (Agent1 wins=53 Total Reward:-0.10999999999999999, Agent2 wins=48 Total Reward:0.9, draws=2)
+2025-01-04 21:46:33,670 - INFO - ==== Starting episode 104 / 49200 ====
+2025-01-04 21:46:33,698 - INFO - Epsilon decayed to 0.9989605354179466
+2025-01-04 21:46:33,704 - INFO - Episode 104 / 49200 Winner: Agent 2. (Agent1 wins=53 Total Reward:-0.08, Agent2 wins=49 Total Reward:0.9299999999999999, draws=2)
+2025-01-04 21:46:33,704 - INFO - ==== Starting episode 105 / 49200 ====
+2025-01-04 21:46:33,735 - INFO - Epsilon decayed to 0.9989505458125925
+2025-01-04 21:46:33,735 - INFO - Episode 105 / 49200 Winner: Agent 2. (Agent1 wins=53 Total Reward:-0.09, Agent2 wins=50 Total Reward:0.92, draws=2)
+2025-01-04 21:46:33,735 - INFO - ==== Starting episode 106 / 49200 ====
+2025-01-04 21:46:33,775 - INFO - Epsilon decayed to 0.9989405563071344
+2025-01-04 21:46:33,775 - INFO - Episode 106 / 49200 Winner: Agent 2. (Agent1 wins=53 Total Reward:-0.11999999999999998, Agent2 wins=51 Total Reward:0.89, draws=2)
+2025-01-04 21:46:33,776 - INFO - ==== Starting episode 107 / 49200 ====
+2025-01-04 21:46:33,834 - INFO - Epsilon decayed to 0.9989305669015713
+2025-01-04 21:46:33,835 - INFO - Episode 107 / 49200 Winner: Agent 2. (Agent1 wins=53 Total Reward:-0.15, Agent2 wins=52 Total Reward:0.86, draws=2)
+2025-01-04 21:46:33,835 - INFO - ==== Starting episode 108 / 49200 ====
+2025-01-04 21:46:33,889 - INFO - Epsilon decayed to 0.9989205775959024
+2025-01-04 21:46:33,889 - INFO - Episode 108 / 49200 Winner: Agent 1. (Agent1 wins=54 Total Reward:0.87, Agent2 wins=52 Total Reward:-0.12999999999999998, draws=2)
+2025-01-04 21:46:33,890 - INFO - ==== Starting episode 109 / 49200 ====
+2025-01-04 21:46:33,919 - INFO - Epsilon decayed to 0.9989105883901265
+2025-01-04 21:46:33,920 - INFO - Episode 109 / 49200 Winner: Agent 2. (Agent1 wins=54 Total Reward:-0.09999999999999999, Agent2 wins=53 Total Reward:0.91, draws=2)
+2025-01-04 21:46:33,920 - INFO - ==== Starting episode 110 / 49200 ====
+2025-01-04 21:46:33,963 - INFO - Epsilon decayed to 0.9989005992842426
+2025-01-04 21:46:33,963 - INFO - Episode 110 / 49200 Winner: Agent 1. (Agent1 wins=55 Total Reward:0.88, Agent2 wins=53 Total Reward:-0.11999999999999998, draws=2)
+2025-01-04 21:46:33,963 - INFO - ==== Starting episode 111 / 49200 ====
+2025-01-04 21:46:33,996 - INFO - Epsilon decayed to 0.9988906102782498
+2025-01-04 21:46:34,004 - INFO - Episode 111 / 49200 Winner: Agent 1. (Agent1 wins=56 Total Reward:0.91, Agent2 wins=53 Total Reward:-0.09, draws=2)
+2025-01-04 21:46:34,004 - INFO - ==== Starting episode 112 / 49200 ====
+2025-01-04 21:46:34,074 - INFO - Epsilon decayed to 0.9988806213721471
+2025-01-04 21:46:34,075 - INFO - Episode 112 / 49200 Winner: Agent 1. (Agent1 wins=57 Total Reward:0.8099999999999999, Agent2 wins=53 Total Reward:-0.19000000000000003, draws=2)
+2025-01-04 21:46:34,075 - INFO - ==== Starting episode 113 / 49200 ====
+2025-01-04 21:46:34,123 - INFO - Epsilon decayed to 0.9988706325659333
+2025-01-04 21:46:34,123 - INFO - Episode 113 / 49200 Winner: Agent 2. (Agent1 wins=57 Total Reward:-0.12999999999999998, Agent2 wins=54 Total Reward:0.88, draws=2)
+2025-01-04 21:46:34,123 - INFO - ==== Starting episode 114 / 49200 ====
+2025-01-04 21:46:34,192 - INFO - Epsilon decayed to 0.9988606438596077
+2025-01-04 21:46:34,193 - INFO - Episode 114 / 49200 Winner: Agent 2. (Agent1 wins=57 Total Reward:-0.16, Agent2 wins=55 Total Reward:0.85, draws=2)
+2025-01-04 21:46:34,193 - INFO - ==== Starting episode 115 / 49200 ====
+2025-01-04 21:46:34,259 - INFO - Epsilon decayed to 0.9988506552531692
+2025-01-04 21:46:34,260 - INFO - Episode 115 / 49200 Winner: Agent 1. (Agent1 wins=58 Total Reward:0.87, Agent2 wins=55 Total Reward:-0.12999999999999998, draws=2)
+2025-01-04 21:46:34,260 - INFO - ==== Starting episode 116 / 49200 ====
+2025-01-04 21:46:34,359 - INFO - Epsilon decayed to 0.9988406667466166
+2025-01-04 21:46:34,360 - INFO - Episode 116 / 49200 Winner: Agent 2. (Agent1 wins=58 Total Reward:-0.16, Agent2 wins=56 Total Reward:0.85, draws=2)
+2025-01-04 21:46:34,360 - INFO - ==== Starting episode 117 / 49200 ====
+2025-01-04 21:46:34,442 - INFO - Epsilon decayed to 0.9988306783399492
+2025-01-04 21:46:34,442 - INFO - Episode 117 / 49200 Winner: Agent 1. (Agent1 wins=59 Total Reward:0.84, Agent2 wins=56 Total Reward:-0.16, draws=2)
+2025-01-04 21:46:34,443 - INFO - ==== Starting episode 118 / 49200 ====
+2025-01-04 21:46:34,518 - INFO - Epsilon decayed to 0.9988206900331659
+2025-01-04 21:46:34,519 - INFO - Episode 118 / 49200 Winner: Agent 1. (Agent1 wins=60 Total Reward:0.82, Agent2 wins=56 Total Reward:-0.18000000000000002, draws=2)
+2025-01-04 21:46:34,519 - INFO - ==== Starting episode 119 / 49200 ====
+2025-01-04 21:46:34,553 - INFO - Epsilon decayed to 0.9988107018262656
+2025-01-04 21:46:34,553 - INFO - Episode 119 / 49200 Winner: Agent 2. (Agent1 wins=60 Total Reward:-0.09999999999999999, Agent2 wins=57 Total Reward:0.91, draws=2)
+2025-01-04 21:46:34,553 - INFO - ==== Starting episode 120 / 49200 ====
+2025-01-04 21:46:34,613 - INFO - Epsilon decayed to 0.9988007137192474
+2025-01-04 21:46:34,613 - INFO - Episode 120 / 49200 Winner: Agent 2. (Agent1 wins=60 Total Reward:-0.15, Agent2 wins=58 Total Reward:0.86, draws=2)
+2025-01-04 21:46:34,614 - INFO - ==== Starting episode 121 / 49200 ====
+2025-01-04 21:46:34,677 - INFO - Epsilon decayed to 0.9987907257121103
+2025-01-04 21:46:34,678 - INFO - Episode 121 / 49200 Winner: Agent 1. (Agent1 wins=61 Total Reward:0.85, Agent2 wins=58 Total Reward:-0.15, draws=2)
+2025-01-04 21:46:34,678 - INFO - ==== Starting episode 122 / 49200 ====
+2025-01-04 21:46:34,744 - INFO - Epsilon decayed to 0.9987807378048532
+2025-01-04 21:46:34,745 - INFO - Episode 122 / 49200 Winner: Agent 1. (Agent1 wins=62 Total Reward:0.83, Agent2 wins=58 Total Reward:-0.17, draws=2)
+2025-01-04 21:46:34,745 - INFO - ==== Starting episode 123 / 49200 ====
+2025-01-04 21:46:34,790 - INFO - Epsilon decayed to 0.9987707499974752
+2025-01-04 21:46:34,790 - INFO - Episode 123 / 49200 Winner: Agent 1. (Agent1 wins=63 Total Reward:0.89, Agent2 wins=58 Total Reward:-0.10999999999999999, draws=2)
+2025-01-04 21:46:34,790 - INFO - ==== Starting episode 124 / 49200 ====
+2025-01-04 21:46:34,827 - INFO - Epsilon decayed to 0.9987607622899752
+2025-01-04 21:46:34,828 - INFO - Episode 124 / 49200 Winner: Agent 1. (Agent1 wins=64 Total Reward:0.89, Agent2 wins=58 Total Reward:-0.10999999999999999, draws=2)
+2025-01-04 21:46:34,828 - INFO - ==== Starting episode 125 / 49200 ====
+2025-01-04 21:46:34,870 - INFO - Epsilon decayed to 0.9987507746823524
+2025-01-04 21:46:34,871 - INFO - Episode 125 / 49200 Winner: Agent 2. (Agent1 wins=64 Total Reward:-0.11999999999999998, Agent2 wins=59 Total Reward:0.89, draws=2)
+2025-01-04 21:46:34,871 - INFO - ==== Starting episode 126 / 49200 ====
+2025-01-04 21:46:34,927 - INFO - Epsilon decayed to 0.9987407871746057
+2025-01-04 21:46:34,927 - INFO - Episode 126 / 49200 Winner: Agent 1. (Agent1 wins=65 Total Reward:0.86, Agent2 wins=59 Total Reward:-0.13999999999999999, draws=2)
+2025-01-04 21:46:34,927 - INFO - ==== Starting episode 127 / 49200 ====
+2025-01-04 21:46:34,992 - INFO - Epsilon decayed to 0.998730799766734
+2025-01-04 21:46:34,993 - INFO - Episode 127 / 49200 Winner: Agent 2. (Agent1 wins=65 Total Reward:-0.17, Agent2 wins=60 Total Reward:0.84, draws=2)
+2025-01-04 21:46:34,993 - INFO - ==== Starting episode 128 / 49200 ====
+2025-01-04 21:46:35,050 - INFO - Epsilon decayed to 0.9987208124587363
+2025-01-04 21:46:35,050 - INFO - Episode 128 / 49200 Winner: Agent 2. (Agent1 wins=65 Total Reward:-0.16, Agent2 wins=61 Total Reward:0.85, draws=2)
+2025-01-04 21:46:35,050 - INFO - ==== Starting episode 129 / 49200 ====
+2025-01-04 21:46:35,084 - INFO - Epsilon decayed to 0.9987108252506118
+2025-01-04 21:46:35,087 - INFO - Episode 129 / 49200 Winner: Agent 1. (Agent1 wins=66 Total Reward:0.9, Agent2 wins=61 Total Reward:-0.09999999999999999, draws=2)
+2025-01-04 21:46:35,088 - INFO - ==== Starting episode 130 / 49200 ====
+2025-01-04 21:46:35,145 - INFO - Epsilon decayed to 0.9987008381423593
+2025-01-04 21:46:35,146 - INFO - Episode 130 / 49200 Winner: Agent 2. (Agent1 wins=66 Total Reward:-0.16, Agent2 wins=62 Total Reward:0.85, draws=2)
+2025-01-04 21:46:35,146 - INFO - ==== Starting episode 131 / 49200 ====
+2025-01-04 21:46:35,199 - INFO - Epsilon decayed to 0.9986908511339779
+2025-01-04 21:46:35,199 - INFO - Episode 131 / 49200 Winner: Agent 1. (Agent1 wins=67 Total Reward:0.86, Agent2 wins=62 Total Reward:-0.13999999999999999, draws=2)
+2025-01-04 21:46:35,199 - INFO - ==== Starting episode 132 / 49200 ====
+2025-01-04 21:46:35,251 - INFO - Epsilon decayed to 0.9986808642254666
+2025-01-04 21:46:35,252 - INFO - Episode 132 / 49200 Winner: Agent 1. (Agent1 wins=68 Total Reward:0.86, Agent2 wins=62 Total Reward:-0.13999999999999999, draws=2)
+2025-01-04 21:46:35,252 - INFO - ==== Starting episode 133 / 49200 ====
+2025-01-04 21:46:35,337 - INFO - Epsilon decayed to 0.9986708774168245
+2025-01-04 21:46:35,337 - INFO - Episode 133 / 49200 Winner: Draw. (Agent1 wins=68 Total Reward:-0.21000000000000005, Agent2 wins=62 Total Reward:-0.20000000000000004, draws=3)
+2025-01-04 21:46:35,337 - INFO - ==== Starting episode 134 / 49200 ====
+2025-01-04 21:46:35,358 - INFO - Epsilon decayed to 0.9986608907080503
+2025-01-04 21:46:35,359 - INFO - Episode 134 / 49200 Winner: Agent 1. (Agent1 wins=69 Total Reward:0.97, Agent2 wins=62 Total Reward:-0.03, draws=3)
+2025-01-04 21:46:35,359 - INFO - ==== Starting episode 135 / 49200 ====
+2025-01-04 21:46:35,388 - INFO - Epsilon decayed to 0.9986509040991433
+2025-01-04 21:46:35,389 - INFO - Episode 135 / 49200 Winner: Agent 1. (Agent1 wins=70 Total Reward:0.92, Agent2 wins=62 Total Reward:-0.08, draws=3)
+2025-01-04 21:46:35,389 - INFO - ==== Starting episode 136 / 49200 ====
+2025-01-04 21:46:35,428 - INFO - Epsilon decayed to 0.9986409175901023
+2025-01-04 21:46:35,429 - INFO - Episode 136 / 49200 Winner: Agent 2. (Agent1 wins=70 Total Reward:-0.11999999999999998, Agent2 wins=63 Total Reward:0.89, draws=3)
+2025-01-04 21:46:35,429 - INFO - ==== Starting episode 137 / 49200 ====
+2025-01-04 21:46:35,483 - INFO - Epsilon decayed to 0.9986309311809265
+2025-01-04 21:46:35,484 - INFO - Episode 137 / 49200 Winner: Agent 2. (Agent1 wins=70 Total Reward:-0.13999999999999999, Agent2 wins=64 Total Reward:0.87, draws=3)
+2025-01-04 21:46:35,484 - INFO - ==== Starting episode 138 / 49200 ====
+2025-01-04 21:46:35,550 - INFO - Epsilon decayed to 0.9986209448716147
+2025-01-04 21:46:35,550 - INFO - Episode 138 / 49200 Winner: Agent 2. (Agent1 wins=70 Total Reward:-0.17, Agent2 wins=65 Total Reward:0.84, draws=3)
+2025-01-04 21:46:35,550 - INFO - ==== Starting episode 139 / 49200 ====
+2025-01-04 21:46:35,585 - INFO - Epsilon decayed to 0.998610958662166
+2025-01-04 21:46:35,586 - INFO - Episode 139 / 49200 Winner: Agent 2. (Agent1 wins=70 Total Reward:-0.10999999999999999, Agent2 wins=66 Total Reward:0.9, draws=3)
+2025-01-04 21:46:35,586 - INFO - ==== Starting episode 140 / 49200 ====
+2025-01-04 21:46:35,621 - INFO - Epsilon decayed to 0.9986009725525794
+2025-01-04 21:46:35,621 - INFO - Episode 140 / 49200 Winner: Agent 2. (Agent1 wins=70 Total Reward:-0.10999999999999999, Agent2 wins=67 Total Reward:0.9, draws=3)
+2025-01-04 21:46:35,621 - INFO - ==== Starting episode 141 / 49200 ====
+2025-01-04 21:46:35,755 - INFO - Epsilon decayed to 0.9985909865428539
+2025-01-04 21:46:35,755 - INFO - Episode 141 / 49200 Winner: Agent 1. (Agent1 wins=71 Total Reward:0.82, Agent2 wins=67 Total Reward:-0.18000000000000002, draws=3)
+2025-01-04 21:46:35,755 - INFO - ==== Starting episode 142 / 49200 ====
+2025-01-04 21:46:35,812 - INFO - Epsilon decayed to 0.9985810006329886
+2025-01-04 21:46:35,814 - INFO - Episode 142 / 49200 Winner: Agent 1. (Agent1 wins=72 Total Reward:0.83, Agent2 wins=67 Total Reward:-0.17, draws=3)
+2025-01-04 21:46:35,814 - INFO - ==== Starting episode 143 / 49200 ====
+2025-01-04 21:46:35,857 - INFO - Epsilon decayed to 0.9985710148229823
+2025-01-04 21:46:35,859 - INFO - Episode 143 / 49200 Winner: Agent 1. (Agent1 wins=73 Total Reward:0.88, Agent2 wins=67 Total Reward:-0.11999999999999998, draws=3)
+2025-01-04 21:46:35,859 - INFO - ==== Starting episode 144 / 49200 ====
+2025-01-04 21:46:35,896 - INFO - Epsilon decayed to 0.9985610291128341
+2025-01-04 21:46:35,897 - INFO - Episode 144 / 49200 Winner: Agent 1. (Agent1 wins=74 Total Reward:0.89, Agent2 wins=67 Total Reward:-0.10999999999999999, draws=3)
+2025-01-04 21:46:35,897 - INFO - ==== Starting episode 145 / 49200 ====
+2025-01-04 21:46:35,937 - INFO - Epsilon decayed to 0.998551043502543
+2025-01-04 21:46:35,937 - INFO - Episode 145 / 49200 Winner: Agent 1. (Agent1 wins=75 Total Reward:0.88, Agent2 wins=67 Total Reward:-0.11999999999999998, draws=3)
+2025-01-04 21:46:35,938 - INFO - ==== Starting episode 146 / 49200 ====
+2025-01-04 21:46:35,976 - INFO - Epsilon decayed to 0.998541057992108
+2025-01-04 21:46:35,976 - INFO - Episode 146 / 49200 Winner: Agent 1. (Agent1 wins=76 Total Reward:0.88, Agent2 wins=67 Total Reward:-0.11999999999999998, draws=3)
+2025-01-04 21:46:35,976 - INFO - ==== Starting episode 147 / 49200 ====
+2025-01-04 21:46:36,002 - INFO - Epsilon decayed to 0.9985310725815282
+2025-01-04 21:46:36,002 - INFO - Episode 147 / 49200 Winner: Agent 2. (Agent1 wins=76 Total Reward:-0.07, Agent2 wins=68 Total Reward:0.94, draws=3)
+2025-01-04 21:46:36,002 - INFO - ==== Starting episode 148 / 49200 ====
+2025-01-04 21:46:36,048 - INFO - Epsilon decayed to 0.9985210872708024
+2025-01-04 21:46:36,049 - INFO - Episode 148 / 49200 Winner: Agent 2. (Agent1 wins=76 Total Reward:-0.15, Agent2 wins=69 Total Reward:0.86, draws=3)
+2025-01-04 21:46:36,049 - INFO - ==== Starting episode 149 / 49200 ====
+2025-01-04 21:46:36,117 - INFO - Epsilon decayed to 0.9985111020599297
+2025-01-04 21:46:36,118 - INFO - Episode 149 / 49200 Winner: Agent 2. (Agent1 wins=76 Total Reward:-0.18000000000000002, Agent2 wins=70 Total Reward:0.83, draws=3)
+2025-01-04 21:46:36,118 - INFO - ==== Starting episode 150 / 49200 ====
+2025-01-04 21:46:36,143 - INFO - Epsilon decayed to 0.9985011169489091
+2025-01-04 21:46:36,153 - INFO - Episode 150 / 49200 Winner: Agent 1. (Agent1 wins=77 Total Reward:0.9299999999999999, Agent2 wins=70 Total Reward:-0.07, draws=3)
+2025-01-04 21:46:36,153 - INFO - ==== Starting episode 151 / 49200 ====
+2025-01-04 21:46:36,184 - INFO - Epsilon decayed to 0.9984911319377396
+2025-01-04 21:46:36,185 - INFO - Episode 151 / 49200 Winner: Agent 2. (Agent1 wins=77 Total Reward:-0.09999999999999999, Agent2 wins=71 Total Reward:0.91, draws=3)
+2025-01-04 21:46:36,185 - INFO - ==== Starting episode 152 / 49200 ====
+2025-01-04 21:46:36,211 - INFO - Epsilon decayed to 0.9984811470264203
+2025-01-04 21:46:36,220 - INFO - Episode 152 / 49200 Winner: Agent 1. (Agent1 wins=78 Total Reward:0.9299999999999999, Agent2 wins=71 Total Reward:-0.07, draws=3)
+2025-01-04 21:46:36,220 - INFO - ==== Starting episode 153 / 49200 ====
+2025-01-04 21:46:36,257 - INFO - Epsilon decayed to 0.9984711622149501
+2025-01-04 21:46:36,258 - INFO - Episode 153 / 49200 Winner: Agent 2. (Agent1 wins=78 Total Reward:-0.10999999999999999, Agent2 wins=72 Total Reward:0.9, draws=3)
+2025-01-04 21:46:36,258 - INFO - ==== Starting episode 154 / 49200 ====
+2025-01-04 21:46:36,287 - INFO - Epsilon decayed to 0.9984611775033281
+2025-01-04 21:46:36,290 - INFO - Episode 154 / 49200 Winner: Agent 1. (Agent1 wins=79 Total Reward:0.9299999999999999, Agent2 wins=72 Total Reward:-0.07, draws=3)
+2025-01-04 21:46:36,290 - INFO - ==== Starting episode 155 / 49200 ====
+2025-01-04 21:46:36,324 - INFO - Epsilon decayed to 0.998451192891553
+2025-01-04 21:46:36,325 - INFO - Episode 155 / 49200 Winner: Agent 1. (Agent1 wins=80 Total Reward:0.89, Agent2 wins=72 Total Reward:-0.10999999999999999, draws=3)
+2025-01-04 21:46:36,325 - INFO - ==== Starting episode 156 / 49200 ====
+2025-01-04 21:46:36,390 - INFO - Epsilon decayed to 0.9984412083796241
+2025-01-04 21:46:36,390 - INFO - Episode 156 / 49200 Winner: Agent 1. (Agent1 wins=81 Total Reward:0.82, Agent2 wins=72 Total Reward:-0.18000000000000002, draws=3)
+2025-01-04 21:46:36,390 - INFO - ==== Starting episode 157 / 49200 ====
+2025-01-04 21:46:36,419 - INFO - Epsilon decayed to 0.9984312239675404
+2025-01-04 21:46:36,420 - INFO - Episode 157 / 49200 Winner: Agent 1. (Agent1 wins=82 Total Reward:0.92, Agent2 wins=72 Total Reward:-0.08, draws=3)
+2025-01-04 21:46:36,420 - INFO - ==== Starting episode 158 / 49200 ====
+2025-01-04 21:46:36,464 - INFO - Epsilon decayed to 0.9984212396553007
+2025-01-04 21:46:36,464 - INFO - Episode 158 / 49200 Winner: Agent 1. (Agent1 wins=83 Total Reward:0.88, Agent2 wins=72 Total Reward:-0.11999999999999998, draws=3)
+2025-01-04 21:46:36,464 - INFO - ==== Starting episode 159 / 49200 ====
+2025-01-04 21:46:36,532 - INFO - Epsilon decayed to 0.9984112554429042
+2025-01-04 21:46:36,533 - INFO - Episode 159 / 49200 Winner: Agent 2. (Agent1 wins=83 Total Reward:-0.18000000000000002, Agent2 wins=73 Total Reward:0.83, draws=3)
+2025-01-04 21:46:36,533 - INFO - ==== Starting episode 160 / 49200 ====
+2025-01-04 21:46:36,582 - INFO - Epsilon decayed to 0.9984012713303498
+2025-01-04 21:46:36,584 - INFO - Episode 160 / 49200 Winner: Agent 2. (Agent1 wins=83 Total Reward:-0.15, Agent2 wins=74 Total Reward:0.86, draws=3)
+2025-01-04 21:46:36,584 - INFO - ==== Starting episode 161 / 49200 ====
+2025-01-04 21:46:36,640 - INFO - Epsilon decayed to 0.9983912873176366
+2025-01-04 21:46:36,640 - INFO - Episode 161 / 49200 Winner: Agent 2. (Agent1 wins=83 Total Reward:-0.16, Agent2 wins=75 Total Reward:0.85, draws=3)
+2025-01-04 21:46:36,640 - INFO - ==== Starting episode 162 / 49200 ====
+2025-01-04 21:46:36,671 - INFO - Epsilon decayed to 0.9983813034047635
+2025-01-04 21:46:36,672 - INFO - Episode 162 / 49200 Winner: Agent 2. (Agent1 wins=83 Total Reward:-0.09, Agent2 wins=76 Total Reward:0.92, draws=3)
+2025-01-04 21:46:36,672 - INFO - ==== Starting episode 163 / 49200 ====
+2025-01-04 21:46:36,697 - INFO - Epsilon decayed to 0.9983713195917295
+2025-01-04 21:46:36,698 - INFO - Episode 163 / 49200 Winner: Agent 1. (Agent1 wins=84 Total Reward:0.95, Agent2 wins=76 Total Reward:-0.05, draws=3)
+2025-01-04 21:46:36,698 - INFO - ==== Starting episode 164 / 49200 ====
+2025-01-04 21:46:36,765 - INFO - Epsilon decayed to 0.9983613358785337
+2025-01-04 21:46:36,766 - INFO - Episode 164 / 49200 Winner: Agent 2. (Agent1 wins=84 Total Reward:-0.18000000000000002, Agent2 wins=77 Total Reward:0.83, draws=3)
+2025-01-04 21:46:36,766 - INFO - ==== Starting episode 165 / 49200 ====
+2025-01-04 21:46:36,793 - INFO - Epsilon decayed to 0.998351352265175
+2025-01-04 21:46:36,794 - INFO - Episode 165 / 49200 Winner: Agent 1. (Agent1 wins=85 Total Reward:0.9299999999999999, Agent2 wins=77 Total Reward:-0.07, draws=3)
+2025-01-04 21:46:36,794 - INFO - ==== Starting episode 166 / 49200 ====
+2025-01-04 21:46:36,832 - INFO - Epsilon decayed to 0.9983413687516524
+2025-01-04 21:46:36,832 - INFO - Episode 166 / 49200 Winner: Agent 2. (Agent1 wins=85 Total Reward:-0.09999999999999999, Agent2 wins=78 Total Reward:0.91, draws=3)
+2025-01-04 21:46:36,832 - INFO - ==== Starting episode 167 / 49200 ====
+2025-01-04 21:46:36,868 - INFO - Epsilon decayed to 0.9983313853379648
+2025-01-04 21:46:36,870 - INFO - Episode 167 / 49200 Winner: Agent 2. (Agent1 wins=85 Total Reward:-0.10999999999999999, Agent2 wins=79 Total Reward:0.9, draws=3)
+2025-01-04 21:46:36,870 - INFO - ==== Starting episode 168 / 49200 ====
+2025-01-04 21:46:36,897 - INFO - Epsilon decayed to 0.9983214020241115
+2025-01-04 21:46:36,904 - INFO - Episode 168 / 49200 Winner: Agent 1. (Agent1 wins=86 Total Reward:0.9299999999999999, Agent2 wins=79 Total Reward:-0.07, draws=3)
+2025-01-04 21:46:36,904 - INFO - ==== Starting episode 169 / 49200 ====
+2025-01-04 21:46:36,959 - INFO - Epsilon decayed to 0.9983114188100912
+2025-01-04 21:46:36,960 - INFO - Episode 169 / 49200 Winner: Agent 1. (Agent1 wins=87 Total Reward:0.86, Agent2 wins=79 Total Reward:-0.13999999999999999, draws=3)
+2025-01-04 21:46:36,960 - INFO - ==== Starting episode 170 / 49200 ====
+2025-01-04 21:46:37,360 - INFO - Epsilon decayed to 0.9983014356959031
+2025-01-04 21:46:37,360 - INFO - Episode 170 / 49200 Winner: Agent 2. (Agent1 wins=87 Total Reward:-0.16, Agent2 wins=80 Total Reward:0.85, draws=3)
+2025-01-04 21:46:37,372 - INFO - ==== Starting episode 171 / 49200 ====
+2025-01-04 21:46:37,414 - INFO - Epsilon decayed to 0.9982914526815462
+2025-01-04 21:46:37,415 - INFO - Episode 171 / 49200 Winner: Agent 2. (Agent1 wins=87 Total Reward:-0.12999999999999998, Agent2 wins=81 Total Reward:0.88, draws=3)
+2025-01-04 21:46:37,415 - INFO - ==== Starting episode 172 / 49200 ====
+2025-01-04 21:46:37,478 - INFO - Epsilon decayed to 0.9982814697670194
+2025-01-04 21:46:37,478 - INFO - Episode 172 / 49200 Winner: Agent 2. (Agent1 wins=87 Total Reward:-0.15, Agent2 wins=82 Total Reward:0.86, draws=3)
+2025-01-04 21:46:37,479 - INFO - ==== Starting episode 173 / 49200 ====
+2025-01-04 21:46:37,519 - INFO - Epsilon decayed to 0.9982714869523217
+2025-01-04 21:46:37,522 - INFO - Episode 173 / 49200 Winner: Agent 1. (Agent1 wins=88 Total Reward:0.89, Agent2 wins=82 Total Reward:-0.10999999999999999, draws=3)
+2025-01-04 21:46:37,522 - INFO - ==== Starting episode 174 / 49200 ====
+2025-01-04 21:46:37,583 - INFO - Epsilon decayed to 0.9982615042374522
+2025-01-04 21:46:37,584 - INFO - Episode 174 / 49200 Winner: Agent 1. (Agent1 wins=89 Total Reward:0.83, Agent2 wins=82 Total Reward:-0.17, draws=3)
+2025-01-04 21:46:37,584 - INFO - ==== Starting episode 175 / 49200 ====
+2025-01-04 21:46:37,670 - INFO - Epsilon decayed to 0.9982515216224098
+2025-01-04 21:46:37,671 - INFO - Episode 175 / 49200 Winner: Draw. (Agent1 wins=89 Total Reward:-0.21000000000000005, Agent2 wins=82 Total Reward:-0.20000000000000004, draws=4)
+2025-01-04 21:46:37,671 - INFO - ==== Starting episode 176 / 49200 ====
+2025-01-04 21:46:37,749 - INFO - Epsilon decayed to 0.9982415391071936
+2025-01-04 21:46:37,751 - INFO - Episode 176 / 49200 Winner: Agent 2. (Agent1 wins=89 Total Reward:-0.21000000000000005, Agent2 wins=83 Total Reward:0.7999999999999999, draws=4)
+2025-01-04 21:46:37,751 - INFO - ==== Starting episode 177 / 49200 ====
+2025-01-04 21:46:37,797 - INFO - Epsilon decayed to 0.9982315566918025
+2025-01-04 21:46:37,797 - INFO - Episode 177 / 49200 Winner: Agent 1. (Agent1 wins=90 Total Reward:0.89, Agent2 wins=83 Total Reward:-0.10999999999999999, draws=4)
+2025-01-04 21:46:37,797 - INFO - ==== Starting episode 178 / 49200 ====
+2025-01-04 21:46:37,831 - INFO - Epsilon decayed to 0.9982215743762356
+2025-01-04 21:46:37,838 - INFO - Episode 178 / 49200 Winner: Agent 1. (Agent1 wins=91 Total Reward:0.9, Agent2 wins=83 Total Reward:-0.09999999999999999, draws=4)
+2025-01-04 21:46:37,838 - INFO - ==== Starting episode 179 / 49200 ====
+2025-01-04 21:46:37,867 - INFO - Epsilon decayed to 0.9982115921604919
+2025-01-04 21:46:37,868 - INFO - Episode 179 / 49200 Winner: Agent 1. (Agent1 wins=92 Total Reward:0.92, Agent2 wins=83 Total Reward:-0.08, draws=4)
+2025-01-04 21:46:37,868 - INFO - ==== Starting episode 180 / 49200 ====
+2025-01-04 21:46:37,913 - INFO - Epsilon decayed to 0.9982016100445704
+2025-01-04 21:46:37,913 - INFO - Episode 180 / 49200 Winner: Agent 1. (Agent1 wins=93 Total Reward:0.88, Agent2 wins=83 Total Reward:-0.11999999999999998, draws=4)
+2025-01-04 21:46:37,914 - INFO - ==== Starting episode 181 / 49200 ====
+2025-01-04 21:46:37,946 - INFO - Epsilon decayed to 0.9981916280284701
+2025-01-04 21:46:37,954 - INFO - Episode 181 / 49200 Winner: Agent 1. (Agent1 wins=94 Total Reward:0.9, Agent2 wins=83 Total Reward:-0.09999999999999999, draws=4)
+2025-01-04 21:46:37,954 - INFO - ==== Starting episode 182 / 49200 ====
+2025-01-04 21:46:38,009 - INFO - Epsilon decayed to 0.9981816461121898
+2025-01-04 21:46:38,010 - INFO - Episode 182 / 49200 Winner: Agent 1. (Agent1 wins=95 Total Reward:0.85, Agent2 wins=83 Total Reward:-0.15, draws=4)
+2025-01-04 21:46:38,010 - INFO - ==== Starting episode 183 / 49200 ====
+2025-01-04 21:46:38,055 - INFO - Epsilon decayed to 0.9981716642957288
+2025-01-04 21:46:38,055 - INFO - Episode 183 / 49200 Winner: Agent 2. (Agent1 wins=95 Total Reward:-0.10999999999999999, Agent2 wins=84 Total Reward:0.9, draws=4)
+2025-01-04 21:46:38,055 - INFO - ==== Starting episode 184 / 49200 ====
+2025-01-04 21:46:38,088 - INFO - Epsilon decayed to 0.9981616825790859
+2025-01-04 21:46:38,089 - INFO - Episode 184 / 49200 Winner: Agent 1. (Agent1 wins=96 Total Reward:0.9, Agent2 wins=84 Total Reward:-0.09999999999999999, draws=4)
+2025-01-04 21:46:38,089 - INFO - ==== Starting episode 185 / 49200 ====
+2025-01-04 21:46:38,148 - INFO - Epsilon decayed to 0.9981517009622601
+2025-01-04 21:46:38,149 - INFO - Episode 185 / 49200 Winner: Agent 1. (Agent1 wins=97 Total Reward:0.84, Agent2 wins=84 Total Reward:-0.16, draws=4)
+2025-01-04 21:46:38,149 - INFO - ==== Starting episode 186 / 49200 ====
+2025-01-04 21:46:38,191 - INFO - Epsilon decayed to 0.9981417194452505
+2025-01-04 21:46:38,192 - INFO - Episode 186 / 49200 Winner: Agent 2. (Agent1 wins=97 Total Reward:-0.11999999999999998, Agent2 wins=85 Total Reward:0.89, draws=4)
+2025-01-04 21:46:38,192 - INFO - ==== Starting episode 187 / 49200 ====
+2025-01-04 21:46:38,248 - INFO - Epsilon decayed to 0.9981317380280561
+2025-01-04 21:46:38,249 - INFO - Episode 187 / 49200 Winner: Agent 2. (Agent1 wins=97 Total Reward:-0.15, Agent2 wins=86 Total Reward:0.86, draws=4)
+2025-01-04 21:46:38,249 - INFO - ==== Starting episode 188 / 49200 ====
+2025-01-04 21:46:38,333 - INFO - Epsilon decayed to 0.9981217567106758
+2025-01-04 21:46:38,334 - INFO - Episode 188 / 49200 Winner: Draw. (Agent1 wins=97 Total Reward:-0.21000000000000005, Agent2 wins=86 Total Reward:-0.20000000000000004, draws=5)
+2025-01-04 21:46:38,334 - INFO - ==== Starting episode 189 / 49200 ====
+2025-01-04 21:46:38,362 - INFO - Epsilon decayed to 0.9981117754931088
+2025-01-04 21:46:38,367 - INFO - Episode 189 / 49200 Winner: Agent 2. (Agent1 wins=97 Total Reward:-0.09, Agent2 wins=87 Total Reward:0.92, draws=5)
+2025-01-04 21:46:38,367 - INFO - ==== Starting episode 190 / 49200 ====
+2025-01-04 21:46:38,412 - INFO - Epsilon decayed to 0.998101794375354
+2025-01-04 21:46:38,413 - INFO - Episode 190 / 49200 Winner: Agent 2. (Agent1 wins=97 Total Reward:-0.12999999999999998, Agent2 wins=88 Total Reward:0.88, draws=5)
+2025-01-04 21:46:38,413 - INFO - ==== Starting episode 191 / 49200 ====
+2025-01-04 21:46:38,465 - INFO - Epsilon decayed to 0.9980918133574103
+2025-01-04 21:46:38,466 - INFO - Episode 191 / 49200 Winner: Agent 2. (Agent1 wins=97 Total Reward:-0.15, Agent2 wins=89 Total Reward:0.86, draws=5)
+2025-01-04 21:46:38,466 - INFO - ==== Starting episode 192 / 49200 ====
+2025-01-04 21:46:38,541 - INFO - Epsilon decayed to 0.9980818324392767
+2025-01-04 21:46:38,542 - INFO - Episode 192 / 49200 Winner: Agent 2. (Agent1 wins=97 Total Reward:-0.18000000000000002, Agent2 wins=90 Total Reward:0.83, draws=5)
+2025-01-04 21:46:38,542 - INFO - ==== Starting episode 193 / 49200 ====
+2025-01-04 21:46:38,588 - INFO - Epsilon decayed to 0.9980718516209524
+2025-01-04 21:46:38,589 - INFO - Episode 193 / 49200 Winner: Agent 1. (Agent1 wins=98 Total Reward:0.88, Agent2 wins=90 Total Reward:-0.11999999999999998, draws=5)
+2025-01-04 21:46:38,589 - INFO - ==== Starting episode 194 / 49200 ====
+2025-01-04 21:46:38,634 - INFO - Epsilon decayed to 0.9980618709024361
+2025-01-04 21:46:38,634 - INFO - Episode 194 / 49200 Winner: Agent 2. (Agent1 wins=98 Total Reward:-0.10999999999999999, Agent2 wins=91 Total Reward:0.9, draws=5)
+2025-01-04 21:46:38,634 - INFO - ==== Starting episode 195 / 49200 ====
+2025-01-04 21:46:38,723 - INFO - Epsilon decayed to 0.9980518902837272
+2025-01-04 21:46:38,723 - INFO - Episode 195 / 49200 Winner: Draw. (Agent1 wins=98 Total Reward:-0.21000000000000005, Agent2 wins=91 Total Reward:-0.20000000000000004, draws=6)
+2025-01-04 21:46:38,724 - INFO - ==== Starting episode 196 / 49200 ====
+2025-01-04 21:46:38,764 - INFO - Epsilon decayed to 0.9980419097648244
+2025-01-04 21:46:38,764 - INFO - Episode 196 / 49200 Winner: Agent 2. (Agent1 wins=98 Total Reward:-0.10999999999999999, Agent2 wins=92 Total Reward:0.9, draws=6)
+2025-01-04 21:46:38,764 - INFO - ==== Starting episode 197 / 49200 ====
+2025-01-04 21:46:38,830 - INFO - Epsilon decayed to 0.9980319293457268
+2025-01-04 21:46:38,831 - INFO - Episode 197 / 49200 Winner: Agent 1. (Agent1 wins=99 Total Reward:0.82, Agent2 wins=92 Total Reward:-0.18000000000000002, draws=6)
+2025-01-04 21:46:38,831 - INFO - ==== Starting episode 198 / 49200 ====
+2025-01-04 21:46:38,858 - INFO - Epsilon decayed to 0.9980219490264334
+2025-01-04 21:46:38,858 - INFO - Episode 198 / 49200 Winner: Agent 2. (Agent1 wins=99 Total Reward:-0.08, Agent2 wins=93 Total Reward:0.9299999999999999, draws=6)
+2025-01-04 21:46:38,858 - INFO - ==== Starting episode 199 / 49200 ====
+2025-01-04 21:46:38,893 - INFO - Epsilon decayed to 0.9980119688069432
+2025-01-04 21:46:38,894 - INFO - Episode 199 / 49200 Winner: Agent 2. (Agent1 wins=99 Total Reward:-0.09999999999999999, Agent2 wins=94 Total Reward:0.91, draws=6)
+2025-01-04 21:46:38,894 - INFO - ==== Starting episode 200 / 49200 ====
+2025-01-04 21:46:38,914 - INFO - Target networks updated
+2025-01-04 21:46:38,914 - INFO - Epsilon decayed to 0.9980019886872552
+2025-01-04 21:46:38,948 - INFO - Model checkpoint saved to Connect4_Agent_Trainer.pth at episode 200.
+2025-01-04 21:46:38,979 - INFO - Model checkpoint saved to Connect4_Agent_Model.pth at episode 200.
+2025-01-04 21:46:38,979 - INFO - Models saved at episode 200
+2025-01-04 21:46:38,980 - INFO - Episode 200 / 49200 Winner: Agent 1. (Agent1 wins=100 Total Reward:0.97, Agent2 wins=94 Total Reward:-0.03, draws=6)
+2025-01-04 21:46:38,980 - INFO - ==== Starting episode 201 / 49200 ====
+2025-01-04 21:46:39,004 - INFO - Epsilon decayed to 0.9979920086673684
+2025-01-04 21:46:39,004 - INFO - Episode 201 / 49200 Winner: Agent 2. (Agent1 wins=100 Total Reward:-0.07, Agent2 wins=95 Total Reward:0.94, draws=6)
+2025-01-04 21:46:39,005 - INFO - ==== Starting episode 202 / 49200 ====
+2025-01-04 21:46:39,043 - INFO - Epsilon decayed to 0.9979820287472817
+2025-01-04 21:46:39,043 - INFO - Episode 202 / 49200 Winner: Agent 2. (Agent1 wins=100 Total Reward:-0.12999999999999998, Agent2 wins=96 Total Reward:0.88, draws=6)
+2025-01-04 21:46:39,043 - INFO - ==== Starting episode 203 / 49200 ====
+2025-01-04 21:46:39,114 - INFO - Epsilon decayed to 0.9979720489269943
+2025-01-04 21:46:39,115 - INFO - Episode 203 / 49200 Winner: Agent 2. (Agent1 wins=100 Total Reward:-0.18000000000000002, Agent2 wins=97 Total Reward:0.83, draws=6)
+2025-01-04 21:46:39,115 - INFO - ==== Starting episode 204 / 49200 ====
+2025-01-04 21:46:39,162 - INFO - Epsilon decayed to 0.9979620692065051
+2025-01-04 21:46:39,162 - INFO - Episode 204 / 49200 Winner: Agent 1. (Agent1 wins=101 Total Reward:0.86, Agent2 wins=97 Total Reward:-0.13999999999999999, draws=6)
+2025-01-04 21:46:39,163 - INFO - ==== Starting episode 205 / 49200 ====
+2025-01-04 21:46:39,220 - INFO - Epsilon decayed to 0.997952089585813
+2025-01-04 21:46:39,221 - INFO - Episode 205 / 49200 Winner: Agent 2. (Agent1 wins=101 Total Reward:-0.15, Agent2 wins=98 Total Reward:0.86, draws=6)
+2025-01-04 21:46:39,221 - INFO - ==== Starting episode 206 / 49200 ====
+2025-01-04 21:46:39,273 - INFO - Epsilon decayed to 0.9979421100649173
+2025-01-04 21:46:39,274 - INFO - Episode 206 / 49200 Winner: Agent 1. (Agent1 wins=102 Total Reward:0.85, Agent2 wins=98 Total Reward:-0.15, draws=6)
+2025-01-04 21:46:39,274 - INFO - ==== Starting episode 207 / 49200 ====
+2025-01-04 21:46:39,309 - INFO - Epsilon decayed to 0.9979321306438167
+2025-01-04 21:46:39,309 - INFO - Episode 207 / 49200 Winner: Agent 1. (Agent1 wins=103 Total Reward:0.91, Agent2 wins=98 Total Reward:-0.09, draws=6)
+2025-01-04 21:46:39,309 - INFO - ==== Starting episode 208 / 49200 ====
+2025-01-04 21:46:39,364 - INFO - Epsilon decayed to 0.9979221513225103
+2025-01-04 21:46:39,365 - INFO - Episode 208 / 49200 Winner: Agent 2. (Agent1 wins=103 Total Reward:-0.15, Agent2 wins=99 Total Reward:0.86, draws=6)
+2025-01-04 21:46:39,365 - INFO - ==== Starting episode 209 / 49200 ====
+2025-01-04 21:46:39,398 - INFO - Epsilon decayed to 0.9979121721009971
+2025-01-04 21:46:39,404 - INFO - Episode 209 / 49200 Winner: Agent 2. (Agent1 wins=103 Total Reward:-0.10999999999999999, Agent2 wins=100 Total Reward:0.9, draws=6)
+2025-01-04 21:46:39,404 - INFO - ==== Starting episode 210 / 49200 ====
+2025-01-04 21:46:39,482 - INFO - Epsilon decayed to 0.9979021929792762
+2025-01-04 21:46:39,483 - INFO - Episode 210 / 49200 Winner: Agent 2. (Agent1 wins=103 Total Reward:-0.18000000000000002, Agent2 wins=101 Total Reward:0.83, draws=6)
+2025-01-04 21:46:39,483 - INFO - ==== Starting episode 211 / 49200 ====
+2025-01-04 21:46:39,519 - INFO - Epsilon decayed to 0.9978922139573464
+2025-01-04 21:46:39,521 - INFO - Episode 211 / 49200 Winner: Agent 2. (Agent1 wins=103 Total Reward:-0.11999999999999998, Agent2 wins=102 Total Reward:0.89, draws=6)
+2025-01-04 21:46:39,521 - INFO - ==== Starting episode 212 / 49200 ====
+2025-01-04 21:46:39,549 - INFO - Epsilon decayed to 0.9978822350352069
+2025-01-04 21:46:39,554 - INFO - Episode 212 / 49200 Winner: Agent 1. (Agent1 wins=104 Total Reward:0.9299999999999999, Agent2 wins=102 Total Reward:-0.07, draws=6)
+2025-01-04 21:46:39,554 - INFO - ==== Starting episode 213 / 49200 ====
+2025-01-04 21:46:39,607 - INFO - Epsilon decayed to 0.9978722562128566
+2025-01-04 21:46:39,607 - INFO - Episode 213 / 49200 Winner: Agent 1. (Agent1 wins=105 Total Reward:0.84, Agent2 wins=102 Total Reward:-0.16, draws=6)
+2025-01-04 21:46:39,607 - INFO - ==== Starting episode 214 / 49200 ====
+2025-01-04 21:46:39,663 - INFO - Epsilon decayed to 0.9978622774902945
+2025-01-04 21:46:39,664 - INFO - Episode 214 / 49200 Winner: Agent 2. (Agent1 wins=105 Total Reward:-0.13999999999999999, Agent2 wins=103 Total Reward:0.87, draws=6)
+2025-01-04 21:46:39,664 - INFO - ==== Starting episode 215 / 49200 ====
+2025-01-04 21:46:39,716 - INFO - Epsilon decayed to 0.9978522988675197
+2025-01-04 21:46:39,717 - INFO - Episode 215 / 49200 Winner: Agent 1. (Agent1 wins=106 Total Reward:0.86, Agent2 wins=103 Total Reward:-0.13999999999999999, draws=6)
+2025-01-04 21:46:39,717 - INFO - ==== Starting episode 216 / 49200 ====
+2025-01-04 21:46:39,766 - INFO - Epsilon decayed to 0.997842320344531
+2025-01-04 21:46:39,767 - INFO - Episode 216 / 49200 Winner: Agent 2. (Agent1 wins=106 Total Reward:-0.13999999999999999, Agent2 wins=104 Total Reward:0.87, draws=6)
+2025-01-04 21:46:39,767 - INFO - ==== Starting episode 217 / 49200 ====
+2025-01-04 21:46:39,796 - INFO - Epsilon decayed to 0.9978323419213276
+2025-01-04 21:46:39,805 - INFO - Episode 217 / 49200 Winner: Agent 1. (Agent1 wins=107 Total Reward:0.9299999999999999, Agent2 wins=104 Total Reward:-0.07, draws=6)
+2025-01-04 21:46:39,805 - INFO - ==== Starting episode 218 / 49200 ====
+2025-01-04 21:46:39,870 - INFO - Epsilon decayed to 0.9978223635979084
+2025-01-04 21:46:39,871 - INFO - Episode 218 / 49200 Winner: Agent 1. (Agent1 wins=108 Total Reward:0.83, Agent2 wins=104 Total Reward:-0.17, draws=6)
+2025-01-04 21:46:39,871 - INFO - ==== Starting episode 219 / 49200 ====
+2025-01-04 21:46:39,917 - INFO - Epsilon decayed to 0.9978123853742725
+2025-01-04 21:46:39,918 - INFO - Episode 219 / 49200 Winner: Agent 2. (Agent1 wins=108 Total Reward:-0.12999999999999998, Agent2 wins=105 Total Reward:0.88, draws=6)
+2025-01-04 21:46:39,918 - INFO - ==== Starting episode 220 / 49200 ====
+2025-01-04 21:46:39,967 - INFO - Epsilon decayed to 0.9978024072504188
+2025-01-04 21:46:39,968 - INFO - Episode 220 / 49200 Winner: Agent 2. (Agent1 wins=108 Total Reward:-0.13999999999999999, Agent2 wins=106 Total Reward:0.87, draws=6)
+2025-01-04 21:46:39,968 - INFO - ==== Starting episode 221 / 49200 ====
+2025-01-04 21:46:40,026 - INFO - Epsilon decayed to 0.9977924292263464
+2025-01-04 21:46:40,026 - INFO - Episode 221 / 49200 Winner: Agent 2. (Agent1 wins=108 Total Reward:-0.16, Agent2 wins=107 Total Reward:0.85, draws=6)
+2025-01-04 21:46:40,026 - INFO - ==== Starting episode 222 / 49200 ====
+2025-01-04 21:46:40,079 - INFO - Epsilon decayed to 0.9977824513020541
+2025-01-04 21:46:40,080 - INFO - Episode 222 / 49200 Winner: Agent 2. (Agent1 wins=108 Total Reward:-0.16, Agent2 wins=108 Total Reward:0.85, draws=6)
+2025-01-04 21:46:40,080 - INFO - ==== Starting episode 223 / 49200 ====
+2025-01-04 21:46:40,126 - INFO - Epsilon decayed to 0.9977724734775412
+2025-01-04 21:46:40,126 - INFO - Episode 223 / 49200 Winner: Agent 1. (Agent1 wins=109 Total Reward:0.89, Agent2 wins=108 Total Reward:-0.10999999999999999, draws=6)
+2025-01-04 21:46:40,126 - INFO - ==== Starting episode 224 / 49200 ====
+2025-01-04 21:46:40,155 - INFO - Epsilon decayed to 0.9977624957528064
+2025-01-04 21:46:40,156 - INFO - Episode 224 / 49200 Winner: Agent 2. (Agent1 wins=109 Total Reward:-0.08, Agent2 wins=109 Total Reward:0.9299999999999999, draws=6)
+2025-01-04 21:46:40,156 - INFO - ==== Starting episode 225 / 49200 ====
+2025-01-04 21:46:40,217 - INFO - Epsilon decayed to 0.9977525181278489
+2025-01-04 21:46:40,218 - INFO - Episode 225 / 49200 Winner: Agent 2. (Agent1 wins=109 Total Reward:-0.17, Agent2 wins=110 Total Reward:0.84, draws=6)
+2025-01-04 21:46:40,218 - INFO - ==== Starting episode 226 / 49200 ====
+2025-01-04 21:46:40,247 - INFO - Epsilon decayed to 0.9977425406026676
+2025-01-04 21:46:40,254 - INFO - Episode 226 / 49200 Winner: Agent 2. (Agent1 wins=109 Total Reward:-0.09, Agent2 wins=111 Total Reward:0.92, draws=6)
+2025-01-04 21:46:40,254 - INFO - ==== Starting episode 227 / 49200 ====
+2025-01-04 21:46:40,301 - INFO - Epsilon decayed to 0.9977325631772617
+2025-01-04 21:46:40,301 - INFO - Episode 227 / 49200 Winner: Agent 1. (Agent1 wins=110 Total Reward:0.87, Agent2 wins=111 Total Reward:-0.12999999999999998, draws=6)
+2025-01-04 21:46:40,301 - INFO - ==== Starting episode 228 / 49200 ====
+2025-01-04 21:46:40,326 - INFO - Epsilon decayed to 0.99772258585163
+2025-01-04 21:46:40,327 - INFO - Episode 228 / 49200 Winner: Agent 2. (Agent1 wins=110 Total Reward:-0.060000000000000005, Agent2 wins=112 Total Reward:0.95, draws=6)
+2025-01-04 21:46:40,327 - INFO - ==== Starting episode 229 / 49200 ====
+2025-01-04 21:46:40,359 - INFO - Epsilon decayed to 0.9977126086257715
+2025-01-04 21:46:40,360 - INFO - Episode 229 / 49200 Winner: Agent 1. (Agent1 wins=111 Total Reward:0.9, Agent2 wins=112 Total Reward:-0.09999999999999999, draws=6)
+2025-01-04 21:46:40,360 - INFO - ==== Starting episode 230 / 49200 ====
+2025-01-04 21:46:40,399 - INFO - Epsilon decayed to 0.9977026314996853
+2025-01-04 21:46:40,403 - INFO - Episode 230 / 49200 Winner: Agent 1. (Agent1 wins=112 Total Reward:0.88, Agent2 wins=112 Total Reward:-0.11999999999999998, draws=6)
+2025-01-04 21:46:40,404 - INFO - ==== Starting episode 231 / 49200 ====
+2025-01-04 21:46:40,462 - INFO - Epsilon decayed to 0.9976926544733703
+2025-01-04 21:46:40,462 - INFO - Episode 231 / 49200 Winner: Agent 2. (Agent1 wins=112 Total Reward:-0.15, Agent2 wins=113 Total Reward:0.86, draws=6)
+2025-01-04 21:46:40,462 - INFO - ==== Starting episode 232 / 49200 ====
+2025-01-04 21:46:40,536 - INFO - Epsilon decayed to 0.9976826775468256
+2025-01-04 21:46:40,537 - INFO - Episode 232 / 49200 Winner: Agent 2. (Agent1 wins=112 Total Reward:-0.21000000000000005, Agent2 wins=114 Total Reward:0.7999999999999999, draws=6)
+2025-01-04 21:46:40,537 - INFO - ==== Starting episode 233 / 49200 ====
+2025-01-04 21:46:40,579 - INFO - Epsilon decayed to 0.9976727007200502
+2025-01-04 21:46:40,579 - INFO - Episode 233 / 49200 Winner: Agent 1. (Agent1 wins=113 Total Reward:0.88, Agent2 wins=114 Total Reward:-0.11999999999999998, draws=6)
+2025-01-04 21:46:40,580 - INFO - ==== Starting episode 234 / 49200 ====
+2025-01-04 21:46:40,655 - INFO - Epsilon decayed to 0.997662723993043
+2025-01-04 21:46:40,657 - INFO - Episode 234 / 49200 Winner: Draw. (Agent1 wins=113 Total Reward:-0.21000000000000005, Agent2 wins=114 Total Reward:-0.20000000000000004, draws=7)
+2025-01-04 21:46:40,657 - INFO - ==== Starting episode 235 / 49200 ====
+2025-01-04 21:46:40,693 - INFO - Epsilon decayed to 0.9976527473658031
+2025-01-04 21:46:40,693 - INFO - Episode 235 / 49200 Winner: Agent 2. (Agent1 wins=113 Total Reward:-0.09999999999999999, Agent2 wins=115 Total Reward:0.91, draws=7)
+2025-01-04 21:46:40,693 - INFO - ==== Starting episode 236 / 49200 ====
+2025-01-04 21:46:40,714 - INFO - Epsilon decayed to 0.9976427708383295
+2025-01-04 21:46:40,715 - INFO - Episode 236 / 49200 Winner: Agent 1. (Agent1 wins=114 Total Reward:0.95, Agent2 wins=115 Total Reward:-0.05, draws=7)
+2025-01-04 21:46:40,715 - INFO - ==== Starting episode 237 / 49200 ====
+2025-01-04 21:46:40,765 - INFO - Epsilon decayed to 0.9976327944106211
+2025-01-04 21:46:40,767 - INFO - Episode 237 / 49200 Winner: Agent 1. (Agent1 wins=115 Total Reward:0.86, Agent2 wins=115 Total Reward:-0.13999999999999999, draws=7)
+2025-01-04 21:46:40,767 - INFO - ==== Starting episode 238 / 49200 ====
+2025-01-04 21:46:40,824 - INFO - Epsilon decayed to 0.997622818082677
+2025-01-04 21:46:40,824 - INFO - Episode 238 / 49200 Winner: Agent 1. (Agent1 wins=116 Total Reward:0.85, Agent2 wins=115 Total Reward:-0.15, draws=7)
+2025-01-04 21:46:40,824 - INFO - ==== Starting episode 239 / 49200 ====
+2025-01-04 21:46:40,878 - INFO - Epsilon decayed to 0.9976128418544963
+2025-01-04 21:46:40,878 - INFO - Episode 239 / 49200 Winner: Agent 2. (Agent1 wins=116 Total Reward:-0.12999999999999998, Agent2 wins=116 Total Reward:0.88, draws=7)
+2025-01-04 21:46:40,878 - INFO - ==== Starting episode 240 / 49200 ====
+2025-01-04 21:46:40,906 - INFO - Epsilon decayed to 0.9976028657260778
+2025-01-04 21:46:40,906 - INFO - Episode 240 / 49200 Winner: Agent 2. (Agent1 wins=116 Total Reward:-0.08, Agent2 wins=117 Total Reward:0.9299999999999999, draws=7)
+2025-01-04 21:46:40,906 - INFO - ==== Starting episode 241 / 49200 ====
+2025-01-04 21:46:40,996 - INFO - Epsilon decayed to 0.9975928896974205
+2025-01-04 21:46:40,997 - INFO - Episode 241 / 49200 Winner: Draw. (Agent1 wins=116 Total Reward:-0.21000000000000005, Agent2 wins=117 Total Reward:-0.20000000000000004, draws=8)
+2025-01-04 21:46:40,997 - INFO - ==== Starting episode 242 / 49200 ====
+2025-01-04 21:46:41,069 - INFO - Epsilon decayed to 0.9975829137685236
+2025-01-04 21:46:41,069 - INFO - Episode 242 / 49200 Winner: Agent 2. (Agent1 wins=116 Total Reward:-0.18000000000000002, Agent2 wins=118 Total Reward:0.83, draws=8)
+2025-01-04 21:46:41,069 - INFO - ==== Starting episode 243 / 49200 ====
+2025-01-04 21:46:41,107 - INFO - Epsilon decayed to 0.997572937939386
+2025-01-04 21:46:41,108 - INFO - Episode 243 / 49200 Winner: Agent 2. (Agent1 wins=116 Total Reward:-0.11999999999999998, Agent2 wins=119 Total Reward:0.89, draws=8)
+2025-01-04 21:46:41,108 - INFO - ==== Starting episode 244 / 49200 ====
+2025-01-04 21:46:41,145 - INFO - Epsilon decayed to 0.9975629622100066
+2025-01-04 21:46:41,147 - INFO - Episode 244 / 49200 Winner: Agent 2. (Agent1 wins=116 Total Reward:-0.10999999999999999, Agent2 wins=120 Total Reward:0.9, draws=8)
+2025-01-04 21:46:41,147 - INFO - ==== Starting episode 245 / 49200 ====
+2025-01-04 21:46:41,175 - INFO - Epsilon decayed to 0.9975529865803846
+2025-01-04 21:46:41,175 - INFO - Episode 245 / 49200 Winner: Agent 2. (Agent1 wins=116 Total Reward:-0.08, Agent2 wins=121 Total Reward:0.9299999999999999, draws=8)
+2025-01-04 21:46:41,175 - INFO - ==== Starting episode 246 / 49200 ====
+2025-01-04 21:46:41,224 - INFO - Epsilon decayed to 0.9975430110505188
+2025-01-04 21:46:41,224 - INFO - Episode 246 / 49200 Winner: Agent 1. (Agent1 wins=117 Total Reward:0.87, Agent2 wins=121 Total Reward:-0.12999999999999998, draws=8)
+2025-01-04 21:46:41,224 - INFO - ==== Starting episode 247 / 49200 ====
+2025-01-04 21:46:41,269 - INFO - Epsilon decayed to 0.9975330356204083
+2025-01-04 21:46:41,269 - INFO - Episode 247 / 49200 Winner: Agent 2. (Agent1 wins=117 Total Reward:-0.12999999999999998, Agent2 wins=122 Total Reward:0.88, draws=8)
+2025-01-04 21:46:41,270 - INFO - ==== Starting episode 248 / 49200 ====
+2025-01-04 21:46:41,338 - INFO - Epsilon decayed to 0.9975230602900521
+2025-01-04 21:46:41,339 - INFO - Episode 248 / 49200 Winner: Agent 1. (Agent1 wins=118 Total Reward:0.82, Agent2 wins=122 Total Reward:-0.18000000000000002, draws=8)
+2025-01-04 21:46:41,339 - INFO - ==== Starting episode 249 / 49200 ====
+2025-01-04 21:46:41,410 - INFO - Epsilon decayed to 0.9975130850594492
+2025-01-04 21:46:41,410 - INFO - Episode 249 / 49200 Winner: Agent 2. (Agent1 wins=118 Total Reward:-0.20000000000000004, Agent2 wins=123 Total Reward:0.8099999999999999, draws=8)
+2025-01-04 21:46:41,410 - INFO - ==== Starting episode 250 / 49200 ====
+2025-01-04 21:46:41,444 - INFO - Epsilon decayed to 0.9975031099285987
+2025-01-04 21:46:41,445 - INFO - Episode 250 / 49200 Winner: Agent 1. (Agent1 wins=119 Total Reward:0.9, Agent2 wins=123 Total Reward:-0.09999999999999999, draws=8)
+2025-01-04 21:46:41,445 - INFO - ==== Starting episode 251 / 49200 ====
+2025-01-04 21:46:41,466 - INFO - Epsilon decayed to 0.9974931348974995
+2025-01-04 21:46:41,471 - INFO - Episode 251 / 49200 Winner: Agent 1. (Agent1 wins=120 Total Reward:0.96, Agent2 wins=123 Total Reward:-0.04, draws=8)
+2025-01-04 21:46:41,471 - INFO - ==== Starting episode 252 / 49200 ====
+2025-01-04 21:46:41,502 - INFO - Epsilon decayed to 0.9974831599661506
+2025-01-04 21:46:41,503 - INFO - Episode 252 / 49200 Winner: Agent 2. (Agent1 wins=120 Total Reward:-0.09, Agent2 wins=124 Total Reward:0.92, draws=8)
+2025-01-04 21:46:41,503 - INFO - ==== Starting episode 253 / 49200 ====
+2025-01-04 21:46:41,550 - INFO - Epsilon decayed to 0.997473185134551
+2025-01-04 21:46:41,551 - INFO - Episode 253 / 49200 Winner: Agent 1. (Agent1 wins=121 Total Reward:0.86, Agent2 wins=124 Total Reward:-0.13999999999999999, draws=8)
+2025-01-04 21:46:41,551 - INFO - ==== Starting episode 254 / 49200 ====
+2025-01-04 21:46:41,592 - INFO - Epsilon decayed to 0.9974632104026997
+2025-01-04 21:46:41,592 - INFO - Episode 254 / 49200 Winner: Agent 1. (Agent1 wins=122 Total Reward:0.89, Agent2 wins=124 Total Reward:-0.10999999999999999, draws=8)
+2025-01-04 21:46:41,592 - INFO - ==== Starting episode 255 / 49200 ====
+2025-01-04 21:46:41,657 - INFO - Epsilon decayed to 0.9974532357705957
+2025-01-04 21:46:41,658 - INFO - Episode 255 / 49200 Winner: Agent 2. (Agent1 wins=122 Total Reward:-0.16, Agent2 wins=125 Total Reward:0.85, draws=8)
+2025-01-04 21:46:41,658 - INFO - ==== Starting episode 256 / 49200 ====
+2025-01-04 21:46:41,702 - INFO - Epsilon decayed to 0.9974432612382381
+2025-01-04 21:46:41,704 - INFO - Episode 256 / 49200 Winner: Agent 2. (Agent1 wins=122 Total Reward:-0.11999999999999998, Agent2 wins=126 Total Reward:0.89, draws=8)
+2025-01-04 21:46:41,704 - INFO - ==== Starting episode 257 / 49200 ====
+2025-01-04 21:46:41,776 - INFO - Epsilon decayed to 0.9974332868056258
+2025-01-04 21:46:41,776 - INFO - Episode 257 / 49200 Winner: Agent 2. (Agent1 wins=122 Total Reward:-0.20000000000000004, Agent2 wins=127 Total Reward:0.8099999999999999, draws=8)
+2025-01-04 21:46:41,776 - INFO - ==== Starting episode 258 / 49200 ====
+2025-01-04 21:46:41,808 - INFO - Epsilon decayed to 0.9974233124727578
+2025-01-04 21:46:41,809 - INFO - Episode 258 / 49200 Winner: Agent 1. (Agent1 wins=123 Total Reward:0.91, Agent2 wins=127 Total Reward:-0.09, draws=8)
+2025-01-04 21:46:41,809 - INFO - ==== Starting episode 259 / 49200 ====
+2025-01-04 21:46:41,845 - INFO - Epsilon decayed to 0.9974133382396332
+2025-01-04 21:46:41,847 - INFO - Episode 259 / 49200 Winner: Agent 2. (Agent1 wins=123 Total Reward:-0.10999999999999999, Agent2 wins=128 Total Reward:0.9, draws=8)
+2025-01-04 21:46:41,847 - INFO - ==== Starting episode 260 / 49200 ====
+2025-01-04 21:46:41,900 - INFO - Epsilon decayed to 0.9974033641062509
+2025-01-04 21:46:41,900 - INFO - Episode 260 / 49200 Winner: Agent 1. (Agent1 wins=124 Total Reward:0.86, Agent2 wins=128 Total Reward:-0.13999999999999999, draws=8)
+2025-01-04 21:46:41,901 - INFO - ==== Starting episode 261 / 49200 ====
+2025-01-04 21:46:41,937 - INFO - Epsilon decayed to 0.9973933900726099
+2025-01-04 21:46:41,939 - INFO - Episode 261 / 49200 Winner: Agent 1. (Agent1 wins=125 Total Reward:0.9, Agent2 wins=128 Total Reward:-0.09999999999999999, draws=8)
+2025-01-04 21:46:41,939 - INFO - ==== Starting episode 262 / 49200 ====
+2025-01-04 21:46:42,007 - INFO - Epsilon decayed to 0.9973834161387092
+2025-01-04 21:46:42,008 - INFO - Episode 262 / 49200 Winner: Agent 1. (Agent1 wins=126 Total Reward:0.83, Agent2 wins=128 Total Reward:-0.17, draws=8)
+2025-01-04 21:46:42,008 - INFO - ==== Starting episode 263 / 49200 ====
+2025-01-04 21:46:42,049 - INFO - Epsilon decayed to 0.9973734423045478
+2025-01-04 21:46:42,050 - INFO - Episode 263 / 49200 Winner: Agent 1. (Agent1 wins=127 Total Reward:0.9, Agent2 wins=128 Total Reward:-0.09999999999999999, draws=8)
+2025-01-04 21:46:42,050 - INFO - ==== Starting episode 264 / 49200 ====
+2025-01-04 21:46:42,097 - INFO - Epsilon decayed to 0.9973634685701248
+2025-01-04 21:46:42,098 - INFO - Episode 264 / 49200 Winner: Agent 2. (Agent1 wins=127 Total Reward:-0.12999999999999998, Agent2 wins=129 Total Reward:0.88, draws=8)
+2025-01-04 21:46:42,098 - INFO - ==== Starting episode 265 / 49200 ====
+2025-01-04 21:46:42,162 - INFO - Epsilon decayed to 0.9973534949354391
+2025-01-04 21:46:42,162 - INFO - Episode 265 / 49200 Winner: Agent 2. (Agent1 wins=127 Total Reward:-0.17, Agent2 wins=130 Total Reward:0.84, draws=8)
+2025-01-04 21:46:42,162 - INFO - ==== Starting episode 266 / 49200 ====
+2025-01-04 21:46:42,214 - INFO - Epsilon decayed to 0.9973435214004898
+2025-01-04 21:46:42,216 - INFO - Episode 266 / 49200 Winner: Agent 1. (Agent1 wins=128 Total Reward:0.86, Agent2 wins=130 Total Reward:-0.13999999999999999, draws=8)
+2025-01-04 21:46:42,216 - INFO - ==== Starting episode 267 / 49200 ====
+2025-01-04 21:46:42,264 - INFO - Epsilon decayed to 0.9973335479652758
+2025-01-04 21:46:42,265 - INFO - Episode 267 / 49200 Winner: Agent 2. (Agent1 wins=128 Total Reward:-0.15, Agent2 wins=131 Total Reward:0.86, draws=8)
+2025-01-04 21:46:42,265 - INFO - ==== Starting episode 268 / 49200 ====
+2025-01-04 21:46:42,300 - INFO - Epsilon decayed to 0.9973235746297963
+2025-01-04 21:46:42,305 - INFO - Episode 268 / 49200 Winner: Agent 1. (Agent1 wins=129 Total Reward:0.9, Agent2 wins=131 Total Reward:-0.09999999999999999, draws=8)
+2025-01-04 21:46:42,305 - INFO - ==== Starting episode 269 / 49200 ====
+2025-01-04 21:46:42,359 - INFO - Epsilon decayed to 0.99731360139405
+2025-01-04 21:46:42,360 - INFO - Episode 269 / 49200 Winner: Agent 1. (Agent1 wins=130 Total Reward:0.84, Agent2 wins=131 Total Reward:-0.16, draws=8)
+2025-01-04 21:46:42,360 - INFO - ==== Starting episode 270 / 49200 ====
+2025-01-04 21:46:42,399 - INFO - Epsilon decayed to 0.9973036282580361
+2025-01-04 21:46:42,400 - INFO - Episode 270 / 49200 Winner: Agent 2. (Agent1 wins=130 Total Reward:-0.11999999999999998, Agent2 wins=132 Total Reward:0.89, draws=8)
+2025-01-04 21:46:42,400 - INFO - ==== Starting episode 271 / 49200 ====
+2025-01-04 21:46:42,441 - INFO - Epsilon decayed to 0.9972936552217535
+2025-01-04 21:46:42,441 - INFO - Episode 271 / 49200 Winner: Agent 1. (Agent1 wins=131 Total Reward:0.89, Agent2 wins=132 Total Reward:-0.10999999999999999, draws=8)
+2025-01-04 21:46:42,441 - INFO - ==== Starting episode 272 / 49200 ====
+2025-01-04 21:46:42,496 - INFO - Epsilon decayed to 0.9972836822852014
+2025-01-04 21:46:42,496 - INFO - Episode 272 / 49200 Winner: Agent 1. (Agent1 wins=132 Total Reward:0.86, Agent2 wins=132 Total Reward:-0.13999999999999999, draws=8)
+2025-01-04 21:46:42,496 - INFO - ==== Starting episode 273 / 49200 ====
+2025-01-04 21:46:42,551 - INFO - Epsilon decayed to 0.9972737094483786
+2025-01-04 21:46:42,552 - INFO - Episode 273 / 49200 Winner: Agent 1. (Agent1 wins=133 Total Reward:0.84, Agent2 wins=132 Total Reward:-0.16, draws=8)
+2025-01-04 21:46:42,552 - INFO - ==== Starting episode 274 / 49200 ====
+2025-01-04 21:46:42,598 - INFO - Epsilon decayed to 0.9972637367112841
+2025-01-04 21:46:42,599 - INFO - Episode 274 / 49200 Winner: Agent 2. (Agent1 wins=133 Total Reward:-0.13999999999999999, Agent2 wins=133 Total Reward:0.87, draws=8)
+2025-01-04 21:46:42,599 - INFO - ==== Starting episode 275 / 49200 ====
+2025-01-04 21:46:42,633 - INFO - Epsilon decayed to 0.9972537640739171
+2025-01-04 21:46:42,634 - INFO - Episode 275 / 49200 Winner: Agent 1. (Agent1 wins=134 Total Reward:0.9, Agent2 wins=133 Total Reward:-0.09999999999999999, draws=8)
+2025-01-04 21:46:42,634 - INFO - ==== Starting episode 276 / 49200 ====
+2025-01-04 21:46:42,662 - INFO - Epsilon decayed to 0.9972437915362764
+2025-01-04 21:46:42,670 - INFO - Episode 276 / 49200 Winner: Agent 1. (Agent1 wins=135 Total Reward:0.92, Agent2 wins=133 Total Reward:-0.08, draws=8)
+2025-01-04 21:46:42,671 - INFO - ==== Starting episode 277 / 49200 ====
+2025-01-04 21:46:42,707 - INFO - Epsilon decayed to 0.9972338190983611
+2025-01-04 21:46:42,707 - INFO - Episode 277 / 49200 Winner: Agent 1. (Agent1 wins=136 Total Reward:0.89, Agent2 wins=133 Total Reward:-0.10999999999999999, draws=8)
+2025-01-04 21:46:42,707 - INFO - ==== Starting episode 278 / 49200 ====
+2025-01-04 21:46:42,751 - INFO - Epsilon decayed to 0.9972238467601702
+2025-01-04 21:46:42,751 - INFO - Episode 278 / 49200 Winner: Agent 2. (Agent1 wins=136 Total Reward:-0.13999999999999999, Agent2 wins=134 Total Reward:0.87, draws=8)
+2025-01-04 21:46:42,751 - INFO - ==== Starting episode 279 / 49200 ====
+2025-01-04 21:46:42,798 - INFO - Epsilon decayed to 0.9972138745217026
+2025-01-04 21:46:42,799 - INFO - Episode 279 / 49200 Winner: Agent 2. (Agent1 wins=136 Total Reward:-0.13999999999999999, Agent2 wins=135 Total Reward:0.87, draws=8)
+2025-01-04 21:46:42,799 - INFO - ==== Starting episode 280 / 49200 ====
+2025-01-04 21:46:42,823 - INFO - Epsilon decayed to 0.9972039023829574
+2025-01-04 21:46:42,823 - INFO - Episode 280 / 49200 Winner: Agent 1. (Agent1 wins=137 Total Reward:0.9299999999999999, Agent2 wins=135 Total Reward:-0.07, draws=8)
+2025-01-04 21:46:42,823 - INFO - ==== Starting episode 281 / 49200 ====
+2025-01-04 21:46:42,859 - INFO - Epsilon decayed to 0.9971939303439337
+2025-01-04 21:46:42,859 - INFO - Episode 281 / 49200 Winner: Agent 1. (Agent1 wins=138 Total Reward:0.88, Agent2 wins=135 Total Reward:-0.11999999999999998, draws=8)
+2025-01-04 21:46:42,860 - INFO - ==== Starting episode 282 / 49200 ====
+2025-01-04 21:46:42,934 - INFO - Epsilon decayed to 0.9971839584046303
+2025-01-04 21:46:42,935 - INFO - Episode 282 / 49200 Winner: Agent 1. (Agent1 wins=139 Total Reward:0.8099999999999999, Agent2 wins=135 Total Reward:-0.19000000000000003, draws=8)
+2025-01-04 21:46:42,935 - INFO - ==== Starting episode 283 / 49200 ====
+2025-01-04 21:46:42,963 - INFO - Epsilon decayed to 0.9971739865650463
+2025-01-04 21:46:42,971 - INFO - Episode 283 / 49200 Winner: Agent 2. (Agent1 wins=139 Total Reward:-0.09, Agent2 wins=136 Total Reward:0.92, draws=8)
+2025-01-04 21:46:42,971 - INFO - ==== Starting episode 284 / 49200 ====
+2025-01-04 21:46:43,049 - INFO - Epsilon decayed to 0.9971640148251807
+2025-01-04 21:46:43,050 - INFO - Episode 284 / 49200 Winner: Agent 1. (Agent1 wins=140 Total Reward:0.7999999999999999, Agent2 wins=136 Total Reward:-0.20000000000000004, draws=8)
+2025-01-04 21:46:43,050 - INFO - ==== Starting episode 285 / 49200 ====
+2025-01-04 21:46:43,090 - INFO - Epsilon decayed to 0.9971540431850325
+2025-01-04 21:46:43,092 - INFO - Episode 285 / 49200 Winner: Agent 2. (Agent1 wins=140 Total Reward:-0.10999999999999999, Agent2 wins=137 Total Reward:0.9, draws=8)
+2025-01-04 21:46:43,092 - INFO - ==== Starting episode 286 / 49200 ====
+2025-01-04 21:46:43,128 - INFO - Epsilon decayed to 0.9971440716446007
+2025-01-04 21:46:43,137 - INFO - Episode 286 / 49200 Winner: Agent 2. (Agent1 wins=140 Total Reward:-0.11999999999999998, Agent2 wins=138 Total Reward:0.89, draws=8)
+2025-01-04 21:46:43,138 - INFO - ==== Starting episode 287 / 49200 ====
+2025-01-04 21:46:43,183 - INFO - Epsilon decayed to 0.9971341002038844
+2025-01-04 21:46:43,184 - INFO - Episode 287 / 49200 Winner: Agent 1. (Agent1 wins=141 Total Reward:0.86, Agent2 wins=138 Total Reward:-0.13999999999999999, draws=8)
+2025-01-04 21:46:43,184 - INFO - ==== Starting episode 288 / 49200 ====
+2025-01-04 21:46:43,210 - INFO - Epsilon decayed to 0.9971241288628824
+2025-01-04 21:46:43,210 - INFO - Episode 288 / 49200 Winner: Agent 1. (Agent1 wins=142 Total Reward:0.9299999999999999, Agent2 wins=138 Total Reward:-0.07, draws=8)
+2025-01-04 21:46:43,210 - INFO - ==== Starting episode 289 / 49200 ====
+2025-01-04 21:46:43,290 - INFO - Epsilon decayed to 0.9971141576215938
+2025-01-04 21:46:43,291 - INFO - Episode 289 / 49200 Winner: Draw. (Agent1 wins=142 Total Reward:-0.21000000000000005, Agent2 wins=138 Total Reward:-0.20000000000000004, draws=9)
+2025-01-04 21:46:43,291 - INFO - ==== Starting episode 290 / 49200 ====
+2025-01-04 21:46:43,341 - INFO - Epsilon decayed to 0.9971041864800176
+2025-01-04 21:46:43,341 - INFO - Episode 290 / 49200 Winner: Agent 1. (Agent1 wins=143 Total Reward:0.87, Agent2 wins=138 Total Reward:-0.12999999999999998, draws=9)
+2025-01-04 21:46:43,341 - INFO - ==== Starting episode 291 / 49200 ====
+2025-01-04 21:46:43,402 - INFO - Epsilon decayed to 0.9970942154381529
+2025-01-04 21:46:43,403 - INFO - Episode 291 / 49200 Winner: Agent 2. (Agent1 wins=143 Total Reward:-0.17, Agent2 wins=139 Total Reward:0.84, draws=9)
+2025-01-04 21:46:43,403 - INFO - ==== Starting episode 292 / 49200 ====
+2025-01-04 21:46:43,465 - INFO - Epsilon decayed to 0.9970842444959985
+2025-01-04 21:46:43,466 - INFO - Episode 292 / 49200 Winner: Agent 1. (Agent1 wins=144 Total Reward:0.83, Agent2 wins=139 Total Reward:-0.17, draws=9)
+2025-01-04 21:46:43,466 - INFO - ==== Starting episode 293 / 49200 ====
+2025-01-04 21:46:43,511 - INFO - Epsilon decayed to 0.9970742736535536
+2025-01-04 21:46:43,511 - INFO - Episode 293 / 49200 Winner: Agent 1. (Agent1 wins=145 Total Reward:0.87, Agent2 wins=139 Total Reward:-0.12999999999999998, draws=9)
+2025-01-04 21:46:43,511 - INFO - ==== Starting episode 294 / 49200 ====
+2025-01-04 21:46:43,583 - INFO - Epsilon decayed to 0.9970643029108172
+2025-01-04 21:46:43,584 - INFO - Episode 294 / 49200 Winner: Agent 2. (Agent1 wins=145 Total Reward:-0.18000000000000002, Agent2 wins=140 Total Reward:0.83, draws=9)
+2025-01-04 21:46:43,584 - INFO - ==== Starting episode 295 / 49200 ====
+2025-01-04 21:46:43,637 - INFO - Epsilon decayed to 0.9970543322677881
+2025-01-04 21:46:43,637 - INFO - Episode 295 / 49200 Winner: Agent 2. (Agent1 wins=145 Total Reward:-0.12999999999999998, Agent2 wins=141 Total Reward:0.88, draws=9)
+2025-01-04 21:46:43,637 - INFO - ==== Starting episode 296 / 49200 ====
+2025-01-04 21:46:43,677 - INFO - Epsilon decayed to 0.9970443617244654
+2025-01-04 21:46:43,679 - INFO - Episode 296 / 49200 Winner: Agent 2. (Agent1 wins=145 Total Reward:-0.12999999999999998, Agent2 wins=142 Total Reward:0.88, draws=9)
+2025-01-04 21:46:43,679 - INFO - ==== Starting episode 297 / 49200 ====
+2025-01-04 21:46:43,738 - INFO - Epsilon decayed to 0.9970343912808483
+2025-01-04 21:46:43,739 - INFO - Episode 297 / 49200 Winner: Agent 1. (Agent1 wins=146 Total Reward:0.86, Agent2 wins=142 Total Reward:-0.13999999999999999, draws=9)
+2025-01-04 21:46:43,739 - INFO - ==== Starting episode 298 / 49200 ====
+2025-01-04 21:46:43,793 - INFO - Epsilon decayed to 0.9970244209369354
+2025-01-04 21:46:43,794 - INFO - Episode 298 / 49200 Winner: Agent 2. (Agent1 wins=146 Total Reward:-0.16, Agent2 wins=143 Total Reward:0.85, draws=9)
+2025-01-04 21:46:43,794 - INFO - ==== Starting episode 299 / 49200 ====
+2025-01-04 21:46:43,857 - INFO - Epsilon decayed to 0.9970144506927261
+2025-01-04 21:46:43,857 - INFO - Episode 299 / 49200 Winner: Agent 1. (Agent1 wins=147 Total Reward:0.84, Agent2 wins=143 Total Reward:-0.16, draws=9)
+2025-01-04 21:46:43,858 - INFO - ==== Starting episode 300 / 49200 ====
+2025-01-04 21:46:43,895 - INFO - Target networks updated
+2025-01-04 21:46:43,895 - INFO - Epsilon decayed to 0.9970044805482192
+2025-01-04 21:46:43,923 - INFO - Model checkpoint saved to Connect4_Agent_Trainer.pth at episode 300.
+2025-01-04 21:46:43,950 - INFO - Model checkpoint saved to Connect4_Agent_Model.pth at episode 300.
+2025-01-04 21:46:43,950 - INFO - Models saved at episode 300
+2025-01-04 21:46:43,950 - INFO - Episode 300 / 49200 Winner: Agent 2. (Agent1 wins=147 Total Reward:-0.10999999999999999, Agent2 wins=144 Total Reward:0.9, draws=9)
+2025-01-04 21:46:43,951 - INFO - ==== Starting episode 301 / 49200 ====
+2025-01-04 21:46:44,025 - INFO - Epsilon decayed to 0.9969945105034138
+2025-01-04 21:46:44,026 - INFO - Episode 301 / 49200 Winner: Agent 1. (Agent1 wins=148 Total Reward:0.86, Agent2 wins=144 Total Reward:-0.13999999999999999, draws=9)
+2025-01-04 21:46:44,026 - INFO - ==== Starting episode 302 / 49200 ====
+2025-01-04 21:46:44,086 - INFO - Epsilon decayed to 0.9969845405583089
+2025-01-04 21:46:44,087 - INFO - Episode 302 / 49200 Winner: Agent 2. (Agent1 wins=148 Total Reward:-0.09999999999999999, Agent2 wins=145 Total Reward:0.91, draws=9)
+2025-01-04 21:46:44,087 - INFO - ==== Starting episode 303 / 49200 ====
+2025-01-04 21:46:44,184 - INFO - Epsilon decayed to 0.9969745707129033
+2025-01-04 21:46:44,184 - INFO - Episode 303 / 49200 Winner: Agent 1. (Agent1 wins=149 Total Reward:0.82, Agent2 wins=145 Total Reward:-0.18000000000000002, draws=9)
+2025-01-04 21:46:44,184 - INFO - ==== Starting episode 304 / 49200 ====
+2025-01-04 21:46:44,229 - INFO - Epsilon decayed to 0.9969646009671962
+2025-01-04 21:46:44,230 - INFO - Episode 304 / 49200 Winner: Agent 2. (Agent1 wins=149 Total Reward:-0.05, Agent2 wins=146 Total Reward:0.96, draws=9)
+2025-01-04 21:46:44,230 - INFO - ==== Starting episode 305 / 49200 ====
+2025-01-04 21:46:44,302 - INFO - Epsilon decayed to 0.9969546313211866
+2025-01-04 21:46:44,304 - INFO - Episode 305 / 49200 Winner: Agent 1. (Agent1 wins=150 Total Reward:0.9, Agent2 wins=146 Total Reward:-0.09999999999999999, draws=9)
+2025-01-04 21:46:44,304 - INFO - ==== Starting episode 306 / 49200 ====
+2025-01-04 21:46:44,372 - INFO - Epsilon decayed to 0.9969446617748734
+2025-01-04 21:46:44,373 - INFO - Episode 306 / 49200 Winner: Agent 1. (Agent1 wins=151 Total Reward:0.9, Agent2 wins=146 Total Reward:-0.09999999999999999, draws=9)
+2025-01-04 21:46:44,373 - INFO - ==== Starting episode 307 / 49200 ====
+2025-01-04 21:46:44,435 - INFO - Epsilon decayed to 0.9969346923282557
+2025-01-04 21:46:44,436 - INFO - Episode 307 / 49200 Winner: Agent 1. (Agent1 wins=152 Total Reward:0.95, Agent2 wins=146 Total Reward:-0.05, draws=9)
+2025-01-04 21:46:44,436 - INFO - ==== Starting episode 308 / 49200 ====
+2025-01-04 21:46:44,523 - INFO - Epsilon decayed to 0.9969247229813325
+2025-01-04 21:46:44,523 - INFO - Episode 308 / 49200 Winner: Agent 2. (Agent1 wins=152 Total Reward:-0.15, Agent2 wins=147 Total Reward:0.86, draws=9)
+2025-01-04 21:46:44,523 - INFO - ==== Starting episode 309 / 49200 ====
+2025-01-04 21:46:44,620 - INFO - Epsilon decayed to 0.9969147537341028
+2025-01-04 21:46:44,620 - INFO - Episode 309 / 49200 Winner: Agent 2. (Agent1 wins=152 Total Reward:-0.17, Agent2 wins=148 Total Reward:0.84, draws=9)
+2025-01-04 21:46:44,621 - INFO - ==== Starting episode 310 / 49200 ====
+2025-01-04 21:46:44,683 - INFO - Epsilon decayed to 0.9969047845865655
+2025-01-04 21:46:44,684 - INFO - Episode 310 / 49200 Winner: Agent 1. (Agent1 wins=153 Total Reward:0.89, Agent2 wins=148 Total Reward:-0.10999999999999999, draws=9)
+2025-01-04 21:46:44,684 - INFO - ==== Starting episode 311 / 49200 ====
+2025-01-04 21:46:44,745 - INFO - Epsilon decayed to 0.9968948155387197
+2025-01-04 21:46:44,747 - INFO - Episode 311 / 49200 Winner: Agent 1. (Agent1 wins=154 Total Reward:0.88, Agent2 wins=148 Total Reward:-0.11999999999999998, draws=9)
+2025-01-04 21:46:44,747 - INFO - ==== Starting episode 312 / 49200 ====
+2025-01-04 21:46:44,813 - INFO - Epsilon decayed to 0.9968848465905644
+2025-01-04 21:46:44,814 - INFO - Episode 312 / 49200 Winner: Agent 2. (Agent1 wins=154 Total Reward:-0.11999999999999998, Agent2 wins=149 Total Reward:0.89, draws=9)
+2025-01-04 21:46:44,814 - INFO - ==== Starting episode 313 / 49200 ====
+2025-01-04 21:46:44,871 - INFO - Epsilon decayed to 0.9968748777420986
+2025-01-04 21:46:44,872 - INFO - Episode 313 / 49200 Winner: Agent 1. (Agent1 wins=155 Total Reward:0.91, Agent2 wins=149 Total Reward:-0.09, draws=9)
+2025-01-04 21:46:44,872 - INFO - ==== Starting episode 314 / 49200 ====
+2025-01-04 21:46:44,945 - INFO - Epsilon decayed to 0.9968649089933213
+2025-01-04 21:46:44,945 - INFO - Episode 314 / 49200 Winner: Agent 2. (Agent1 wins=155 Total Reward:-0.15, Agent2 wins=150 Total Reward:0.86, draws=9)
+2025-01-04 21:46:44,945 - INFO - ==== Starting episode 315 / 49200 ====
+2025-01-04 21:46:44,997 - INFO - Epsilon decayed to 0.9968549403442314
+2025-01-04 21:46:44,998 - INFO - Episode 315 / 49200 Winner: Agent 2. (Agent1 wins=155 Total Reward:-0.09, Agent2 wins=151 Total Reward:0.92, draws=9)
+2025-01-04 21:46:44,998 - INFO - ==== Starting episode 316 / 49200 ====
+2025-01-04 21:46:45,090 - INFO - Epsilon decayed to 0.996844971794828
+2025-01-04 21:46:45,092 - INFO - Episode 316 / 49200 Winner: Draw. (Agent1 wins=155 Total Reward:-0.21000000000000005, Agent2 wins=151 Total Reward:-0.20000000000000004, draws=10)
+2025-01-04 21:46:45,092 - INFO - ==== Starting episode 317 / 49200 ====
+2025-01-04 21:46:45,152 - INFO - Epsilon decayed to 0.9968350033451101
+2025-01-04 21:46:45,152 - INFO - Episode 317 / 49200 Winner: Agent 1. (Agent1 wins=156 Total Reward:0.88, Agent2 wins=151 Total Reward:-0.11999999999999998, draws=10)
+2025-01-04 21:46:45,152 - INFO - ==== Starting episode 318 / 49200 ====
+2025-01-04 21:46:45,221 - INFO - Epsilon decayed to 0.9968250349950767
+2025-01-04 21:46:45,222 - INFO - Episode 318 / 49200 Winner: Agent 1. (Agent1 wins=157 Total Reward:0.87, Agent2 wins=151 Total Reward:-0.12999999999999998, draws=10)
+2025-01-04 21:46:45,222 - INFO - ==== Starting episode 319 / 49200 ====
+2025-01-04 21:46:45,276 - INFO - Epsilon decayed to 0.9968150667447268
+2025-01-04 21:46:45,276 - INFO - Episode 319 / 49200 Winner: Agent 1. (Agent1 wins=158 Total Reward:0.91, Agent2 wins=151 Total Reward:-0.09, draws=10)
+2025-01-04 21:46:45,276 - INFO - ==== Starting episode 320 / 49200 ====
+2025-01-04 21:46:45,331 - INFO - Epsilon decayed to 0.9968050985940593
+2025-01-04 21:46:45,332 - INFO - Episode 320 / 49200 Winner: Agent 2. (Agent1 wins=158 Total Reward:-0.09, Agent2 wins=152 Total Reward:0.92, draws=10)
+2025-01-04 21:46:45,332 - INFO - ==== Starting episode 321 / 49200 ====
+2025-01-04 21:46:45,378 - INFO - Epsilon decayed to 0.9967951305430734
+2025-01-04 21:46:45,378 - INFO - Episode 321 / 49200 Winner: Agent 1. (Agent1 wins=159 Total Reward:0.9299999999999999, Agent2 wins=152 Total Reward:-0.07, draws=10)
+2025-01-04 21:46:45,378 - INFO - ==== Starting episode 322 / 49200 ====
+2025-01-04 21:46:45,436 - INFO - Epsilon decayed to 0.9967851625917681
+2025-01-04 21:46:45,436 - INFO - Episode 322 / 49200 Winner: Agent 2. (Agent1 wins=159 Total Reward:-0.10999999999999999, Agent2 wins=153 Total Reward:0.9, draws=10)
+2025-01-04 21:46:45,437 - INFO - ==== Starting episode 323 / 49200 ====
+2025-01-04 21:46:45,513 - INFO - Epsilon decayed to 0.9967751947401422
+2025-01-04 21:46:45,514 - INFO - Episode 323 / 49200 Winner: Agent 2. (Agent1 wins=159 Total Reward:-0.16, Agent2 wins=154 Total Reward:0.85, draws=10)
+2025-01-04 21:46:45,514 - INFO - ==== Starting episode 324 / 49200 ====
+2025-01-04 21:46:45,562 - INFO - Epsilon decayed to 0.9967652269881948
+2025-01-04 21:46:45,563 - INFO - Episode 324 / 49200 Winner: Agent 2. (Agent1 wins=159 Total Reward:-0.09, Agent2 wins=155 Total Reward:0.92, draws=10)
+2025-01-04 21:46:45,563 - INFO - ==== Starting episode 325 / 49200 ====
+2025-01-04 21:46:45,634 - INFO - Epsilon decayed to 0.996755259335925
+2025-01-04 21:46:45,635 - INFO - Episode 325 / 49200 Winner: Agent 1. (Agent1 wins=160 Total Reward:0.86, Agent2 wins=155 Total Reward:-0.13999999999999999, draws=10)
+2025-01-04 21:46:45,635 - INFO - ==== Starting episode 326 / 49200 ====
+2025-01-04 21:46:45,699 - INFO - Epsilon decayed to 0.9967452917833317
+2025-01-04 21:46:45,700 - INFO - Episode 326 / 49200 Winner: Agent 1. (Agent1 wins=161 Total Reward:0.87, Agent2 wins=155 Total Reward:-0.12999999999999998, draws=10)
+2025-01-04 21:46:45,700 - INFO - ==== Starting episode 327 / 49200 ====
+2025-01-04 21:46:45,766 - INFO - Epsilon decayed to 0.9967353243304139
+2025-01-04 21:46:45,767 - INFO - Episode 327 / 49200 Winner: Agent 2. (Agent1 wins=161 Total Reward:-0.13999999999999999, Agent2 wins=156 Total Reward:0.87, draws=10)
+2025-01-04 21:46:45,767 - INFO - ==== Starting episode 328 / 49200 ====
+2025-01-04 21:46:45,851 - INFO - Epsilon decayed to 0.9967253569771707
+2025-01-04 21:46:45,852 - INFO - Episode 328 / 49200 Winner: Agent 1. (Agent1 wins=162 Total Reward:0.84, Agent2 wins=156 Total Reward:-0.16, draws=10)
+2025-01-04 21:46:45,852 - INFO - ==== Starting episode 329 / 49200 ====
+2025-01-04 21:46:45,912 - INFO - Epsilon decayed to 0.996715389723601
+2025-01-04 21:46:45,913 - INFO - Episode 329 / 49200 Winner: Agent 1. (Agent1 wins=163 Total Reward:0.9, Agent2 wins=156 Total Reward:-0.09999999999999999, draws=10)
+2025-01-04 21:46:45,913 - INFO - ==== Starting episode 330 / 49200 ====
+2025-01-04 21:46:45,966 - INFO - Epsilon decayed to 0.9967054225697037
+2025-01-04 21:46:45,968 - INFO - Episode 330 / 49200 Winner: Agent 2. (Agent1 wins=163 Total Reward:-0.09999999999999999, Agent2 wins=157 Total Reward:0.91, draws=10)
+2025-01-04 21:46:45,968 - INFO - ==== Starting episode 331 / 49200 ====
+2025-01-04 21:46:46,035 - INFO - Epsilon decayed to 0.9966954555154781
+2025-01-04 21:46:46,036 - INFO - Episode 331 / 49200 Winner: Agent 2. (Agent1 wins=163 Total Reward:-0.13999999999999999, Agent2 wins=158 Total Reward:0.87, draws=10)
+2025-01-04 21:46:46,036 - INFO - ==== Starting episode 332 / 49200 ====
+2025-01-04 21:46:46,112 - INFO - Epsilon decayed to 0.996685488560923
+2025-01-04 21:46:46,114 - INFO - Episode 332 / 49200 Winner: Agent 1. (Agent1 wins=164 Total Reward:0.86, Agent2 wins=158 Total Reward:-0.13999999999999999, draws=10)
+2025-01-04 21:46:46,114 - INFO - ==== Starting episode 333 / 49200 ====
+2025-01-04 21:46:46,202 - INFO - Epsilon decayed to 0.9966755217060375
+2025-01-04 21:46:46,203 - INFO - Episode 333 / 49200 Winner: Draw. (Agent1 wins=164 Total Reward:-0.21000000000000005, Agent2 wins=158 Total Reward:-0.20000000000000004, draws=11)
+2025-01-04 21:46:46,203 - INFO - ==== Starting episode 334 / 49200 ====
+2025-01-04 21:46:46,270 - INFO - Epsilon decayed to 0.9966655549508204
+2025-01-04 21:46:46,271 - INFO - Episode 334 / 49200 Winner: Agent 2. (Agent1 wins=164 Total Reward:-0.13999999999999999, Agent2 wins=159 Total Reward:0.87, draws=11)
+2025-01-04 21:46:46,271 - INFO - ==== Starting episode 335 / 49200 ====
+2025-01-04 21:46:46,328 - INFO - Epsilon decayed to 0.996655588295271
+2025-01-04 21:46:46,329 - INFO - Episode 335 / 49200 Winner: Agent 2. (Agent1 wins=164 Total Reward:-0.10999999999999999, Agent2 wins=160 Total Reward:0.9, draws=11)
+2025-01-04 21:46:46,329 - INFO - ==== Starting episode 336 / 49200 ====
+2025-01-04 21:46:46,388 - INFO - Epsilon decayed to 0.9966456217393881
+2025-01-04 21:46:46,389 - INFO - Episode 336 / 49200 Winner: Agent 1. (Agent1 wins=165 Total Reward:0.89, Agent2 wins=160 Total Reward:-0.10999999999999999, draws=11)
+2025-01-04 21:46:46,389 - INFO - ==== Starting episode 337 / 49200 ====
+2025-01-04 21:46:46,458 - INFO - Epsilon decayed to 0.9966356552831708
+2025-01-04 21:46:46,459 - INFO - Episode 337 / 49200 Winner: Agent 2. (Agent1 wins=165 Total Reward:-0.12999999999999998, Agent2 wins=161 Total Reward:0.88, draws=11)
+2025-01-04 21:46:46,459 - INFO - ==== Starting episode 338 / 49200 ====
+2025-01-04 21:46:46,531 - INFO - Epsilon decayed to 0.996625688926618
+2025-01-04 21:46:46,532 - INFO - Episode 338 / 49200 Winner: Agent 1. (Agent1 wins=166 Total Reward:0.85, Agent2 wins=161 Total Reward:-0.15, draws=11)
+2025-01-04 21:46:46,532 - INFO - ==== Starting episode 339 / 49200 ====
+2025-01-04 21:46:46,614 - INFO - Epsilon decayed to 0.9966157226697288
+2025-01-04 21:46:46,615 - INFO - Episode 339 / 49200 Winner: Agent 1. (Agent1 wins=167 Total Reward:0.83, Agent2 wins=161 Total Reward:-0.17, draws=11)
+2025-01-04 21:46:46,615 - INFO - ==== Starting episode 340 / 49200 ====
+2025-01-04 21:46:46,689 - INFO - Epsilon decayed to 0.996605756512502
+2025-01-04 21:46:46,690 - INFO - Episode 340 / 49200 Winner: Agent 2. (Agent1 wins=167 Total Reward:-0.15, Agent2 wins=162 Total Reward:0.86, draws=11)
+2025-01-04 21:46:46,690 - INFO - ==== Starting episode 341 / 49200 ====
+2025-01-04 21:46:46,760 - INFO - Epsilon decayed to 0.996595790454937
+2025-01-04 21:46:46,761 - INFO - Episode 341 / 49200 Winner: Agent 1. (Agent1 wins=168 Total Reward:0.86, Agent2 wins=162 Total Reward:-0.13999999999999999, draws=11)
+2025-01-04 21:46:46,761 - INFO - ==== Starting episode 342 / 49200 ====
+2025-01-04 21:46:46,808 - INFO - Epsilon decayed to 0.9965858244970325
+2025-01-04 21:46:46,809 - INFO - Episode 342 / 49200 Winner: Agent 1. (Agent1 wins=169 Total Reward:0.92, Agent2 wins=162 Total Reward:-0.08, draws=11)
+2025-01-04 21:46:46,809 - INFO - ==== Starting episode 343 / 49200 ====
+2025-01-04 21:46:46,880 - INFO - Epsilon decayed to 0.9965758586387875
+2025-01-04 21:46:46,881 - INFO - Episode 343 / 49200 Winner: Agent 1. (Agent1 wins=170 Total Reward:0.86, Agent2 wins=162 Total Reward:-0.13999999999999999, draws=11)
+2025-01-04 21:46:46,881 - INFO - ==== Starting episode 344 / 49200 ====
+2025-01-04 21:46:46,946 - INFO - Epsilon decayed to 0.9965658928802011
+2025-01-04 21:46:46,947 - INFO - Episode 344 / 49200 Winner: Agent 2. (Agent1 wins=170 Total Reward:-0.11999999999999998, Agent2 wins=163 Total Reward:0.89, draws=11)
+2025-01-04 21:46:46,947 - INFO - ==== Starting episode 345 / 49200 ====
+2025-01-04 21:46:47,010 - INFO - Epsilon decayed to 0.9965559272212724
+2025-01-04 21:46:47,011 - INFO - Episode 345 / 49200 Winner: Agent 1. (Agent1 wins=171 Total Reward:0.87, Agent2 wins=163 Total Reward:-0.12999999999999998, draws=11)
+2025-01-04 21:46:47,011 - INFO - ==== Starting episode 346 / 49200 ====
+2025-01-04 21:46:47,055 - INFO - Epsilon decayed to 0.9965459616620003
+2025-01-04 21:46:47,055 - INFO - Episode 346 / 49200 Winner: Agent 1. (Agent1 wins=172 Total Reward:0.95, Agent2 wins=163 Total Reward:-0.05, draws=11)
+2025-01-04 21:46:47,055 - INFO - ==== Starting episode 347 / 49200 ====
+2025-01-04 21:46:47,115 - INFO - Epsilon decayed to 0.9965359962023836
+2025-01-04 21:46:47,116 - INFO - Episode 347 / 49200 Winner: Agent 1. (Agent1 wins=173 Total Reward:0.89, Agent2 wins=163 Total Reward:-0.10999999999999999, draws=11)
+2025-01-04 21:46:47,116 - INFO - ==== Starting episode 348 / 49200 ====
+2025-01-04 21:46:47,188 - INFO - Epsilon decayed to 0.9965260308424216
+2025-01-04 21:46:47,188 - INFO - Episode 348 / 49200 Winner: Agent 1. (Agent1 wins=174 Total Reward:0.87, Agent2 wins=163 Total Reward:-0.12999999999999998, draws=11)
+2025-01-04 21:46:47,188 - INFO - ==== Starting episode 349 / 49200 ====
+2025-01-04 21:46:47,243 - INFO - Epsilon decayed to 0.9965160655821133
+2025-01-04 21:46:47,243 - INFO - Episode 349 / 49200 Winner: Agent 2. (Agent1 wins=174 Total Reward:-0.10999999999999999, Agent2 wins=164 Total Reward:0.9, draws=11)
+2025-01-04 21:46:47,243 - INFO - ==== Starting episode 350 / 49200 ====
+2025-01-04 21:46:47,304 - INFO - Epsilon decayed to 0.9965061004214575
+2025-01-04 21:46:47,304 - INFO - Episode 350 / 49200 Winner: Agent 2. (Agent1 wins=174 Total Reward:-0.11999999999999998, Agent2 wins=165 Total Reward:0.89, draws=11)
+2025-01-04 21:46:47,304 - INFO - ==== Starting episode 351 / 49200 ====
+2025-01-04 21:46:47,376 - INFO - Epsilon decayed to 0.9964961353604533
+2025-01-04 21:46:47,376 - INFO - Episode 351 / 49200 Winner: Agent 1. (Agent1 wins=175 Total Reward:0.87, Agent2 wins=165 Total Reward:-0.12999999999999998, draws=11)
+2025-01-04 21:46:47,376 - INFO - ==== Starting episode 352 / 49200 ====
+2025-01-04 21:46:47,495 - INFO - Epsilon decayed to 0.9964861703990998
+2025-01-04 21:46:47,496 - INFO - Episode 352 / 49200 Winner: Agent 1. (Agent1 wins=176 Total Reward:0.83, Agent2 wins=165 Total Reward:-0.17, draws=11)
+2025-01-04 21:46:47,496 - INFO - ==== Starting episode 353 / 49200 ====
+2025-01-04 21:46:47,569 - INFO - Epsilon decayed to 0.9964762055373959
+2025-01-04 21:46:47,570 - INFO - Episode 353 / 49200 Winner: Agent 1. (Agent1 wins=177 Total Reward:0.9299999999999999, Agent2 wins=165 Total Reward:-0.07, draws=11)
+2025-01-04 21:46:47,570 - INFO - ==== Starting episode 354 / 49200 ====
+2025-01-04 21:46:47,653 - INFO - Epsilon decayed to 0.9964662407753406
+2025-01-04 21:46:47,653 - INFO - Episode 354 / 49200 Winner: Agent 1. (Agent1 wins=178 Total Reward:0.89, Agent2 wins=165 Total Reward:-0.10999999999999999, draws=11)
+2025-01-04 21:46:47,653 - INFO - ==== Starting episode 355 / 49200 ====
+2025-01-04 21:46:47,737 - INFO - Epsilon decayed to 0.996456276112933
+2025-01-04 21:46:47,737 - INFO - Episode 355 / 49200 Winner: Agent 2. (Agent1 wins=178 Total Reward:-0.17, Agent2 wins=166 Total Reward:0.84, draws=11)
+2025-01-04 21:46:47,737 - INFO - ==== Starting episode 356 / 49200 ====
+2025-01-04 21:46:47,792 - INFO - Epsilon decayed to 0.9964463115501719
+2025-01-04 21:46:47,792 - INFO - Episode 356 / 49200 Winner: Agent 1. (Agent1 wins=179 Total Reward:0.91, Agent2 wins=166 Total Reward:-0.09, draws=11)
+2025-01-04 21:46:47,792 - INFO - ==== Starting episode 357 / 49200 ====
+2025-01-04 21:46:47,848 - INFO - Epsilon decayed to 0.9964363470870565
+2025-01-04 21:46:47,848 - INFO - Episode 357 / 49200 Winner: Agent 1. (Agent1 wins=180 Total Reward:0.89, Agent2 wins=166 Total Reward:-0.10999999999999999, draws=11)
+2025-01-04 21:46:47,849 - INFO - ==== Starting episode 358 / 49200 ====
+2025-01-04 21:46:47,918 - INFO - Epsilon decayed to 0.9964263827235857
+2025-01-04 21:46:47,918 - INFO - Episode 358 / 49200 Winner: Agent 2. (Agent1 wins=180 Total Reward:-0.13999999999999999, Agent2 wins=167 Total Reward:0.87, draws=11)
+2025-01-04 21:46:47,918 - INFO - ==== Starting episode 359 / 49200 ====
+2025-01-04 21:46:47,978 - INFO - Epsilon decayed to 0.9964164184597586
+2025-01-04 21:46:47,985 - INFO - Episode 359 / 49200 Winner: Agent 1. (Agent1 wins=181 Total Reward:0.89, Agent2 wins=167 Total Reward:-0.10999999999999999, draws=11)
+2025-01-04 21:46:47,986 - INFO - ==== Starting episode 360 / 49200 ====
+2025-01-04 21:46:48,053 - INFO - Epsilon decayed to 0.9964064542955741
+2025-01-04 21:46:48,054 - INFO - Episode 360 / 49200 Winner: Agent 1. (Agent1 wins=182 Total Reward:0.9, Agent2 wins=167 Total Reward:-0.09999999999999999, draws=11)
+2025-01-04 21:46:48,054 - INFO - ==== Starting episode 361 / 49200 ====
+2025-01-04 21:46:48,119 - INFO - Epsilon decayed to 0.9963964902310312
+2025-01-04 21:46:48,119 - INFO - Episode 361 / 49200 Winner: Agent 1. (Agent1 wins=183 Total Reward:0.9, Agent2 wins=167 Total Reward:-0.09999999999999999, draws=11)
+2025-01-04 21:46:48,119 - INFO - ==== Starting episode 362 / 49200 ====
+2025-01-04 21:46:48,193 - INFO - Epsilon decayed to 0.9963865262661289
+2025-01-04 21:46:48,193 - INFO - Episode 362 / 49200 Winner: Agent 1. (Agent1 wins=184 Total Reward:0.84, Agent2 wins=167 Total Reward:-0.16, draws=11)
+2025-01-04 21:46:48,193 - INFO - ==== Starting episode 363 / 49200 ====
+2025-01-04 21:46:48,248 - INFO - Epsilon decayed to 0.9963765624008663
+2025-01-04 21:46:48,249 - INFO - Episode 363 / 49200 Winner: Agent 1. (Agent1 wins=185 Total Reward:0.91, Agent2 wins=167 Total Reward:-0.09, draws=11)
+2025-01-04 21:46:48,249 - INFO - ==== Starting episode 364 / 49200 ====
+2025-01-04 21:46:48,310 - INFO - Epsilon decayed to 0.9963665986352422
+2025-01-04 21:46:48,310 - INFO - Episode 364 / 49200 Winner: Agent 2. (Agent1 wins=185 Total Reward:-0.10999999999999999, Agent2 wins=168 Total Reward:0.9, draws=11)
+2025-01-04 21:46:48,310 - INFO - ==== Starting episode 365 / 49200 ====
+2025-01-04 21:46:48,364 - INFO - Epsilon decayed to 0.996356634969256
+2025-01-04 21:46:48,365 - INFO - Episode 365 / 49200 Winner: Agent 1. (Agent1 wins=186 Total Reward:0.91, Agent2 wins=168 Total Reward:-0.09, draws=11)
+2025-01-04 21:46:48,365 - INFO - ==== Starting episode 366 / 49200 ====
+2025-01-04 21:46:48,421 - INFO - Epsilon decayed to 0.9963466714029063
+2025-01-04 21:46:48,422 - INFO - Episode 366 / 49200 Winner: Agent 2. (Agent1 wins=186 Total Reward:-0.09999999999999999, Agent2 wins=169 Total Reward:0.91, draws=11)
+2025-01-04 21:46:48,422 - INFO - ==== Starting episode 367 / 49200 ====
+2025-01-04 21:46:48,484 - INFO - Epsilon decayed to 0.9963367079361923
+2025-01-04 21:46:48,485 - INFO - Episode 367 / 49200 Winner: Agent 1. (Agent1 wins=187 Total Reward:0.89, Agent2 wins=169 Total Reward:-0.10999999999999999, draws=11)
+2025-01-04 21:46:48,485 - INFO - ==== Starting episode 368 / 49200 ====
+2025-01-04 21:46:48,542 - INFO - Epsilon decayed to 0.996326744569113
+2025-01-04 21:46:48,543 - INFO - Episode 368 / 49200 Winner: Agent 2. (Agent1 wins=187 Total Reward:-0.10999999999999999, Agent2 wins=170 Total Reward:0.9, draws=11)
+2025-01-04 21:46:48,543 - INFO - ==== Starting episode 369 / 49200 ====
+2025-01-04 21:46:48,621 - INFO - Epsilon decayed to 0.9963167813016673
+2025-01-04 21:46:48,622 - INFO - Episode 369 / 49200 Winner: Agent 2. (Agent1 wins=187 Total Reward:-0.17, Agent2 wins=171 Total Reward:0.84, draws=11)
+2025-01-04 21:46:48,622 - INFO - ==== Starting episode 370 / 49200 ====
+2025-01-04 21:46:48,708 - INFO - Epsilon decayed to 0.9963068181338544
+2025-01-04 21:46:48,709 - INFO - Episode 370 / 49200 Winner: Agent 2. (Agent1 wins=187 Total Reward:-0.17, Agent2 wins=172 Total Reward:0.84, draws=11)
+2025-01-04 21:46:48,709 - INFO - ==== Starting episode 371 / 49200 ====
+2025-01-04 21:46:48,790 - INFO - Epsilon decayed to 0.9962968550656731
+2025-01-04 21:46:48,791 - INFO - Episode 371 / 49200 Winner: Agent 1. (Agent1 wins=188 Total Reward:0.83, Agent2 wins=172 Total Reward:-0.17, draws=11)
+2025-01-04 21:46:48,791 - INFO - ==== Starting episode 372 / 49200 ====
+2025-01-04 21:46:48,841 - INFO - Epsilon decayed to 0.9962868920971225
+2025-01-04 21:46:48,842 - INFO - Episode 372 / 49200 Winner: Agent 2. (Agent1 wins=188 Total Reward:-0.08, Agent2 wins=173 Total Reward:0.9299999999999999, draws=11)
+2025-01-04 21:46:48,842 - INFO - ==== Starting episode 373 / 49200 ====
+2025-01-04 21:46:48,914 - INFO - Epsilon decayed to 0.9962769292282015
+2025-01-04 21:46:48,915 - INFO - Episode 373 / 49200 Winner: Agent 1. (Agent1 wins=189 Total Reward:0.88, Agent2 wins=173 Total Reward:-0.11999999999999998, draws=11)
+2025-01-04 21:46:48,915 - INFO - ==== Starting episode 374 / 49200 ====
+2025-01-04 21:46:48,974 - INFO - Epsilon decayed to 0.9962669664589093
+2025-01-04 21:46:48,975 - INFO - Episode 374 / 49200 Winner: Agent 2. (Agent1 wins=189 Total Reward:-0.09999999999999999, Agent2 wins=174 Total Reward:0.91, draws=11)
+2025-01-04 21:46:48,975 - INFO - ==== Starting episode 375 / 49200 ====
+2025-01-04 21:46:49,034 - INFO - Epsilon decayed to 0.9962570037892448
+2025-01-04 21:46:49,035 - INFO - Episode 375 / 49200 Winner: Agent 2. (Agent1 wins=189 Total Reward:-0.09999999999999999, Agent2 wins=175 Total Reward:0.91, draws=11)
+2025-01-04 21:46:49,035 - INFO - ==== Starting episode 376 / 49200 ====
+2025-01-04 21:46:49,118 - INFO - Epsilon decayed to 0.9962470412192069
+2025-01-04 21:46:49,119 - INFO - Episode 376 / 49200 Winner: Agent 1. (Agent1 wins=190 Total Reward:0.82, Agent2 wins=175 Total Reward:-0.18000000000000002, draws=11)
+2025-01-04 21:46:49,119 - INFO - ==== Starting episode 377 / 49200 ====
+2025-01-04 21:46:49,174 - INFO - Epsilon decayed to 0.9962370787487947
+2025-01-04 21:46:49,175 - INFO - Episode 377 / 49200 Winner: Agent 2. (Agent1 wins=190 Total Reward:-0.09999999999999999, Agent2 wins=176 Total Reward:0.91, draws=11)
+2025-01-04 21:46:49,175 - INFO - ==== Starting episode 378 / 49200 ====
+2025-01-04 21:46:49,244 - INFO - Epsilon decayed to 0.9962271163780073
+2025-01-04 21:46:49,244 - INFO - Episode 378 / 49200 Winner: Agent 1. (Agent1 wins=191 Total Reward:0.86, Agent2 wins=176 Total Reward:-0.13999999999999999, draws=11)
+2025-01-04 21:46:49,244 - INFO - ==== Starting episode 379 / 49200 ====
+2025-01-04 21:46:49,312 - INFO - Epsilon decayed to 0.9962171541068435
+2025-01-04 21:46:49,312 - INFO - Episode 379 / 49200 Winner: Agent 1. (Agent1 wins=192 Total Reward:0.86, Agent2 wins=176 Total Reward:-0.13999999999999999, draws=11)
+2025-01-04 21:46:49,313 - INFO - ==== Starting episode 380 / 49200 ====
+2025-01-04 21:46:49,373 - INFO - Epsilon decayed to 0.9962071919353025
+2025-01-04 21:46:49,374 - INFO - Episode 380 / 49200 Winner: Agent 2. (Agent1 wins=192 Total Reward:-0.09, Agent2 wins=177 Total Reward:0.92, draws=11)
+2025-01-04 21:46:49,374 - INFO - ==== Starting episode 381 / 49200 ====
+2025-01-04 21:46:49,452 - INFO - Epsilon decayed to 0.9961972298633832
+2025-01-04 21:46:49,453 - INFO - Episode 381 / 49200 Winner: Agent 1. (Agent1 wins=193 Total Reward:0.84, Agent2 wins=177 Total Reward:-0.16, draws=11)
+2025-01-04 21:46:49,453 - INFO - ==== Starting episode 382 / 49200 ====
+2025-01-04 21:46:49,515 - INFO - Epsilon decayed to 0.9961872678910846
+2025-01-04 21:46:49,516 - INFO - Episode 382 / 49200 Winner: Agent 2. (Agent1 wins=193 Total Reward:-0.10999999999999999, Agent2 wins=178 Total Reward:0.9, draws=11)
+2025-01-04 21:46:49,516 - INFO - ==== Starting episode 383 / 49200 ====
+2025-01-04 21:46:49,582 - INFO - Epsilon decayed to 0.9961773060184057
+2025-01-04 21:46:49,583 - INFO - Episode 383 / 49200 Winner: Agent 1. (Agent1 wins=194 Total Reward:0.87, Agent2 wins=178 Total Reward:-0.12999999999999998, draws=11)
+2025-01-04 21:46:49,583 - INFO - ==== Starting episode 384 / 49200 ====
+2025-01-04 21:46:49,642 - INFO - Epsilon decayed to 0.9961673442453456
+2025-01-04 21:46:49,642 - INFO - Episode 384 / 49200 Winner: Agent 2. (Agent1 wins=194 Total Reward:-0.11999999999999998, Agent2 wins=179 Total Reward:0.89, draws=11)
+2025-01-04 21:46:49,643 - INFO - ==== Starting episode 385 / 49200 ====
+2025-01-04 21:46:49,690 - INFO - Epsilon decayed to 0.9961573825719032
+2025-01-04 21:46:49,697 - INFO - Episode 385 / 49200 Winner: Agent 1. (Agent1 wins=195 Total Reward:0.97, Agent2 wins=179 Total Reward:-0.03, draws=11)
+2025-01-04 21:46:49,697 - INFO - ==== Starting episode 386 / 49200 ====
+2025-01-04 21:46:49,780 - INFO - Epsilon decayed to 0.9961474209980775
+2025-01-04 21:46:49,781 - INFO - Episode 386 / 49200 Winner: Agent 1. (Agent1 wins=196 Total Reward:0.85, Agent2 wins=179 Total Reward:-0.15, draws=11)
+2025-01-04 21:46:49,781 - INFO - ==== Starting episode 387 / 49200 ====
+2025-01-04 21:46:49,831 - INFO - Epsilon decayed to 0.9961374595238676
+2025-01-04 21:46:49,832 - INFO - Episode 387 / 49200 Winner: Agent 1. (Agent1 wins=197 Total Reward:0.92, Agent2 wins=179 Total Reward:-0.08, draws=11)
+2025-01-04 21:46:49,832 - INFO - ==== Starting episode 388 / 49200 ====
+2025-01-04 21:46:49,875 - INFO - Epsilon decayed to 0.9961274981492724
+2025-01-04 21:46:49,876 - INFO - Episode 388 / 49200 Winner: Agent 1. (Agent1 wins=198 Total Reward:0.94, Agent2 wins=179 Total Reward:-0.060000000000000005, draws=11)
+2025-01-04 21:46:49,876 - INFO - ==== Starting episode 389 / 49200 ====
+2025-01-04 21:46:49,943 - INFO - Epsilon decayed to 0.9961175368742909
+2025-01-04 21:46:49,944 - INFO - Episode 389 / 49200 Winner: Agent 2. (Agent1 wins=198 Total Reward:-0.13999999999999999, Agent2 wins=180 Total Reward:0.87, draws=11)
+2025-01-04 21:46:49,944 - INFO - ==== Starting episode 390 / 49200 ====
+2025-01-04 21:46:49,985 - INFO - Epsilon decayed to 0.9961075756989223
+2025-01-04 21:46:49,989 - INFO - Episode 390 / 49200 Winner: Agent 2. (Agent1 wins=198 Total Reward:-0.060000000000000005, Agent2 wins=181 Total Reward:0.95, draws=11)
+2025-01-04 21:46:49,990 - INFO - ==== Starting episode 391 / 49200 ====
+2025-01-04 21:46:50,064 - INFO - Epsilon decayed to 0.9960976146231654
+2025-01-04 21:46:50,065 - INFO - Episode 391 / 49200 Winner: Agent 2. (Agent1 wins=198 Total Reward:-0.16, Agent2 wins=182 Total Reward:0.85, draws=11)
+2025-01-04 21:46:50,065 - INFO - ==== Starting episode 392 / 49200 ====
+2025-01-04 21:46:50,116 - INFO - Epsilon decayed to 0.9960876536470192
+2025-01-04 21:46:50,117 - INFO - Episode 392 / 49200 Winner: Agent 1. (Agent1 wins=199 Total Reward:0.91, Agent2 wins=182 Total Reward:-0.09, draws=11)
+2025-01-04 21:46:50,117 - INFO - ==== Starting episode 393 / 49200 ====
+2025-01-04 21:46:50,189 - INFO - Epsilon decayed to 0.9960776927704829
+2025-01-04 21:46:50,190 - INFO - Episode 393 / 49200 Winner: Agent 2. (Agent1 wins=199 Total Reward:-0.10999999999999999, Agent2 wins=183 Total Reward:0.9, draws=11)
+2025-01-04 21:46:50,190 - INFO - ==== Starting episode 394 / 49200 ====
+2025-01-04 21:46:50,275 - INFO - Epsilon decayed to 0.9960677319935552
+2025-01-04 21:46:50,276 - INFO - Episode 394 / 49200 Winner: Agent 1. (Agent1 wins=200 Total Reward:0.86, Agent2 wins=183 Total Reward:-0.13999999999999999, draws=11)
+2025-01-04 21:46:50,276 - INFO - ==== Starting episode 395 / 49200 ====
+2025-01-04 21:46:50,327 - INFO - Epsilon decayed to 0.9960577713162354
+2025-01-04 21:46:50,328 - INFO - Episode 395 / 49200 Winner: Agent 1. (Agent1 wins=201 Total Reward:0.9299999999999999, Agent2 wins=183 Total Reward:-0.07, draws=11)
+2025-01-04 21:46:50,328 - INFO - ==== Starting episode 396 / 49200 ====
+2025-01-04 21:46:50,391 - INFO - Epsilon decayed to 0.9960478107385223
+2025-01-04 21:46:50,391 - INFO - Episode 396 / 49200 Winner: Agent 1. (Agent1 wins=202 Total Reward:0.89, Agent2 wins=183 Total Reward:-0.10999999999999999, draws=11)
+2025-01-04 21:46:50,391 - INFO - ==== Starting episode 397 / 49200 ====

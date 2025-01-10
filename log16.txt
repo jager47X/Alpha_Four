@@ -1,0 +1,1320 @@
+2025-01-04 21:54:33,799 - INFO - Checkpoint file path: Connect4_Agent_Trainer.pth verified.
+2025-01-04 21:54:33,801 - INFO - Loaded model from Connect4_Agent_Trainer.pth, starting from episode 2900.
+2025-01-04 21:54:33,852 - INFO - Checkpoint file path: Connect4_Agent_Model.pth verified.
+2025-01-04 21:54:33,853 - INFO - Loaded model from Connect4_Agent_Model.pth, starting from episode 2900.
+2025-01-04 21:54:33,853 - INFO - NUM_EPISODES adjusted to 47100 after subtracting 2900.
+2025-01-04 21:54:33,854 - INFO - ==== Starting episode 1 / 47100 ====
+2025-01-04 21:54:33,854 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:33,855 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:33,855 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:33,857 - DEBUG - Agent: Random Choice: 1
+2025-01-04 21:54:33,857 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:33,858 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:33,859 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:33,859 - DEBUG - Agent: Random Choice: 3
+2025-01-04 21:54:33,860 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:33,861 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:33,862 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:33,862 - DEBUG - Player 2 can block opponent in column 3.
+2025-01-04 21:54:33,863 - DEBUG - Agent: Logic-based action (win/block): 3
+2025-01-04 21:54:33,864 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:33,865 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:33,866 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:33,867 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:33,868 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:33,870 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:33,871 - DEBUG - Player 1 can block opponent in column 5.
+2025-01-04 21:54:33,871 - DEBUG - Trainer: Logic-based action (win/block): 5
+2025-01-04 21:54:33,872 - DEBUG - Agent: Random Choice: 3
+2025-01-04 21:54:33,873 - DEBUG - Player 1 can win by placing in column 3.
+2025-01-04 21:54:33,873 - DEBUG - Trainer: Logic-based action (win/block): 3
+2025-01-04 21:54:33,873 - INFO - Epsilon decayed to 0.99999
+2025-01-04 21:54:33,874 - INFO - Episode 1 / 47100 Winner: Agent 1. (Agent1 wins=1 Total Reward:0.9, Agent2 wins=0 Total Reward:-0.09999999999999999, draws=0)
+2025-01-04 21:54:33,874 - INFO - ==== Starting episode 2 / 47100 ====
+2025-01-04 21:54:33,874 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:33,875 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:33,875 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:33,876 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:33,876 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:33,877 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:33,877 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:33,878 - DEBUG - Player 2 can block opponent in column 6.
+2025-01-04 21:54:33,878 - DEBUG - Agent: Logic-based action (win/block): 6
+2025-01-04 21:54:33,879 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:33,880 - DEBUG - Agent: Random Choice: 3
+2025-01-04 21:54:33,881 - DEBUG - Player 1 can block opponent in column 1.
+2025-01-04 21:54:33,881 - DEBUG - Trainer: Logic-based action (win/block): 1
+2025-01-04 21:54:33,881 - DEBUG - Player 2 can win by placing in column 5.
+2025-01-04 21:54:33,881 - DEBUG - Agent: Logic-based action (win/block): 5
+2025-01-04 21:54:33,881 - INFO - Epsilon decayed to 0.9999800001000001
+2025-01-04 21:54:33,886 - INFO - Episode 2 / 47100 Winner: Agent 2. (Agent1 wins=1 Total Reward:-0.060000000000000005, Agent2 wins=1 Total Reward:0.95, draws=0)
+2025-01-04 21:54:33,886 - INFO - ==== Starting episode 3 / 47100 ====
+2025-01-04 21:54:33,887 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:33,887 - DEBUG - Agent: Random Choice: 3
+2025-01-04 21:54:33,888 - DEBUG - Trainer: Random Choice: 5
+2025-01-04 21:54:33,888 - DEBUG - Agent: Random Choice: 1
+2025-01-04 21:54:33,889 - DEBUG - Trainer: Random Choice: 5
+2025-01-04 21:54:33,889 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:33,890 - DEBUG - Player 1 can block opponent in column 0.
+2025-01-04 21:54:33,890 - DEBUG - Trainer: Logic-based action (win/block): 0
+2025-01-04 21:54:33,890 - DEBUG - Agent: Random Choice: 1
+2025-01-04 21:54:33,891 - DEBUG - Trainer: Random Choice: 5
+2025-01-04 21:54:33,892 - DEBUG - Player 2 can block opponent in column 5.
+2025-01-04 21:54:33,892 - DEBUG - Agent: Logic-based action (win/block): 5
+2025-01-04 21:54:33,893 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:33,894 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:33,895 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:33,896 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:33,897 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:33,898 - DEBUG - Agent: Random Choice: 1
+2025-01-04 21:54:33,899 - DEBUG - Player 1 can block opponent in column 1.
+2025-01-04 21:54:33,899 - DEBUG - Trainer: Logic-based action (win/block): 1
+2025-01-04 21:54:33,901 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:33,902 - DEBUG - Player 1 can block opponent in column 2.
+2025-01-04 21:54:33,902 - DEBUG - Trainer: Logic-based action (win/block): 2
+2025-01-04 21:54:33,904 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:33,906 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:33,908 - DEBUG - Player 2 can block opponent in column 4.
+2025-01-04 21:54:33,908 - DEBUG - Agent: Logic-based action (win/block): 4
+2025-01-04 21:54:33,911 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:33,913 - DEBUG - Player 2 can block opponent in column 6.
+2025-01-04 21:54:33,913 - DEBUG - Agent: Logic-based action (win/block): 6
+2025-01-04 21:54:33,915 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:33,918 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:33,920 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:33,922 - DEBUG - Player 2 can block opponent in column 4.
+2025-01-04 21:54:33,923 - DEBUG - Agent: Logic-based action (win/block): 4
+2025-01-04 21:54:33,925 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:33,925 - DEBUG - Player 2 can win by placing in column 0.
+2025-01-04 21:54:33,925 - DEBUG - Agent: Logic-based action (win/block): 0
+2025-01-04 21:54:34,098 - INFO - Epsilon decayed to 0.9999700002999992
+2025-01-04 21:54:34,099 - INFO - Episode 3 / 47100 Winner: Agent 2. (Agent1 wins=1 Total Reward:-0.15, Agent2 wins=2 Total Reward:0.86, draws=0)
+2025-01-04 21:54:34,099 - INFO - ==== Starting episode 4 / 47100 ====
+2025-01-04 21:54:34,099 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:34,100 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:34,100 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:34,101 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:34,101 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:34,102 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:34,102 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:34,103 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:34,104 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:34,105 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:34,106 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:34,107 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:34,108 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:34,109 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:34,110 - DEBUG - Trainer: Random Choice: 5
+2025-01-04 21:54:34,111 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:34,112 - DEBUG - Player 1 can block opponent in column 2.
+2025-01-04 21:54:34,112 - DEBUG - Trainer: Logic-based action (win/block): 2
+2025-01-04 21:54:34,114 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:34,116 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:34,118 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:34,120 - DEBUG - Trainer: Random Choice: 5
+2025-01-04 21:54:34,122 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:34,124 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:34,125 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:34,127 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:34,128 - DEBUG - Player 2 can block opponent in column 1.
+2025-01-04 21:54:34,128 - DEBUG - Agent: Logic-based action (win/block): 1
+2025-01-04 21:54:34,131 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:34,132 - DEBUG - Player 2 can block opponent in column 3.
+2025-01-04 21:54:34,133 - DEBUG - Agent: Logic-based action (win/block): 3
+2025-01-04 21:54:34,135 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:34,137 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:34,139 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:34,141 - DEBUG - Player 2 can block opponent in column 3.
+2025-01-04 21:54:34,141 - DEBUG - Agent: Logic-based action (win/block): 3
+2025-01-04 21:54:34,142 - DEBUG - Player 1 can win by placing in column 3.
+2025-01-04 21:54:34,142 - DEBUG - Trainer: Logic-based action (win/block): 3
+2025-01-04 21:54:34,159 - INFO - Epsilon decayed to 0.9999600005999962
+2025-01-04 21:54:34,160 - INFO - Episode 4 / 47100 Winner: Agent 1. (Agent1 wins=2 Total Reward:0.84, Agent2 wins=2 Total Reward:-0.16, draws=0)
+2025-01-04 21:54:34,160 - INFO - ==== Starting episode 5 / 47100 ====
+2025-01-04 21:54:34,160 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:34,161 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:34,161 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:34,162 - DEBUG - Agent: Random Choice: 3
+2025-01-04 21:54:34,162 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:34,163 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:34,164 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:34,164 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:34,165 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:34,166 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:34,167 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:34,168 - DEBUG - Agent: Random Choice: 3
+2025-01-04 21:54:34,170 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:34,171 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:34,173 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:34,175 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:34,177 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:34,179 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:34,181 - DEBUG - Player 1 can block opponent in column 4.
+2025-01-04 21:54:34,181 - DEBUG - Trainer: Logic-based action (win/block): 4
+2025-01-04 21:54:34,182 - DEBUG - Player 2 can block opponent in column 5.
+2025-01-04 21:54:34,182 - DEBUG - Agent: Logic-based action (win/block): 5
+2025-01-04 21:54:34,183 - DEBUG - Player 1 can win by placing in column 5.
+2025-01-04 21:54:34,183 - DEBUG - Trainer: Logic-based action (win/block): 5
+2025-01-04 21:54:34,201 - INFO - Epsilon decayed to 0.9999500009999903
+2025-01-04 21:54:34,201 - INFO - Episode 5 / 47100 Winner: Agent 1. (Agent1 wins=3 Total Reward:0.9, Agent2 wins=2 Total Reward:-0.09999999999999999, draws=0)
+2025-01-04 21:54:34,201 - INFO - ==== Starting episode 6 / 47100 ====
+2025-01-04 21:54:34,202 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:34,202 - DEBUG - Agent: Random Choice: 1
+2025-01-04 21:54:34,202 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:34,202 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:34,203 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:34,203 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:34,204 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:34,205 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:34,206 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:34,206 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:34,207 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:34,208 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:34,209 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:34,210 - DEBUG - Agent: Random Choice: 1
+2025-01-04 21:54:34,211 - DEBUG - Trainer: Random Choice: 5
+2025-01-04 21:54:34,212 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:34,214 - DEBUG - Player 1 can block opponent in column 4.
+2025-01-04 21:54:34,214 - DEBUG - Trainer: Logic-based action (win/block): 4
+2025-01-04 21:54:34,215 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:34,216 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:34,218 - DEBUG - Agent: Random Choice: 3
+2025-01-04 21:54:34,220 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:34,221 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:34,223 - DEBUG - Trainer: Random Choice: 5
+2025-01-04 21:54:34,225 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:34,227 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:34,229 - DEBUG - Player 2 can block opponent in column 3.
+2025-01-04 21:54:34,229 - DEBUG - Agent: Logic-based action (win/block): 3
+2025-01-04 21:54:34,231 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:34,234 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:34,236 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:34,239 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:34,242 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:34,245 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:34,248 - DEBUG - Trainer: Random Choice: 5
+2025-01-04 21:54:34,250 - DEBUG - Player 2 can block opponent in column 3.
+2025-01-04 21:54:34,250 - DEBUG - Agent: Logic-based action (win/block): 3
+2025-01-04 21:54:34,253 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:34,255 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:34,257 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:34,259 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:34,260 - DEBUG - Player 1 can block opponent in column 5.
+2025-01-04 21:54:34,260 - DEBUG - Trainer: Logic-based action (win/block): 5
+2025-01-04 21:54:34,262 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:34,262 - DEBUG - Player 1 can win by placing in column 2.
+2025-01-04 21:54:34,262 - DEBUG - Trainer: Logic-based action (win/block): 2
+2025-01-04 21:54:34,279 - INFO - Epsilon decayed to 0.9999400014999804
+2025-01-04 21:54:34,279 - INFO - Episode 6 / 47100 Winner: Agent 1. (Agent1 wins=4 Total Reward:0.7999999999999999, Agent2 wins=2 Total Reward:-0.20000000000000004, draws=0)
+2025-01-04 21:54:34,279 - INFO - ==== Starting episode 7 / 47100 ====
+2025-01-04 21:54:34,280 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:34,280 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:34,281 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:34,281 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:34,282 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:34,282 - DEBUG - Agent: Random Choice: 1
+2025-01-04 21:54:34,283 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:34,284 - DEBUG - Agent: Random Choice: 3
+2025-01-04 21:54:34,284 - DEBUG - Trainer: Random Choice: 5
+2025-01-04 21:54:34,285 - DEBUG - Player 2 can block opponent in column 4.
+2025-01-04 21:54:34,285 - DEBUG - Agent: Logic-based action (win/block): 4
+2025-01-04 21:54:34,286 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:34,287 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:34,288 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:34,289 - DEBUG - Agent: Random Choice: 3
+2025-01-04 21:54:34,291 - DEBUG - Trainer: Random Choice: 5
+2025-01-04 21:54:34,293 - DEBUG - Agent: Random Choice: 1
+2025-01-04 21:54:34,294 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:34,296 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:34,298 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:34,300 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:34,301 - DEBUG - Player 1 can block opponent in column 4.
+2025-01-04 21:54:34,301 - DEBUG - Trainer: Logic-based action (win/block): 4
+2025-01-04 21:54:34,303 - DEBUG - Player 2 can block opponent in column 5.
+2025-01-04 21:54:34,303 - DEBUG - Agent: Logic-based action (win/block): 5
+2025-01-04 21:54:34,305 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:34,307 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:34,309 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:34,312 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:34,314 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:34,317 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:34,319 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:34,322 - DEBUG - Player 2 can block opponent in column 2.
+2025-01-04 21:54:34,322 - DEBUG - Agent: Logic-based action (win/block): 2
+2025-01-04 21:54:34,324 - DEBUG - Player 1 can block opponent in column 5.
+2025-01-04 21:54:34,324 - DEBUG - Trainer: Logic-based action (win/block): 5
+2025-01-04 21:54:34,328 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:34,330 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:34,333 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:34,336 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:34,338 - DEBUG - Player 2 can block opponent in column 1.
+2025-01-04 21:54:34,338 - DEBUG - Agent: Logic-based action (win/block): 1
+2025-01-04 21:54:34,340 - DEBUG - Player 1 can block opponent in column 1.
+2025-01-04 21:54:34,340 - DEBUG - Trainer: Logic-based action (win/block): 1
+2025-01-04 21:54:34,342 - DEBUG - Agent: Random Choice: 1
+2025-01-04 21:54:34,345 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:34,347 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:34,348 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:34,349 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:34,367 - INFO - Epsilon decayed to 0.9999300020999654
+2025-01-04 21:54:34,368 - INFO - Episode 7 / 47100 Winner: Draw. (Agent1 wins=4 Total Reward:-0.21000000000000005, Agent2 wins=2 Total Reward:-0.20000000000000004, draws=1)
+2025-01-04 21:54:34,368 - INFO - ==== Starting episode 8 / 47100 ====
+2025-01-04 21:54:34,368 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:34,369 - DEBUG - Agent: Random Choice: 3
+2025-01-04 21:54:34,369 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:34,370 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:34,370 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:34,371 - DEBUG - Agent: Random Choice: 1
+2025-01-04 21:54:34,371 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:34,372 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:34,372 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:34,373 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:34,374 - DEBUG - Player 1 can block opponent in column 6.
+2025-01-04 21:54:34,374 - DEBUG - Trainer: Logic-based action (win/block): 6
+2025-01-04 21:54:34,375 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:34,376 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:34,377 - DEBUG - Player 2 can block opponent in column 3.
+2025-01-04 21:54:34,377 - DEBUG - Agent: Logic-based action (win/block): 3
+2025-01-04 21:54:34,378 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:34,379 - DEBUG - Player 2 can block opponent in column 2.
+2025-01-04 21:54:34,379 - DEBUG - Agent: Logic-based action (win/block): 2
+2025-01-04 21:54:34,381 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:34,383 - DEBUG - Agent: Random Choice: 3
+2025-01-04 21:54:34,384 - DEBUG - Player 1 can block opponent in column 3.
+2025-01-04 21:54:34,384 - DEBUG - Trainer: Logic-based action (win/block): 3
+2025-01-04 21:54:34,386 - DEBUG - Player 2 can block opponent in column 0.
+2025-01-04 21:54:34,386 - DEBUG - Agent: Logic-based action (win/block): 0
+2025-01-04 21:54:34,388 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:34,390 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:34,392 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:34,394 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:34,395 - DEBUG - Player 1 can win by placing in column 4.
+2025-01-04 21:54:34,395 - DEBUG - Trainer: Logic-based action (win/block): 4
+2025-01-04 21:54:34,413 - INFO - Epsilon decayed to 0.9999200027999444
+2025-01-04 21:54:34,414 - INFO - Episode 8 / 47100 Winner: Agent 1. (Agent1 wins=5 Total Reward:0.88, Agent2 wins=2 Total Reward:-0.11999999999999998, draws=1)
+2025-01-04 21:54:34,414 - INFO - ==== Starting episode 9 / 47100 ====
+2025-01-04 21:54:34,414 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:34,415 - DEBUG - Agent: Random Choice: 1
+2025-01-04 21:54:34,415 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:34,416 - DEBUG - Agent: Random Choice: 3
+2025-01-04 21:54:34,417 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:34,417 - DEBUG - Player 2 can block opponent in column 5.
+2025-01-04 21:54:34,417 - DEBUG - Agent: Logic-based action (win/block): 5
+2025-01-04 21:54:34,418 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:34,419 - DEBUG - Agent: Random Choice: 1
+2025-01-04 21:54:34,420 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:34,420 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:34,421 - DEBUG - Player 1 can block opponent in column 2.
+2025-01-04 21:54:34,421 - DEBUG - Trainer: Logic-based action (win/block): 2
+2025-01-04 21:54:34,422 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:34,423 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:34,424 - DEBUG - Agent: Random Choice: 3
+2025-01-04 21:54:34,426 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:34,427 - DEBUG - Player 2 can block opponent in column 2.
+2025-01-04 21:54:34,427 - DEBUG - Agent: Logic-based action (win/block): 2
+2025-01-04 21:54:34,428 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:34,430 - DEBUG - Player 2 can block opponent in column 0.
+2025-01-04 21:54:34,430 - DEBUG - Agent: Logic-based action (win/block): 0
+2025-01-04 21:54:34,432 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:34,433 - DEBUG - Player 2 can win by placing in column 4.
+2025-01-04 21:54:34,433 - DEBUG - Agent: Logic-based action (win/block): 4
+2025-01-04 21:54:34,449 - INFO - Epsilon decayed to 0.9999100035999164
+2025-01-04 21:54:34,454 - INFO - Episode 9 / 47100 Winner: Agent 2. (Agent1 wins=5 Total Reward:-0.09999999999999999, Agent2 wins=3 Total Reward:0.91, draws=1)
+2025-01-04 21:54:34,454 - INFO - ==== Starting episode 10 / 47100 ====
+2025-01-04 21:54:34,454 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:34,455 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:34,455 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:34,456 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:34,457 - DEBUG - Trainer: Random Choice: 5
+2025-01-04 21:54:34,457 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:34,458 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:34,458 - DEBUG - Agent: Random Choice: 3
+2025-01-04 21:54:34,459 - DEBUG - Player 1 can block opponent in column 1.
+2025-01-04 21:54:34,459 - DEBUG - Trainer: Logic-based action (win/block): 1
+2025-01-04 21:54:34,459 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:34,460 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:34,461 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:34,462 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:34,462 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:34,463 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:34,464 - DEBUG - Player 2 can block opponent in column 3.
+2025-01-04 21:54:34,464 - DEBUG - Agent: Logic-based action (win/block): 3
+2025-01-04 21:54:34,465 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:34,466 - DEBUG - Player 2 can block opponent in column 1.
+2025-01-04 21:54:34,466 - DEBUG - Agent: Logic-based action (win/block): 1
+2025-01-04 21:54:34,467 - DEBUG - Player 1 can block opponent in column 2.
+2025-01-04 21:54:34,467 - DEBUG - Trainer: Logic-based action (win/block): 2
+2025-01-04 21:54:34,469 - DEBUG - Agent: Random Choice: 3
+2025-01-04 21:54:34,469 - DEBUG - Player 1 can win by placing in column 3.
+2025-01-04 21:54:34,469 - DEBUG - Trainer: Logic-based action (win/block): 3
+2025-01-04 21:54:34,486 - INFO - Epsilon decayed to 0.9999000044998805
+2025-01-04 21:54:34,486 - INFO - Episode 10 / 47100 Winner: Agent 1. (Agent1 wins=6 Total Reward:0.9, Agent2 wins=3 Total Reward:-0.09999999999999999, draws=1)
+2025-01-04 21:54:34,487 - INFO - ==== Starting episode 11 / 47100 ====
+2025-01-04 21:54:34,487 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:34,488 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:34,488 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:34,489 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:34,489 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:34,490 - DEBUG - Agent: Random Choice: 3
+2025-01-04 21:54:34,491 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:34,491 - DEBUG - Player 2 can block opponent in column 0.
+2025-01-04 21:54:34,491 - DEBUG - Agent: Logic-based action (win/block): 0
+2025-01-04 21:54:34,492 - DEBUG - Player 1 can win by placing in column 4.
+2025-01-04 21:54:34,492 - DEBUG - Trainer: Logic-based action (win/block): 4
+2025-01-04 21:54:34,509 - INFO - Epsilon decayed to 0.9998900054998355
+2025-01-04 21:54:34,510 - INFO - Episode 11 / 47100 Winner: Agent 1. (Agent1 wins=7 Total Reward:0.96, Agent2 wins=3 Total Reward:-0.04, draws=1)
+2025-01-04 21:54:34,510 - INFO - ==== Starting episode 12 / 47100 ====
+2025-01-04 21:54:34,510 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:34,510 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:34,511 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:34,512 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:34,512 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:34,513 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:34,513 - DEBUG - Trainer: Random Choice: 5
+2025-01-04 21:54:34,514 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:34,515 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:34,515 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:34,516 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:34,517 - DEBUG - Player 2 can block opponent in column 4.
+2025-01-04 21:54:34,517 - DEBUG - Agent: Logic-based action (win/block): 4
+2025-01-04 21:54:34,518 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:34,519 - DEBUG - Agent: Random Choice: 3
+2025-01-04 21:54:34,520 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:34,521 - DEBUG - Player 2 can block opponent in column 2.
+2025-01-04 21:54:34,521 - DEBUG - Agent: Logic-based action (win/block): 2
+2025-01-04 21:54:34,521 - DEBUG - Player 1 can win by placing in column 3.
+2025-01-04 21:54:34,521 - DEBUG - Trainer: Logic-based action (win/block): 3
+2025-01-04 21:54:34,538 - INFO - Epsilon decayed to 0.9998800065997806
+2025-01-04 21:54:34,539 - INFO - Episode 12 / 47100 Winner: Agent 1. (Agent1 wins=8 Total Reward:0.92, Agent2 wins=3 Total Reward:-0.08, draws=1)
+2025-01-04 21:54:34,539 - INFO - ==== Starting episode 13 / 47100 ====
+2025-01-04 21:54:34,539 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:34,540 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:34,540 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:34,541 - DEBUG - Agent: Random Choice: 3
+2025-01-04 21:54:34,542 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:34,542 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:34,543 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:34,544 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:34,545 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:34,546 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:34,547 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:34,548 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:34,549 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:34,550 - DEBUG - Player 2 can block opponent in column 1.
+2025-01-04 21:54:34,550 - DEBUG - Agent: Logic-based action (win/block): 1
+2025-01-04 21:54:34,552 - DEBUG - Trainer: Random Choice: 5
+2025-01-04 21:54:34,553 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:34,554 - DEBUG - Player 1 can block opponent in column 2.
+2025-01-04 21:54:34,554 - DEBUG - Trainer: Logic-based action (win/block): 2
+2025-01-04 21:54:34,556 - DEBUG - Agent: Random Choice: 1
+2025-01-04 21:54:34,558 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:34,560 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:34,562 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:34,564 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:34,566 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:34,567 - DEBUG - Player 2 can block opponent in column 3.
+2025-01-04 21:54:34,567 - DEBUG - Agent: Logic-based action (win/block): 3
+2025-01-04 21:54:34,570 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:34,573 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:34,576 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:34,579 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:34,582 - DEBUG - Trainer: Random Choice: 5
+2025-01-04 21:54:34,585 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:34,586 - DEBUG - Player 1 can win by placing in column 4.
+2025-01-04 21:54:34,586 - DEBUG - Trainer: Logic-based action (win/block): 4
+2025-01-04 21:54:34,602 - INFO - Epsilon decayed to 0.9998700077997147
+2025-01-04 21:54:34,603 - INFO - Episode 13 / 47100 Winner: Agent 1. (Agent1 wins=9 Total Reward:0.85, Agent2 wins=3 Total Reward:-0.15, draws=1)
+2025-01-04 21:54:34,603 - INFO - ==== Starting episode 14 / 47100 ====
+2025-01-04 21:54:34,603 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:34,604 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:34,604 - DEBUG - Trainer: Random Choice: 5
+2025-01-04 21:54:34,605 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:34,605 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:34,606 - DEBUG - Agent: Random Choice: 1
+2025-01-04 21:54:34,607 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:34,607 - DEBUG - Player 2 can block opponent in column 0.
+2025-01-04 21:54:34,607 - DEBUG - Agent: Logic-based action (win/block): 0
+2025-01-04 21:54:34,608 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:34,609 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:34,610 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:34,612 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:34,615 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:34,616 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:34,617 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:34,618 - DEBUG - Agent: Random Choice: 3
+2025-01-04 21:54:34,619 - DEBUG - Player 1 can win by placing in column 3.
+2025-01-04 21:54:34,619 - DEBUG - Trainer: Logic-based action (win/block): 3
+2025-01-04 21:54:34,641 - INFO - Epsilon decayed to 0.9998600090996367
+2025-01-04 21:54:34,642 - INFO - Episode 14 / 47100 Winner: Agent 1. (Agent1 wins=10 Total Reward:0.92, Agent2 wins=3 Total Reward:-0.08, draws=1)
+2025-01-04 21:54:34,642 - INFO - ==== Starting episode 15 / 47100 ====
+2025-01-04 21:54:34,642 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:34,643 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:34,643 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:34,644 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:34,644 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:34,645 - DEBUG - Agent: Random Choice: 1
+2025-01-04 21:54:34,646 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:34,646 - DEBUG - Player 2 can block opponent in column 5.
+2025-01-04 21:54:34,646 - DEBUG - Agent: Logic-based action (win/block): 5
+2025-01-04 21:54:34,647 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:34,648 - DEBUG - Agent: Random Choice: 1
+2025-01-04 21:54:34,650 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:34,651 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:34,652 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:34,653 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:34,654 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:34,655 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:34,656 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:34,658 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:34,659 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:34,661 - DEBUG - Player 2 can block opponent in column 6.
+2025-01-04 21:54:34,661 - DEBUG - Agent: Logic-based action (win/block): 6
+2025-01-04 21:54:34,663 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:34,664 - DEBUG - Player 2 can block opponent in column 1.
+2025-01-04 21:54:34,664 - DEBUG - Agent: Logic-based action (win/block): 1
+2025-01-04 21:54:34,666 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:34,668 - DEBUG - Player 2 can block opponent in column 0.
+2025-01-04 21:54:34,668 - DEBUG - Agent: Logic-based action (win/block): 0
+2025-01-04 21:54:34,670 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:34,673 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:34,674 - DEBUG - Player 1 can block opponent in column 3.
+2025-01-04 21:54:34,675 - DEBUG - Trainer: Logic-based action (win/block): 3
+2025-01-04 21:54:34,676 - DEBUG - Player 2 can win by placing in column 5.
+2025-01-04 21:54:34,676 - DEBUG - Agent: Logic-based action (win/block): 5
+2025-01-04 21:54:34,694 - INFO - Epsilon decayed to 0.9998500104995457
+2025-01-04 21:54:34,694 - INFO - Episode 15 / 47100 Winner: Agent 2. (Agent1 wins=10 Total Reward:-0.13999999999999999, Agent2 wins=4 Total Reward:0.87, draws=1)
+2025-01-04 21:54:34,694 - INFO - ==== Starting episode 16 / 47100 ====
+2025-01-04 21:54:34,695 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:34,695 - DEBUG - Agent: Random Choice: 3
+2025-01-04 21:54:34,696 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:34,696 - DEBUG - Agent: Random Choice: 1
+2025-01-04 21:54:34,697 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:34,697 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:34,698 - DEBUG - Trainer: Random Choice: 5
+2025-01-04 21:54:34,699 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:34,699 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:34,700 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:34,701 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:34,702 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:34,703 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:34,703 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:34,705 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:34,706 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:34,708 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:34,709 - DEBUG - Agent: Random Choice: 1
+2025-01-04 21:54:34,711 - DEBUG - Player 1 can block opponent in column 2.
+2025-01-04 21:54:34,711 - DEBUG - Trainer: Logic-based action (win/block): 2
+2025-01-04 21:54:34,713 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:34,714 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:34,716 - DEBUG - Agent: Random Choice: 1
+2025-01-04 21:54:34,718 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:34,720 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:34,721 - DEBUG - Player 1 can block opponent in column 3.
+2025-01-04 21:54:34,721 - DEBUG - Trainer: Logic-based action (win/block): 3
+2025-01-04 21:54:34,723 - DEBUG - Agent: Random Choice: 3
+2025-01-04 21:54:34,726 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:34,728 - DEBUG - Agent: Random Choice: 3
+2025-01-04 21:54:34,730 - DEBUG - Trainer: Random Choice: 5
+2025-01-04 21:54:34,733 - DEBUG - Player 2 can block opponent in column 5.
+2025-01-04 21:54:34,733 - DEBUG - Agent: Logic-based action (win/block): 5
+2025-01-04 21:54:34,735 - DEBUG - Player 1 can block opponent in column 6.
+2025-01-04 21:54:34,736 - DEBUG - Trainer: Logic-based action (win/block): 6
+2025-01-04 21:54:34,738 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:34,741 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:34,744 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:34,746 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:34,748 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:34,750 - DEBUG - Player 1 can block opponent in column 2.
+2025-01-04 21:54:34,750 - DEBUG - Trainer: Logic-based action (win/block): 2
+2025-01-04 21:54:34,751 - DEBUG - Player 2 can block opponent in column 2.
+2025-01-04 21:54:34,751 - DEBUG - Agent: Logic-based action (win/block): 2
+2025-01-04 21:54:34,754 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:34,755 - DEBUG - Player 2 can win by placing in column 6.
+2025-01-04 21:54:34,755 - DEBUG - Agent: Logic-based action (win/block): 6
+2025-01-04 21:54:34,764 - INFO - Epsilon decayed to 0.9998400119994407
+2025-01-04 21:54:34,764 - INFO - Episode 16 / 47100 Winner: Agent 2. (Agent1 wins=10 Total Reward:-0.20000000000000004, Agent2 wins=5 Total Reward:0.8099999999999999, draws=1)
+2025-01-04 21:54:34,771 - INFO - ==== Starting episode 17 / 47100 ====
+2025-01-04 21:54:34,771 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:34,771 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:34,772 - DEBUG - Trainer: Random Choice: 5
+2025-01-04 21:54:34,773 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:34,774 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:34,775 - DEBUG - Agent: Random Choice: 3
+2025-01-04 21:54:34,775 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:34,776 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:34,777 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:34,778 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:34,779 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:34,780 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:34,781 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:34,782 - DEBUG - Agent: Random Choice: 1
+2025-01-04 21:54:34,783 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:34,784 - DEBUG - Agent: Random Choice: 3
+2025-01-04 21:54:34,785 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:34,787 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:34,788 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:34,790 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:34,791 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:34,792 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:34,794 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:34,795 - DEBUG - Player 2 can win by placing in column 3.
+2025-01-04 21:54:34,795 - DEBUG - Agent: Logic-based action (win/block): 3
+2025-01-04 21:54:34,811 - INFO - Epsilon decayed to 0.9998300135993208
+2025-01-04 21:54:34,811 - INFO - Episode 17 / 47100 Winner: Agent 2. (Agent1 wins=10 Total Reward:-0.11999999999999998, Agent2 wins=6 Total Reward:0.89, draws=1)
+2025-01-04 21:54:34,811 - INFO - ==== Starting episode 18 / 47100 ====
+2025-01-04 21:54:34,812 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:34,812 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:34,812 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:34,813 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:34,814 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:34,814 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:34,815 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:34,815 - DEBUG - Player 2 can block opponent in column 1.
+2025-01-04 21:54:34,816 - DEBUG - Agent: Logic-based action (win/block): 1
+2025-01-04 21:54:34,816 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:34,817 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:34,818 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:34,819 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:34,820 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:34,821 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:34,822 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:34,824 - DEBUG - Agent: Random Choice: 3
+2025-01-04 21:54:34,825 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:34,827 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:34,828 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:34,830 - DEBUG - Player 2 can block opponent in column 1.
+2025-01-04 21:54:34,830 - DEBUG - Agent: Logic-based action (win/block): 1
+2025-01-04 21:54:34,831 - DEBUG - Player 1 can block opponent in column 2.
+2025-01-04 21:54:34,831 - DEBUG - Trainer: Logic-based action (win/block): 2
+2025-01-04 21:54:34,831 - DEBUG - Player 2 can win by placing in column 2.
+2025-01-04 21:54:34,831 - DEBUG - Agent: Logic-based action (win/block): 2
+2025-01-04 21:54:34,848 - INFO - Epsilon decayed to 0.9998200152991848
+2025-01-04 21:54:34,849 - INFO - Episode 18 / 47100 Winner: Agent 2. (Agent1 wins=10 Total Reward:-0.10999999999999999, Agent2 wins=7 Total Reward:0.9, draws=1)
+2025-01-04 21:54:34,849 - INFO - ==== Starting episode 19 / 47100 ====
+2025-01-04 21:54:34,849 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:34,850 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:34,850 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:34,851 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:34,851 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:34,852 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:34,852 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:34,853 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:34,854 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:34,854 - DEBUG - Player 2 can block opponent in column 1.
+2025-01-04 21:54:34,854 - DEBUG - Agent: Logic-based action (win/block): 1
+2025-01-04 21:54:34,855 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:34,856 - DEBUG - Player 2 can block opponent in column 3.
+2025-01-04 21:54:34,856 - DEBUG - Agent: Logic-based action (win/block): 3
+2025-01-04 21:54:34,857 - DEBUG - Trainer: Random Choice: 5
+2025-01-04 21:54:34,858 - DEBUG - Agent: Random Choice: 1
+2025-01-04 21:54:34,860 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:34,861 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:34,863 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:34,864 - DEBUG - Player 2 can block opponent in column 0.
+2025-01-04 21:54:34,864 - DEBUG - Agent: Logic-based action (win/block): 0
+2025-01-04 21:54:34,864 - DEBUG - Player 1 can win by placing in column 4.
+2025-01-04 21:54:34,864 - DEBUG - Trainer: Logic-based action (win/block): 4
+2025-01-04 21:54:34,882 - INFO - Epsilon decayed to 0.999810017099032
+2025-01-04 21:54:34,883 - INFO - Episode 19 / 47100 Winner: Agent 1. (Agent1 wins=11 Total Reward:0.91, Agent2 wins=7 Total Reward:-0.09, draws=1)
+2025-01-04 21:54:34,883 - INFO - ==== Starting episode 20 / 47100 ====
+2025-01-04 21:54:34,883 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:34,884 - DEBUG - Agent: Random Choice: 3
+2025-01-04 21:54:34,884 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:34,885 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:34,885 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:34,886 - DEBUG - Agent: Random Choice: 3
+2025-01-04 21:54:34,887 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:34,889 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:34,890 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:34,891 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:34,892 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:34,894 - DEBUG - Agent: Random Choice: 3
+2025-01-04 21:54:34,896 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:34,897 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:34,899 - DEBUG - Player 1 can block opponent in column 5.
+2025-01-04 21:54:34,899 - DEBUG - Trainer: Logic-based action (win/block): 5
+2025-01-04 21:54:34,901 - DEBUG - Player 2 can block opponent in column 4.
+2025-01-04 21:54:34,901 - DEBUG - Agent: Logic-based action (win/block): 4
+2025-01-04 21:54:34,903 - DEBUG - Player 1 can block opponent in column 6.
+2025-01-04 21:54:34,903 - DEBUG - Trainer: Logic-based action (win/block): 6
+2025-01-04 21:54:34,904 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:34,906 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:34,908 - DEBUG - Player 2 can block opponent in column 2.
+2025-01-04 21:54:34,908 - DEBUG - Agent: Logic-based action (win/block): 2
+2025-01-04 21:54:34,910 - DEBUG - Trainer: Random Choice: 5
+2025-01-04 21:54:34,912 - DEBUG - Agent: Random Choice: 1
+2025-01-04 21:54:34,914 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:34,916 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:34,919 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:34,922 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:34,924 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:34,927 - DEBUG - Player 2 can block opponent in column 6.
+2025-01-04 21:54:34,927 - DEBUG - Agent: Logic-based action (win/block): 6
+2025-01-04 21:54:34,928 - DEBUG - Player 1 can win by placing in column 6.
+2025-01-04 21:54:34,929 - DEBUG - Trainer: Logic-based action (win/block): 6
+2025-01-04 21:54:34,947 - INFO - Epsilon decayed to 0.999800018998861
+2025-01-04 21:54:34,947 - INFO - Episode 20 / 47100 Winner: Agent 1. (Agent1 wins=12 Total Reward:0.86, Agent2 wins=7 Total Reward:-0.13999999999999999, draws=1)
+2025-01-04 21:54:34,947 - INFO - ==== Starting episode 21 / 47100 ====
+2025-01-04 21:54:34,947 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:34,948 - DEBUG - Agent: Random Choice: 1
+2025-01-04 21:54:34,949 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:34,949 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:34,950 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:34,950 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:34,951 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:34,952 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:34,953 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:34,954 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:34,954 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:34,955 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:34,956 - DEBUG - Trainer: Random Choice: 5
+2025-01-04 21:54:34,957 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:34,958 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:34,959 - DEBUG - Agent: Random Choice: 1
+2025-01-04 21:54:34,960 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:34,961 - DEBUG - Player 2 can block opponent in column 2.
+2025-01-04 21:54:34,961 - DEBUG - Agent: Logic-based action (win/block): 2
+2025-01-04 21:54:34,963 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:34,964 - DEBUG - Agent: Random Choice: 1
+2025-01-04 21:54:34,966 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:34,968 - DEBUG - Agent: Random Choice: 3
+2025-01-04 21:54:34,969 - DEBUG - Player 1 can win by placing in column 3.
+2025-01-04 21:54:34,969 - DEBUG - Trainer: Logic-based action (win/block): 3
+2025-01-04 21:54:34,985 - INFO - Epsilon decayed to 0.999790020998671
+2025-01-04 21:54:34,988 - INFO - Episode 21 / 47100 Winner: Agent 1. (Agent1 wins=13 Total Reward:0.89, Agent2 wins=7 Total Reward:-0.10999999999999999, draws=1)
+2025-01-04 21:54:34,988 - INFO - ==== Starting episode 22 / 47100 ====
+2025-01-04 21:54:34,989 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:34,989 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:34,990 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:34,990 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:34,991 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:34,991 - DEBUG - Agent: Random Choice: 1
+2025-01-04 21:54:34,992 - DEBUG - Trainer: Random Choice: 5
+2025-01-04 21:54:34,993 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:34,994 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:34,994 - DEBUG - Player 2 can block opponent in column 4.
+2025-01-04 21:54:34,995 - DEBUG - Agent: Logic-based action (win/block): 4
+2025-01-04 21:54:34,995 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:34,996 - DEBUG - Player 2 can block opponent in column 6.
+2025-01-04 21:54:34,996 - DEBUG - Agent: Logic-based action (win/block): 6
+2025-01-04 21:54:34,997 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:34,999 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:35,000 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:35,001 - DEBUG - Agent: Random Choice: 1
+2025-01-04 21:54:35,003 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:35,005 - DEBUG - Agent: Random Choice: 3
+2025-01-04 21:54:35,006 - DEBUG - Player 1 can block opponent in column 1.
+2025-01-04 21:54:35,006 - DEBUG - Trainer: Logic-based action (win/block): 1
+2025-01-04 21:54:35,008 - DEBUG - Agent: Random Choice: 3
+2025-01-04 21:54:35,009 - DEBUG - Player 1 can block opponent in column 0.
+2025-01-04 21:54:35,009 - DEBUG - Trainer: Logic-based action (win/block): 0
+2025-01-04 21:54:35,012 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:35,015 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:35,018 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:35,021 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:35,024 - DEBUG - Agent: Random Choice: 3
+2025-01-04 21:54:35,025 - DEBUG - Player 1 can block opponent in column 3.
+2025-01-04 21:54:35,026 - DEBUG - Trainer: Logic-based action (win/block): 3
+2025-01-04 21:54:35,028 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:35,031 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:35,033 - DEBUG - Player 2 can win by placing in column 4.
+2025-01-04 21:54:35,033 - DEBUG - Agent: Logic-based action (win/block): 4
+2025-01-04 21:54:35,051 - INFO - Epsilon decayed to 0.999780023098461
+2025-01-04 21:54:35,051 - INFO - Episode 22 / 47100 Winner: Agent 2. (Agent1 wins=13 Total Reward:-0.15, Agent2 wins=8 Total Reward:0.86, draws=1)
+2025-01-04 21:54:35,051 - INFO - ==== Starting episode 23 / 47100 ====
+2025-01-04 21:54:35,052 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:35,052 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:35,053 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:35,053 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:35,054 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:35,054 - DEBUG - Player 2 can block opponent in column 3.
+2025-01-04 21:54:35,054 - DEBUG - Agent: Logic-based action (win/block): 3
+2025-01-04 21:54:35,055 - DEBUG - Player 1 can block opponent in column 6.
+2025-01-04 21:54:35,055 - DEBUG - Trainer: Logic-based action (win/block): 6
+2025-01-04 21:54:35,056 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:35,057 - DEBUG - Trainer: Random Choice: 5
+2025-01-04 21:54:35,057 - DEBUG - Agent: Random Choice: 3
+2025-01-04 21:54:35,058 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:35,059 - DEBUG - Agent: Random Choice: 3
+2025-01-04 21:54:35,060 - DEBUG - Player 1 can block opponent in column 3.
+2025-01-04 21:54:35,060 - DEBUG - Trainer: Logic-based action (win/block): 3
+2025-01-04 21:54:35,061 - DEBUG - Agent: Random Choice: 1
+2025-01-04 21:54:35,062 - DEBUG - Player 1 can block opponent in column 2.
+2025-01-04 21:54:35,063 - DEBUG - Trainer: Logic-based action (win/block): 2
+2025-01-04 21:54:35,064 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:35,066 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:35,067 - DEBUG - Player 2 can block opponent in column 2.
+2025-01-04 21:54:35,067 - DEBUG - Agent: Logic-based action (win/block): 2
+2025-01-04 21:54:35,068 - DEBUG - Player 1 can block opponent in column 4.
+2025-01-04 21:54:35,068 - DEBUG - Trainer: Logic-based action (win/block): 4
+2025-01-04 21:54:35,070 - DEBUG - Player 2 can block opponent in column 4.
+2025-01-04 21:54:35,070 - DEBUG - Agent: Logic-based action (win/block): 4
+2025-01-04 21:54:35,072 - DEBUG - Player 1 can block opponent in column 6.
+2025-01-04 21:54:35,072 - DEBUG - Trainer: Logic-based action (win/block): 6
+2025-01-04 21:54:35,073 - DEBUG - Player 2 can block opponent in column 6.
+2025-01-04 21:54:35,074 - DEBUG - Agent: Logic-based action (win/block): 6
+2025-01-04 21:54:35,075 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:35,077 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:35,080 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:35,082 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:35,084 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:35,087 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:35,090 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:35,093 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:35,095 - DEBUG - Player 1 can block opponent in column 0.
+2025-01-04 21:54:35,095 - DEBUG - Trainer: Logic-based action (win/block): 0
+2025-01-04 21:54:35,102 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:35,106 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:35,109 - DEBUG - Agent: Random Choice: 3
+2025-01-04 21:54:35,112 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:35,115 - DEBUG - Player 2 can block opponent in column 1.
+2025-01-04 21:54:35,115 - DEBUG - Agent: Logic-based action (win/block): 1
+2025-01-04 21:54:35,117 - DEBUG - Player 1 can block opponent in column 3.
+2025-01-04 21:54:35,117 - DEBUG - Trainer: Logic-based action (win/block): 3
+2025-01-04 21:54:35,119 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:35,122 - DEBUG - Player 1 can block opponent in column 6.
+2025-01-04 21:54:35,122 - DEBUG - Trainer: Logic-based action (win/block): 6
+2025-01-04 21:54:35,124 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:35,127 - DEBUG - Trainer: Random Choice: 5
+2025-01-04 21:54:35,128 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:35,144 - INFO - Epsilon decayed to 0.9997700252982301
+2025-01-04 21:54:35,145 - INFO - Episode 23 / 47100 Winner: Draw. (Agent1 wins=13 Total Reward:-0.21000000000000005, Agent2 wins=8 Total Reward:-0.20000000000000004, draws=2)
+2025-01-04 21:54:35,145 - INFO - ==== Starting episode 24 / 47100 ====
+2025-01-04 21:54:35,146 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:35,146 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:35,147 - DEBUG - Trainer: Random Choice: 5
+2025-01-04 21:54:35,147 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:35,148 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:35,149 - DEBUG - Player 2 can block opponent in column 3.
+2025-01-04 21:54:35,149 - DEBUG - Agent: Logic-based action (win/block): 3
+2025-01-04 21:54:35,150 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:35,150 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:35,151 - DEBUG - Player 1 can block opponent in column 0.
+2025-01-04 21:54:35,151 - DEBUG - Trainer: Logic-based action (win/block): 0
+2025-01-04 21:54:35,152 - DEBUG - Agent: Random Choice: 3
+2025-01-04 21:54:35,153 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:35,155 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:35,156 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:35,158 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:35,160 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:35,162 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:35,164 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:35,166 - DEBUG - Agent: Random Choice: 1
+2025-01-04 21:54:35,169 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:35,171 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:35,174 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:35,176 - DEBUG - Agent: Random Choice: 1
+2025-01-04 21:54:35,178 - DEBUG - Player 1 can block opponent in column 1.
+2025-01-04 21:54:35,178 - DEBUG - Trainer: Logic-based action (win/block): 1
+2025-01-04 21:54:35,179 - DEBUG - Player 2 can win by placing in column 3.
+2025-01-04 21:54:35,179 - DEBUG - Agent: Logic-based action (win/block): 3
+2025-01-04 21:54:35,195 - INFO - Epsilon decayed to 0.9997600275979772
+2025-01-04 21:54:35,196 - INFO - Episode 24 / 47100 Winner: Agent 2. (Agent1 wins=13 Total Reward:-0.11999999999999998, Agent2 wins=9 Total Reward:0.89, draws=2)
+2025-01-04 21:54:35,196 - INFO - ==== Starting episode 25 / 47100 ====
+2025-01-04 21:54:35,196 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:35,197 - DEBUG - Agent: Random Choice: 3
+2025-01-04 21:54:35,197 - DEBUG - Trainer: Random Choice: 5
+2025-01-04 21:54:35,198 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:35,198 - DEBUG - Trainer: Random Choice: 5
+2025-01-04 21:54:35,199 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:35,199 - DEBUG - Player 1 can block opponent in column 1.
+2025-01-04 21:54:35,199 - DEBUG - Trainer: Logic-based action (win/block): 1
+2025-01-04 21:54:35,200 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:35,201 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:35,202 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:35,203 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:35,204 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:35,205 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:35,206 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:35,207 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:35,208 - DEBUG - Player 2 can block opponent in column 1.
+2025-01-04 21:54:35,208 - DEBUG - Agent: Logic-based action (win/block): 1
+2025-01-04 21:54:35,210 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:35,211 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:35,213 - DEBUG - Trainer: Random Choice: 5
+2025-01-04 21:54:35,216 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:35,218 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:35,220 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:35,222 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:35,224 - DEBUG - Player 2 can block opponent in column 4.
+2025-01-04 21:54:35,224 - DEBUG - Agent: Logic-based action (win/block): 4
+2025-01-04 21:54:35,227 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:35,229 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:35,230 - DEBUG - Player 1 can block opponent in column 0.
+2025-01-04 21:54:35,230 - DEBUG - Trainer: Logic-based action (win/block): 0
+2025-01-04 21:54:35,233 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:35,236 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:35,237 - DEBUG - Player 2 can win by placing in column 6.
+2025-01-04 21:54:35,237 - DEBUG - Agent: Logic-based action (win/block): 6
+2025-01-04 21:54:35,256 - INFO - Epsilon decayed to 0.9997500299977012
+2025-01-04 21:54:35,257 - INFO - Episode 25 / 47100 Winner: Agent 2. (Agent1 wins=13 Total Reward:-0.15, Agent2 wins=10 Total Reward:0.86, draws=2)
+2025-01-04 21:54:35,257 - INFO - ==== Starting episode 26 / 47100 ====
+2025-01-04 21:54:35,257 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:35,258 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:35,258 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:35,259 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:35,259 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:35,260 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:35,260 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:35,261 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:35,262 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:35,262 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:35,263 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:35,265 - DEBUG - Player 2 can block opponent in column 6.
+2025-01-04 21:54:35,265 - DEBUG - Agent: Logic-based action (win/block): 6
+2025-01-04 21:54:35,266 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:35,267 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:35,269 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:35,271 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:35,272 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:35,274 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:35,275 - DEBUG - Trainer: Random Choice: 5
+2025-01-04 21:54:35,277 - DEBUG - Player 2 can block opponent in column 3.
+2025-01-04 21:54:35,277 - DEBUG - Agent: Logic-based action (win/block): 3
+2025-01-04 21:54:35,278 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:35,280 - DEBUG - Agent: Random Choice: 1
+2025-01-04 21:54:35,282 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:35,284 - DEBUG - Agent: Random Choice: 3
+2025-01-04 21:54:35,286 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:35,288 - DEBUG - Agent: Random Choice: 1
+2025-01-04 21:54:35,291 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:35,293 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:35,295 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:35,297 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:35,298 - DEBUG - Player 1 can win by placing in column 2.
+2025-01-04 21:54:35,298 - DEBUG - Trainer: Logic-based action (win/block): 2
+2025-01-04 21:54:35,317 - INFO - Epsilon decayed to 0.9997400324974013
+2025-01-04 21:54:35,318 - INFO - Episode 26 / 47100 Winner: Agent 1. (Agent1 wins=14 Total Reward:0.85, Agent2 wins=10 Total Reward:-0.15, draws=2)
+2025-01-04 21:54:35,318 - INFO - ==== Starting episode 27 / 47100 ====
+2025-01-04 21:54:35,318 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:35,319 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:35,319 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:35,320 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:35,320 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:35,321 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:35,322 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:35,322 - DEBUG - Agent: Random Choice: 1
+2025-01-04 21:54:35,323 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:35,324 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:35,324 - DEBUG - Trainer: Random Choice: 5
+2025-01-04 21:54:35,325 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:35,326 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:35,327 - DEBUG - Player 2 can block opponent in column 0.
+2025-01-04 21:54:35,327 - DEBUG - Agent: Logic-based action (win/block): 0
+2025-01-04 21:54:35,328 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:35,329 - DEBUG - Agent: Random Choice: 1
+2025-01-04 21:54:35,331 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:35,332 - DEBUG - Player 2 can block opponent in column 3.
+2025-01-04 21:54:35,332 - DEBUG - Agent: Logic-based action (win/block): 3
+2025-01-04 21:54:35,333 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:35,335 - DEBUG - Agent: Random Choice: 3
+2025-01-04 21:54:35,338 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:35,340 - DEBUG - Agent: Random Choice: 3
+2025-01-04 21:54:35,343 - DEBUG - Trainer: Random Choice: 5
+2025-01-04 21:54:35,345 - DEBUG - Player 2 can block opponent in column 6.
+2025-01-04 21:54:35,345 - DEBUG - Agent: Logic-based action (win/block): 6
+2025-01-04 21:54:35,347 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:35,349 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:35,351 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:35,354 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:35,356 - DEBUG - Player 1 can block opponent in column 5.
+2025-01-04 21:54:35,356 - DEBUG - Trainer: Logic-based action (win/block): 5
+2025-01-04 21:54:35,358 - DEBUG - Player 2 can block opponent in column 5.
+2025-01-04 21:54:35,358 - DEBUG - Agent: Logic-based action (win/block): 5
+2025-01-04 21:54:35,360 - DEBUG - Player 1 can win by placing in column 6.
+2025-01-04 21:54:35,360 - DEBUG - Trainer: Logic-based action (win/block): 6
+2025-01-04 21:54:35,378 - INFO - Epsilon decayed to 0.9997300350970764
+2025-01-04 21:54:35,379 - INFO - Episode 27 / 47100 Winner: Agent 1. (Agent1 wins=15 Total Reward:0.85, Agent2 wins=10 Total Reward:-0.15, draws=2)
+2025-01-04 21:54:35,379 - INFO - ==== Starting episode 28 / 47100 ====
+2025-01-04 21:54:35,380 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:35,380 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:35,380 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:35,381 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:35,381 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:35,382 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:35,382 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:35,383 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:35,384 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:35,385 - DEBUG - Player 2 can block opponent in column 3.
+2025-01-04 21:54:35,385 - DEBUG - Agent: Logic-based action (win/block): 3
+2025-01-04 21:54:35,385 - DEBUG - Trainer: Random Choice: 5
+2025-01-04 21:54:35,386 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:35,387 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:35,388 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:35,390 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:35,391 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:35,392 - DEBUG - Trainer: Random Choice: 5
+2025-01-04 21:54:35,393 - DEBUG - Agent: Random Choice: 1
+2025-01-04 21:54:35,394 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:35,395 - DEBUG - Agent: Random Choice: 1
+2025-01-04 21:54:35,396 - DEBUG - Player 1 can block opponent in column 0.
+2025-01-04 21:54:35,396 - DEBUG - Trainer: Logic-based action (win/block): 0
+2025-01-04 21:54:35,396 - DEBUG - Player 2 can win by placing in column 3.
+2025-01-04 21:54:35,397 - DEBUG - Agent: Logic-based action (win/block): 3
+2025-01-04 21:54:35,414 - INFO - Epsilon decayed to 0.9997200377967255
+2025-01-04 21:54:35,415 - INFO - Episode 28 / 47100 Winner: Agent 2. (Agent1 wins=15 Total Reward:-0.10999999999999999, Agent2 wins=11 Total Reward:0.9, draws=2)
+2025-01-04 21:54:35,415 - INFO - ==== Starting episode 29 / 47100 ====
+2025-01-04 21:54:35,415 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:35,416 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:35,416 - DEBUG - Trainer: Random Choice: 5
+2025-01-04 21:54:35,417 - DEBUG - Agent: Random Choice: 1
+2025-01-04 21:54:35,417 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:35,418 - DEBUG - Agent: Random Choice: 3
+2025-01-04 21:54:35,419 - DEBUG - Trainer: Random Choice: 5
+2025-01-04 21:54:35,419 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:35,420 - DEBUG - Player 1 can block opponent in column 4.
+2025-01-04 21:54:35,420 - DEBUG - Trainer: Logic-based action (win/block): 4
+2025-01-04 21:54:35,421 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:35,421 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:35,422 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:35,423 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:35,424 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:35,425 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:35,426 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:35,427 - DEBUG - Player 1 can block opponent in column 2.
+2025-01-04 21:54:35,427 - DEBUG - Trainer: Logic-based action (win/block): 2
+2025-01-04 21:54:35,429 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:35,430 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:35,432 - DEBUG - Player 2 can block opponent in column 3.
+2025-01-04 21:54:35,432 - DEBUG - Agent: Logic-based action (win/block): 3
+2025-01-04 21:54:35,434 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:35,436 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:35,439 - DEBUG - Trainer: Random Choice: 5
+2025-01-04 21:54:35,441 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:35,443 - DEBUG - Player 1 can block opponent in column 6.
+2025-01-04 21:54:35,443 - DEBUG - Trainer: Logic-based action (win/block): 6
+2025-01-04 21:54:35,446 - DEBUG - Player 2 can block opponent in column 6.
+2025-01-04 21:54:35,446 - DEBUG - Agent: Logic-based action (win/block): 6
+2025-01-04 21:54:35,449 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:35,451 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:35,454 - DEBUG - Trainer: Random Choice: 5
+2025-01-04 21:54:35,457 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:35,460 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:35,462 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:35,464 - DEBUG - Player 1 can block opponent in column 3.
+2025-01-04 21:54:35,464 - DEBUG - Trainer: Logic-based action (win/block): 3
+2025-01-04 21:54:35,466 - DEBUG - Agent: Random Choice: 1
+2025-01-04 21:54:35,469 - DEBUG - Player 1 can block opponent in column 4.
+2025-01-04 21:54:35,469 - DEBUG - Trainer: Logic-based action (win/block): 4
+2025-01-04 21:54:35,472 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:35,474 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:35,475 - DEBUG - Agent: Random Choice: 1
+2025-01-04 21:54:35,477 - DEBUG - Player 1 can block opponent in column 1.
+2025-01-04 21:54:35,477 - DEBUG - Trainer: Logic-based action (win/block): 1
+2025-01-04 21:54:35,478 - DEBUG - Player 2 can block opponent in column 1.
+2025-01-04 21:54:35,478 - DEBUG - Agent: Logic-based action (win/block): 1
+2025-01-04 21:54:35,480 - DEBUG - Trainer: Random Choice: 5
+2025-01-04 21:54:35,481 - DEBUG - Agent: Random Choice: 1
+2025-01-04 21:54:35,498 - INFO - Epsilon decayed to 0.9997100405963475
+2025-01-04 21:54:35,498 - INFO - Episode 29 / 47100 Winner: Draw. (Agent1 wins=15 Total Reward:-0.21000000000000005, Agent2 wins=11 Total Reward:-0.20000000000000004, draws=3)
+2025-01-04 21:54:35,499 - INFO - ==== Starting episode 30 / 47100 ====
+2025-01-04 21:54:35,499 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:35,499 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:35,500 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:35,500 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:35,501 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:35,501 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:35,502 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:35,503 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:35,503 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:35,504 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:35,505 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:35,505 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:35,506 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:35,507 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:35,509 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:35,510 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:35,511 - DEBUG - Player 1 can block opponent in column 3.
+2025-01-04 21:54:35,511 - DEBUG - Trainer: Logic-based action (win/block): 3
+2025-01-04 21:54:35,512 - DEBUG - Agent: Random Choice: 3
+2025-01-04 21:54:35,514 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:35,516 - DEBUG - Agent: Random Choice: 3
+2025-01-04 21:54:35,518 - DEBUG - Player 1 can block opponent in column 2.
+2025-01-04 21:54:35,518 - DEBUG - Trainer: Logic-based action (win/block): 2
+2025-01-04 21:54:35,520 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:35,522 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:35,524 - DEBUG - Player 2 can block opponent in column 5.
+2025-01-04 21:54:35,524 - DEBUG - Agent: Logic-based action (win/block): 5
+2025-01-04 21:54:35,526 - DEBUG - Trainer: Random Choice: 5
+2025-01-04 21:54:35,528 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:35,531 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:35,533 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:35,536 - DEBUG - Player 1 can block opponent in column 5.
+2025-01-04 21:54:35,536 - DEBUG - Trainer: Logic-based action (win/block): 5
+2025-01-04 21:54:35,539 - DEBUG - Agent: Random Choice: 1
+2025-01-04 21:54:35,541 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:35,543 - DEBUG - Player 2 can win by placing in column 1.
+2025-01-04 21:54:35,543 - DEBUG - Agent: Logic-based action (win/block): 1
+2025-01-04 21:54:35,560 - INFO - Epsilon decayed to 0.9997000434959415
+2025-01-04 21:54:35,561 - INFO - Episode 30 / 47100 Winner: Agent 2. (Agent1 wins=15 Total Reward:-0.16, Agent2 wins=12 Total Reward:0.85, draws=3)
+2025-01-04 21:54:35,561 - INFO - ==== Starting episode 31 / 47100 ====
+2025-01-04 21:54:35,561 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:35,562 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:35,562 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:35,563 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:35,563 - DEBUG - Trainer: Random Choice: 5
+2025-01-04 21:54:35,564 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:35,564 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:35,565 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:35,566 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:35,566 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:35,567 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:35,568 - DEBUG - Player 2 can block opponent in column 1.
+2025-01-04 21:54:35,568 - DEBUG - Agent: Logic-based action (win/block): 1
+2025-01-04 21:54:35,569 - DEBUG - Trainer: Random Choice: 5
+2025-01-04 21:54:35,570 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:35,572 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:35,573 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:35,574 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:35,576 - DEBUG - Agent: Random Choice: 3
+2025-01-04 21:54:35,577 - DEBUG - Trainer: Random Choice: 5
+2025-01-04 21:54:35,579 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:35,581 - DEBUG - Player 1 can block opponent in column 2.
+2025-01-04 21:54:35,581 - DEBUG - Trainer: Logic-based action (win/block): 2
+2025-01-04 21:54:35,583 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:35,585 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:35,587 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:35,589 - DEBUG - Player 1 can block opponent in column 0.
+2025-01-04 21:54:35,589 - DEBUG - Trainer: Logic-based action (win/block): 0
+2025-01-04 21:54:35,592 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:35,594 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:35,597 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:35,600 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:35,602 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:35,605 - DEBUG - Trainer: Random Choice: 5
+2025-01-04 21:54:35,608 - DEBUG - Agent: Random Choice: 3
+2025-01-04 21:54:35,608 - DEBUG - Player 1 can win by placing in column 3.
+2025-01-04 21:54:35,608 - DEBUG - Trainer: Logic-based action (win/block): 3
+2025-01-04 21:54:35,626 - INFO - Epsilon decayed to 0.9996900464955066
+2025-01-04 21:54:35,626 - INFO - Episode 31 / 47100 Winner: Agent 1. (Agent1 wins=16 Total Reward:0.84, Agent2 wins=12 Total Reward:-0.16, draws=3)
+2025-01-04 21:54:35,626 - INFO - ==== Starting episode 32 / 47100 ====
+2025-01-04 21:54:35,627 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:35,627 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:35,628 - DEBUG - Trainer: Random Choice: 5
+2025-01-04 21:54:35,628 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:35,629 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:35,629 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:35,630 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:35,630 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:35,631 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:35,631 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:35,632 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:35,633 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:35,634 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:35,635 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:35,636 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:35,637 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:35,638 - DEBUG - Player 1 can block opponent in column 6.
+2025-01-04 21:54:35,638 - DEBUG - Trainer: Logic-based action (win/block): 6
+2025-01-04 21:54:35,639 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:35,641 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:35,642 - DEBUG - Player 2 can block opponent in column 1.
+2025-01-04 21:54:35,642 - DEBUG - Agent: Logic-based action (win/block): 1
+2025-01-04 21:54:35,643 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:35,645 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:35,648 - DEBUG - Trainer: Random Choice: 5
+2025-01-04 21:54:35,650 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:35,650 - DEBUG - Player 1 can win by placing in column 0.
+2025-01-04 21:54:35,650 - DEBUG - Trainer: Logic-based action (win/block): 0
+2025-01-04 21:54:35,668 - INFO - Epsilon decayed to 0.9996800495950418
+2025-01-04 21:54:35,668 - INFO - Episode 32 / 47100 Winner: Agent 1. (Agent1 wins=17 Total Reward:0.88, Agent2 wins=12 Total Reward:-0.11999999999999998, draws=3)
+2025-01-04 21:54:35,668 - INFO - ==== Starting episode 33 / 47100 ====
+2025-01-04 21:54:35,669 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:35,669 - DEBUG - Agent: Random Choice: 3
+2025-01-04 21:54:35,670 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:35,670 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:35,671 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:35,672 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:35,672 - DEBUG - Player 1 can block opponent in column 1.
+2025-01-04 21:54:35,672 - DEBUG - Trainer: Logic-based action (win/block): 1
+2025-01-04 21:54:35,673 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:35,674 - DEBUG - Player 1 can block opponent in column 5.
+2025-01-04 21:54:35,674 - DEBUG - Trainer: Logic-based action (win/block): 5
+2025-01-04 21:54:35,675 - DEBUG - Agent: Random Choice: 3
+2025-01-04 21:54:35,676 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:35,677 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:35,679 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:35,680 - DEBUG - Player 2 can block opponent in column 4.
+2025-01-04 21:54:35,680 - DEBUG - Agent: Logic-based action (win/block): 4
+2025-01-04 21:54:35,682 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:35,683 - DEBUG - Player 2 can block opponent in column 1.
+2025-01-04 21:54:35,683 - DEBUG - Agent: Logic-based action (win/block): 1
+2025-01-04 21:54:35,685 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:35,686 - DEBUG - Player 2 can block opponent in column 0.
+2025-01-04 21:54:35,686 - DEBUG - Agent: Logic-based action (win/block): 0
+2025-01-04 21:54:35,687 - DEBUG - Player 1 can win by placing in column 4.
+2025-01-04 21:54:35,687 - DEBUG - Trainer: Logic-based action (win/block): 4
+2025-01-04 21:54:35,703 - INFO - Epsilon decayed to 0.9996700527945458
+2025-01-04 21:54:35,705 - INFO - Episode 33 / 47100 Winner: Agent 1. (Agent1 wins=18 Total Reward:0.91, Agent2 wins=12 Total Reward:-0.09, draws=3)
+2025-01-04 21:54:35,706 - INFO - ==== Starting episode 34 / 47100 ====
+2025-01-04 21:54:35,706 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:35,706 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:35,707 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:35,708 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:35,708 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:35,709 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:35,710 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:35,711 - DEBUG - Player 2 can block opponent in column 1.
+2025-01-04 21:54:35,711 - DEBUG - Agent: Logic-based action (win/block): 1
+2025-01-04 21:54:35,711 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:35,712 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:35,713 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:35,715 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:35,716 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:35,717 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:35,718 - DEBUG - Player 1 can block opponent in column 5.
+2025-01-04 21:54:35,718 - DEBUG - Trainer: Logic-based action (win/block): 5
+2025-01-04 21:54:35,719 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:35,721 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:35,722 - DEBUG - Player 2 can block opponent in column 4.
+2025-01-04 21:54:35,722 - DEBUG - Agent: Logic-based action (win/block): 4
+2025-01-04 21:54:35,724 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:35,725 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:35,727 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:35,728 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:35,730 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:35,733 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:35,735 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:35,737 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:35,740 - DEBUG - Trainer: Random Choice: 5
+2025-01-04 21:54:35,742 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:35,744 - DEBUG - Player 1 can block opponent in column 3.
+2025-01-04 21:54:35,744 - DEBUG - Trainer: Logic-based action (win/block): 3
+2025-01-04 21:54:35,745 - DEBUG - Player 2 can win by placing in column 3.
+2025-01-04 21:54:35,745 - DEBUG - Agent: Logic-based action (win/block): 3
+2025-01-04 21:54:35,763 - INFO - Epsilon decayed to 0.9996600560940179
+2025-01-04 21:54:35,764 - INFO - Episode 34 / 47100 Winner: Agent 2. (Agent1 wins=18 Total Reward:-0.15, Agent2 wins=13 Total Reward:0.86, draws=3)
+2025-01-04 21:54:35,764 - INFO - ==== Starting episode 35 / 47100 ====
+2025-01-04 21:54:35,764 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:35,765 - DEBUG - Agent: Random Choice: 1
+2025-01-04 21:54:35,765 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:35,766 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:35,766 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:35,767 - DEBUG - Agent: Random Choice: 1
+2025-01-04 21:54:35,768 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:35,769 - DEBUG - Player 2 can block opponent in column 2.
+2025-01-04 21:54:35,769 - DEBUG - Agent: Logic-based action (win/block): 2
+2025-01-04 21:54:35,770 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:35,771 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:35,772 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:35,773 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:35,775 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:35,776 - DEBUG - Agent: Random Choice: 1
+2025-01-04 21:54:35,777 - DEBUG - Player 1 can block opponent in column 1.
+2025-01-04 21:54:35,777 - DEBUG - Trainer: Logic-based action (win/block): 1
+2025-01-04 21:54:35,779 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:35,780 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:35,782 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:35,784 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:35,786 - DEBUG - Agent: Random Choice: 3
+2025-01-04 21:54:35,788 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:35,790 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:35,792 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:35,795 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:35,797 - DEBUG - Trainer: Random Choice: 5
+2025-01-04 21:54:35,800 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:35,802 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:35,804 - DEBUG - Player 2 can block opponent in column 3.
+2025-01-04 21:54:35,804 - DEBUG - Agent: Logic-based action (win/block): 3
+2025-01-04 21:54:35,806 - DEBUG - Player 1 can block opponent in column 3.
+2025-01-04 21:54:35,806 - DEBUG - Trainer: Logic-based action (win/block): 3
+2025-01-04 21:54:35,807 - DEBUG - Player 2 can win by placing in column 5.
+2025-01-04 21:54:35,807 - DEBUG - Agent: Logic-based action (win/block): 5
+2025-01-04 21:54:35,824 - INFO - Epsilon decayed to 0.999650059493457
+2025-01-04 21:54:35,825 - INFO - Episode 35 / 47100 Winner: Agent 2. (Agent1 wins=18 Total Reward:-0.15, Agent2 wins=14 Total Reward:0.86, draws=3)
+2025-01-04 21:54:35,825 - INFO - ==== Starting episode 36 / 47100 ====
+2025-01-04 21:54:35,825 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:35,826 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:35,826 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:35,827 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:35,827 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:35,828 - DEBUG - Player 2 can block opponent in column 1.
+2025-01-04 21:54:35,828 - DEBUG - Agent: Logic-based action (win/block): 1
+2025-01-04 21:54:35,829 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:35,830 - DEBUG - Agent: Random Choice: 0
+2025-01-04 21:54:35,831 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:35,832 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:35,833 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:35,834 - DEBUG - Agent: Random Choice: 1
+2025-01-04 21:54:35,835 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:35,836 - DEBUG - Player 2 can block opponent in column 3.
+2025-01-04 21:54:35,836 - DEBUG - Agent: Logic-based action (win/block): 3
+2025-01-04 21:54:35,838 - DEBUG - Trainer: Random Choice: 5
+2025-01-04 21:54:35,839 - DEBUG - Agent: Random Choice: 3
+2025-01-04 21:54:35,841 - DEBUG - Trainer: Random Choice: 5
+2025-01-04 21:54:35,842 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:35,844 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:35,845 - DEBUG - Agent: Random Choice: 3
+2025-01-04 21:54:35,847 - DEBUG - Player 1 can block opponent in column 3.
+2025-01-04 21:54:35,847 - DEBUG - Trainer: Logic-based action (win/block): 3
+2025-01-04 21:54:35,849 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:35,851 - DEBUG - Player 1 can block opponent in column 4.
+2025-01-04 21:54:35,851 - DEBUG - Trainer: Logic-based action (win/block): 4
+2025-01-04 21:54:35,853 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:35,856 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:35,857 - DEBUG - Player 2 can block opponent in column 2.
+2025-01-04 21:54:35,857 - DEBUG - Agent: Logic-based action (win/block): 2
+2025-01-04 21:54:35,858 - DEBUG - Player 1 can win by placing in column 4.
+2025-01-04 21:54:35,858 - DEBUG - Trainer: Logic-based action (win/block): 4
+2025-01-04 21:54:35,874 - INFO - Epsilon decayed to 0.9996400629928621
+2025-01-04 21:54:35,875 - INFO - Episode 36 / 47100 Winner: Agent 1. (Agent1 wins=19 Total Reward:0.87, Agent2 wins=14 Total Reward:-0.12999999999999998, draws=3)
+2025-01-04 21:54:35,875 - INFO - ==== Starting episode 37 / 47100 ====
+2025-01-04 21:54:35,875 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:35,876 - DEBUG - Agent: Random Choice: 1
+2025-01-04 21:54:35,876 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:35,877 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:35,878 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:35,878 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:35,879 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:35,880 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:35,881 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:35,881 - DEBUG - Player 2 can block opponent in column 5.
+2025-01-04 21:54:35,881 - DEBUG - Agent: Logic-based action (win/block): 5
+2025-01-04 21:54:35,882 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:35,883 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:35,884 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:35,884 - DEBUG - Agent: Random Choice: 4
+2025-01-04 21:54:35,885 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:35,887 - DEBUG - Player 2 can block opponent in column 5.
+2025-01-04 21:54:35,887 - DEBUG - Agent: Logic-based action (win/block): 5
+2025-01-04 21:54:35,888 - DEBUG - Player 1 can block opponent in column 5.
+2025-01-04 21:54:35,888 - DEBUG - Trainer: Logic-based action (win/block): 5
+2025-01-04 21:54:35,889 - DEBUG - Player 2 can block opponent in column 2.
+2025-01-04 21:54:35,889 - DEBUG - Agent: Logic-based action (win/block): 2
+2025-01-04 21:54:35,889 - DEBUG - Player 1 can win by placing in column 2.
+2025-01-04 21:54:35,889 - DEBUG - Trainer: Logic-based action (win/block): 2
+2025-01-04 21:54:35,909 - INFO - Epsilon decayed to 0.9996300665922322
+2025-01-04 21:54:35,909 - INFO - Episode 37 / 47100 Winner: Agent 1. (Agent1 wins=20 Total Reward:0.91, Agent2 wins=14 Total Reward:-0.09, draws=3)
+2025-01-04 21:54:35,909 - INFO - ==== Starting episode 38 / 47100 ====
+2025-01-04 21:54:35,909 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:35,910 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:35,910 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:35,911 - DEBUG - Agent: Random Choice: 3
+2025-01-04 21:54:35,911 - DEBUG - Trainer: Random Choice: 3
+2025-01-04 21:54:35,912 - DEBUG - Agent: Random Choice: 3
+2025-01-04 21:54:35,913 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:35,913 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:35,914 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:35,915 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:35,915 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:35,916 - DEBUG - Agent: Random Choice: 3
+2025-01-04 21:54:35,918 - DEBUG - Trainer: Random Choice: 0
+2025-01-04 21:54:35,919 - DEBUG - Player 2 can block opponent in column 0.
+2025-01-04 21:54:35,919 - DEBUG - Agent: Logic-based action (win/block): 0
+2025-01-04 21:54:35,920 - DEBUG - Trainer: Random Choice: 6
+2025-01-04 21:54:35,922 - DEBUG - Agent: Random Choice: 5
+2025-01-04 21:54:35,923 - DEBUG - Trainer: Random Choice: 2
+2025-01-04 21:54:35,925 - DEBUG - Agent: Random Choice: 2
+2025-01-04 21:54:35,927 - DEBUG - Player 1 can block opponent in column 4.
+2025-01-04 21:54:35,927 - DEBUG - Trainer: Logic-based action (win/block): 4
+2025-01-04 21:54:35,929 - DEBUG - Agent: Random Choice: 1
+2025-01-04 21:54:35,931 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:35,932 - DEBUG - Player 2 can win by placing in column 4.
+2025-01-04 21:54:35,932 - DEBUG - Agent: Logic-based action (win/block): 4
+2025-01-04 21:54:35,951 - INFO - Epsilon decayed to 0.9996200702915663
+2025-01-04 21:54:35,951 - INFO - Episode 38 / 47100 Winner: Agent 2. (Agent1 wins=20 Total Reward:-0.10999999999999999, Agent2 wins=15 Total Reward:0.9, draws=3)
+2025-01-04 21:54:35,951 - INFO - ==== Starting episode 39 / 47100 ====
+2025-01-04 21:54:35,952 - DEBUG - Trainer: Random Choice: 1
+2025-01-04 21:54:35,952 - DEBUG - Agent: Random Choice: 6
+2025-01-04 21:54:35,953 - DEBUG - Trainer: Random Choice: 4
+2025-01-04 21:54:35,953 - DEBUG - Agent: Random Choice: 5
