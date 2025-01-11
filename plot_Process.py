@@ -2,12 +2,15 @@ import matplotlib.pyplot as plt
 import re
 
 # Path to the log file
-log_file_path = "Test/6/log1.txt"
+log_file_path = "Test/6/log4.txt"
 
 # Initialize data containers
 agent1_wins = []
 agent2_wins = []
 draws = []
+win_rate_agent1 = []
+win_rate_agent2 = []
+total_games = []
 
 # Read and parse the log file
 try:
@@ -21,9 +24,12 @@ try:
                 draw_count = int(match.group(3))
                 
                 # Update the data
+                total = agent1_win_count + agent2_win_count + draw_count
                 agent1_wins.append(agent1_win_count)
                 agent2_wins.append(agent2_win_count)
                 draws.append(draw_count)
+                total_games.append(total)
+                
 
 except FileNotFoundError:
     print(f"Error: The log file at '{log_file_path}' was not found.")
@@ -35,23 +41,16 @@ except Exception as e:
 # Plot the data
 plt.figure(figsize=(10, 6))
 
-# Plot Agent1's win count
-plt.plot(agent1_wins, label="Number of Agent1 Wins", marker=".", color="blue")
+# Plot Agent1's win rate
+plt.plot(agent1_wins, label="Number of Agent1 Wins", marker="o")
 
-# Plot Agent2's win count
-plt.plot(agent2_wins, label="Number of Agent2 Wins", marker="s", color="orange")
-
-# Plot Draw count
-plt.plot(draws, label="Number of Draws", marker="^", linestyle="--", color="green")
-
-# Annotate the draws directly on the green line
-for i, draw in enumerate(draws):
-    plt.text(i, draws[i] + 1, f"{draw}", ha="center", fontsize=9, color="green")
+# Plot Agent2's win rate
+plt.plot(agent2_wins, label="Number of Agent2 Wins", marker="s")
 
 # Add labels, title, and legend
 plt.xlabel("Game Index")
-plt.ylabel("Count")
-plt.title("Comparison of Agent1 Wins, Agent2 Wins, and Draws Over Time")
+plt.ylabel("Win Rate (%)")
+plt.title("Comparison of Agent1 and Agent2 Wins Over Time")
 plt.legend()
 plt.grid()
 
