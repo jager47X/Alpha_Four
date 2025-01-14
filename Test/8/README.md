@@ -1,5 +1,0 @@
-#Change from 7
-#changed hyperparameter
-BATCH_SIZE = 100->1
-TARGET_UPDATE = 1000->1
-NUMOFEPISODE= 100000->500000
