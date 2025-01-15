@@ -1,0 +1,22 @@
+2025-01-15 15:21:30,683 - WARNING - Model file Connect4_Agent_Model.pth not found; using uninitialized weights.
+2025-01-15 15:21:30,839 - INFO - New Connect4 game started: Human (Red) vs AI (Yellow)
+2025-01-15 15:21:33,374 - INFO - Human -> Column 4
+2025-01-15 15:21:33,483 - INFO - AI -> Column 3
+2025-01-15 15:21:34,593 - INFO - Human -> Column 4
+2025-01-15 15:21:34,608 - INFO - AI -> Column 3
+2025-01-15 15:21:42,655 - INFO - Human -> Column 4
+2025-01-15 15:21:42,655 - INFO - AI -> Column 3
+2025-01-15 15:21:43,437 - INFO - Human -> Column 4
+2025-01-15 15:21:44,873 - INFO - GAME OVER => Winner: Human (Red)
+2025-01-15 15:21:44,873 - INFO - Resetting game...
+2025-01-15 15:21:45,839 - INFO - Human -> Column 3
+2025-01-15 15:21:45,839 - INFO - AI -> Column 3
+2025-01-15 15:21:46,761 - INFO - Human -> Column 3
+2025-01-15 15:21:46,761 - INFO - AI -> Column 3
+2025-01-15 15:21:47,355 - INFO - Human -> Column 4
+2025-01-15 15:21:47,370 - INFO - AI -> Column 3
+2025-01-15 15:21:47,980 - INFO - Human -> Column 5
+2025-01-15 15:21:47,996 - INFO - AI -> Column 3
+2025-01-15 15:21:49,450 - INFO - Human -> Column 6
+2025-01-15 15:21:51,118 - INFO - GAME OVER => Winner: Human (Red)
+2025-01-15 15:21:51,118 - INFO - Resetting game...
