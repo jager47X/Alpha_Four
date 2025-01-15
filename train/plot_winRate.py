@@ -1,131 +1,128 @@
 import matplotlib.pyplot as plt
 import re
 import numpy as np
+import time
 
 # Path to the log file
 log_file_path = input("FILE PATH>> ")
 
-# Initialize data containers
-agent1_wins = []
-agent2_wins = []
-draws = []
-total_games = []
+# Function to parse the log file
+def parse_log_file(log_file_path):
+    rewards = []
+    winners = []
 
-# Read and parse the log file
+    try:
+        with open(log_file_path, "r") as log_file:
+            for line in log_file:
+                # Extract Winner and Reward data from the log
+                match = re.search(r"Winner=(-?\d+), Reward=([-.\d]+)", line)  # Matches "Winner=X, Reward=Y"
+                if match:
+                    winner = int(match.group(1))  # Winner (1, 2, or -1 for draws)
+                    reward = float(match.group(2))  # Reward
+
+                    # Append the extracted values
+                    winners.append(winner)
+                    rewards.append(reward)
+                else:
+                    # Skip lines that don't match the pattern
+                    continue
+
+    except FileNotFoundError:
+        print(f"Error: The log file at '{log_file_path}' was not found.")
+    except Exception as e:
+        print(f"An error occurred: {e}")
+    
+    return winners, rewards
+
+# Function to plot the data
+def plot_data(winners, rewards):
+    if not rewards or not winners:
+        print("No data to plot.")
+        return
+
+    # Calculate cumulative statistics
+    total_games = len(winners)
+    winner_counts = {
+        1: winners.count(1),   # Wins for Player 1
+        2: winners.count(2),   # Wins for Player 2
+        -1: winners.count(-1)  # Draws
+    }
+
+    # Compute cumulative win rates
+    cumulative_games = np.arange(1, total_games + 1)  # Game indices
+    cumulative_wins_player1 = np.cumsum(np.array(winners) == 1)
+    cumulative_wins_player2 = np.cumsum(np.array(winners) == 2)
+
+    win_rate_player1 = cumulative_wins_player1 / cumulative_games * 100
+    win_rate_player2 = cumulative_wins_player2 / cumulative_games * 100
+
+    # Compute average rewards for every 100 games
+    interval = 100
+    avg_rewards = [
+        np.mean(rewards[start:min(start + interval, len(rewards))])
+        for start in range(0, len(rewards), interval)
+    ]
+    avg_rewards_x = list(range(interval, interval * len(avg_rewards) + 1, interval))
+
+    # Compute win rate changes for annotations
+    rate_change_player1 = [
+        win_rate_player1[min(start + interval - 1, total_games - 1)] - win_rate_player1[start]
+        for start in range(0, total_games, interval)
+    ]
+    rate_change_player2 = [
+        win_rate_player2[min(start + interval - 1, total_games - 1)] - win_rate_player2[start]
+        for start in range(0, total_games, interval)
+    ]
+    annotation_x = list(range(interval, total_games + 1, interval))
+
+    # Plotting
+    plt.figure(figsize=(14, 8))
+
+    # Plot win rates
+    plt.plot(cumulative_games, win_rate_player1, label="Player 1 Win Rate (%)", marker="o", color="blue")
+    plt.plot(cumulative_games, win_rate_player2, label="Player 2 Win Rate (%)", marker="s", color="orange")
+
+    # Annotate rate changes for Player 1
+    for x, change in zip(annotation_x, rate_change_player1):
+        plus_sign = "+" if change > 0 else ""
+        y_offset = win_rate_player1[x - 1] + 4  # Offset for annotation
+        plt.text(
+            x, y_offset, f"{plus_sign}{change:.2f}%", color="blue", fontsize=8, ha="center"
+        )
+
+    # Annotate rate changes for Player 2
+    for x, change in zip(annotation_x, rate_change_player2):
+        plus_sign = "+" if change > 0 else ""
+        y_offset = win_rate_player2[x - 1] - 4  # Offset for annotation
+        plt.text(
+            x, y_offset, f"{plus_sign}{change:.2f}%", color="orange", fontsize=8, ha="center"
+        )
+
+    # Plot average rewards
+    plt.plot(avg_rewards_x, avg_rewards, label="Average Reward per 100 Games", marker="x", color="green")
+
+    # Display winner statistics in the title
+    plt.title(
+        f"Win Rates and Average Rewards Over Time\n"
+        f"Total Games: {total_games}, "
+        f"Player 1 Wins: {winner_counts.get(1, 0)}, "
+        f"Player 2 Wins: {winner_counts.get(2, 0)}, "
+        f"Draws: {winner_counts.get(-1, 0)}"
+    )
+    plt.xlabel("Game Index")
+    plt.ylabel("Percentage / Reward")
+    plt.legend()
+    plt.grid()
+    plt.tight_layout()
+    plt.show()
+
+
+# Periodically update every 10 seconds
 try:
-    with open(log_file_path, "r") as log_file:
-        for line in log_file:
-            # Try to extract win/draw data from the log
-            match = re.search(r"W=(\d+),D=(\d+),L=(\d+)", line)  # Matches "(W=X,D=Y,L=Z)"
-            if match:
-                a2 = int(match.group(1))  # Agent1 wins
-                d = int(match.group(2))   # Draws
-                a1 = int(match.group(3))  # Agent2 wins
-            else:
-                # Skip lines that don't match the pattern
-                continue
-
-            # If successful, compute total games and append data
-            total = a1 + a2 + d
-            agent1_wins.append(a1)
-            agent2_wins.append(a2)
-            draws.append(d)
-            total_games.append(total)
-
-except FileNotFoundError:
-    print(f"Error: The log file at '{log_file_path}' was not found.")
-    exit()
-except Exception as e:
-    print(f"An error occurred: {e}")
-    exit()
-
-# If no data was parsed, we can't plot
-if not total_games:
-    print("No matching data was found in the log. Exiting.")
-    exit()
-
-# Calculate cumulative values
-cumulative_games = np.cumsum(total_games)
-cumulative_agent1_wins = np.cumsum(agent1_wins)
-cumulative_agent2_wins = np.cumsum(agent2_wins)
-
-# Calculate win rates (as percentages)
-agent1_win_rate = cumulative_agent1_wins / cumulative_games * 100
-agent2_win_rate = cumulative_agent2_wins / cumulative_games * 100
-
-# Compute rate of change for each interval
-interval = 100
-agent1_rate_of_change = []
-agent2_rate_of_change = []
-interval_midpoints = []
-
-for start in range(0, len(agent1_win_rate), interval):
-    end = min(start + interval, len(agent1_win_rate))
-    midpoint = (start + end) // 2  # Midpoint for annotation
-
-    # Difference in win rate over this interval
-    rate_change1 = agent1_win_rate[end - 1] - agent1_win_rate[start]
-    rate_change2 = agent2_win_rate[end - 1] - agent2_win_rate[start]
-
-    agent1_rate_of_change.append(rate_change1)
-    agent2_rate_of_change.append(rate_change2)
-    interval_midpoints.append(midpoint)
-
-# Calculate overall average win/draw rates
-sum_total = sum(total_games)
-agent1_average = round(sum(agent1_wins) / sum_total * 100, 2)
-agent2_average = round(sum(agent2_wins) / sum_total * 100, 2)
-draw_average = round(sum(draws) / sum_total * 100, 2)
-
-# --- Plotting ---
-plt.figure(figsize=(14, 8))
-
-# Plot Agent1's win rate
-plt.plot(
-    agent1_win_rate,
-    label=f"Agent1 Wins, Avg-Win ({agent1_average}%)",
-    marker="o",
-    color="blue",
-)
-
-# Plot Agent2's win rate
-plt.plot(
-    agent2_win_rate,
-    label=f"Agent2 Wins, Avg-Win ({agent2_average}%)",
-    marker="s",
-    color="orange",
-)
-
-# Annotate rate of change for Agent1
-for midpoint, rate_change in zip(interval_midpoints, agent1_rate_of_change):
-    plus_sign = "+" if rate_change > 0 else ""
-    y_offset = agent1_win_rate[midpoint] + 2
-    plt.text(
-        midpoint,
-        y_offset,
-        f"{plus_sign}{rate_change:.2f}%",
-        color="blue",
-        fontsize=8,
-        ha="center",
-    )
-
-# Annotate rate of change for Agent2
-for midpoint, rate_change in zip(interval_midpoints, agent2_rate_of_change):
-    plus_sign = "+" if rate_change > 0 else ""
-    y_offset = agent2_win_rate[midpoint] - 3
-    plt.text(
-        midpoint,
-        y_offset,
-        f"{plus_sign}{rate_change:.2f}%",
-        color="orange",
-        fontsize=8,
-        ha="center",
-    )
-
-plt.title("Win Rates Over Time with Annotated Rate of Change")
-plt.xlabel("Game Index")
-plt.ylabel("Win Rate (%)")
-plt.legend()
-plt.grid()
-plt.tight_layout()
-plt.show()
+    while True:
+        print("Updating plot...")
+        winners, rewards = parse_log_file(log_file_path)
+        plot_data(winners, rewards)
+        time.sleep(10)  # Wait 10 seconds before refreshing
+except KeyboardInterrupt:
+    print("Exiting...")
