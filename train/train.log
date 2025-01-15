@@ -25,3 +25,2083 @@
  0.24122535], best_act=0, best_val=0.275
 2025-01-16 05:01:29,667 - DEBUG - Low Q-value (0.275), using MCTS.
 2025-01-16 05:01:29,667 - INFO - Running MCTS with 54 simulations using 6 processes.
+2025-01-16 05:01:32,495 - DEBUG - Aggregated action counts: {2: 1, 3: 3, 0: 1, 4: 1}
+2025-01-16 05:01:32,495 - DEBUG - Chose best action 3
+2025-01-16 05:01:32,635 - INFO - Episode 1108/98900: Winner=2, Reward=10.15, EPSILON=0.990, (W=3,D=0,L=0)
+2025-01-16 05:01:32,791 - INFO - Episode 1109/98900: Winner=2, Reward=14.10, EPSILON=0.990, (W=3,D=0,L=0)
+2025-01-16 05:01:32,963 - INFO - Episode 1110/98900: Winner=2, Reward=-20.80, EPSILON=0.990, (W=4,D=0,L=0)
+2025-01-16 05:01:33,276 - INFO - Episode 1111/98900: Winner=2, Reward=-32.85, EPSILON=0.990, (W=5,D=0,L=0)
+2025-01-16 05:01:33,620 - INFO - Episode 1112/98900: Winner=2, Reward=-42.85, EPSILON=0.990, (W=5,D=0,L=0)
+2025-01-16 05:01:33,713 - INFO - Episode 1113/98900: Winner=2, Reward=-10.45, EPSILON=0.990, (W=6,D=0,L=0)
+2025-01-16 05:01:33,729 - DEBUG - Q-vals = [0.0659906  0.33564678 0.08913242 0.03584026 0.33597147 0.06452781
+ 0.07289074], best_act=4, best_val=0.336
+2025-01-16 05:01:33,729 - DEBUG - Low Q-value (0.336), using MCTS.
+2025-01-16 05:01:33,729 - INFO - Running MCTS with 54 simulations using 6 processes.
+2025-01-16 05:01:36,432 - DEBUG - Aggregated action counts: {2: 3, 0: 3}
+2025-01-16 05:01:36,432 - DEBUG - Chose best action 2
+2025-01-16 05:01:36,525 - INFO - Episode 1114/98900: Winner=2, Reward=-0.75, EPSILON=0.990, (W=6,D=0,L=0)
+2025-01-16 05:01:36,697 - INFO - Episode 1115/98900: Winner=2, Reward=-16.10, EPSILON=0.990, (W=7,D=0,L=0)
+2025-01-16 05:01:36,853 - INFO - Episode 1116/98900: Winner=2, Reward=8.15, EPSILON=0.990, (W=7,D=0,L=0)
+2025-01-16 05:01:37,056 - INFO - Episode 1117/98900: Winner=2, Reward=-14.80, EPSILON=0.990, (W=8,D=0,L=0)
+2025-01-16 05:01:37,353 - INFO - Episode 1118/98900: Winner=2, Reward=-52.60, EPSILON=0.990, (W=9,D=0,L=0)
+2025-01-16 05:01:37,619 - INFO - Episode 1119/98900: Winner=2, Reward=-16.85, EPSILON=0.990, (W=10,D=0,L=0)
+2025-01-16 05:01:37,853 - INFO - Episode 1120/98900: Winner=2, Reward=-15.25, EPSILON=0.990, (W=11,D=0,L=0)
+2025-01-16 05:01:37,947 - DEBUG - Q-vals = [0.15326443 0.12223624 0.21438502 0.10016058 0.22466843 0.07466393
+ 0.11062136], best_act=4, best_val=0.225
+2025-01-16 05:01:37,947 - DEBUG - Low Q-value (0.225), using MCTS.
+2025-01-16 05:01:37,947 - INFO - Running MCTS with 54 simulations using 6 processes.
+2025-01-16 05:01:40,768 - DEBUG - Aggregated action counts: {0: 5, 3: 1}
+2025-01-16 05:01:40,768 - DEBUG - Chose best action 0
+2025-01-16 05:01:40,956 - INFO - Episode 1121/98900: Winner=2, Reward=0.55, EPSILON=0.990, (W=11,D=0,L=0)
+2025-01-16 05:01:41,143 - INFO - Episode 1122/98900: Winner=2, Reward=-10.75, EPSILON=0.990, (W=12,D=0,L=0)
+2025-01-16 05:01:41,456 - INFO - Episode 1123/98900: Winner=2, Reward=24.75, EPSILON=0.990, (W=12,D=0,L=0)
+2025-01-16 05:01:41,753 - INFO - Episode 1124/98900: Winner=2, Reward=-12.90, EPSILON=0.990, (W=13,D=0,L=0)
+2025-01-16 05:01:41,893 - INFO - Episode 1125/98900: Winner=2, Reward=9.10, EPSILON=0.990, (W=13,D=0,L=0)
+2025-01-16 05:01:42,081 - INFO - Episode 1126/98900: Winner=2, Reward=-4.75, EPSILON=0.990, (W=13,D=0,L=0)
+2025-01-16 05:01:42,347 - INFO - Episode 1127/98900: Winner=2, Reward=7.55, EPSILON=0.990, (W=13,D=0,L=0)
+2025-01-16 05:01:42,597 - INFO - Episode 1128/98900: Winner=2, Reward=-4.05, EPSILON=0.990, (W=13,D=0,L=0)
+2025-01-16 05:01:42,862 - DEBUG - Q-vals = [0.19284436 0.02529318 0.05641742 0.04291094 0.30002835 0.01500832
+ 0.36749735], best_act=6, best_val=0.367
+2025-01-16 05:01:42,862 - DEBUG - Low Q-value (0.367), using MCTS.
+2025-01-16 05:01:42,878 - INFO - Episode 1129/98900: Winner=2, Reward=-3.30, EPSILON=0.990, (W=14,D=0,L=0)
+2025-01-16 05:01:42,940 - DEBUG - Q-vals = [0.27746466 0.10374318 0.22637044 0.04510957 0.16042791 0.04385268
+ 0.14303161], best_act=0, best_val=0.277
+2025-01-16 05:01:42,940 - DEBUG - Low Q-value (0.277), using MCTS.
+2025-01-16 05:01:42,940 - INFO - Running MCTS with 55 simulations using 6 processes.
+2025-01-16 05:01:45,868 - DEBUG - Aggregated action counts: {6: 1, 2: 3, 1: 1, 5: 1, 0: 1}
+2025-01-16 05:01:45,868 - DEBUG - Chose best action 2
+2025-01-16 05:01:46,102 - INFO - Episode 1130/98900: Winner=2, Reward=-53.10, EPSILON=0.990, (W=15,D=0,L=0)
+2025-01-16 05:01:46,305 - INFO - Episode 1131/98900: Winner=2, Reward=-13.45, EPSILON=0.990, (W=16,D=0,L=0)
+2025-01-16 05:01:46,508 - INFO - Episode 1132/98900: Winner=2, Reward=-10.10, EPSILON=0.990, (W=17,D=0,L=0)
+2025-01-16 05:01:46,665 - INFO - Episode 1133/98900: Winner=2, Reward=1.00, EPSILON=0.990, (W=17,D=0,L=0)
+2025-01-16 05:01:46,899 - INFO - Episode 1134/98900: Winner=2, Reward=-3.55, EPSILON=0.990, (W=17,D=0,L=0)
+2025-01-16 05:01:47,071 - INFO - Episode 1135/98900: Winner=2, Reward=1.30, EPSILON=0.990, (W=17,D=0,L=0)
+2025-01-16 05:01:47,383 - INFO - Episode 1136/98900: Winner=2, Reward=-23.60, EPSILON=0.990, (W=17,D=0,L=0)
+2025-01-16 05:01:47,477 - INFO - Episode 1137/98900: Winner=2, Reward=2.10, EPSILON=0.990, (W=17,D=0,L=0)
+2025-01-16 05:01:47,696 - INFO - Episode 1138/98900: Winner=2, Reward=7.70, EPSILON=0.990, (W=17,D=0,L=0)
+2025-01-16 05:01:47,805 - INFO - Episode 1139/98900: Winner=2, Reward=-10.40, EPSILON=0.990, (W=18,D=0,L=0)
+2025-01-16 05:01:48,055 - INFO - Episode 1140/98900: Winner=2, Reward=-7.75, EPSILON=0.990, (W=19,D=0,L=0)
+2025-01-16 05:01:48,211 - INFO - Episode 1141/98900: Winner=2, Reward=28.70, EPSILON=0.990, (W=19,D=0,L=0)
+2025-01-16 05:01:48,446 - INFO - Episode 1142/98900: Winner=2, Reward=16.25, EPSILON=0.990, (W=19,D=0,L=0)
+2025-01-16 05:01:48,727 - INFO - Episode 1143/98900: Winner=2, Reward=-27.25, EPSILON=0.990, (W=20,D=0,L=0)
+2025-01-16 05:01:49,024 - INFO - Episode 1144/98900: Winner=2, Reward=-34.85, EPSILON=0.990, (W=20,D=0,L=0)
+2025-01-16 05:01:49,305 - INFO - Episode 1145/98900: Winner=2, Reward=-33.60, EPSILON=0.990, (W=21,D=0,L=0)
+2025-01-16 05:01:49,539 - INFO - Episode 1146/98900: Winner=2, Reward=-28.85, EPSILON=0.990, (W=21,D=0,L=0)
+2025-01-16 05:01:49,805 - INFO - Episode 1147/98900: Winner=2, Reward=-1.25, EPSILON=0.990, (W=22,D=0,L=0)
+2025-01-16 05:01:50,165 - INFO - Episode 1148/98900: Winner=2, Reward=-45.10, EPSILON=0.990, (W=23,D=0,L=0)
+2025-01-16 05:01:50,368 - INFO - Episode 1149/98900: Winner=2, Reward=-11.50, EPSILON=0.990, (W=24,D=0,L=0)
+2025-01-16 05:01:50,700 - INFO - Episode 1150/98900: Winner=2, Reward=-2.95, EPSILON=0.990, (W=24,D=0,L=0)
+2025-01-16 05:01:51,009 - INFO - Episode 1151/98900: Winner=2, Reward=-0.45, EPSILON=0.990, (W=24,D=0,L=0)
+2025-01-16 05:01:51,410 - INFO - Episode 1152/98900: Winner=2, Reward=-82.65, EPSILON=0.990, (W=25,D=0,L=0)
+2025-01-16 05:01:51,610 - INFO - Episode 1153/98900: Winner=2, Reward=-11.95, EPSILON=0.990, (W=26,D=0,L=0)
+2025-01-16 05:01:51,777 - INFO - Episode 1154/98900: Winner=2, Reward=22.85, EPSILON=0.990, (W=26,D=0,L=0)
+2025-01-16 05:01:51,992 - INFO - Episode 1155/98900: Winner=2, Reward=6.10, EPSILON=0.990, (W=26,D=0,L=0)
+2025-01-16 05:01:52,075 - DEBUG - Q-vals = [0.429841   0.10139398 0.16535786 0.07169373 0.06989451 0.04611213
+ 0.11570677], best_act=0, best_val=0.430
+2025-01-16 05:01:52,075 - DEBUG - Low Q-value (0.430), using MCTS.
+2025-01-16 05:01:52,075 - INFO - Running MCTS with 56 simulations using 6 processes.
+2025-01-16 05:01:54,771 - DEBUG - Aggregated action counts: {0: 4, 2: 1, 1: 1, 6: 1}
+2025-01-16 05:01:54,771 - DEBUG - Chose best action 0
+2025-01-16 05:01:55,021 - INFO - Episode 1156/98900: Winner=2, Reward=-30.25, EPSILON=0.990, (W=27,D=0,L=0)
+2025-01-16 05:01:55,287 - INFO - Episode 1157/98900: Winner=2, Reward=0.40, EPSILON=0.990, (W=27,D=0,L=0)
+2025-01-16 05:01:55,349 - DEBUG - Q-vals = [0.11664407 0.10795546 0.08356008 0.03438001 0.35525915 0.11031852
+ 0.1918827 ], best_act=4, best_val=0.355
+2025-01-16 05:01:55,349 - DEBUG - Low Q-value (0.355), using MCTS.
+2025-01-16 05:01:55,349 - INFO - Running MCTS with 56 simulations using 6 processes.
+2025-01-16 05:01:57,989 - DEBUG - Aggregated action counts: {0: 2, 4: 1, 2: 2, 3: 2}
+2025-01-16 05:01:57,989 - DEBUG - Chose best action 0
+2025-01-16 05:01:58,005 - INFO - Episode 1158/98900: Winner=2, Reward=5.95, EPSILON=0.990, (W=27,D=0,L=0)
+2025-01-16 05:01:58,333 - INFO - Episode 1159/98900: Winner=2, Reward=-45.60, EPSILON=0.990, (W=28,D=0,L=0)
+2025-01-16 05:01:58,505 - DEBUG - Q-vals = [0.21957147 0.07305787 0.1612704  0.09554999 0.12350596 0.09301901
+ 0.23402539], best_act=6, best_val=0.234
+2025-01-16 05:01:58,505 - DEBUG - Low Q-value (0.234), using MCTS.
+2025-01-16 05:01:58,505 - INFO - Running MCTS with 56 simulations using 6 processes.
+2025-01-16 05:02:01,113 - DEBUG - Aggregated action counts: {1: 3, 0: 3, 3: 1}
+2025-01-16 05:02:01,113 - DEBUG - Chose best action 1
+2025-01-16 05:02:01,145 - INFO - Episode 1160/98900: Winner=2, Reward=11.25, EPSILON=0.990, (W=28,D=0,L=0)
+2025-01-16 05:02:01,332 - INFO - Episode 1161/98900: Winner=2, Reward=-7.85, EPSILON=0.990, (W=29,D=0,L=0)
+2025-01-16 05:02:01,660 - INFO - Episode 1162/98900: Winner=2, Reward=-34.45, EPSILON=0.990, (W=30,D=0,L=0)
+2025-01-16 05:02:01,847 - INFO - Episode 1163/98900: Winner=2, Reward=-10.55, EPSILON=0.990, (W=31,D=0,L=0)
+2025-01-16 05:02:01,957 - INFO - Episode 1164/98900: Winner=2, Reward=-12.40, EPSILON=0.990, (W=32,D=0,L=0)
+2025-01-16 05:02:02,222 - INFO - Episode 1165/98900: Winner=2, Reward=-13.70, EPSILON=0.990, (W=33,D=0,L=0)
+2025-01-16 05:02:02,347 - INFO - Episode 1166/98900: Winner=2, Reward=0.25, EPSILON=0.990, (W=33,D=0,L=0)
+2025-01-16 05:02:02,566 - INFO - Episode 1167/98900: Winner=2, Reward=-2.40, EPSILON=0.990, (W=34,D=0,L=0)
+2025-01-16 05:02:02,722 - INFO - Episode 1168/98900: Winner=2, Reward=-1.75, EPSILON=0.990, (W=34,D=0,L=0)
+2025-01-16 05:02:02,816 - DEBUG - Q-vals = [0.23331444 0.06783576 0.16300392 0.07054871 0.19441205 0.03118838
+ 0.23969676], best_act=6, best_val=0.240
+2025-01-16 05:02:02,816 - DEBUG - Low Q-value (0.240), using MCTS.
+2025-01-16 05:02:02,832 - INFO - Running MCTS with 56 simulations using 6 processes.
+2025-01-16 05:02:05,425 - DEBUG - Aggregated action counts: {1: 2, 4: 1, 0: 4}
+2025-01-16 05:02:05,425 - DEBUG - Chose best action 0
+2025-01-16 05:02:05,628 - INFO - Episode 1169/98900: Winner=2, Reward=23.15, EPSILON=0.990, (W=35,D=0,L=0)
+2025-01-16 05:02:05,925 - INFO - Episode 1170/98900: Winner=2, Reward=-36.00, EPSILON=0.990, (W=35,D=0,L=0)
+2025-01-16 05:02:06,237 - INFO - Episode 1171/98900: Winner=2, Reward=-1.20, EPSILON=0.990, (W=35,D=0,L=0)
+2025-01-16 05:02:06,409 - INFO - Episode 1172/98900: Winner=2, Reward=-0.95, EPSILON=0.990, (W=36,D=0,L=0)
+2025-01-16 05:02:06,644 - INFO - Episode 1173/98900: Winner=2, Reward=25.10, EPSILON=0.989, (W=36,D=0,L=0)
+2025-01-16 05:02:07,003 - DEBUG - Q-vals = [0.30481917 0.13770325 0.21379878 0.13724786 0.09729732 0.0209465
+ 0.08818708], best_act=0, best_val=0.305
+2025-01-16 05:02:07,003 - DEBUG - Low Q-value (0.305), using MCTS.
+2025-01-16 05:02:07,019 - INFO - Running MCTS with 56 simulations using 6 processes.
+2025-01-16 05:02:09,627 - DEBUG - Aggregated action counts: {5: 5, 4: 1, 0: 1}
+2025-01-16 05:02:09,627 - DEBUG - Chose best action 5
+2025-01-16 05:02:09,721 - INFO - Episode 1174/98900: Winner=-1, Reward=-73.00, EPSILON=0.989, (W=36,D=1,L=0)
+2025-01-16 05:02:09,971 - INFO - Episode 1175/98900: Winner=2, Reward=-21.30, EPSILON=0.989, (W=37,D=1,L=0)
+2025-01-16 05:02:10,237 - INFO - Episode 1176/98900: Winner=2, Reward=-7.75, EPSILON=0.989, (W=37,D=1,L=0)
+2025-01-16 05:02:10,377 - INFO - Episode 1177/98900: Winner=2, Reward=-4.45, EPSILON=0.989, (W=37,D=1,L=0)
+2025-01-16 05:02:10,549 - INFO - Episode 1178/98900: Winner=2, Reward=15.25, EPSILON=0.989, (W=37,D=1,L=0)
+2025-01-16 05:02:10,705 - INFO - Episode 1179/98900: Winner=2, Reward=-10.85, EPSILON=0.989, (W=38,D=1,L=0)
+2025-01-16 05:02:10,924 - INFO - Episode 1180/98900: Winner=2, Reward=-22.10, EPSILON=0.989, (W=39,D=1,L=0)
+2025-01-16 05:02:11,018 - INFO - Episode 1181/98900: Winner=2, Reward=7.20, EPSILON=0.989, (W=39,D=1,L=0)
+2025-01-16 05:02:11,236 - INFO - Episode 1182/98900: Winner=2, Reward=27.15, EPSILON=0.989, (W=39,D=1,L=0)
+2025-01-16 05:02:11,596 - DEBUG - Q-vals = [0.1610357  0.06440888 0.353354   0.15883422 0.19596076 0.01642623
+ 0.04998022], best_act=0, best_val=0.161
+2025-01-16 05:02:11,596 - DEBUG - Low Q-value (0.161), using MCTS.
+2025-01-16 05:02:11,596 - INFO - Episode 1183/98900: Winner=2, Reward=-35.35, EPSILON=0.989, (W=40,D=1,L=0)
+2025-01-16 05:02:11,767 - DEBUG - Q-vals = [0.19497448 0.06609362 0.15783122 0.02093735 0.05204932 0.16004167
+ 0.34807235], best_act=6, best_val=0.348
+2025-01-16 05:02:11,767 - DEBUG - Low Q-value (0.348), using MCTS.
+2025-01-16 05:02:11,767 - INFO - Running MCTS with 57 simulations using 6 processes.
+2025-01-16 05:02:14,486 - DEBUG - Aggregated action counts: {2: 4, 0: 2, 5: 1}
+2025-01-16 05:02:14,486 - DEBUG - Chose best action 2
+2025-01-16 05:02:14,517 - INFO - Episode 1184/98900: Winner=2, Reward=-10.65, EPSILON=0.989, (W=41,D=1,L=0)
+2025-01-16 05:02:14,798 - INFO - Episode 1185/98900: Winner=2, Reward=-21.35, EPSILON=0.989, (W=42,D=1,L=0)
+2025-01-16 05:02:14,986 - INFO - Episode 1186/98900: Winner=2, Reward=1.20, EPSILON=0.989, (W=42,D=1,L=0)
+2025-01-16 05:02:15,267 - INFO - Episode 1187/98900: Winner=2, Reward=2.05, EPSILON=0.989, (W=43,D=1,L=0)
+2025-01-16 05:02:15,392 - INFO - Episode 1188/98900: Winner=2, Reward=-9.30, EPSILON=0.989, (W=44,D=1,L=0)
+2025-01-16 05:02:15,486 - INFO - Episode 1189/98900: Winner=2, Reward=-2.15, EPSILON=0.989, (W=44,D=1,L=0)
+2025-01-16 05:02:15,548 - DEBUG - Q-vals = [0.17713608 0.15433678 0.09633137 0.12010328 0.17209876 0.10770015
+ 0.17229348], best_act=0, best_val=0.177
+2025-01-16 05:02:15,548 - DEBUG - Low Q-value (0.177), using MCTS.
+2025-01-16 05:02:15,548 - INFO - Running MCTS with 57 simulations using 6 processes.
+2025-01-16 05:02:18,626 - DEBUG - Aggregated action counts: {2: 2, 6: 1, 0: 3, 1: 1}
+2025-01-16 05:02:18,626 - DEBUG - Chose best action 0
+2025-01-16 05:02:19,000 - INFO - Episode 1190/98900: Winner=2, Reward=2.65, EPSILON=0.989, (W=44,D=1,L=0)
+2025-01-16 05:02:19,219 - INFO - Episode 1191/98900: Winner=2, Reward=3.65, EPSILON=0.989, (W=44,D=1,L=0)
+2025-01-16 05:02:19,532 - INFO - Episode 1192/98900: Winner=2, Reward=-12.15, EPSILON=0.989, (W=45,D=1,L=0)
+2025-01-16 05:02:19,829 - INFO - Episode 1193/98900: Winner=2, Reward=-41.00, EPSILON=0.989, (W=46,D=1,L=0)
+2025-01-16 05:02:20,032 - INFO - Episode 1194/98900: Winner=2, Reward=13.30, EPSILON=0.989, (W=46,D=1,L=0)
+2025-01-16 05:02:20,360 - INFO - Episode 1195/98900: Winner=2, Reward=-23.05, EPSILON=0.989, (W=47,D=1,L=0)
+2025-01-16 05:02:20,485 - INFO - Episode 1196/98900: Winner=2, Reward=22.80, EPSILON=0.989, (W=47,D=1,L=0)
+2025-01-16 05:02:20,672 - INFO - Episode 1197/98900: Winner=2, Reward=-7.80, EPSILON=0.989, (W=48,D=1,L=0)
+2025-01-16 05:02:20,907 - INFO - Episode 1198/98900: Winner=2, Reward=27.50, EPSILON=0.989, (W=48,D=1,L=0)
+2025-01-16 05:02:21,172 - INFO - Episode 1199/98900: Winner=2, Reward=-7.60, EPSILON=0.989, (W=48,D=1,L=0)
+2025-01-16 05:02:21,453 - INFO - Saved model checkpoint to Connect4_Agent_Model.pth at episode 1200.
+2025-01-16 05:02:21,453 - INFO - Models saved at episode 1200
+2025-01-16 05:02:21,453 - INFO - Target networks updated
+2025-01-16 05:02:21,516 - INFO - Saved model checkpoint to Connect4_Agent_Model.pth at episode 1200.
+2025-01-16 05:02:21,516 - INFO - Episode 1200/98900: Winner=2, Reward=-44.10, EPSILON=0.989, (W=49,D=1,L=0)
+2025-01-16 05:02:21,672 - INFO - Episode 1201/98900: Winner=2, Reward=-3.20, EPSILON=0.989, (W=49,D=1,L=0)
+2025-01-16 05:02:21,780 - INFO - Episode 1202/98900: Winner=2, Reward=23.75, EPSILON=0.989, (W=49,D=1,L=0)
+2025-01-16 05:02:21,968 - INFO - Episode 1203/98900: Winner=2, Reward=-11.65, EPSILON=0.989, (W=50,D=1,L=0)
+2025-01-16 05:02:22,140 - INFO - Episode 1204/98900: Winner=2, Reward=1.80, EPSILON=0.989, (W=50,D=1,L=0)
+2025-01-16 05:02:22,343 - INFO - Episode 1205/98900: Winner=2, Reward=-0.55, EPSILON=0.989, (W=50,D=1,L=0)
+2025-01-16 05:02:22,546 - INFO - Episode 1206/98900: Winner=2, Reward=1.75, EPSILON=0.989, (W=50,D=1,L=0)
+2025-01-16 05:02:22,763 - INFO - Episode 1207/98900: Winner=2, Reward=-2.95, EPSILON=0.989, (W=51,D=1,L=0)
+2025-01-16 05:02:23,060 - INFO - Episode 1208/98900: Winner=2, Reward=6.25, EPSILON=0.989, (W=51,D=1,L=0)
+2025-01-16 05:02:23,396 - INFO - Episode 1209/98900: Winner=2, Reward=-52.80, EPSILON=0.989, (W=52,D=1,L=0)
+2025-01-16 05:02:23,591 - INFO - Episode 1210/98900: Winner=2, Reward=-15.85, EPSILON=0.989, (W=53,D=1,L=0)
+2025-01-16 05:02:23,857 - INFO - Episode 1211/98900: Winner=2, Reward=-14.00, EPSILON=0.989, (W=53,D=1,L=0)
+2025-01-16 05:02:23,962 - DEBUG - Q-vals = [0.23977423 0.05559604 0.385575   0.13550486 0.12211668 0.01649346
+ 0.04493976], best_act=2, best_val=0.386
+2025-01-16 05:02:23,963 - DEBUG - Low Q-value (0.386), using MCTS.
+2025-01-16 05:02:23,963 - INFO - Running MCTS with 58 simulations using 6 processes.
+2025-01-16 05:02:26,853 - DEBUG - Aggregated action counts: {3: 1, 0: 4, 1: 1, 4: 1}
+2025-01-16 05:02:26,853 - DEBUG - Chose best action 0
+2025-01-16 05:02:26,884 - INFO - Episode 1212/98900: Winner=2, Reward=15.20, EPSILON=0.989, (W=53,D=1,L=0)
+2025-01-16 05:02:26,962 - DEBUG - Q-vals = [0.20122275 0.09853932 0.25553575 0.12156254 0.11536123 0.09266015
+ 0.11511826], best_act=2, best_val=0.256
+2025-01-16 05:02:26,962 - DEBUG - Low Q-value (0.256), using MCTS.
+2025-01-16 05:02:26,962 - INFO - Running MCTS with 58 simulations using 6 processes.
+2025-01-16 05:02:29,618 - DEBUG - Aggregated action counts: {0: 4, 1: 1, 3: 2}
+2025-01-16 05:02:29,633 - DEBUG - Chose best action 0
+2025-01-16 05:02:29,743 - INFO - Episode 1213/98900: Winner=2, Reward=-9.75, EPSILON=0.989, (W=54,D=1,L=0)
+2025-01-16 05:02:29,836 - INFO - Episode 1214/98900: Winner=2, Reward=0.00, EPSILON=0.989, (W=54,D=1,L=0)
+2025-01-16 05:02:30,024 - DEBUG - Q-vals = [0.16872752 0.08320549 0.17912945 0.10594053 0.20893736 0.11043431
+ 0.14362536], best_act=4, best_val=0.209
+2025-01-16 05:02:30,024 - DEBUG - Low Q-value (0.209), using MCTS.
+2025-01-16 05:02:30,024 - INFO - Episode 1215/98900: Winner=2, Reward=-6.60, EPSILON=0.989, (W=55,D=1,L=0)
+2025-01-16 05:02:30,243 - INFO - Episode 1216/98900: Winner=2, Reward=2.65, EPSILON=0.989, (W=55,D=1,L=0)
+2025-01-16 05:02:30,414 - INFO - Episode 1217/98900: Winner=2, Reward=-14.55, EPSILON=0.989, (W=55,D=1,L=0)
+2025-01-16 05:02:30,539 - INFO - Episode 1218/98900: Winner=2, Reward=-1.10, EPSILON=0.989, (W=55,D=1,L=0)
+2025-01-16 05:02:30,805 - INFO - Episode 1219/98900: Winner=2, Reward=1.10, EPSILON=0.989, (W=55,D=1,L=0)
+2025-01-16 05:02:30,914 - INFO - Episode 1220/98900: Winner=2, Reward=2.30, EPSILON=0.989, (W=55,D=1,L=0)
+2025-01-16 05:02:31,102 - INFO - Episode 1221/98900: Winner=2, Reward=0.25, EPSILON=0.989, (W=55,D=1,L=0)
+2025-01-16 05:02:31,383 - INFO - Episode 1222/98900: Winner=2, Reward=0.65, EPSILON=0.989, (W=55,D=1,L=0)
+2025-01-16 05:02:31,664 - INFO - Episode 1223/98900: Winner=2, Reward=-5.40, EPSILON=0.989, (W=56,D=1,L=0)
+2025-01-16 05:02:31,883 - INFO - Episode 1224/98900: Winner=2, Reward=-7.95, EPSILON=0.989, (W=57,D=1,L=0)
+2025-01-16 05:02:32,133 - INFO - Episode 1225/98900: Winner=2, Reward=-13.65, EPSILON=0.989, (W=57,D=1,L=0)
+2025-01-16 05:02:32,289 - INFO - Episode 1226/98900: Winner=2, Reward=4.60, EPSILON=0.989, (W=57,D=1,L=0)
+2025-01-16 05:02:32,367 - INFO - Episode 1227/98900: Winner=2, Reward=1.25, EPSILON=0.989, (W=57,D=1,L=0)
+2025-01-16 05:02:32,820 - INFO - Episode 1228/98900: Winner=2, Reward=-53.45, EPSILON=0.989, (W=57,D=1,L=0)
+2025-01-16 05:02:33,070 - INFO - Episode 1229/98900: Winner=2, Reward=-27.20, EPSILON=0.989, (W=58,D=1,L=0)
+2025-01-16 05:02:33,382 - INFO - Episode 1230/98900: Winner=2, Reward=-54.85, EPSILON=0.989, (W=59,D=1,L=0)
+2025-01-16 05:02:33,632 - INFO - Episode 1231/98900: Winner=2, Reward=21.80, EPSILON=0.989, (W=59,D=1,L=0)
+2025-01-16 05:02:33,867 - INFO - Episode 1232/98900: Winner=2, Reward=-9.10, EPSILON=0.989, (W=60,D=1,L=0)
+2025-01-16 05:02:33,992 - INFO - Episode 1233/98900: Winner=2, Reward=9.75, EPSILON=0.989, (W=60,D=1,L=0)
+2025-01-16 05:02:34,288 - INFO - Episode 1234/98900: Winner=2, Reward=-1.95, EPSILON=0.989, (W=60,D=1,L=0)
+2025-01-16 05:02:34,445 - INFO - Episode 1235/98900: Winner=2, Reward=2.90, EPSILON=0.989, (W=60,D=1,L=0)
+2025-01-16 05:02:34,632 - INFO - Episode 1236/98900: Winner=2, Reward=19.05, EPSILON=0.989, (W=60,D=1,L=0)
+2025-01-16 05:02:34,835 - INFO - Episode 1237/98900: Winner=2, Reward=-2.85, EPSILON=0.989, (W=60,D=1,L=0)
+2025-01-16 05:02:35,210 - INFO - Episode 1238/98900: Winner=2, Reward=-52.50, EPSILON=0.989, (W=60,D=1,L=0)
+2025-01-16 05:02:35,429 - INFO - Episode 1239/98900: Winner=2, Reward=-9.70, EPSILON=0.989, (W=60,D=1,L=0)
+2025-01-16 05:02:35,772 - INFO - Episode 1240/98900: Winner=2, Reward=-66.70, EPSILON=0.989, (W=60,D=1,L=0)
+2025-01-16 05:02:35,944 - INFO - Episode 1241/98900: Winner=2, Reward=-15.10, EPSILON=0.989, (W=61,D=1,L=0)
+2025-01-16 05:02:36,054 - INFO - Episode 1242/98900: Winner=2, Reward=-5.55, EPSILON=0.989, (W=61,D=1,L=0)
+2025-01-16 05:02:36,241 - INFO - Episode 1243/98900: Winner=2, Reward=0.05, EPSILON=0.989, (W=61,D=1,L=0)
+2025-01-16 05:02:36,600 - INFO - Episode 1244/98900: Winner=2, Reward=-34.15, EPSILON=0.989, (W=62,D=1,L=0)
+2025-01-16 05:02:36,835 - INFO - Episode 1245/98900: Winner=2, Reward=-9.55, EPSILON=0.989, (W=62,D=1,L=0)
+2025-01-16 05:02:36,975 - INFO - Episode 1246/98900: Winner=2, Reward=0.15, EPSILON=0.989, (W=62,D=1,L=0)
+2025-01-16 05:02:37,178 - INFO - Episode 1247/98900: Winner=2, Reward=-17.35, EPSILON=0.989, (W=63,D=1,L=0)
+2025-01-16 05:02:37,475 - INFO - Episode 1248/98900: Winner=2, Reward=-15.25, EPSILON=0.989, (W=64,D=1,L=0)
+2025-01-16 05:02:37,553 - INFO - Episode 1249/98900: Winner=2, Reward=-2.10, EPSILON=0.989, (W=64,D=1,L=0)
+2025-01-16 05:02:37,616 - DEBUG - Q-vals = [0.11615609 0.10558241 0.14725994 0.1672919  0.13193998 0.21260738
+ 0.11916228], best_act=5, best_val=0.213
+2025-01-16 05:02:37,616 - DEBUG - Low Q-value (0.213), using MCTS.
+2025-01-16 05:02:37,616 - INFO - Running MCTS with 60 simulations using 6 processes.
+2025-01-16 05:02:40,434 - DEBUG - Aggregated action counts: {1: 3, 0: 3}
+2025-01-16 05:02:40,434 - DEBUG - Chose best action 1
+2025-01-16 05:02:40,640 - INFO - Episode 1250/98900: Winner=2, Reward=-37.85, EPSILON=0.989, (W=65,D=1,L=0)
+2025-01-16 05:02:40,862 - INFO - Episode 1251/98900: Winner=2, Reward=20.85, EPSILON=0.989, (W=65,D=1,L=0)
+2025-01-16 05:02:41,007 - INFO - Episode 1252/98900: Winner=2, Reward=-1.75, EPSILON=0.989, (W=66,D=1,L=0)
+2025-01-16 05:02:41,248 - INFO - Episode 1253/98900: Winner=2, Reward=-13.15, EPSILON=0.989, (W=66,D=1,L=0)
+2025-01-16 05:02:41,498 - INFO - Episode 1254/98900: Winner=2, Reward=9.25, EPSILON=0.989, (W=67,D=1,L=0)
+2025-01-16 05:02:41,874 - INFO - Episode 1255/98900: Winner=2, Reward=-54.15, EPSILON=0.989, (W=67,D=1,L=0)
+2025-01-16 05:02:42,015 - INFO - Episode 1256/98900: Winner=2, Reward=11.35, EPSILON=0.989, (W=67,D=1,L=0)
+2025-01-16 05:02:42,172 - INFO - Episode 1257/98900: Winner=2, Reward=-2.40, EPSILON=0.989, (W=67,D=1,L=0)
+2025-01-16 05:02:42,453 - INFO - Episode 1258/98900: Winner=2, Reward=-40.15, EPSILON=0.989, (W=68,D=1,L=0)
+2025-01-16 05:02:42,599 - INFO - Episode 1259/98900: Winner=2, Reward=7.75, EPSILON=0.989, (W=68,D=1,L=0)
+2025-01-16 05:02:42,741 - INFO - Episode 1260/98900: Winner=2, Reward=-9.15, EPSILON=0.989, (W=69,D=1,L=0)
+2025-01-16 05:02:43,030 - INFO - Episode 1261/98900: Winner=2, Reward=-44.85, EPSILON=0.989, (W=70,D=1,L=0)
+2025-01-16 05:02:43,309 - INFO - Episode 1262/98900: Winner=2, Reward=3.15, EPSILON=0.989, (W=70,D=1,L=0)
+2025-01-16 05:02:43,356 - DEBUG - Q-vals = [0.12416296 0.12835982 0.1539314  0.16609387 0.13417773 0.16306816
+ 0.13020612], best_act=3, best_val=0.166
+2025-01-16 05:02:43,356 - DEBUG - Low Q-value (0.166), using MCTS.
+2025-01-16 05:02:43,356 - INFO - Running MCTS with 60 simulations using 6 processes.
+2025-01-16 05:02:46,030 - DEBUG - Aggregated action counts: {0: 4, 6: 1, 1: 1}
+2025-01-16 05:02:46,030 - DEBUG - Chose best action 0
+2025-01-16 05:02:46,174 - INFO - Episode 1263/98900: Winner=2, Reward=-6.95, EPSILON=0.989, (W=71,D=1,L=0)
+2025-01-16 05:02:46,403 - INFO - Episode 1264/98900: Winner=2, Reward=-16.45, EPSILON=0.989, (W=72,D=1,L=0)
+2025-01-16 05:02:46,609 - INFO - Episode 1265/98900: Winner=2, Reward=-32.05, EPSILON=0.989, (W=73,D=1,L=0)
+2025-01-16 05:02:46,814 - INFO - Episode 1266/98900: Winner=2, Reward=5.35, EPSILON=0.989, (W=73,D=1,L=0)
+2025-01-16 05:02:46,957 - INFO - Episode 1267/98900: Winner=2, Reward=-13.65, EPSILON=0.989, (W=74,D=1,L=0)
+2025-01-16 05:02:47,062 - INFO - Episode 1268/98900: Winner=2, Reward=0.55, EPSILON=0.989, (W=74,D=1,L=0)
+2025-01-16 05:02:47,297 - INFO - Episode 1269/98900: Winner=2, Reward=-13.10, EPSILON=0.989, (W=75,D=1,L=0)
+2025-01-16 05:02:47,415 - DEBUG - Q-vals = [0.26910633 0.15385297 0.14375666 0.09218664 0.11107185 0.08988912
+ 0.14013648], best_act=0, best_val=0.269
+2025-01-16 05:02:47,415 - DEBUG - Low Q-value (0.269), using MCTS.
+2025-01-16 05:02:47,431 - INFO - Episode 1270/98900: Winner=2, Reward=-8.25, EPSILON=0.989, (W=76,D=1,L=0)
+2025-01-16 05:02:47,594 - DEBUG - Q-vals = [0.09713669 0.04837724 0.19630344 0.13555346 0.17190637 0.12096517
+ 0.22975765], best_act=6, best_val=0.230
+2025-01-16 05:02:47,594 - DEBUG - Low Q-value (0.230), using MCTS.
+2025-01-16 05:02:47,594 - INFO - Running MCTS with 60 simulations using 6 processes.
+2025-01-16 05:02:50,348 - DEBUG - Aggregated action counts: {0: 3, 1: 2, 4: 1}
+2025-01-16 05:02:50,348 - DEBUG - Chose best action 0
+2025-01-16 05:02:50,469 - INFO - Episode 1271/98900: Winner=2, Reward=9.45, EPSILON=0.989, (W=76,D=1,L=0)
+2025-01-16 05:02:50,567 - INFO - Episode 1272/98900: Winner=2, Reward=2.25, EPSILON=0.989, (W=76,D=1,L=0)
+2025-01-16 05:02:50,751 - INFO - Episode 1273/98900: Winner=2, Reward=-16.45, EPSILON=0.989, (W=77,D=1,L=0)
+2025-01-16 05:02:51,078 - INFO - Episode 1274/98900: Winner=2, Reward=16.25, EPSILON=0.989, (W=77,D=1,L=0)
+2025-01-16 05:02:51,456 - INFO - Episode 1275/98900: Winner=2, Reward=-40.55, EPSILON=0.989, (W=78,D=1,L=0)
+2025-01-16 05:02:51,731 - INFO - Episode 1276/98900: Winner=2, Reward=-15.05, EPSILON=0.989, (W=78,D=1,L=0)
+2025-01-16 05:02:51,951 - INFO - Episode 1277/98900: Winner=2, Reward=-15.75, EPSILON=0.989, (W=79,D=1,L=0)
+2025-01-16 05:02:52,106 - INFO - Episode 1278/98900: Winner=2, Reward=24.60, EPSILON=0.989, (W=79,D=1,L=0)
+2025-01-16 05:02:52,122 - DEBUG - Q-vals = [0.14244299 0.13678947 0.16747448 0.12931201 0.13057967 0.15853924
+ 0.13486208], best_act=2, best_val=0.167
+2025-01-16 05:02:52,122 - DEBUG - Low Q-value (0.167), using MCTS.
+2025-01-16 05:02:52,122 - INFO - Running MCTS with 61 simulations using 6 processes.
+2025-01-16 05:02:55,065 - DEBUG - Aggregated action counts: {4: 1, 2: 1, 0: 1, 1: 2, 3: 2}
+2025-01-16 05:02:55,065 - DEBUG - Chose best action 1
+2025-01-16 05:02:55,206 - INFO - Episode 1279/98900: Winner=2, Reward=5.60, EPSILON=0.989, (W=79,D=1,L=0)
+2025-01-16 05:02:55,612 - INFO - Episode 1280/98900: Winner=2, Reward=-40.35, EPSILON=0.989, (W=79,D=1,L=0)
+2025-01-16 05:02:55,862 - INFO - Episode 1281/98900: Winner=2, Reward=-9.65, EPSILON=0.989, (W=79,D=1,L=0)
+2025-01-16 05:02:55,987 - INFO - Episode 1282/98900: Winner=2, Reward=-1.80, EPSILON=0.989, (W=79,D=1,L=0)
+2025-01-16 05:02:56,130 - INFO - Episode 1283/98900: Winner=2, Reward=-10.90, EPSILON=0.989, (W=80,D=1,L=0)
+2025-01-16 05:02:56,373 - INFO - Episode 1284/98900: Winner=2, Reward=5.85, EPSILON=0.989, (W=80,D=1,L=0)
+2025-01-16 05:02:56,705 - INFO - Episode 1285/98900: Winner=2, Reward=-16.85, EPSILON=0.989, (W=81,D=1,L=0)
+2025-01-16 05:02:56,869 - INFO - Episode 1286/98900: Winner=2, Reward=4.75, EPSILON=0.988, (W=81,D=1,L=0)
+2025-01-16 05:02:57,046 - INFO - Episode 1287/98900: Winner=2, Reward=3.45, EPSILON=0.988, (W=82,D=1,L=0)
+2025-01-16 05:02:57,135 - INFO - Episode 1288/98900: Winner=2, Reward=-0.10, EPSILON=0.988, (W=82,D=1,L=0)
+2025-01-16 05:02:57,498 - INFO - Episode 1289/98900: Winner=2, Reward=-41.55, EPSILON=0.988, (W=83,D=1,L=0)
+2025-01-16 05:02:57,763 - INFO - Episode 1290/98900: Winner=2, Reward=-24.60, EPSILON=0.988, (W=84,D=1,L=0)
+2025-01-16 05:02:57,982 - INFO - Episode 1291/98900: Winner=2, Reward=3.05, EPSILON=0.988, (W=84,D=1,L=0)
+2025-01-16 05:02:58,201 - INFO - Episode 1292/98900: Winner=2, Reward=14.45, EPSILON=0.988, (W=84,D=1,L=0)
+2025-01-16 05:02:58,451 - INFO - Episode 1293/98900: Winner=2, Reward=-6.25, EPSILON=0.988, (W=84,D=1,L=0)
+2025-01-16 05:02:58,529 - INFO - Episode 1294/98900: Winner=2, Reward=-6.45, EPSILON=0.988, (W=85,D=1,L=0)
+2025-01-16 05:02:58,638 - DEBUG - Q-vals = [0.13431334 0.06683978 0.17738679 0.21719629 0.21574397 0.13583335
+ 0.05268646], best_act=3, best_val=0.217
+2025-01-16 05:02:58,638 - DEBUG - Low Q-value (0.217), using MCTS.
+2025-01-16 05:02:58,638 - INFO - Running MCTS with 61 simulations using 6 processes.
+2025-01-16 05:03:01,433 - DEBUG - Aggregated action counts: {1: 4, 0: 2, 3: 1}
+2025-01-16 05:03:01,433 - DEBUG - Chose best action 1
+2025-01-16 05:03:01,612 - INFO - Episode 1295/98900: Winner=2, Reward=5.45, EPSILON=0.988, (W=85,D=1,L=0)
+2025-01-16 05:03:01,796 - INFO - Episode 1296/98900: Winner=2, Reward=-9.20, EPSILON=0.988, (W=86,D=1,L=0)
+2025-01-16 05:03:02,067 - INFO - Episode 1297/98900: Winner=2, Reward=1.15, EPSILON=0.988, (W=86,D=1,L=0)
+2025-01-16 05:03:02,392 - INFO - Episode 1298/98900: Winner=2, Reward=-16.05, EPSILON=0.988, (W=86,D=1,L=0)
+2025-01-16 05:03:02,700 - INFO - Episode 1299/98900: Winner=2, Reward=-44.55, EPSILON=0.988, (W=87,D=1,L=0)
+2025-01-16 05:03:03,005 - INFO - Saved model checkpoint to Connect4_Agent_Model.pth at episode 1300.
+2025-01-16 05:03:03,006 - INFO - Models saved at episode 1300
+2025-01-16 05:03:03,007 - INFO - Target networks updated
+2025-01-16 05:03:03,051 - INFO - Saved model checkpoint to Connect4_Agent_Model.pth at episode 1300.
+2025-01-16 05:03:03,051 - INFO - Episode 1300/98900: Winner=2, Reward=-16.05, EPSILON=0.988, (W=87,D=1,L=0)
+2025-01-16 05:03:03,325 - INFO - Episode 1301/98900: Winner=2, Reward=-5.85, EPSILON=0.988, (W=88,D=1,L=0)
+2025-01-16 05:03:03,407 - DEBUG - Q-vals = [0.16727923 0.14065479 0.11861746 0.16658194 0.09894536 0.14139824
+ 0.16652298], best_act=0, best_val=0.167
+2025-01-16 05:03:03,407 - DEBUG - Low Q-value (0.167), using MCTS.
+2025-01-16 05:03:03,407 - INFO - Running MCTS with 62 simulations using 6 processes.
+2025-01-16 05:03:06,418 - DEBUG - Aggregated action counts: {0: 7}
+2025-01-16 05:03:06,418 - DEBUG - Chose best action 0
+2025-01-16 05:03:06,687 - INFO - Episode 1302/98900: Winner=2, Reward=-16.35, EPSILON=0.988, (W=89,D=1,L=0)
+2025-01-16 05:03:07,002 - INFO - Episode 1303/98900: Winner=2, Reward=0.45, EPSILON=0.988, (W=89,D=1,L=0)
+2025-01-16 05:03:07,128 - INFO - Episode 1304/98900: Winner=2, Reward=-14.35, EPSILON=0.988, (W=90,D=1,L=0)
+2025-01-16 05:03:07,409 - INFO - Episode 1305/98900: Winner=2, Reward=-12.40, EPSILON=0.988, (W=91,D=1,L=0)
+2025-01-16 05:03:07,763 - INFO - Episode 1306/98900: Winner=2, Reward=-67.45, EPSILON=0.988, (W=92,D=1,L=0)
+2025-01-16 05:03:07,951 - INFO - Episode 1307/98900: Winner=2, Reward=8.95, EPSILON=0.988, (W=92,D=1,L=0)
+2025-01-16 05:03:08,157 - DEBUG - Q-vals = [0.3917455  0.05680913 0.0217552  0.042716   0.01172396 0.01243794
+ 0.4628123 ], best_act=6, best_val=0.463
+2025-01-16 05:03:08,157 - DEBUG - Low Q-value (0.463), using MCTS.
+2025-01-16 05:03:08,173 - INFO - Episode 1308/98900: Winner=2, Reward=-18.75, EPSILON=0.988, (W=93,D=1,L=0)
+2025-01-16 05:03:08,533 - INFO - Episode 1309/98900: Winner=2, Reward=-49.80, EPSILON=0.988, (W=93,D=1,L=0)
+2025-01-16 05:03:08,853 - INFO - Episode 1310/98900: Winner=2, Reward=-32.15, EPSILON=0.988, (W=93,D=1,L=0)
+2025-01-16 05:03:08,949 - DEBUG - Q-vals = [0.21873172 0.15552287 0.1355723  0.09013061 0.16153368 0.10025205
+ 0.13825679], best_act=0, best_val=0.219
+2025-01-16 05:03:08,949 - DEBUG - Low Q-value (0.219), using MCTS.
+2025-01-16 05:03:08,949 - INFO - Running MCTS with 62 simulations using 6 processes.
+2025-01-16 05:03:11,934 - DEBUG - Aggregated action counts: {6: 1, 5: 1, 0: 3, 1: 1, 2: 1}
+2025-01-16 05:03:11,935 - DEBUG - Chose best action 0
+2025-01-16 05:03:11,989 - INFO - Episode 1311/98900: Winner=2, Reward=-11.40, EPSILON=0.988, (W=94,D=1,L=0)
+2025-01-16 05:03:12,053 - INFO - Episode 1312/98900: Winner=2, Reward=8.25, EPSILON=0.988, (W=94,D=1,L=0)
+2025-01-16 05:03:12,299 - INFO - Episode 1313/98900: Winner=2, Reward=-12.75, EPSILON=0.988, (W=95,D=1,L=0)
+2025-01-16 05:03:12,476 - DEBUG - Q-vals = [0.10663049 0.2074006  0.04007417 0.17174166 0.1590656  0.12884015
+ 0.18624724], best_act=1, best_val=0.207
+2025-01-16 05:03:12,476 - DEBUG - Low Q-value (0.207), using MCTS.
+2025-01-16 05:03:12,478 - INFO - Running MCTS with 62 simulations using 6 processes.
+2025-01-16 05:03:15,668 - DEBUG - Aggregated action counts: {2: 1, 0: 4, 4: 2}
+2025-01-16 05:03:15,668 - DEBUG - Chose best action 0
+2025-01-16 05:03:15,668 - INFO - Episode 1314/98900: Winner=2, Reward=1.25, EPSILON=0.988, (W=95,D=1,L=0)
+2025-01-16 05:03:15,889 - DEBUG - Q-vals = [0.08775961 0.09328914 0.0421368  0.02149155 0.07057525 0.13702837
+ 0.54771924], best_act=6, best_val=0.548
+2025-01-16 05:03:15,889 - DEBUG - Low Q-value (0.548), using MCTS.
+2025-01-16 05:03:15,889 - INFO - Running MCTS with 62 simulations using 6 processes.
+2025-01-16 05:03:18,769 - DEBUG - Aggregated action counts: {1: 1, 0: 2, 2: 2, 4: 1, 3: 1}
+2025-01-16 05:03:18,769 - DEBUG - Chose best action 0
+2025-01-16 05:03:18,850 - INFO - Episode 1315/98900: Winner=2, Reward=-18.15, EPSILON=0.988, (W=96,D=1,L=0)
+2025-01-16 05:03:19,116 - INFO - Episode 1316/98900: Winner=2, Reward=-7.55, EPSILON=0.988, (W=97,D=1,L=0)
+2025-01-16 05:03:19,397 - INFO - Episode 1317/98900: Winner=2, Reward=-13.15, EPSILON=0.988, (W=97,D=1,L=0)
+2025-01-16 05:03:19,752 - INFO - Episode 1318/98900: Winner=2, Reward=-24.65, EPSILON=0.988, (W=98,D=1,L=0)
+2025-01-16 05:03:19,883 - INFO - Episode 1319/98900: Winner=2, Reward=-10.05, EPSILON=0.988, (W=99,D=1,L=0)
+2025-01-16 05:03:20,180 - INFO - Episode 1320/98900: Winner=2, Reward=-5.85, EPSILON=0.988, (W=99,D=1,L=0)
+2025-01-16 05:03:20,461 - INFO - Episode 1321/98900: Winner=2, Reward=-18.35, EPSILON=0.988, (W=100,D=1,L=0)
+2025-01-16 05:03:20,570 - INFO - Episode 1322/98900: Winner=2, Reward=9.40, EPSILON=0.988, (W=100,D=1,L=0)
+2025-01-16 05:03:20,867 - INFO - Episode 1323/98900: Winner=2, Reward=-0.35, EPSILON=0.988, (W=100,D=1,L=0)
+2025-01-16 05:03:21,116 - INFO - Episode 1324/98900: Winner=2, Reward=4.95, EPSILON=0.988, (W=101,D=1,L=0)
+2025-01-16 05:03:21,403 - INFO - Episode 1325/98900: Winner=2, Reward=-22.45, EPSILON=0.988, (W=101,D=1,L=0)
+2025-01-16 05:03:21,657 - INFO - Episode 1326/98900: Winner=2, Reward=-7.05, EPSILON=0.988, (W=101,D=1,L=0)
+2025-01-16 05:03:21,791 - INFO - Episode 1327/98900: Winner=2, Reward=13.95, EPSILON=0.988, (W=101,D=1,L=0)
+2025-01-16 05:03:21,964 - INFO - Episode 1328/98900: Winner=2, Reward=-15.60, EPSILON=0.988, (W=102,D=1,L=0)
+2025-01-16 05:03:22,135 - INFO - Episode 1329/98900: Winner=2, Reward=-9.65, EPSILON=0.988, (W=103,D=1,L=0)
+2025-01-16 05:03:22,226 - INFO - Episode 1330/98900: Winner=2, Reward=-2.15, EPSILON=0.988, (W=103,D=1,L=0)
+2025-01-16 05:03:22,589 - INFO - Episode 1331/98900: Winner=2, Reward=-48.15, EPSILON=0.988, (W=104,D=1,L=0)
+2025-01-16 05:03:22,810 - INFO - Episode 1332/98900: Winner=2, Reward=-18.15, EPSILON=0.988, (W=105,D=1,L=0)
+2025-01-16 05:03:23,041 - INFO - Episode 1333/98900: Winner=2, Reward=24.50, EPSILON=0.988, (W=105,D=1,L=0)
+2025-01-16 05:03:23,213 - INFO - Episode 1334/98900: Winner=2, Reward=-2.50, EPSILON=0.988, (W=106,D=1,L=0)
+2025-01-16 05:03:23,556 - INFO - Episode 1335/98900: Winner=2, Reward=-31.50, EPSILON=0.988, (W=107,D=1,L=0)
+2025-01-16 05:03:23,796 - INFO - Episode 1336/98900: Winner=2, Reward=-11.60, EPSILON=0.988, (W=108,D=1,L=0)
+2025-01-16 05:03:24,140 - INFO - Episode 1337/98900: Winner=2, Reward=-48.85, EPSILON=0.988, (W=109,D=1,L=0)
+2025-01-16 05:03:24,312 - INFO - Episode 1338/98900: Winner=2, Reward=-10.85, EPSILON=0.988, (W=110,D=1,L=0)
+2025-01-16 05:03:24,457 - INFO - Episode 1339/98900: Winner=2, Reward=6.95, EPSILON=0.988, (W=110,D=1,L=0)
+2025-01-16 05:03:24,619 - INFO - Episode 1340/98900: Winner=2, Reward=20.20, EPSILON=0.988, (W=110,D=1,L=0)
+2025-01-16 05:03:24,666 - DEBUG - Q-vals = [0.12718485 0.12632407 0.11975586 0.14978704 0.1773804  0.15402852
+ 0.14553925], best_act=4, best_val=0.177
+2025-01-16 05:03:24,666 - DEBUG - Low Q-value (0.177), using MCTS.
+2025-01-16 05:03:24,666 - INFO - Running MCTS with 63 simulations using 6 processes.
+2025-01-16 05:03:27,604 - DEBUG - Aggregated action counts: {0: 5, 1: 1, 3: 1}
+2025-01-16 05:03:27,604 - DEBUG - Chose best action 0
+2025-01-16 05:03:27,639 - DEBUG - Q-vals = [0.0172468  0.02836505 0.02869913 0.03082803 0.03153478 0.7521723
+ 0.11115395], best_act=5, best_val=0.752
+2025-01-16 05:03:27,639 - DEBUG - Low Q-value (0.752), using MCTS.
+2025-01-16 05:03:27,640 - INFO - Running MCTS with 63 simulations using 6 processes.
+2025-01-16 05:03:30,570 - DEBUG - Aggregated action counts: {1: 2, 0: 4, 2: 1}
+2025-01-16 05:03:30,570 - DEBUG - Chose best action 0
+2025-01-16 05:03:30,749 - INFO - Episode 1341/98900: Winner=2, Reward=-13.60, EPSILON=0.988, (W=110,D=1,L=0)
+2025-01-16 05:03:31,046 - INFO - Episode 1342/98900: Winner=2, Reward=-13.60, EPSILON=0.988, (W=110,D=1,L=0)
+2025-01-16 05:03:31,252 - INFO - Episode 1343/98900: Winner=2, Reward=-5.25, EPSILON=0.988, (W=110,D=1,L=0)
+2025-01-16 05:03:31,460 - INFO - Episode 1344/98900: Winner=2, Reward=-25.85, EPSILON=0.988, (W=110,D=1,L=0)
+2025-01-16 05:03:31,814 - INFO - Episode 1345/98900: Winner=2, Reward=-47.90, EPSILON=0.988, (W=111,D=1,L=0)
+2025-01-16 05:03:32,051 - INFO - Episode 1346/98900: Winner=2, Reward=0.85, EPSILON=0.988, (W=111,D=1,L=0)
+2025-01-16 05:03:32,218 - INFO - Episode 1347/98900: Winner=2, Reward=5.40, EPSILON=0.988, (W=111,D=1,L=0)
+2025-01-16 05:03:32,316 - INFO - Episode 1348/98900: Winner=2, Reward=7.70, EPSILON=0.988, (W=111,D=1,L=0)
+2025-01-16 05:03:32,480 - INFO - Episode 1349/98900: Winner=2, Reward=-8.70, EPSILON=0.988, (W=112,D=1,L=0)
+2025-01-16 05:03:32,663 - INFO - Episode 1350/98900: Winner=2, Reward=6.35, EPSILON=0.988, (W=112,D=1,L=0)
+2025-01-16 05:03:33,060 - INFO - Episode 1351/98900: Winner=2, Reward=-13.55, EPSILON=0.988, (W=112,D=1,L=0)
+2025-01-16 05:03:33,349 - INFO - Episode 1352/98900: Winner=2, Reward=-30.15, EPSILON=0.988, (W=112,D=1,L=0)
+2025-01-16 05:03:33,531 - INFO - Episode 1353/98900: Winner=2, Reward=11.05, EPSILON=0.988, (W=112,D=1,L=0)
+2025-01-16 05:03:33,646 - INFO - Episode 1354/98900: Winner=2, Reward=0.50, EPSILON=0.988, (W=112,D=1,L=0)
+2025-01-16 05:03:33,746 - DEBUG - Q-vals = [0.18758515 0.16129927 0.08935983 0.12768313 0.14556292 0.11404112
+ 0.17446864], best_act=0, best_val=0.188
+2025-01-16 05:03:33,747 - DEBUG - Low Q-value (0.188), using MCTS.
+2025-01-16 05:03:33,747 - INFO - Running MCTS with 64 simulations using 6 processes.
+2025-01-16 05:03:36,675 - DEBUG - Aggregated action counts: {2: 1, 1: 3, 3: 2, 0: 1}
+2025-01-16 05:03:36,675 - DEBUG - Chose best action 1
+2025-01-16 05:03:36,751 - INFO - Episode 1355/98900: Winner=2, Reward=-0.55, EPSILON=0.988, (W=112,D=1,L=0)
+2025-01-16 05:03:36,820 - INFO - Episode 1356/98900: Winner=2, Reward=0.45, EPSILON=0.988, (W=112,D=1,L=0)
+2025-01-16 05:03:37,102 - INFO - Episode 1357/98900: Winner=2, Reward=-2.70, EPSILON=0.988, (W=112,D=1,L=0)
+2025-01-16 05:03:37,300 - INFO - Episode 1358/98900: Winner=2, Reward=-10.80, EPSILON=0.988, (W=113,D=1,L=0)
+2025-01-16 05:03:37,594 - INFO - Episode 1359/98900: Winner=2, Reward=-24.05, EPSILON=0.988, (W=114,D=1,L=0)
+2025-01-16 05:03:37,974 - INFO - Episode 1360/98900: Winner=2, Reward=-37.35, EPSILON=0.988, (W=114,D=1,L=0)
+2025-01-16 05:03:38,268 - INFO - Episode 1361/98900: Winner=2, Reward=-41.75, EPSILON=0.988, (W=114,D=1,L=0)
+2025-01-16 05:03:38,471 - INFO - Episode 1362/98900: Winner=2, Reward=-8.25, EPSILON=0.988, (W=114,D=1,L=0)
+2025-01-16 05:03:38,672 - INFO - Episode 1363/98900: Winner=2, Reward=9.00, EPSILON=0.988, (W=114,D=1,L=0)
+2025-01-16 05:03:39,042 - INFO - Episode 1364/98900: Winner=2, Reward=-25.45, EPSILON=0.988, (W=114,D=1,L=0)
+2025-01-16 05:03:39,224 - INFO - Episode 1365/98900: Winner=2, Reward=15.25, EPSILON=0.988, (W=114,D=1,L=0)
+2025-01-16 05:03:39,463 - INFO - Episode 1366/98900: Winner=2, Reward=-0.15, EPSILON=0.988, (W=114,D=1,L=0)
+2025-01-16 05:03:39,596 - INFO - Episode 1367/98900: Winner=2, Reward=2.95, EPSILON=0.988, (W=114,D=1,L=0)
+2025-01-16 05:03:39,752 - INFO - Episode 1368/98900: Winner=2, Reward=-10.80, EPSILON=0.988, (W=115,D=1,L=0)
+2025-01-16 05:03:40,091 - INFO - Episode 1369/98900: Winner=2, Reward=-38.25, EPSILON=0.988, (W=116,D=1,L=0)
+2025-01-16 05:03:40,106 - DEBUG - Q-vals = [0.10547301 0.13646315 0.10772125 0.18352735 0.17564537 0.14723152
+ 0.14393835], best_act=3, best_val=0.184
+2025-01-16 05:03:40,106 - DEBUG - Low Q-value (0.184), using MCTS.
+2025-01-16 05:03:40,106 - INFO - Running MCTS with 64 simulations using 6 processes.
+2025-01-16 05:03:43,298 - DEBUG - Aggregated action counts: {2: 3, 0: 3, 1: 1}
+2025-01-16 05:03:43,298 - DEBUG - Chose best action 2
+2025-01-16 05:03:43,640 - INFO - Episode 1370/98900: Winner=2, Reward=-57.10, EPSILON=0.988, (W=117,D=1,L=0)
+2025-01-16 05:03:43,893 - INFO - Episode 1371/98900: Winner=2, Reward=-0.65, EPSILON=0.988, (W=117,D=1,L=0)
+2025-01-16 05:03:44,125 - INFO - Episode 1372/98900: Winner=2, Reward=-15.90, EPSILON=0.988, (W=118,D=1,L=0)
+2025-01-16 05:03:44,342 - INFO - Episode 1373/98900: Winner=2, Reward=-10.35, EPSILON=0.988, (W=119,D=1,L=0)
+2025-01-16 05:03:44,507 - INFO - Episode 1374/98900: Winner=2, Reward=-2.90, EPSILON=0.988, (W=119,D=1,L=0)
+2025-01-16 05:03:44,895 - INFO - Episode 1375/98900: Winner=2, Reward=-58.95, EPSILON=0.988, (W=120,D=1,L=0)
+2025-01-16 05:03:45,051 - INFO - Episode 1376/98900: Winner=2, Reward=-16.30, EPSILON=0.988, (W=121,D=1,L=0)
+2025-01-16 05:03:45,178 - INFO - Episode 1377/98900: Winner=2, Reward=11.85, EPSILON=0.988, (W=121,D=1,L=0)
+2025-01-16 05:03:45,523 - INFO - Episode 1378/98900: Winner=2, Reward=-9.40, EPSILON=0.988, (W=121,D=1,L=0)
+2025-01-16 05:03:45,806 - INFO - Episode 1379/98900: Winner=2, Reward=-14.45, EPSILON=0.988, (W=121,D=1,L=0)
+2025-01-16 05:03:46,061 - INFO - Episode 1380/98900: Winner=2, Reward=-22.05, EPSILON=0.988, (W=122,D=1,L=0)
+2025-01-16 05:03:46,360 - INFO - Episode 1381/98900: Winner=2, Reward=-11.30, EPSILON=0.988, (W=123,D=1,L=0)
+2025-01-16 05:03:46,570 - INFO - Episode 1382/98900: Winner=2, Reward=7.85, EPSILON=0.988, (W=123,D=1,L=0)
+2025-01-16 05:03:46,751 - INFO - Episode 1383/98900: Winner=2, Reward=-13.80, EPSILON=0.988, (W=124,D=1,L=0)
+2025-01-16 05:03:46,978 - INFO - Episode 1384/98900: Winner=2, Reward=-4.05, EPSILON=0.988, (W=124,D=1,L=0)
+2025-01-16 05:03:47,169 - INFO - Episode 1385/98900: Winner=2, Reward=12.75, EPSILON=0.988, (W=125,D=1,L=0)
+2025-01-16 05:03:47,433 - INFO - Episode 1386/98900: Winner=2, Reward=-32.60, EPSILON=0.988, (W=125,D=1,L=0)
+2025-01-16 05:03:47,612 - INFO - Episode 1387/98900: Winner=2, Reward=9.05, EPSILON=0.988, (W=125,D=1,L=0)
+2025-01-16 05:03:47,838 - INFO - Episode 1388/98900: Winner=2, Reward=-9.90, EPSILON=0.988, (W=126,D=1,L=0)
+2025-01-16 05:03:48,061 - INFO - Episode 1389/98900: Winner=2, Reward=-5.85, EPSILON=0.988, (W=126,D=1,L=0)
+2025-01-16 05:03:48,153 - INFO - Episode 1390/98900: Winner=2, Reward=5.95, EPSILON=0.988, (W=126,D=1,L=0)
+2025-01-16 05:03:48,393 - INFO - Episode 1391/98900: Winner=2, Reward=-33.15, EPSILON=0.988, (W=127,D=1,L=0)
+2025-01-16 05:03:48,568 - INFO - Episode 1392/98900: Winner=2, Reward=-9.80, EPSILON=0.988, (W=128,D=1,L=0)
+2025-01-16 05:03:48,749 - INFO - Episode 1393/98900: Winner=2, Reward=1.50, EPSILON=0.988, (W=129,D=1,L=0)
+2025-01-16 05:03:49,123 - INFO - Episode 1394/98900: Winner=2, Reward=-80.85, EPSILON=0.988, (W=130,D=1,L=0)
+2025-01-16 05:03:49,271 - INFO - Episode 1395/98900: Winner=2, Reward=-11.95, EPSILON=0.988, (W=131,D=1,L=0)
+2025-01-16 05:03:49,673 - INFO - Episode 1396/98900: Winner=2, Reward=-57.30, EPSILON=0.988, (W=131,D=1,L=0)
+2025-01-16 05:03:49,853 - INFO - Episode 1397/98900: Winner=2, Reward=-20.45, EPSILON=0.988, (W=132,D=1,L=0)
+2025-01-16 05:03:49,940 - INFO - Episode 1398/98900: Winner=2, Reward=8.30, EPSILON=0.987, (W=132,D=1,L=0)
+2025-01-16 05:03:50,151 - INFO - Episode 1399/98900: Winner=2, Reward=3.95, EPSILON=0.987, (W=132,D=1,L=0)
+2025-01-16 05:03:50,558 - INFO - Saved model checkpoint to Connect4_Agent_Model.pth at episode 1400.
+2025-01-16 05:03:50,558 - INFO - Models saved at episode 1400
+2025-01-16 05:03:50,558 - INFO - Target networks updated
+2025-01-16 05:03:50,626 - INFO - Saved model checkpoint to Connect4_Agent_Model.pth at episode 1400.
+2025-01-16 05:03:50,626 - INFO - Episode 1400/98900: Winner=2, Reward=-24.55, EPSILON=0.987, (W=133,D=1,L=0)
+2025-01-16 05:03:50,906 - INFO - Episode 1401/98900: Winner=2, Reward=-16.20, EPSILON=0.987, (W=134,D=1,L=0)
+2025-01-16 05:03:51,191 - INFO - Episode 1402/98900: Winner=2, Reward=-12.55, EPSILON=0.987, (W=135,D=1,L=0)
+2025-01-16 05:03:51,354 - INFO - Episode 1403/98900: Winner=2, Reward=17.75, EPSILON=0.987, (W=135,D=1,L=0)
+2025-01-16 05:03:51,712 - DEBUG - Q-vals = [0.25959337 0.19248156 0.07839829 0.18373357 0.16962413 0.02961333
+ 0.08655576], best_act=3, best_val=0.184
+2025-01-16 05:03:51,713 - DEBUG - Low Q-value (0.184), using MCTS.
+2025-01-16 05:03:51,714 - INFO - Running MCTS with 66 simulations using 6 processes.
+2025-01-16 05:03:54,662 - DEBUG - Aggregated action counts: {3: 2, 2: 4}
+2025-01-16 05:03:54,662 - DEBUG - Chose best action 2
+2025-01-16 05:03:54,674 - INFO - Episode 1404/98900: Winner=2, Reward=-28.00, EPSILON=0.987, (W=135,D=1,L=0)
+2025-01-16 05:03:54,922 - INFO - Episode 1405/98900: Winner=2, Reward=6.70, EPSILON=0.987, (W=135,D=1,L=0)
+2025-01-16 05:03:55,126 - INFO - Episode 1406/98900: Winner=2, Reward=-17.65, EPSILON=0.987, (W=136,D=1,L=0)
+2025-01-16 05:03:55,328 - INFO - Episode 1407/98900: Winner=2, Reward=-0.20, EPSILON=0.987, (W=136,D=1,L=0)
+2025-01-16 05:03:55,483 - INFO - Episode 1408/98900: Winner=2, Reward=-3.30, EPSILON=0.987, (W=137,D=1,L=0)
+2025-01-16 05:03:55,687 - INFO - Episode 1409/98900: Winner=2, Reward=-12.55, EPSILON=0.987, (W=138,D=1,L=0)
+2025-01-16 05:03:56,041 - INFO - Episode 1410/98900: Winner=2, Reward=-52.35, EPSILON=0.987, (W=138,D=1,L=0)
+2025-01-16 05:03:56,157 - INFO - Episode 1411/98900: Winner=2, Reward=4.35, EPSILON=0.987, (W=138,D=1,L=0)
+2025-01-16 05:03:56,281 - INFO - Episode 1412/98900: Winner=2, Reward=-0.45, EPSILON=0.987, (W=138,D=1,L=0)
+2025-01-16 05:03:56,578 - INFO - Episode 1413/98900: Winner=2, Reward=-24.45, EPSILON=0.987, (W=138,D=1,L=0)
+2025-01-16 05:03:56,820 - INFO - Episode 1414/98900: Winner=2, Reward=-10.80, EPSILON=0.987, (W=138,D=1,L=0)
+2025-01-16 05:03:57,002 - INFO - Episode 1415/98900: Winner=2, Reward=19.20, EPSILON=0.987, (W=139,D=1,L=0)
+2025-01-16 05:03:57,175 - INFO - Episode 1416/98900: Winner=2, Reward=-11.95, EPSILON=0.987, (W=140,D=1,L=0)
+2025-01-16 05:03:57,207 - DEBUG - Q-vals = [0.08905008 0.07793056 0.36273858 0.24391787 0.08268517 0.08115811
+ 0.06251959], best_act=2, best_val=0.363
+2025-01-16 05:03:57,207 - DEBUG - Low Q-value (0.363), using MCTS.
+2025-01-16 05:03:57,207 - INFO - Running MCTS with 66 simulations using 6 processes.
+2025-01-16 05:04:00,267 - DEBUG - Aggregated action counts: {0: 4, 1: 1, 3: 1}
+2025-01-16 05:04:00,267 - DEBUG - Chose best action 0
+2025-01-16 05:04:00,480 - INFO - Episode 1417/98900: Winner=2, Reward=0.45, EPSILON=0.987, (W=140,D=1,L=0)
+2025-01-16 05:04:00,713 - INFO - Episode 1418/98900: Winner=2, Reward=-15.70, EPSILON=0.987, (W=141,D=1,L=0)
+2025-01-16 05:04:00,837 - INFO - Episode 1419/98900: Winner=2, Reward=3.75, EPSILON=0.987, (W=141,D=1,L=0)
+2025-01-16 05:04:00,958 - INFO - Episode 1420/98900: Winner=2, Reward=7.30, EPSILON=0.987, (W=141,D=1,L=0)
+2025-01-16 05:04:01,155 - INFO - Episode 1421/98900: Winner=2, Reward=-1.10, EPSILON=0.987, (W=141,D=1,L=0)
+2025-01-16 05:04:01,453 - INFO - Episode 1422/98900: Winner=2, Reward=-25.85, EPSILON=0.987, (W=141,D=1,L=0)
+2025-01-16 05:04:01,653 - INFO - Episode 1423/98900: Winner=2, Reward=-3.10, EPSILON=0.987, (W=141,D=1,L=0)
+2025-01-16 05:04:01,806 - INFO - Episode 1424/98900: Winner=2, Reward=5.25, EPSILON=0.987, (W=141,D=1,L=0)
+2025-01-16 05:04:02,023 - INFO - Episode 1425/98900: Winner=2, Reward=-5.15, EPSILON=0.987, (W=141,D=1,L=0)
+2025-01-16 05:04:02,187 - INFO - Episode 1426/98900: Winner=2, Reward=-1.05, EPSILON=0.987, (W=141,D=1,L=0)
+2025-01-16 05:04:02,390 - INFO - Episode 1427/98900: Winner=2, Reward=-12.05, EPSILON=0.987, (W=142,D=1,L=0)
+2025-01-16 05:04:02,715 - INFO - Episode 1428/98900: Winner=2, Reward=-20.95, EPSILON=0.987, (W=142,D=1,L=0)
+2025-01-16 05:04:03,031 - INFO - Episode 1429/98900: Winner=2, Reward=-12.65, EPSILON=0.987, (W=143,D=1,L=0)
+2025-01-16 05:04:03,232 - INFO - Episode 1430/98900: Winner=2, Reward=-2.60, EPSILON=0.987, (W=143,D=1,L=0)
+2025-01-16 05:04:03,525 - INFO - Episode 1431/98900: Winner=2, Reward=-11.10, EPSILON=0.987, (W=143,D=1,L=0)
+2025-01-16 05:04:03,686 - INFO - Episode 1432/98900: Winner=2, Reward=5.40, EPSILON=0.987, (W=144,D=1,L=0)
+2025-01-16 05:04:03,979 - INFO - Episode 1433/98900: Winner=2, Reward=-10.35, EPSILON=0.987, (W=144,D=1,L=0)
+2025-01-16 05:04:04,161 - INFO - Episode 1434/98900: Winner=2, Reward=3.50, EPSILON=0.987, (W=144,D=1,L=0)
+2025-01-16 05:04:04,306 - INFO - Episode 1435/98900: Winner=2, Reward=-9.85, EPSILON=0.987, (W=145,D=1,L=0)
+2025-01-16 05:04:04,594 - INFO - Episode 1436/98900: Winner=2, Reward=-20.90, EPSILON=0.987, (W=146,D=1,L=0)
+2025-01-16 05:04:04,632 - DEBUG - Q-vals = [0.27072126 0.03994209 0.10843608 0.01568991 0.16870251 0.05604187
+ 0.3404662 ], best_act=6, best_val=0.340
+2025-01-16 05:04:04,632 - DEBUG - Low Q-value (0.340), using MCTS.
+2025-01-16 05:04:04,633 - INFO - Running MCTS with 67 simulations using 6 processes.
+2025-01-16 05:04:07,650 - DEBUG - Aggregated action counts: {2: 2, 0: 4, 3: 1}
+2025-01-16 05:04:07,650 - DEBUG - Chose best action 0
+2025-01-16 05:04:07,948 - INFO - Episode 1437/98900: Winner=2, Reward=-9.45, EPSILON=0.987, (W=146,D=1,L=0)
+2025-01-16 05:04:08,172 - INFO - Episode 1438/98900: Winner=2, Reward=-17.60, EPSILON=0.987, (W=147,D=1,L=0)
+2025-01-16 05:04:08,460 - INFO - Episode 1439/98900: Winner=2, Reward=0.50, EPSILON=0.987, (W=147,D=1,L=0)
+2025-01-16 05:04:08,750 - INFO - Episode 1440/98900: Winner=2, Reward=-27.70, EPSILON=0.987, (W=147,D=1,L=0)
+2025-01-16 05:04:08,945 - INFO - Episode 1441/98900: Winner=2, Reward=0.65, EPSILON=0.987, (W=147,D=1,L=0)
+2025-01-16 05:04:09,257 - INFO - Episode 1442/98900: Winner=2, Reward=-20.55, EPSILON=0.987, (W=148,D=1,L=0)
+2025-01-16 05:04:09,542 - INFO - Episode 1443/98900: Winner=2, Reward=12.40, EPSILON=0.987, (W=148,D=1,L=0)
+2025-01-16 05:04:09,781 - INFO - Episode 1444/98900: Winner=2, Reward=-13.95, EPSILON=0.987, (W=149,D=1,L=0)
+2025-01-16 05:04:09,907 - DEBUG - Q-vals = [0.11506629 0.12180311 0.12407558 0.20322786 0.15347792 0.17981936
+ 0.10252991], best_act=3, best_val=0.203
+2025-01-16 05:04:09,907 - DEBUG - Low Q-value (0.203), using MCTS.
+2025-01-16 05:04:09,907 - INFO - Running MCTS with 67 simulations using 6 processes.
+2025-01-16 05:04:13,238 - DEBUG - Aggregated action counts: {4: 2, 2: 3, 3: 1, 0: 1}
+2025-01-16 05:04:13,238 - DEBUG - Chose best action 2
+2025-01-16 05:04:13,309 - INFO - Episode 1445/98900: Winner=2, Reward=-1.05, EPSILON=0.987, (W=150,D=1,L=0)
+2025-01-16 05:04:13,621 - INFO - Episode 1446/98900: Winner=2, Reward=-3.25, EPSILON=0.987, (W=150,D=1,L=0)
+2025-01-16 05:04:14,028 - INFO - Episode 1447/98900: Winner=2, Reward=-95.30, EPSILON=0.987, (W=151,D=1,L=0)
+2025-01-16 05:04:14,153 - INFO - Episode 1448/98900: Winner=2, Reward=1.00, EPSILON=0.987, (W=151,D=1,L=0)
+2025-01-16 05:04:14,231 - INFO - Episode 1449/98900: Winner=2, Reward=1.05, EPSILON=0.987, (W=151,D=1,L=0)
+2025-01-16 05:04:14,247 - DEBUG - Q-vals = [0.13250457 0.13767391 0.12230536 0.14087105 0.17663649 0.15128344
+ 0.13872519], best_act=4, best_val=0.177
+2025-01-16 05:04:14,247 - DEBUG - Low Q-value (0.177), using MCTS.
+2025-01-16 05:04:14,262 - INFO - Running MCTS with 68 simulations using 6 processes.
+2025-01-16 05:04:17,818 - DEBUG - Aggregated action counts: {1: 1, 0: 3, 3: 3}
+2025-01-16 05:04:17,818 - DEBUG - Chose best action 0
+2025-01-16 05:04:18,099 - INFO - Episode 1450/98900: Winner=2, Reward=-7.15, EPSILON=0.987, (W=152,D=1,L=0)
+2025-01-16 05:04:18,427 - INFO - Episode 1451/98900: Winner=2, Reward=-17.55, EPSILON=0.987, (W=152,D=1,L=0)
+2025-01-16 05:04:18,723 - INFO - Episode 1452/98900: Winner=2, Reward=-17.10, EPSILON=0.987, (W=152,D=1,L=0)
+2025-01-16 05:04:19,098 - INFO - Episode 1453/98900: Winner=2, Reward=-3.55, EPSILON=0.987, (W=152,D=1,L=0)
+2025-01-16 05:04:19,241 - INFO - Episode 1454/98900: Winner=2, Reward=-8.50, EPSILON=0.987, (W=153,D=1,L=0)
+2025-01-16 05:04:19,366 - INFO - Episode 1455/98900: Winner=2, Reward=15.40, EPSILON=0.987, (W=153,D=1,L=0)
+2025-01-16 05:04:19,475 - DEBUG - Q-vals = [0.09016126 0.1256237  0.12384821 0.18144432 0.17540976 0.22655687
+ 0.07695576], best_act=5, best_val=0.227
+2025-01-16 05:04:19,475 - DEBUG - Low Q-value (0.227), using MCTS.
+2025-01-16 05:04:19,475 - INFO - Running MCTS with 68 simulations using 6 processes.
+2025-01-16 05:04:22,272 - DEBUG - Aggregated action counts: {0: 3, 2: 1, 1: 2, 4: 1}
+2025-01-16 05:04:22,272 - DEBUG - Chose best action 0
+2025-01-16 05:04:22,428 - INFO - Episode 1456/98900: Winner=2, Reward=-16.60, EPSILON=0.987, (W=154,D=1,L=0)
+2025-01-16 05:04:22,522 - INFO - Episode 1457/98900: Winner=2, Reward=0.15, EPSILON=0.987, (W=154,D=1,L=0)
+2025-01-16 05:04:22,818 - INFO - Episode 1458/98900: Winner=2, Reward=-9.90, EPSILON=0.987, (W=154,D=1,L=0)
+2025-01-16 05:04:22,990 - INFO - Episode 1459/98900: Winner=2, Reward=-17.85, EPSILON=0.987, (W=155,D=1,L=0)
+2025-01-16 05:04:23,178 - INFO - Episode 1460/98900: Winner=2, Reward=-24.40, EPSILON=0.987, (W=156,D=1,L=0)
+2025-01-16 05:04:23,412 - INFO - Episode 1461/98900: Winner=2, Reward=-12.35, EPSILON=0.987, (W=157,D=1,L=0)
+2025-01-16 05:04:23,537 - INFO - Episode 1462/98900: Winner=2, Reward=-8.60, EPSILON=0.987, (W=158,D=1,L=0)
+2025-01-16 05:04:23,599 - DEBUG - Q-vals = [0.04825561 0.0887343  0.13264515 0.11047423 0.21554573 0.37155566
+ 0.03278933], best_act=5, best_val=0.372
+2025-01-16 05:04:23,599 - DEBUG - Low Q-value (0.372), using MCTS.
+2025-01-16 05:04:23,599 - INFO - Running MCTS with 68 simulations using 6 processes.
+2025-01-16 05:04:26,271 - DEBUG - Aggregated action counts: {1: 2, 0: 3, 2: 1, 5: 1}
+2025-01-16 05:04:26,271 - DEBUG - Chose best action 0
+2025-01-16 05:04:26,411 - INFO - Episode 1463/98900: Winner=2, Reward=-2.00, EPSILON=0.987, (W=158,D=1,L=0)
+2025-01-16 05:04:26,630 - INFO - Episode 1464/98900: Winner=2, Reward=-18.15, EPSILON=0.987, (W=159,D=1,L=0)
+2025-01-16 05:04:26,880 - INFO - Episode 1465/98900: Winner=2, Reward=-15.60, EPSILON=0.987, (W=159,D=1,L=0)
+2025-01-16 05:04:27,067 - INFO - Episode 1466/98900: Winner=2, Reward=5.05, EPSILON=0.987, (W=159,D=1,L=0)
+2025-01-16 05:04:27,380 - INFO - Episode 1467/98900: Winner=2, Reward=8.75, EPSILON=0.987, (W=159,D=1,L=0)
+2025-01-16 05:04:27,802 - INFO - Episode 1468/98900: Winner=2, Reward=-51.45, EPSILON=0.987, (W=160,D=1,L=0)
+2025-01-16 05:04:28,052 - INFO - Episode 1469/98900: Winner=2, Reward=7.25, EPSILON=0.987, (W=160,D=1,L=0)
+2025-01-16 05:04:28,176 - INFO - Episode 1470/98900: Winner=2, Reward=-8.75, EPSILON=0.987, (W=161,D=1,L=0)
+2025-01-16 05:04:28,270 - DEBUG - Q-vals = [0.13480543 0.13968408 0.14537622 0.14868927 0.14264424 0.17580897
+ 0.11299182], best_act=5, best_val=0.176
+2025-01-16 05:04:28,270 - DEBUG - Low Q-value (0.176), using MCTS.
+2025-01-16 05:04:28,270 - INFO - Running MCTS with 68 simulations using 6 processes.
+2025-01-16 05:04:31,004 - DEBUG - Aggregated action counts: {2: 1, 1: 4, 4: 1, 0: 1}
+2025-01-16 05:04:31,004 - DEBUG - Chose best action 1
+2025-01-16 05:04:31,254 - INFO - Episode 1471/98900: Winner=2, Reward=-28.20, EPSILON=0.987, (W=162,D=1,L=0)
+2025-01-16 05:04:31,551 - INFO - Episode 1472/98900: Winner=2, Reward=-37.65, EPSILON=0.987, (W=162,D=1,L=0)
+2025-01-16 05:04:31,660 - INFO - Episode 1473/98900: Winner=2, Reward=-11.25, EPSILON=0.987, (W=163,D=1,L=0)
+2025-01-16 05:04:31,770 - INFO - Episode 1474/98900: Winner=2, Reward=-0.05, EPSILON=0.987, (W=163,D=1,L=0)
+2025-01-16 05:04:31,926 - INFO - Episode 1475/98900: Winner=2, Reward=15.65, EPSILON=0.987, (W=163,D=1,L=0)
+2025-01-16 05:04:32,067 - INFO - Episode 1476/98900: Winner=2, Reward=13.95, EPSILON=0.987, (W=163,D=1,L=0)
+2025-01-16 05:04:32,238 - DEBUG - Q-vals = [0.1897066  0.12054142 0.03004565 0.02802723 0.48693267 0.0373086
+ 0.10743785], best_act=4, best_val=0.487
+2025-01-16 05:04:32,238 - DEBUG - Low Q-value (0.487), using MCTS.
+2025-01-16 05:04:32,238 - INFO - Running MCTS with 69 simulations using 6 processes.
+2025-01-16 05:04:35,004 - DEBUG - Aggregated action counts: {0: 4, 1: 3}
+2025-01-16 05:04:35,004 - DEBUG - Chose best action 0
+2025-01-16 05:04:35,098 - INFO - Episode 1477/98900: Winner=2, Reward=1.55, EPSILON=0.987, (W=164,D=1,L=0)
+2025-01-16 05:04:35,269 - INFO - Episode 1478/98900: Winner=2, Reward=4.00, EPSILON=0.987, (W=164,D=1,L=0)
+2025-01-16 05:04:35,441 - INFO - Episode 1479/98900: Winner=2, Reward=8.60, EPSILON=0.987, (W=164,D=1,L=0)
+2025-01-16 05:04:35,800 - INFO - Episode 1480/98900: Winner=2, Reward=-51.80, EPSILON=0.987, (W=165,D=1,L=0)
+2025-01-16 05:04:35,957 - INFO - Episode 1481/98900: Winner=2, Reward=11.15, EPSILON=0.987, (W=165,D=1,L=0)
+2025-01-16 05:04:35,988 - DEBUG - Q-vals = [1.4002469e-01 7.3806196e-03 3.2192243e-03 4.0023569e-02 5.0430908e-04
+ 6.7107035e-03 8.0213690e-01], best_act=6, best_val=0.802
+2025-01-16 05:04:35,988 - DEBUG - Low Q-value (0.802), using MCTS.
+2025-01-16 05:04:35,988 - INFO - Running MCTS with 69 simulations using 6 processes.
+2025-01-16 05:04:38,972 - DEBUG - Aggregated action counts: {3: 4, 2: 1, 0: 2}
+2025-01-16 05:04:38,972 - DEBUG - Chose best action 3
+2025-01-16 05:04:39,143 - INFO - Episode 1482/98900: Winner=2, Reward=9.75, EPSILON=0.987, (W=165,D=1,L=0)
+2025-01-16 05:04:39,425 - INFO - Episode 1483/98900: Winner=2, Reward=-19.10, EPSILON=0.987, (W=165,D=1,L=0)
+2025-01-16 05:04:39,690 - INFO - Episode 1484/98900: Winner=2, Reward=5.55, EPSILON=0.987, (W=165,D=1,L=0)
+2025-01-16 05:04:39,846 - INFO - Episode 1485/98900: Winner=2, Reward=-10.70, EPSILON=0.987, (W=166,D=1,L=0)
+2025-01-16 05:04:39,909 - INFO - Episode 1486/98900: Winner=2, Reward=8.25, EPSILON=0.987, (W=166,D=1,L=0)
+2025-01-16 05:04:40,190 - INFO - Episode 1487/98900: Winner=2, Reward=19.80, EPSILON=0.987, (W=166,D=1,L=0)
+2025-01-16 05:04:40,440 - INFO - Episode 1488/98900: Winner=2, Reward=12.95, EPSILON=0.987, (W=166,D=1,L=0)
+2025-01-16 05:04:40,596 - INFO - Episode 1489/98900: Winner=2, Reward=13.95, EPSILON=0.987, (W=166,D=1,L=0)
+2025-01-16 05:04:40,909 - INFO - Episode 1490/98900: Winner=2, Reward=-28.55, EPSILON=0.987, (W=167,D=1,L=0)
+2025-01-16 05:04:41,112 - INFO - Episode 1491/98900: Winner=2, Reward=8.80, EPSILON=0.987, (W=167,D=1,L=0)
+2025-01-16 05:04:41,315 - INFO - Episode 1492/98900: Winner=2, Reward=-9.45, EPSILON=0.987, (W=168,D=1,L=0)
+2025-01-16 05:04:41,533 - INFO - Episode 1493/98900: Winner=2, Reward=-7.50, EPSILON=0.987, (W=169,D=1,L=0)
+2025-01-16 05:04:41,721 - INFO - Episode 1494/98900: Winner=2, Reward=-17.70, EPSILON=0.987, (W=170,D=1,L=0)
+2025-01-16 05:04:41,830 - INFO - Episode 1495/98900: Winner=2, Reward=5.75, EPSILON=0.987, (W=170,D=1,L=0)
+2025-01-16 05:04:42,002 - INFO - Episode 1496/98900: Winner=2, Reward=-13.15, EPSILON=0.987, (W=171,D=1,L=0)
+2025-01-16 05:04:42,221 - INFO - Episode 1497/98900: Winner=2, Reward=-18.10, EPSILON=0.987, (W=172,D=1,L=0)
+2025-01-16 05:04:42,252 - DEBUG - Q-vals = [0.1413462  0.12299445 0.15462354 0.11193108 0.1548024  0.15965933
+ 0.154643  ], best_act=5, best_val=0.160
+2025-01-16 05:04:42,252 - DEBUG - Low Q-value (0.160), using MCTS.
+2025-01-16 05:04:42,252 - INFO - Running MCTS with 69 simulations using 6 processes.
+2025-01-16 05:04:45,080 - DEBUG - Aggregated action counts: {2: 2, 3: 1, 1: 1, 4: 1, 0: 2}
+2025-01-16 05:04:45,080 - DEBUG - Chose best action 2
+2025-01-16 05:04:45,298 - INFO - Episode 1498/98900: Winner=2, Reward=0.05, EPSILON=0.987, (W=172,D=1,L=0)
+2025-01-16 05:04:45,658 - INFO - Episode 1499/98900: Winner=2, Reward=-21.20, EPSILON=0.987, (W=172,D=1,L=0)
+2025-01-16 05:04:46,017 - INFO - Saved model checkpoint to Connect4_Agent_Model.pth at episode 1500.
+2025-01-16 05:04:46,017 - INFO - Models saved at episode 1500
+2025-01-16 05:04:46,017 - INFO - Target networks updated
+2025-01-16 05:04:46,079 - INFO - Saved model checkpoint to Connect4_Agent_Model.pth at episode 1500.
+2025-01-16 05:04:46,079 - INFO - Episode 1500/98900: Winner=2, Reward=15.60, EPSILON=0.987, (W=173,D=1,L=0)
+2025-01-16 05:04:46,314 - INFO - Episode 1501/98900: Winner=2, Reward=-9.40, EPSILON=0.987, (W=173,D=1,L=0)
+2025-01-16 05:04:46,454 - INFO - Episode 1502/98900: Winner=2, Reward=-0.75, EPSILON=0.987, (W=173,D=1,L=0)
+2025-01-16 05:04:46,610 - DEBUG - Q-vals = [0.20658733 0.10847303 0.1396866  0.10486938 0.20046438 0.12097607
+ 0.11894326], best_act=0, best_val=0.207
+2025-01-16 05:04:46,610 - DEBUG - Low Q-value (0.207), using MCTS.
+2025-01-16 05:04:46,610 - INFO - Running MCTS with 70 simulations using 6 processes.
+2025-01-16 05:04:49,469 - DEBUG - Aggregated action counts: {3: 2, 0: 3, 6: 1, 2: 1}
+2025-01-16 05:04:49,469 - DEBUG - Chose best action 0
+2025-01-16 05:04:49,578 - INFO - Episode 1503/98900: Winner=2, Reward=0.85, EPSILON=0.987, (W=173,D=1,L=0)
+2025-01-16 05:04:49,813 - DEBUG - Q-vals = [0.10676453 0.10381393 0.20237677 0.11380362 0.29366395 0.09441942
+ 0.08515786], best_act=4, best_val=0.294
+2025-01-16 05:04:49,813 - DEBUG - Low Q-value (0.294), using MCTS.
+2025-01-16 05:04:49,813 - INFO - Running MCTS with 70 simulations using 6 processes.
+2025-01-16 05:04:52,547 - DEBUG - Aggregated action counts: {2: 2, 0: 4, 5: 1}
+2025-01-16 05:04:52,547 - DEBUG - Chose best action 0
+2025-01-16 05:04:52,687 - INFO - Episode 1504/98900: Winner=2, Reward=-60.70, EPSILON=0.987, (W=173,D=1,L=0)
+2025-01-16 05:04:52,859 - INFO - Episode 1505/98900: Winner=2, Reward=5.55, EPSILON=0.987, (W=173,D=1,L=0)
+2025-01-16 05:04:53,089 - INFO - Episode 1506/98900: Winner=2, Reward=-12.55, EPSILON=0.987, (W=174,D=1,L=0)
+2025-01-16 05:04:53,276 - INFO - Episode 1507/98900: Winner=2, Reward=2.50, EPSILON=0.987, (W=175,D=1,L=0)
+2025-01-16 05:04:53,508 - INFO - Episode 1508/98900: Winner=2, Reward=14.60, EPSILON=0.987, (W=175,D=1,L=0)
+2025-01-16 05:04:53,579 - INFO - Episode 1509/98900: Winner=2, Reward=8.25, EPSILON=0.987, (W=175,D=1,L=0)
+2025-01-16 05:04:53,660 - INFO - Episode 1510/98900: Winner=2, Reward=8.15, EPSILON=0.987, (W=175,D=1,L=0)
+2025-01-16 05:04:53,924 - INFO - Episode 1511/98900: Winner=2, Reward=-31.15, EPSILON=0.986, (W=176,D=1,L=0)
+2025-01-16 05:04:54,201 - INFO - Episode 1512/98900: Winner=2, Reward=18.75, EPSILON=0.986, (W=176,D=1,L=0)
+2025-01-16 05:04:54,371 - INFO - Episode 1513/98900: Winner=2, Reward=2.15, EPSILON=0.986, (W=176,D=1,L=0)
+2025-01-16 05:04:54,744 - INFO - Episode 1514/98900: Winner=2, Reward=-36.05, EPSILON=0.986, (W=177,D=1,L=0)
+2025-01-16 05:04:54,941 - INFO - Episode 1515/98900: Winner=2, Reward=6.60, EPSILON=0.986, (W=177,D=1,L=0)
+2025-01-16 05:04:55,177 - INFO - Episode 1516/98900: Winner=2, Reward=-0.05, EPSILON=0.986, (W=177,D=1,L=0)
+2025-01-16 05:04:55,312 - INFO - Episode 1517/98900: Winner=2, Reward=12.85, EPSILON=0.986, (W=177,D=1,L=0)
+2025-01-16 05:04:55,534 - INFO - Episode 1518/98900: Winner=2, Reward=-9.60, EPSILON=0.986, (W=178,D=1,L=0)
+2025-01-16 05:04:55,752 - INFO - Episode 1519/98900: Winner=2, Reward=-1.85, EPSILON=0.986, (W=179,D=1,L=0)
+2025-01-16 05:04:56,034 - INFO - Episode 1520/98900: Winner=2, Reward=-32.80, EPSILON=0.986, (W=180,D=1,L=0)
+2025-01-16 05:04:56,252 - INFO - Episode 1521/98900: Winner=2, Reward=1.05, EPSILON=0.986, (W=181,D=1,L=0)
+2025-01-16 05:04:56,395 - INFO - Episode 1522/98900: Winner=2, Reward=1.65, EPSILON=0.986, (W=181,D=1,L=0)
+2025-01-16 05:04:56,663 - INFO - Episode 1523/98900: Winner=2, Reward=-13.00, EPSILON=0.986, (W=181,D=1,L=0)
+2025-01-16 05:04:56,963 - INFO - Episode 1524/98900: Winner=2, Reward=10.25, EPSILON=0.986, (W=181,D=1,L=0)
+2025-01-16 05:04:57,056 - INFO - Episode 1525/98900: Winner=2, Reward=0.45, EPSILON=0.986, (W=181,D=1,L=0)
+2025-01-16 05:04:57,227 - INFO - Episode 1526/98900: Winner=2, Reward=9.55, EPSILON=0.986, (W=181,D=1,L=0)
+2025-01-16 05:04:57,468 - DEBUG - Q-vals = [0.09678445 0.02783548 0.2321477  0.27427372 0.24958526 0.0293307
+ 0.09004267], best_act=3, best_val=0.274
+2025-01-16 05:04:57,468 - DEBUG - Low Q-value (0.274), using MCTS.
+2025-01-16 05:04:57,479 - INFO - Episode 1527/98900: Winner=2, Reward=-5.35, EPSILON=0.986, (W=182,D=1,L=0)
+2025-01-16 05:04:57,863 - INFO - Episode 1528/98900: Winner=2, Reward=-58.05, EPSILON=0.986, (W=183,D=1,L=0)
+2025-01-16 05:04:58,211 - INFO - Episode 1529/98900: Winner=2, Reward=-49.05, EPSILON=0.986, (W=184,D=1,L=0)
+2025-01-16 05:04:58,459 - INFO - Episode 1530/98900: Winner=2, Reward=7.10, EPSILON=0.986, (W=184,D=1,L=0)
+2025-01-16 05:04:58,709 - INFO - Episode 1531/98900: Winner=2, Reward=8.75, EPSILON=0.986, (W=184,D=1,L=0)
+2025-01-16 05:04:58,908 - INFO - Episode 1532/98900: Winner=2, Reward=4.30, EPSILON=0.986, (W=184,D=1,L=0)
+2025-01-16 05:04:59,178 - INFO - Episode 1533/98900: Winner=2, Reward=-24.05, EPSILON=0.986, (W=185,D=1,L=0)
+2025-01-16 05:04:59,293 - INFO - Episode 1534/98900: Winner=2, Reward=5.25, EPSILON=0.986, (W=185,D=1,L=0)
+2025-01-16 05:04:59,666 - INFO - Episode 1535/98900: Winner=2, Reward=-31.55, EPSILON=0.986, (W=185,D=1,L=0)
+2025-01-16 05:04:59,932 - INFO - Episode 1536/98900: Winner=2, Reward=-10.30, EPSILON=0.986, (W=186,D=1,L=0)
+2025-01-16 05:05:00,224 - INFO - Episode 1537/98900: Winner=2, Reward=-44.25, EPSILON=0.986, (W=187,D=1,L=0)
+2025-01-16 05:05:00,465 - DEBUG - Q-vals = [0.10181631 0.06127519 0.11878312 0.17117123 0.21735837 0.17036754
+ 0.15922827], best_act=4, best_val=0.217
+2025-01-16 05:05:00,465 - DEBUG - Low Q-value (0.217), using MCTS.
+2025-01-16 05:05:00,475 - INFO - Episode 1538/98900: Winner=2, Reward=-17.60, EPSILON=0.986, (W=188,D=1,L=0)
+2025-01-16 05:05:00,579 - INFO - Episode 1539/98900: Winner=2, Reward=7.25, EPSILON=0.986, (W=188,D=1,L=0)
+2025-01-16 05:05:00,779 - INFO - Episode 1540/98900: Winner=2, Reward=-11.45, EPSILON=0.986, (W=189,D=1,L=0)
+2025-01-16 05:05:01,027 - INFO - Episode 1541/98900: Winner=2, Reward=-12.30, EPSILON=0.986, (W=190,D=1,L=0)
+2025-01-16 05:05:01,219 - INFO - Episode 1542/98900: Winner=2, Reward=-20.35, EPSILON=0.986, (W=191,D=1,L=0)
+2025-01-16 05:05:01,560 - INFO - Episode 1543/98900: Winner=2, Reward=-61.65, EPSILON=0.986, (W=192,D=1,L=0)
+2025-01-16 05:05:01,849 - INFO - Episode 1544/98900: Winner=2, Reward=-12.50, EPSILON=0.986, (W=192,D=1,L=0)
+2025-01-16 05:05:01,976 - INFO - Episode 1545/98900: Winner=2, Reward=9.75, EPSILON=0.986, (W=192,D=1,L=0)
+2025-01-16 05:05:02,197 - INFO - Episode 1546/98900: Winner=2, Reward=-17.95, EPSILON=0.986, (W=193,D=1,L=0)
+2025-01-16 05:05:02,396 - INFO - Episode 1547/98900: Winner=2, Reward=-18.90, EPSILON=0.986, (W=194,D=1,L=0)
+2025-01-16 05:05:02,701 - INFO - Episode 1548/98900: Winner=2, Reward=-27.05, EPSILON=0.986, (W=194,D=1,L=0)
+2025-01-16 05:05:02,920 - INFO - Episode 1549/98900: Winner=2, Reward=-14.10, EPSILON=0.986, (W=195,D=1,L=0)
+2025-01-16 05:05:03,136 - INFO - Episode 1550/98900: Winner=2, Reward=3.30, EPSILON=0.986, (W=195,D=1,L=0)
+2025-01-16 05:05:03,439 - INFO - Episode 1551/98900: Winner=2, Reward=-41.15, EPSILON=0.986, (W=196,D=1,L=0)
+2025-01-16 05:05:03,678 - INFO - Episode 1552/98900: Winner=2, Reward=8.10, EPSILON=0.986, (W=196,D=1,L=0)
+2025-01-16 05:05:03,780 - INFO - Episode 1553/98900: Winner=2, Reward=-5.35, EPSILON=0.986, (W=196,D=1,L=0)
+2025-01-16 05:05:03,921 - INFO - Episode 1554/98900: Winner=2, Reward=-7.50, EPSILON=0.986, (W=197,D=1,L=0)
+2025-01-16 05:05:04,224 - INFO - Episode 1555/98900: Winner=2, Reward=-30.75, EPSILON=0.986, (W=198,D=1,L=0)
+2025-01-16 05:05:04,506 - INFO - Episode 1556/98900: Winner=2, Reward=-7.10, EPSILON=0.986, (W=198,D=1,L=0)
+2025-01-16 05:05:04,728 - INFO - Episode 1557/98900: Winner=2, Reward=-18.75, EPSILON=0.986, (W=198,D=1,L=0)
+2025-01-16 05:05:05,063 - INFO - Episode 1558/98900: Winner=2, Reward=-19.85, EPSILON=0.986, (W=199,D=1,L=0)
+2025-01-16 05:05:05,213 - DEBUG - Q-vals = [0.07981686 0.20642297 0.04762027 0.13900645 0.24516217 0.17893995
+ 0.10303142], best_act=4, best_val=0.245
+2025-01-16 05:05:05,213 - DEBUG - Low Q-value (0.245), using MCTS.
+2025-01-16 05:05:05,214 - INFO - Running MCTS with 72 simulations using 6 processes.
+2025-01-16 05:05:07,931 - DEBUG - Aggregated action counts: {2: 2, 0: 3, 3: 1}
+2025-01-16 05:05:07,931 - DEBUG - Chose best action 0
+2025-01-16 05:05:07,999 - INFO - Episode 1559/98900: Winner=2, Reward=-0.55, EPSILON=0.986, (W=200,D=1,L=0)
+2025-01-16 05:05:08,242 - INFO - Episode 1560/98900: Winner=2, Reward=-7.05, EPSILON=0.986, (W=200,D=1,L=0)
+2025-01-16 05:05:08,506 - INFO - Episode 1561/98900: Winner=2, Reward=18.55, EPSILON=0.986, (W=200,D=1,L=0)
+2025-01-16 05:05:08,756 - INFO - Episode 1562/98900: Winner=2, Reward=-12.25, EPSILON=0.986, (W=201,D=1,L=0)
+2025-01-16 05:05:08,955 - INFO - Episode 1563/98900: Winner=2, Reward=-14.15, EPSILON=0.986, (W=202,D=1,L=0)
+2025-01-16 05:05:09,195 - INFO - Episode 1564/98900: Winner=2, Reward=-23.25, EPSILON=0.986, (W=203,D=1,L=0)
+2025-01-16 05:05:09,494 - INFO - Episode 1565/98900: Winner=2, Reward=-16.65, EPSILON=0.986, (W=204,D=1,L=0)
+2025-01-16 05:05:09,709 - INFO - Episode 1566/98900: Winner=2, Reward=-8.35, EPSILON=0.986, (W=204,D=1,L=0)
+2025-01-16 05:05:09,896 - INFO - Episode 1567/98900: Winner=2, Reward=-10.55, EPSILON=0.986, (W=204,D=1,L=0)
+2025-01-16 05:05:10,035 - INFO - Episode 1568/98900: Winner=2, Reward=-3.65, EPSILON=0.986, (W=204,D=1,L=0)
+2025-01-16 05:05:10,125 - INFO - Episode 1569/98900: Winner=2, Reward=-3.75, EPSILON=0.986, (W=205,D=1,L=0)
+2025-01-16 05:05:10,333 - INFO - Episode 1570/98900: Winner=2, Reward=-10.70, EPSILON=0.986, (W=206,D=1,L=0)
+2025-01-16 05:05:10,613 - INFO - Episode 1571/98900: Winner=2, Reward=-36.35, EPSILON=0.986, (W=207,D=1,L=0)
+2025-01-16 05:05:10,730 - INFO - Episode 1572/98900: Winner=2, Reward=1.70, EPSILON=0.986, (W=207,D=1,L=0)
+2025-01-16 05:05:11,008 - INFO - Episode 1573/98900: Winner=2, Reward=-25.55, EPSILON=0.986, (W=208,D=1,L=0)
+2025-01-16 05:05:11,152 - DEBUG - Q-vals = [0.11578565 0.13969019 0.17534816 0.19913617 0.31058255 0.03017558
+ 0.02928171], best_act=4, best_val=0.311
+2025-01-16 05:05:11,152 - DEBUG - Low Q-value (0.311), using MCTS.
+2025-01-16 05:05:11,163 - INFO - Episode 1574/98900: Winner=2, Reward=8.15, EPSILON=0.986, (W=209,D=1,L=0)
+2025-01-16 05:05:11,242 - DEBUG - Q-vals = [0.10902999 0.14208804 0.09753488 0.15344392 0.15200005 0.23058821
+ 0.11531493], best_act=5, best_val=0.231
+2025-01-16 05:05:11,242 - DEBUG - Low Q-value (0.231), using MCTS.
+2025-01-16 05:05:11,243 - INFO - Running MCTS with 73 simulations using 6 processes.
+2025-01-16 05:05:14,162 - DEBUG - Aggregated action counts: {1: 1, 0: 5, 6: 1}
+2025-01-16 05:05:14,163 - DEBUG - Chose best action 0
+2025-01-16 05:05:14,186 - DEBUG - Q-vals = [0.11806183 0.1225162  0.0965929  0.15286486 0.16810735 0.21615425
+ 0.12570268], best_act=5, best_val=0.216
+2025-01-16 05:05:14,186 - DEBUG - Low Q-value (0.216), using MCTS.
+2025-01-16 05:05:14,187 - INFO - Running MCTS with 73 simulations using 6 processes.
+2025-01-16 05:05:16,984 - DEBUG - Aggregated action counts: {0: 3, 6: 1, 1: 1, 2: 1, 5: 1}
+2025-01-16 05:05:16,984 - DEBUG - Chose best action 0
+2025-01-16 05:05:17,097 - INFO - Episode 1575/98900: Winner=2, Reward=-9.35, EPSILON=0.986, (W=210,D=1,L=0)
+2025-01-16 05:05:17,382 - INFO - Episode 1576/98900: Winner=2, Reward=-24.00, EPSILON=0.986, (W=211,D=1,L=0)
+2025-01-16 05:05:17,691 - INFO - Episode 1577/98900: Winner=2, Reward=-18.00, EPSILON=0.986, (W=211,D=1,L=0)
+2025-01-16 05:05:17,953 - INFO - Episode 1578/98900: Winner=2, Reward=11.15, EPSILON=0.986, (W=211,D=1,L=0)
+2025-01-16 05:05:18,233 - INFO - Episode 1579/98900: Winner=2, Reward=-22.65, EPSILON=0.986, (W=212,D=1,L=0)
+2025-01-16 05:05:18,315 - DEBUG - Q-vals = [0.11869367 0.06051849 0.08008593 0.02940838 0.41577396 0.15705349
+ 0.1384661 ], best_act=4, best_val=0.416
+2025-01-16 05:05:18,315 - DEBUG - Low Q-value (0.416), using MCTS.
+2025-01-16 05:05:18,315 - INFO - Running MCTS with 73 simulations using 6 processes.
+2025-01-16 05:05:21,164 - DEBUG - Aggregated action counts: {0: 4, 2: 1, 1: 1, 4: 1}
+2025-01-16 05:05:21,165 - DEBUG - Chose best action 0
+2025-01-16 05:05:21,330 - INFO - Episode 1580/98900: Winner=2, Reward=-10.00, EPSILON=0.986, (W=213,D=1,L=0)
+2025-01-16 05:05:21,443 - INFO - Episode 1581/98900: Winner=2, Reward=-9.90, EPSILON=0.986, (W=214,D=1,L=0)
+2025-01-16 05:05:21,700 - INFO - Episode 1582/98900: Winner=2, Reward=-5.75, EPSILON=0.986, (W=215,D=1,L=0)
+2025-01-16 05:05:21,888 - INFO - Episode 1583/98900: Winner=2, Reward=-18.45, EPSILON=0.986, (W=216,D=1,L=0)
+2025-01-16 05:05:22,258 - INFO - Episode 1584/98900: Winner=2, Reward=-14.95, EPSILON=0.986, (W=216,D=1,L=0)
+2025-01-16 05:05:22,516 - INFO - Episode 1585/98900: Winner=2, Reward=35.75, EPSILON=0.986, (W=216,D=1,L=0)
+2025-01-16 05:05:22,719 - INFO - Episode 1586/98900: Winner=2, Reward=-10.85, EPSILON=0.986, (W=217,D=1,L=0)
+2025-01-16 05:05:22,985 - INFO - Episode 1587/98900: Winner=2, Reward=-14.60, EPSILON=0.986, (W=218,D=1,L=0)
+2025-01-16 05:05:23,110 - INFO - Episode 1588/98900: Winner=2, Reward=-1.85, EPSILON=0.986, (W=219,D=1,L=0)
+2025-01-16 05:05:23,235 - INFO - Episode 1589/98900: Winner=2, Reward=11.30, EPSILON=0.986, (W=219,D=1,L=0)
+2025-01-16 05:05:23,406 - INFO - Episode 1590/98900: Winner=2, Reward=-6.45, EPSILON=0.986, (W=220,D=1,L=0)
+2025-01-16 05:05:23,641 - DEBUG - Q-vals = [0.10473222 0.08770296 0.02825881 0.07398893 0.03187449 0.17057759
+ 0.50286496], best_act=6, best_val=0.503
+2025-01-16 05:05:23,641 - DEBUG - Low Q-value (0.503), using MCTS.
+2025-01-16 05:05:23,641 - INFO - Episode 1591/98900: Winner=2, Reward=-2.05, EPSILON=0.986, (W=221,D=1,L=0)
+2025-01-16 05:05:23,906 - INFO - Episode 1592/98900: Winner=2, Reward=-15.55, EPSILON=0.986, (W=222,D=1,L=0)
+2025-01-16 05:05:24,141 - INFO - Episode 1593/98900: Winner=2, Reward=18.75, EPSILON=0.986, (W=222,D=1,L=0)
+2025-01-16 05:05:24,172 - DEBUG - Q-vals = [0.00237488 0.00419098 0.00811317 0.00260545 0.07415777 0.8895335
+ 0.01902419], best_act=5, best_val=0.890
+2025-01-16 05:05:24,172 - DEBUG - Low Q-value (0.890), using MCTS.
+2025-01-16 05:05:24,172 - INFO - Running MCTS with 73 simulations using 6 processes.
+2025-01-16 05:05:27,015 - DEBUG - Aggregated action counts: {4: 1, 2: 2, 0: 3, 6: 1}
+2025-01-16 05:05:27,015 - DEBUG - Chose best action 0
+2025-01-16 05:05:27,327 - INFO - Episode 1594/98900: Winner=2, Reward=-51.55, EPSILON=0.986, (W=223,D=1,L=0)
+2025-01-16 05:05:27,593 - INFO - Episode 1595/98900: Winner=2, Reward=-29.60, EPSILON=0.986, (W=224,D=1,L=0)
+2025-01-16 05:05:27,952 - INFO - Episode 1596/98900: Winner=2, Reward=-64.95, EPSILON=0.986, (W=225,D=1,L=0)
+2025-01-16 05:05:28,202 - INFO - Episode 1597/98900: Winner=2, Reward=-25.05, EPSILON=0.986, (W=225,D=1,L=0)
+2025-01-16 05:05:28,311 - INFO - Episode 1598/98900: Winner=2, Reward=-9.60, EPSILON=0.986, (W=226,D=1,L=0)
+2025-01-16 05:05:28,436 - DEBUG - Q-vals = [0.13940041 0.02354861 0.05481923 0.00629096 0.36833167 0.14378941
+ 0.26381963], best_act=4, best_val=0.368
+2025-01-16 05:05:28,436 - DEBUG - Low Q-value (0.368), using MCTS.
+2025-01-16 05:05:28,452 - INFO - Episode 1599/98900: Winner=2, Reward=-10.30, EPSILON=0.986, (W=227,D=1,L=0)
+2025-01-16 05:05:28,764 - INFO - Saved model checkpoint to Connect4_Agent_Model.pth at episode 1600.
+2025-01-16 05:05:28,764 - INFO - Models saved at episode 1600
+2025-01-16 05:05:28,780 - INFO - Target networks updated
+2025-01-16 05:05:28,827 - INFO - Saved model checkpoint to Connect4_Agent_Model.pth at episode 1600.
+2025-01-16 05:05:28,827 - INFO - Episode 1600/98900: Winner=2, Reward=4.75, EPSILON=0.986, (W=228,D=1,L=0)
+2025-01-16 05:05:29,139 - INFO - Episode 1601/98900: Winner=2, Reward=-45.05, EPSILON=0.986, (W=229,D=1,L=0)
+2025-01-16 05:05:29,217 - DEBUG - Q-vals = [0.15147227 0.04606609 0.03471091 0.09513573 0.02316536 0.17785992
+ 0.47158974], best_act=6, best_val=0.472
+2025-01-16 05:05:29,217 - DEBUG - Low Q-value (0.472), using MCTS.
+2025-01-16 05:05:29,217 - INFO - Running MCTS with 74 simulations using 6 processes.
+2025-01-16 05:05:32,092 - DEBUG - Aggregated action counts: {2: 1, 1: 4, 3: 1, 0: 1}
+2025-01-16 05:05:32,092 - DEBUG - Chose best action 1
+2025-01-16 05:05:32,326 - INFO - Episode 1602/98900: Winner=2, Reward=-26.90, EPSILON=0.986, (W=230,D=1,L=0)
+2025-01-16 05:05:32,623 - INFO - Episode 1603/98900: Winner=2, Reward=-24.20, EPSILON=0.986, (W=231,D=1,L=0)
+2025-01-16 05:05:32,717 - INFO - Episode 1604/98900: Winner=2, Reward=4.35, EPSILON=0.986, (W=231,D=1,L=0)
+2025-01-16 05:05:32,951 - INFO - Episode 1605/98900: Winner=2, Reward=-19.60, EPSILON=0.986, (W=232,D=1,L=0)
+2025-01-16 05:05:33,217 - INFO - Episode 1606/98900: Winner=2, Reward=6.70, EPSILON=0.986, (W=232,D=1,L=0)
+2025-01-16 05:05:33,341 - INFO - Episode 1607/98900: Winner=2, Reward=9.10, EPSILON=0.986, (W=232,D=1,L=0)
+2025-01-16 05:05:33,388 - DEBUG - Q-vals = [0.0939975  0.10173442 0.10746382 0.07191194 0.31941962 0.21197243
+ 0.0935002 ], best_act=4, best_val=0.319
+2025-01-16 05:05:33,388 - DEBUG - Low Q-value (0.319), using MCTS.
+2025-01-16 05:05:33,388 - INFO - Running MCTS with 74 simulations using 6 processes.
+2025-01-16 05:05:36,138 - DEBUG - Aggregated action counts: {0: 4, 2: 1, 3: 1, 1: 1}
+2025-01-16 05:05:36,138 - DEBUG - Chose best action 0
+2025-01-16 05:05:36,294 - INFO - Episode 1608/98900: Winner=2, Reward=-3.55, EPSILON=0.986, (W=232,D=1,L=0)
+2025-01-16 05:05:36,403 - INFO - Episode 1609/98900: Winner=2, Reward=-9.30, EPSILON=0.986, (W=233,D=1,L=0)
+2025-01-16 05:05:36,747 - INFO - Episode 1610/98900: Winner=2, Reward=-21.15, EPSILON=0.986, (W=234,D=1,L=0)
+2025-01-16 05:05:36,856 - INFO - Episode 1611/98900: Winner=2, Reward=-10.35, EPSILON=0.986, (W=235,D=1,L=0)
+2025-01-16 05:05:37,122 - INFO - Episode 1612/98900: Winner=2, Reward=-14.70, EPSILON=0.986, (W=236,D=1,L=0)
+2025-01-16 05:05:37,309 - INFO - Episode 1613/98900: Winner=2, Reward=-9.20, EPSILON=0.986, (W=237,D=1,L=0)
+2025-01-16 05:05:37,466 - INFO - Episode 1614/98900: Winner=2, Reward=-12.95, EPSILON=0.986, (W=238,D=1,L=0)
+2025-01-16 05:05:37,528 - DEBUG - Q-vals = [0.26386648 0.13884477 0.13180673 0.11045502 0.19319232 0.05839716
+ 0.10343751], best_act=0, best_val=0.264
+2025-01-16 05:05:37,528 - DEBUG - Low Q-value (0.264), using MCTS.
+2025-01-16 05:05:37,528 - INFO - Running MCTS with 74 simulations using 6 processes.
+2025-01-16 05:05:40,199 - DEBUG - Aggregated action counts: {3: 2, 1: 1, 0: 4}
+2025-01-16 05:05:40,199 - DEBUG - Chose best action 0
+2025-01-16 05:05:40,340 - INFO - Episode 1615/98900: Winner=2, Reward=-12.15, EPSILON=0.986, (W=239,D=1,L=0)
+2025-01-16 05:05:40,699 - INFO - Episode 1616/98900: Winner=2, Reward=-37.35, EPSILON=0.986, (W=239,D=1,L=0)
+2025-01-16 05:05:40,871 - INFO - Episode 1617/98900: Winner=2, Reward=2.85, EPSILON=0.986, (W=239,D=1,L=0)
+2025-01-16 05:05:40,887 - DEBUG - Q-vals = [0.44758618 0.08643571 0.01128987 0.05380326 0.01430603 0.02528522
+ 0.36129382], best_act=0, best_val=0.448
+2025-01-16 05:05:40,887 - DEBUG - Low Q-value (0.448), using MCTS.
+2025-01-16 05:05:40,887 - INFO - Running MCTS with 74 simulations using 6 processes.
+2025-01-16 05:05:43,808 - DEBUG - Aggregated action counts: {1: 1, 6: 1, 5: 1, 2: 2, 4: 1, 0: 1}
+2025-01-16 05:05:43,808 - DEBUG - Chose best action 2
+2025-01-16 05:05:43,995 - INFO - Episode 1618/98900: Winner=2, Reward=12.50, EPSILON=0.986, (W=239,D=1,L=0)
+2025-01-16 05:05:44,167 - DEBUG - Q-vals = [0.23616955 0.10296515 0.13600764 0.19756317 0.08171712 0.11209089
+ 0.13348648], best_act=0, best_val=0.236
+2025-01-16 05:05:44,167 - DEBUG - Low Q-value (0.236), using MCTS.
+2025-01-16 05:05:44,167 - INFO - Episode 1619/98900: Winner=2, Reward=17.05, EPSILON=0.986, (W=240,D=1,L=0)
+2025-01-16 05:05:44,370 - DEBUG - Q-vals = [0.11654025 0.13104211 0.0400821  0.03675923 0.31737757 0.18706651
+ 0.1711322 ], best_act=5, best_val=0.187
+2025-01-16 05:05:44,370 - DEBUG - Low Q-value (0.187), using MCTS.
+2025-01-16 05:05:44,370 - INFO - Episode 1620/98900: Winner=2, Reward=-15.65, EPSILON=0.986, (W=241,D=1,L=0)
+2025-01-16 05:05:44,636 - INFO - Episode 1621/98900: Winner=2, Reward=5.30, EPSILON=0.986, (W=241,D=1,L=0)
+2025-01-16 05:05:44,808 - INFO - Episode 1622/98900: Winner=2, Reward=4.15, EPSILON=0.986, (W=241,D=1,L=0)
+2025-01-16 05:05:45,120 - INFO - Episode 1623/98900: Winner=2, Reward=-38.95, EPSILON=0.985, (W=241,D=1,L=0)
+2025-01-16 05:05:45,386 - INFO - Episode 1624/98900: Winner=2, Reward=-10.60, EPSILON=0.985, (W=241,D=1,L=0)
+2025-01-16 05:05:45,792 - INFO - Episode 1625/98900: Winner=2, Reward=-67.35, EPSILON=0.985, (W=242,D=1,L=0)
+2025-01-16 05:05:46,120 - INFO - Episode 1626/98900: Winner=2, Reward=-7.10, EPSILON=0.985, (W=242,D=1,L=0)
+2025-01-16 05:05:46,292 - INFO - Episode 1627/98900: Winner=2, Reward=22.45, EPSILON=0.985, (W=242,D=1,L=0)
+2025-01-16 05:05:46,542 - INFO - Episode 1628/98900: Winner=2, Reward=-38.95, EPSILON=0.985, (W=243,D=1,L=0)
+2025-01-16 05:05:46,557 - DEBUG - Q-vals = [0.2813556  0.06672653 0.08217732 0.05700506 0.02182923 0.05510241
+ 0.4358039 ], best_act=6, best_val=0.436
+2025-01-16 05:05:46,557 - DEBUG - Low Q-value (0.436), using MCTS.
+2025-01-16 05:05:46,557 - INFO - Running MCTS with 75 simulations using 6 processes.
+2025-01-16 05:05:49,385 - DEBUG - Aggregated action counts: {0: 4, 3: 2, 1: 1}
+2025-01-16 05:05:49,385 - DEBUG - Chose best action 0
+2025-01-16 05:05:49,729 - INFO - Episode 1629/98900: Winner=2, Reward=-35.55, EPSILON=0.985, (W=243,D=1,L=0)
+2025-01-16 05:05:50,010 - INFO - Episode 1630/98900: Winner=2, Reward=-18.75, EPSILON=0.985, (W=244,D=1,L=0)
+2025-01-16 05:05:50,260 - INFO - Episode 1631/98900: Winner=2, Reward=-24.10, EPSILON=0.985, (W=245,D=1,L=0)
+2025-01-16 05:05:50,525 - INFO - Episode 1632/98900: Winner=2, Reward=-31.60, EPSILON=0.985, (W=246,D=1,L=0)
+2025-01-16 05:05:50,713 - INFO - Episode 1633/98900: Winner=2, Reward=-18.25, EPSILON=0.985, (W=246,D=1,L=0)
+2025-01-16 05:05:50,916 - INFO - Episode 1634/98900: Winner=2, Reward=-8.20, EPSILON=0.985, (W=247,D=1,L=0)
+2025-01-16 05:05:50,931 - DEBUG - Q-vals = [0.40545943 0.07378914 0.00454326 0.09086002 0.004589   0.01166456
+ 0.40909454], best_act=6, best_val=0.409
+2025-01-16 05:05:50,931 - DEBUG - Low Q-value (0.409), using MCTS.
+2025-01-16 05:05:50,931 - INFO - Running MCTS with 75 simulations using 6 processes.
+2025-01-16 05:05:53,541 - DEBUG - Aggregated action counts: {1: 2, 6: 1, 0: 2, 2: 2}
+2025-01-16 05:05:53,541 - DEBUG - Chose best action 1
+2025-01-16 05:05:53,900 - INFO - Episode 1635/98900: Winner=2, Reward=-34.75, EPSILON=0.985, (W=248,D=1,L=0)
+2025-01-16 05:05:54,103 - INFO - Episode 1636/98900: Winner=2, Reward=-25.35, EPSILON=0.985, (W=249,D=1,L=0)
+2025-01-16 05:05:54,353 - INFO - Episode 1637/98900: Winner=2, Reward=-0.10, EPSILON=0.985, (W=249,D=1,L=0)
+2025-01-16 05:05:54,603 - INFO - Episode 1638/98900: Winner=2, Reward=-25.95, EPSILON=0.985, (W=250,D=1,L=0)
+2025-01-16 05:05:54,806 - INFO - Episode 1639/98900: Winner=2, Reward=-0.80, EPSILON=0.985, (W=250,D=1,L=0)
+2025-01-16 05:05:55,009 - INFO - Episode 1640/98900: Winner=2, Reward=-10.05, EPSILON=0.985, (W=251,D=1,L=0)
+2025-01-16 05:05:55,243 - INFO - Episode 1641/98900: Winner=2, Reward=-3.65, EPSILON=0.985, (W=251,D=1,L=0)
+2025-01-16 05:05:55,493 - DEBUG - Q-vals = [0.17678528 0.06005514 0.14162785 0.06395971 0.25318083 0.1279529
+ 0.17643832], best_act=4, best_val=0.253
+2025-01-16 05:05:55,493 - DEBUG - Low Q-value (0.253), using MCTS.
+2025-01-16 05:05:55,493 - INFO - Running MCTS with 75 simulations using 6 processes.
+2025-01-16 05:05:58,149 - DEBUG - Aggregated action counts: {0: 2, 5: 2, 2: 1, 4: 1, 3: 1}
+2025-01-16 05:05:58,149 - DEBUG - Chose best action 0
+2025-01-16 05:05:58,274 - INFO - Episode 1642/98900: Winner=2, Reward=-59.20, EPSILON=0.985, (W=251,D=1,L=0)
+2025-01-16 05:05:58,461 - INFO - Episode 1643/98900: Winner=2, Reward=-21.60, EPSILON=0.985, (W=252,D=1,L=0)
+2025-01-16 05:05:58,743 - INFO - Episode 1644/98900: Winner=2, Reward=-12.65, EPSILON=0.985, (W=253,D=1,L=0)
+2025-01-16 05:05:58,899 - INFO - Episode 1645/98900: Winner=2, Reward=10.50, EPSILON=0.985, (W=253,D=1,L=0)
+2025-01-16 05:05:59,071 - INFO - Episode 1646/98900: Winner=2, Reward=-17.65, EPSILON=0.985, (W=254,D=1,L=0)
+2025-01-16 05:05:59,352 - INFO - Episode 1647/98900: Winner=2, Reward=-20.65, EPSILON=0.985, (W=255,D=1,L=0)
+2025-01-16 05:05:59,633 - INFO - Episode 1648/98900: Winner=2, Reward=-8.75, EPSILON=0.985, (W=255,D=1,L=0)
+2025-01-16 05:05:59,867 - INFO - Episode 1649/98900: Winner=2, Reward=-20.40, EPSILON=0.985, (W=256,D=1,L=0)
+2025-01-16 05:06:00,102 - INFO - Episode 1650/98900: Winner=2, Reward=22.85, EPSILON=0.985, (W=256,D=1,L=0)
+2025-01-16 05:06:00,289 - INFO - Episode 1651/98900: Winner=2, Reward=25.15, EPSILON=0.985, (W=256,D=1,L=0)
+2025-01-16 05:06:00,477 - INFO - Episode 1652/98900: Winner=2, Reward=-13.15, EPSILON=0.985, (W=257,D=1,L=0)
+2025-01-16 05:06:00,555 - INFO - Episode 1653/98900: Winner=2, Reward=-0.55, EPSILON=0.985, (W=257,D=1,L=0)
+2025-01-16 05:06:00,695 - INFO - Episode 1654/98900: Winner=2, Reward=-10.15, EPSILON=0.985, (W=258,D=1,L=0)
+2025-01-16 05:06:01,023 - INFO - Episode 1655/98900: Winner=2, Reward=-69.00, EPSILON=0.985, (W=259,D=1,L=0)
+2025-01-16 05:06:01,179 - INFO - Episode 1656/98900: Winner=2, Reward=17.90, EPSILON=0.985, (W=259,D=1,L=0)
+2025-01-16 05:06:01,304 - INFO - Episode 1657/98900: Winner=2, Reward=8.60, EPSILON=0.985, (W=259,D=1,L=0)
+2025-01-16 05:06:01,601 - INFO - Episode 1658/98900: Winner=2, Reward=-14.15, EPSILON=0.985, (W=260,D=1,L=0)
+2025-01-16 05:06:01,664 - DEBUG - Q-vals = [0.09086452 0.08188117 0.12006753 0.10636803 0.16356365 0.33505756
+ 0.10219757], best_act=5, best_val=0.335
+2025-01-16 05:06:01,664 - DEBUG - Low Q-value (0.335), using MCTS.
+2025-01-16 05:06:01,664 - INFO - Running MCTS with 76 simulations using 6 processes.
+2025-01-16 05:06:04,257 - DEBUG - Aggregated action counts: {0: 6, 1: 1}
+2025-01-16 05:06:04,257 - DEBUG - Chose best action 0
+2025-01-16 05:06:04,491 - INFO - Episode 1659/98900: Winner=2, Reward=-14.05, EPSILON=0.985, (W=261,D=1,L=0)
+2025-01-16 05:06:04,616 - INFO - Episode 1660/98900: Winner=2, Reward=-8.95, EPSILON=0.985, (W=261,D=1,L=0)
+2025-01-16 05:06:04,694 - INFO - Episode 1661/98900: Winner=2, Reward=8.15, EPSILON=0.985, (W=261,D=1,L=0)
+2025-01-16 05:06:04,913 - INFO - Episode 1662/98900: Winner=2, Reward=-24.75, EPSILON=0.985, (W=262,D=1,L=0)
+2025-01-16 05:06:05,194 - INFO - Episode 1663/98900: Winner=2, Reward=7.95, EPSILON=0.985, (W=262,D=1,L=0)
+2025-01-16 05:06:05,382 - INFO - Episode 1664/98900: Winner=2, Reward=-8.05, EPSILON=0.985, (W=262,D=1,L=0)
+2025-01-16 05:06:05,600 - INFO - Episode 1665/98900: Winner=2, Reward=-10.95, EPSILON=0.985, (W=262,D=1,L=0)
+2025-01-16 05:06:05,850 - DEBUG - Q-vals = [0.09439197 0.04853788 0.06726079 0.22085239 0.13882187 0.19651206
+ 0.23362304], best_act=6, best_val=0.234
+2025-01-16 05:06:05,850 - DEBUG - Low Q-value (0.234), using MCTS.
+2025-01-16 05:06:05,850 - INFO - Episode 1666/98900: Winner=2, Reward=19.90, EPSILON=0.985, (W=263,D=1,L=0)
+2025-01-16 05:06:06,178 - INFO - Episode 1667/98900: Winner=2, Reward=-29.95, EPSILON=0.985, (W=263,D=1,L=0)
+2025-01-16 05:06:06,428 - INFO - Episode 1668/98900: Winner=2, Reward=1.85, EPSILON=0.985, (W=263,D=1,L=0)
+2025-01-16 05:06:06,678 - INFO - Episode 1669/98900: Winner=2, Reward=-19.05, EPSILON=0.985, (W=264,D=1,L=0)
+2025-01-16 05:06:06,928 - INFO - Episode 1670/98900: Winner=2, Reward=-42.55, EPSILON=0.985, (W=265,D=1,L=0)
+2025-01-16 05:06:07,053 - INFO - Episode 1671/98900: Winner=2, Reward=-10.85, EPSILON=0.985, (W=266,D=1,L=0)
+2025-01-16 05:06:07,334 - INFO - Episode 1672/98900: Winner=2, Reward=-17.25, EPSILON=0.985, (W=267,D=1,L=0)
+2025-01-16 05:06:07,694 - INFO - Episode 1673/98900: Winner=2, Reward=-38.55, EPSILON=0.985, (W=267,D=1,L=0)
+2025-01-16 05:06:07,975 - INFO - Episode 1674/98900: Winner=2, Reward=-38.00, EPSILON=0.985, (W=267,D=1,L=0)
+2025-01-16 05:06:08,100 - INFO - Episode 1675/98900: Winner=2, Reward=15.75, EPSILON=0.985, (W=267,D=1,L=0)
+2025-01-16 05:06:08,225 - DEBUG - Q-vals = [0.16920553 0.19128266 0.06249595 0.2552026  0.04782568 0.14635485
+ 0.12763274], best_act=3, best_val=0.255
+2025-01-16 05:06:08,225 - DEBUG - Low Q-value (0.255), using MCTS.
+2025-01-16 05:06:08,225 - INFO - Running MCTS with 77 simulations using 6 processes.
+2025-01-16 05:06:10,896 - DEBUG - Aggregated action counts: {0: 4, 2: 2, 4: 1}
+2025-01-16 05:06:10,896 - DEBUG - Chose best action 0
+2025-01-16 05:06:11,068 - INFO - Episode 1676/98900: Winner=2, Reward=-18.10, EPSILON=0.985, (W=267,D=1,L=0)
+2025-01-16 05:06:11,302 - INFO - Episode 1677/98900: Winner=2, Reward=6.75, EPSILON=0.985, (W=267,D=1,L=0)
+2025-01-16 05:06:11,412 - INFO - Episode 1678/98900: Winner=2, Reward=-7.90, EPSILON=0.985, (W=268,D=1,L=0)
+2025-01-16 05:06:11,568 - INFO - Episode 1679/98900: Winner=2, Reward=-9.85, EPSILON=0.985, (W=269,D=1,L=0)
+2025-01-16 05:06:11,755 - DEBUG - Q-vals = [0.17400135 0.19745548 0.0611597  0.10595006 0.1362639  0.14332043
+ 0.18184909], best_act=1, best_val=0.197
+2025-01-16 05:06:11,755 - DEBUG - Low Q-value (0.197), using MCTS.
+2025-01-16 05:06:11,755 - INFO - Running MCTS with 77 simulations using 6 processes.
+2025-01-16 05:06:14,474 - DEBUG - Aggregated action counts: {5: 2, 2: 1, 0: 3, 1: 1}
+2025-01-16 05:06:14,474 - DEBUG - Chose best action 0
+2025-01-16 05:06:14,505 - INFO - Episode 1680/98900: Winner=2, Reward=2.55, EPSILON=0.985, (W=269,D=1,L=0)
+2025-01-16 05:06:14,536 - DEBUG - Q-vals = [0.22575904 0.08152611 0.12622328 0.14162207 0.10229544 0.16701186
+ 0.1555623 ], best_act=0, best_val=0.226
+2025-01-16 05:06:14,536 - DEBUG - Low Q-value (0.226), using MCTS.
+2025-01-16 05:06:14,536 - INFO - Running MCTS with 77 simulations using 6 processes.
+2025-01-16 05:06:17,458 - DEBUG - Aggregated action counts: {2: 3, 5: 1, 4: 1, 3: 1, 0: 1}
+2025-01-16 05:06:17,458 - DEBUG - Chose best action 2
+2025-01-16 05:06:17,599 - INFO - Episode 1681/98900: Winner=2, Reward=-6.55, EPSILON=0.985, (W=269,D=1,L=0)
+2025-01-16 05:06:17,692 - INFO - Episode 1682/98900: Winner=2, Reward=16.10, EPSILON=0.985, (W=269,D=1,L=0)
+2025-01-16 05:06:17,911 - INFO - Episode 1683/98900: Winner=2, Reward=3.45, EPSILON=0.985, (W=269,D=1,L=0)
+2025-01-16 05:06:18,036 - INFO - Episode 1684/98900: Winner=2, Reward=-10.05, EPSILON=0.985, (W=270,D=1,L=0)
+2025-01-16 05:06:18,317 - INFO - Episode 1685/98900: Winner=2, Reward=-22.35, EPSILON=0.985, (W=270,D=1,L=0)
+2025-01-16 05:06:18,536 - INFO - Episode 1686/98900: Winner=2, Reward=3.95, EPSILON=0.985, (W=271,D=1,L=0)
+2025-01-16 05:06:18,724 - INFO - Episode 1687/98900: Winner=2, Reward=-19.80, EPSILON=0.985, (W=272,D=1,L=0)
+2025-01-16 05:06:18,786 - DEBUG - Q-vals = [0.11679188 0.07238672 0.1361098  0.22054967 0.09400923 0.2528404
+ 0.10731231], best_act=5, best_val=0.253
+2025-01-16 05:06:18,786 - DEBUG - Low Q-value (0.253), using MCTS.
+2025-01-16 05:06:18,786 - INFO - Running MCTS with 77 simulations using 6 processes.
+2025-01-16 05:06:21,895 - DEBUG - Aggregated action counts: {2: 2, 0: 4, 1: 1}
+2025-01-16 05:06:21,895 - DEBUG - Chose best action 0
+2025-01-16 05:06:22,129 - INFO - Episode 1688/98900: Winner=2, Reward=-9.35, EPSILON=0.985, (W=272,D=1,L=0)
+2025-01-16 05:06:22,457 - INFO - Episode 1689/98900: Winner=2, Reward=-45.55, EPSILON=0.985, (W=273,D=1,L=0)
+2025-01-16 05:06:22,816 - INFO - Episode 1690/98900: Winner=2, Reward=-53.35, EPSILON=0.985, (W=274,D=1,L=0)
+2025-01-16 05:06:23,051 - INFO - Episode 1691/98900: Winner=2, Reward=-1.90, EPSILON=0.985, (W=274,D=1,L=0)
+2025-01-16 05:06:23,270 - INFO - Episode 1692/98900: Winner=2, Reward=-24.65, EPSILON=0.985, (W=275,D=1,L=0)
+2025-01-16 05:06:23,613 - INFO - Episode 1693/98900: Winner=2, Reward=-48.90, EPSILON=0.985, (W=276,D=1,L=0)
+2025-01-16 05:06:23,785 - INFO - Episode 1694/98900: Winner=2, Reward=-10.80, EPSILON=0.985, (W=277,D=1,L=0)
+2025-01-16 05:06:24,144 - INFO - Episode 1695/98900: Winner=2, Reward=-29.45, EPSILON=0.985, (W=277,D=1,L=0)
+2025-01-16 05:06:24,301 - INFO - Episode 1696/98900: Winner=2, Reward=10.60, EPSILON=0.985, (W=277,D=1,L=0)
+2025-01-16 05:06:24,582 - INFO - Episode 1697/98900: Winner=2, Reward=-10.15, EPSILON=0.985, (W=278,D=1,L=0)
+2025-01-16 05:06:24,847 - INFO - Episode 1698/98900: Winner=2, Reward=-7.75, EPSILON=0.985, (W=278,D=1,L=0)
+2025-01-16 05:06:25,191 - INFO - Episode 1699/98900: Winner=2, Reward=-39.45, EPSILON=0.985, (W=278,D=1,L=0)
+2025-01-16 05:06:25,457 - INFO - Saved model checkpoint to Connect4_Agent_Model.pth at episode 1700.
+2025-01-16 05:06:25,457 - INFO - Models saved at episode 1700
+2025-01-16 05:06:25,457 - INFO - Target networks updated
+2025-01-16 05:06:25,519 - INFO - Saved model checkpoint to Connect4_Agent_Model.pth at episode 1700.
+2025-01-16 05:06:25,519 - INFO - Episode 1700/98900: Winner=2, Reward=8.55, EPSILON=0.985, (W=278,D=1,L=0)
+2025-01-16 05:06:25,910 - INFO - Episode 1701/98900: Winner=2, Reward=-53.15, EPSILON=0.985, (W=279,D=1,L=0)
+2025-01-16 05:06:26,003 - INFO - Episode 1702/98900: Winner=2, Reward=5.55, EPSILON=0.985, (W=279,D=1,L=0)
+2025-01-16 05:06:26,191 - INFO - Episode 1703/98900: Winner=2, Reward=1.75, EPSILON=0.985, (W=279,D=1,L=0)
+2025-01-16 05:06:26,456 - INFO - Episode 1704/98900: Winner=2, Reward=-6.95, EPSILON=0.985, (W=279,D=1,L=0)
+2025-01-16 05:06:26,612 - INFO - Episode 1705/98900: Winner=2, Reward=-9.40, EPSILON=0.985, (W=280,D=1,L=0)
+2025-01-16 05:06:26,816 - INFO - Episode 1706/98900: Winner=2, Reward=-2.25, EPSILON=0.985, (W=280,D=1,L=0)
+2025-01-16 05:06:27,034 - INFO - Episode 1707/98900: Winner=2, Reward=-9.50, EPSILON=0.985, (W=280,D=1,L=0)
+2025-01-16 05:06:27,159 - INFO - Episode 1708/98900: Winner=2, Reward=12.55, EPSILON=0.985, (W=280,D=1,L=0)
+2025-01-16 05:06:27,441 - INFO - Episode 1709/98900: Winner=2, Reward=-8.70, EPSILON=0.985, (W=281,D=1,L=0)
+2025-01-16 05:06:27,566 - INFO - Episode 1710/98900: Winner=2, Reward=2.20, EPSILON=0.985, (W=281,D=1,L=0)
+2025-01-16 05:06:27,691 - INFO - Episode 1711/98900: Winner=2, Reward=-11.40, EPSILON=0.985, (W=282,D=1,L=0)
+2025-01-16 05:06:27,753 - DEBUG - Q-vals = [0.32382992 0.07205292 0.17214534 0.06807149 0.09110784 0.11728147
+ 0.155511  ], best_act=0, best_val=0.324
+2025-01-16 05:06:27,753 - DEBUG - Low Q-value (0.324), using MCTS.
+2025-01-16 05:06:27,753 - INFO - Running MCTS with 78 simulations using 6 processes.
+2025-01-16 05:06:30,565 - DEBUG - Aggregated action counts: {2: 2, 4: 1, 1: 1, 0: 2}
+2025-01-16 05:06:30,565 - DEBUG - Chose best action 2
+2025-01-16 05:06:30,752 - DEBUG - Q-vals = [0.11995375 0.00870975 0.27624944 0.02025444 0.1503404  0.10037797
+ 0.3241143 ], best_act=6, best_val=0.324
+2025-01-16 05:06:30,752 - DEBUG - Low Q-value (0.324), using MCTS.
+2025-01-16 05:06:30,752 - INFO - Running MCTS with 78 simulations using 6 processes.
+2025-01-16 05:06:33,721 - DEBUG - Aggregated action counts: {0: 4, 3: 1, 4: 1}
+2025-01-16 05:06:33,721 - DEBUG - Chose best action 0
+2025-01-16 05:06:33,783 - INFO - Episode 1712/98900: Winner=2, Reward=-17.95, EPSILON=0.985, (W=283,D=1,L=0)
+2025-01-16 05:06:34,018 - INFO - Episode 1713/98900: Winner=2, Reward=-12.70, EPSILON=0.985, (W=284,D=1,L=0)
+2025-01-16 05:06:34,189 - INFO - Episode 1714/98900: Winner=2, Reward=7.70, EPSILON=0.985, (W=284,D=1,L=0)
+2025-01-16 05:06:34,314 - INFO - Episode 1715/98900: Winner=2, Reward=-10.00, EPSILON=0.985, (W=285,D=1,L=0)
+2025-01-16 05:06:34,564 - INFO - Episode 1716/98900: Winner=2, Reward=-0.85, EPSILON=0.985, (W=285,D=1,L=0)
+2025-01-16 05:06:34,736 - INFO - Episode 1717/98900: Winner=2, Reward=-6.45, EPSILON=0.985, (W=286,D=1,L=0)
+2025-01-16 05:06:34,966 - INFO - Episode 1718/98900: Winner=2, Reward=-6.90, EPSILON=0.985, (W=287,D=1,L=0)
+2025-01-16 05:06:35,143 - INFO - Episode 1719/98900: Winner=2, Reward=-4.75, EPSILON=0.985, (W=287,D=1,L=0)
+2025-01-16 05:06:35,472 - INFO - Episode 1720/98900: Winner=2, Reward=-43.00, EPSILON=0.985, (W=288,D=1,L=0)
+2025-01-16 05:06:35,677 - INFO - Episode 1721/98900: Winner=2, Reward=5.35, EPSILON=0.985, (W=288,D=1,L=0)
+2025-01-16 05:06:35,918 - INFO - Episode 1722/98900: Winner=2, Reward=17.10, EPSILON=0.985, (W=288,D=1,L=0)
+2025-01-16 05:06:36,264 - INFO - Episode 1723/98900: Winner=2, Reward=-49.30, EPSILON=0.985, (W=289,D=1,L=0)
+2025-01-16 05:06:36,503 - INFO - Episode 1724/98900: Winner=2, Reward=-18.35, EPSILON=0.985, (W=289,D=1,L=0)
+2025-01-16 05:06:36,638 - INFO - Episode 1725/98900: Winner=2, Reward=-9.25, EPSILON=0.985, (W=290,D=1,L=0)
+2025-01-16 05:06:37,117 - INFO - Episode 1726/98900: Winner=2, Reward=-90.70, EPSILON=0.985, (W=291,D=1,L=0)
+2025-01-16 05:06:37,585 - INFO - Episode 1727/98900: Winner=2, Reward=-118.15, EPSILON=0.985, (W=292,D=1,L=0)
+2025-01-16 05:06:37,939 - INFO - Episode 1728/98900: Winner=2, Reward=-46.15, EPSILON=0.985, (W=292,D=1,L=0)
+2025-01-16 05:06:37,985 - DEBUG - Q-vals = [0.13167274 0.10720199 0.13427247 0.10636561 0.27512115 0.16797069
+ 0.07739532], best_act=4, best_val=0.275
+2025-01-16 05:06:37,985 - DEBUG - Low Q-value (0.275), using MCTS.
+2025-01-16 05:06:37,985 - INFO - Running MCTS with 79 simulations using 6 processes.
+2025-01-16 05:06:40,674 - DEBUG - Aggregated action counts: {3: 1, 2: 1, 1: 4, 5: 1}
+2025-01-16 05:06:40,674 - DEBUG - Chose best action 1
+2025-01-16 05:06:40,883 - INFO - Episode 1729/98900: Winner=2, Reward=5.05, EPSILON=0.985, (W=292,D=1,L=0)
+2025-01-16 05:06:41,019 - INFO - Episode 1730/98900: Winner=2, Reward=5.40, EPSILON=0.985, (W=292,D=1,L=0)
+2025-01-16 05:06:41,056 - DEBUG - Q-vals = [0.13574234 0.10448427 0.12624909 0.14173512 0.153324   0.25952715
+ 0.07893807], best_act=5, best_val=0.260
+2025-01-16 05:06:41,056 - DEBUG - Low Q-value (0.260), using MCTS.
+2025-01-16 05:06:41,057 - INFO - Running MCTS with 79 simulations using 6 processes.
+2025-01-16 05:06:43,700 - DEBUG - Aggregated action counts: {3: 2, 2: 2, 6: 1, 1: 1, 0: 1}
+2025-01-16 05:06:43,700 - DEBUG - Chose best action 3
+2025-01-16 05:06:43,913 - DEBUG - Q-vals = [0.19377163 0.05758913 0.10787525 0.10756233 0.34716615 0.03999192
+ 0.14604361], best_act=4, best_val=0.347
+2025-01-16 05:06:43,913 - DEBUG - Low Q-value (0.347), using MCTS.
+2025-01-16 05:06:43,925 - INFO - Episode 1731/98900: Winner=2, Reward=-15.00, EPSILON=0.985, (W=293,D=1,L=0)
+2025-01-16 05:06:43,975 - DEBUG - Q-vals = [0.15616703 0.11302064 0.13467441 0.23125741 0.1520139  0.16855916
+ 0.04430743], best_act=3, best_val=0.231
+2025-01-16 05:06:43,975 - DEBUG - Low Q-value (0.231), using MCTS.
+2025-01-16 05:06:43,975 - INFO - Running MCTS with 79 simulations using 6 processes.
+2025-01-16 05:06:46,643 - DEBUG - Aggregated action counts: {0: 2, 2: 3, 1: 1, 6: 1}
+2025-01-16 05:06:46,643 - DEBUG - Chose best action 2
+2025-01-16 05:06:46,876 - INFO - Episode 1732/98900: Winner=2, Reward=-46.80, EPSILON=0.985, (W=294,D=1,L=0)
+2025-01-16 05:06:47,140 - INFO - Episode 1733/98900: Winner=2, Reward=-49.85, EPSILON=0.985, (W=295,D=1,L=0)
+2025-01-16 05:06:47,352 - INFO - Episode 1734/98900: Winner=2, Reward=-8.15, EPSILON=0.985, (W=296,D=1,L=0)
+2025-01-16 05:06:47,538 - INFO - Episode 1735/98900: Winner=2, Reward=16.50, EPSILON=0.985, (W=296,D=1,L=0)
+2025-01-16 05:06:47,821 - INFO - Episode 1736/98900: Winner=2, Reward=8.95, EPSILON=0.984, (W=296,D=1,L=0)
+2025-01-16 05:06:48,077 - INFO - Episode 1737/98900: Winner=2, Reward=-35.95, EPSILON=0.984, (W=296,D=1,L=0)
+2025-01-16 05:06:48,377 - INFO - Episode 1738/98900: Winner=2, Reward=1.80, EPSILON=0.984, (W=297,D=1,L=0)
+2025-01-16 05:06:48,548 - INFO - Episode 1739/98900: Winner=2, Reward=-0.55, EPSILON=0.984, (W=297,D=1,L=0)
+2025-01-16 05:06:48,691 - INFO - Episode 1740/98900: Winner=2, Reward=-3.85, EPSILON=0.984, (W=297,D=1,L=0)
+2025-01-16 05:06:48,921 - INFO - Episode 1741/98900: Winner=2, Reward=5.70, EPSILON=0.984, (W=297,D=1,L=0)
+2025-01-16 05:06:49,267 - INFO - Episode 1742/98900: Winner=2, Reward=-36.80, EPSILON=0.984, (W=298,D=1,L=0)
+2025-01-16 05:06:49,521 - INFO - Episode 1743/98900: Winner=2, Reward=-25.45, EPSILON=0.984, (W=298,D=1,L=0)
+2025-01-16 05:06:49,723 - INFO - Episode 1744/98900: Winner=2, Reward=-16.20, EPSILON=0.984, (W=299,D=1,L=0)
+2025-01-16 05:06:49,969 - INFO - Episode 1745/98900: Winner=2, Reward=-19.20, EPSILON=0.984, (W=300,D=1,L=0)
+2025-01-16 05:06:50,152 - INFO - Episode 1746/98900: Winner=2, Reward=-17.05, EPSILON=0.984, (W=301,D=1,L=0)
+2025-01-16 05:06:50,261 - DEBUG - Q-vals = [0.5347108  0.10950174 0.05337856 0.01075347 0.00922423 0.07096548
+ 0.21146564], best_act=0, best_val=0.535
+2025-01-16 05:06:50,261 - DEBUG - Low Q-value (0.535), using MCTS.
+2025-01-16 05:06:50,277 - INFO - Episode 1747/98900: Winner=2, Reward=-10.55, EPSILON=0.984, (W=302,D=1,L=0)
+2025-01-16 05:06:50,549 - INFO - Episode 1748/98900: Winner=2, Reward=8.75, EPSILON=0.984, (W=302,D=1,L=0)
+2025-01-16 05:06:50,788 - INFO - Episode 1749/98900: Winner=2, Reward=0.90, EPSILON=0.984, (W=302,D=1,L=0)
+2025-01-16 05:06:51,088 - INFO - Episode 1750/98900: Winner=2, Reward=19.25, EPSILON=0.984, (W=302,D=1,L=0)
+2025-01-16 05:06:51,269 - INFO - Episode 1751/98900: Winner=2, Reward=-10.35, EPSILON=0.984, (W=303,D=1,L=0)
+2025-01-16 05:06:51,423 - DEBUG - Q-vals = [7.6183826e-01 9.2591517e-02 6.9853156e-03 6.7870272e-04 8.3960434e-03
+ 4.1603362e-03 1.2534994e-01], best_act=0, best_val=0.762
+2025-01-16 05:06:51,423 - DEBUG - Low Q-value (0.762), using MCTS.
+2025-01-16 05:06:51,439 - INFO - Episode 1752/98900: Winner=2, Reward=-5.60, EPSILON=0.984, (W=304,D=1,L=0)
+2025-01-16 05:06:51,626 - INFO - Episode 1753/98900: Winner=2, Reward=5.00, EPSILON=0.984, (W=304,D=1,L=0)
+2025-01-16 05:06:51,751 - DEBUG - Q-vals = [0.3673947  0.15834275 0.1656185  0.05080236 0.08812278 0.0418196
+ 0.12789932], best_act=0, best_val=0.367
+2025-01-16 05:06:51,751 - DEBUG - Low Q-value (0.367), using MCTS.
+2025-01-16 05:06:51,751 - INFO - Running MCTS with 80 simulations using 6 processes.
+2025-01-16 05:06:54,408 - DEBUG - Aggregated action counts: {0: 5, 1: 2}
+2025-01-16 05:06:54,408 - DEBUG - Chose best action 0
+2025-01-16 05:06:54,470 - INFO - Episode 1754/98900: Winner=2, Reward=-25.40, EPSILON=0.984, (W=305,D=1,L=0)
+2025-01-16 05:06:54,720 - INFO - Episode 1755/98900: Winner=2, Reward=12.45, EPSILON=0.984, (W=305,D=1,L=0)
+2025-01-16 05:06:54,814 - DEBUG - Q-vals = [0.09065565 0.0478666  0.23582101 0.137012   0.12309781 0.2595491
+ 0.1059978 ], best_act=5, best_val=0.260
+2025-01-16 05:06:54,814 - DEBUG - Low Q-value (0.260), using MCTS.
+2025-01-16 05:06:54,814 - INFO - Running MCTS with 80 simulations using 6 processes.
+2025-01-16 05:06:57,599 - DEBUG - Aggregated action counts: {1: 2, 6: 2, 3: 1, 5: 1, 0: 1}
+2025-01-16 05:06:57,599 - DEBUG - Chose best action 1
+2025-01-16 05:06:57,622 - DEBUG - Q-vals = [0.12036985 0.08630215 0.11858971 0.15609266 0.18403913 0.17658976
+ 0.15801677], best_act=4, best_val=0.184
+2025-01-16 05:06:57,622 - DEBUG - Low Q-value (0.184), using MCTS.
+2025-01-16 05:06:57,623 - INFO - Running MCTS with 80 simulations using 6 processes.
+2025-01-16 05:07:00,471 - DEBUG - Aggregated action counts: {0: 2, 2: 1, 1: 1, 3: 2, 4: 1}
+2025-01-16 05:07:00,471 - DEBUG - Chose best action 0
+2025-01-16 05:07:00,643 - INFO - Episode 1756/98900: Winner=2, Reward=-49.15, EPSILON=0.984, (W=306,D=1,L=0)
+2025-01-16 05:07:00,768 - INFO - Episode 1757/98900: Winner=2, Reward=-5.20, EPSILON=0.984, (W=306,D=1,L=0)
+2025-01-16 05:07:01,002 - INFO - Episode 1758/98900: Winner=2, Reward=-5.85, EPSILON=0.984, (W=307,D=1,L=0)
+2025-01-16 05:07:01,112 - DEBUG - Q-vals = [0.11007759 0.23908006 0.01292438 0.26726013 0.05906462 0.21519935
+ 0.09639387], best_act=3, best_val=0.267
+2025-01-16 05:07:01,112 - DEBUG - Low Q-value (0.267), using MCTS.
+2025-01-16 05:07:01,112 - INFO - Running MCTS with 80 simulations using 6 processes.
+2025-01-16 05:07:03,846 - DEBUG - Aggregated action counts: {3: 2, 4: 1, 2: 3, 0: 1}
+2025-01-16 05:07:03,846 - DEBUG - Chose best action 2
+2025-01-16 05:07:04,184 - INFO - Episode 1759/98900: Winner=2, Reward=-6.05, EPSILON=0.984, (W=308,D=1,L=0)
+2025-01-16 05:07:04,434 - INFO - Episode 1760/98900: Winner=2, Reward=-9.60, EPSILON=0.984, (W=309,D=1,L=0)
+2025-01-16 05:07:04,715 - INFO - Episode 1761/98900: Winner=2, Reward=1.45, EPSILON=0.984, (W=309,D=1,L=0)
+2025-01-16 05:07:05,043 - INFO - Episode 1762/98900: Winner=2, Reward=-8.65, EPSILON=0.984, (W=309,D=1,L=0)
+2025-01-16 05:07:05,371 - INFO - Episode 1763/98900: Winner=2, Reward=-31.75, EPSILON=0.984, (W=310,D=1,L=0)
+2025-01-16 05:07:05,481 - INFO - Episode 1764/98900: Winner=2, Reward=-4.35, EPSILON=0.984, (W=310,D=1,L=0)
+2025-01-16 05:07:05,746 - INFO - Episode 1765/98900: Winner=2, Reward=-9.95, EPSILON=0.984, (W=310,D=1,L=0)
+2025-01-16 05:07:05,871 - DEBUG - Q-vals = [0.09789567 0.0655834  0.13468517 0.2160476  0.17691736 0.24181701
+ 0.06705378], best_act=5, best_val=0.242
+2025-01-16 05:07:05,871 - DEBUG - Low Q-value (0.242), using MCTS.
+2025-01-16 05:07:05,871 - INFO - Running MCTS with 80 simulations using 6 processes.
+2025-01-16 05:07:08,543 - DEBUG - Aggregated action counts: {0: 3, 2: 1, 3: 1, 5: 1, 1: 1}
+2025-01-16 05:07:08,543 - DEBUG - Chose best action 0
+2025-01-16 05:07:08,606 - INFO - Episode 1766/98900: Winner=2, Reward=3.85, EPSILON=0.984, (W=310,D=1,L=0)
+2025-01-16 05:07:08,887 - INFO - Episode 1767/98900: Winner=2, Reward=-21.20, EPSILON=0.984, (W=311,D=1,L=0)
+2025-01-16 05:07:09,012 - INFO - Episode 1768/98900: Winner=2, Reward=-9.35, EPSILON=0.984, (W=312,D=1,L=0)
+2025-01-16 05:07:09,309 - INFO - Episode 1769/98900: Winner=2, Reward=-9.75, EPSILON=0.984, (W=313,D=1,L=0)
+2025-01-16 05:07:09,547 - INFO - Episode 1770/98900: Winner=2, Reward=-10.25, EPSILON=0.984, (W=313,D=1,L=0)
+2025-01-16 05:07:09,797 - INFO - Episode 1771/98900: Winner=2, Reward=-18.75, EPSILON=0.984, (W=314,D=1,L=0)
+2025-01-16 05:07:09,865 - INFO - Episode 1772/98900: Winner=2, Reward=1.05, EPSILON=0.984, (W=314,D=1,L=0)
+2025-01-16 05:07:10,067 - INFO - Episode 1773/98900: Winner=2, Reward=-22.85, EPSILON=0.984, (W=315,D=1,L=0)
+2025-01-16 05:07:10,192 - INFO - Episode 1774/98900: Winner=2, Reward=-9.35, EPSILON=0.984, (W=316,D=1,L=0)
+2025-01-16 05:07:10,551 - INFO - Episode 1775/98900: Winner=2, Reward=-80.85, EPSILON=0.984, (W=316,D=1,L=0)
+2025-01-16 05:07:10,660 - DEBUG - Q-vals = [0.17708571 0.05607773 0.18629898 0.05455574 0.28396967 0.126518
+ 0.11549421], best_act=4, best_val=0.284
+2025-01-16 05:07:10,660 - DEBUG - Low Q-value (0.284), using MCTS.
+2025-01-16 05:07:10,660 - INFO - Running MCTS with 81 simulations using 6 processes.
+2025-01-16 05:07:13,686 - DEBUG - Aggregated action counts: {1: 1, 2: 1, 5: 1, 4: 1, 0: 3}
+2025-01-16 05:07:13,687 - DEBUG - Chose best action 0
+2025-01-16 05:07:13,742 - INFO - Episode 1776/98900: Winner=2, Reward=-11.80, EPSILON=0.984, (W=317,D=1,L=0)
+2025-01-16 05:07:13,973 - INFO - Episode 1777/98900: Winner=2, Reward=10.40, EPSILON=0.984, (W=317,D=1,L=0)
+2025-01-16 05:07:14,189 - INFO - Episode 1778/98900: Winner=2, Reward=7.90, EPSILON=0.984, (W=317,D=1,L=0)
+2025-01-16 05:07:14,422 - INFO - Episode 1779/98900: Winner=2, Reward=-24.65, EPSILON=0.984, (W=318,D=1,L=0)
+2025-01-16 05:07:14,562 - INFO - Episode 1780/98900: Winner=2, Reward=1.25, EPSILON=0.984, (W=318,D=1,L=0)
+2025-01-16 05:07:14,703 - DEBUG - Q-vals = [0.42751876 0.1291959  0.07208263 0.03636535 0.20519212 0.03004888
+ 0.0995963 ], best_act=0, best_val=0.428
+2025-01-16 05:07:14,703 - DEBUG - Low Q-value (0.428), using MCTS.
+2025-01-16 05:07:14,703 - INFO - Running MCTS with 81 simulations using 6 processes.
+2025-01-16 05:07:17,482 - DEBUG - Aggregated action counts: {3: 3, 0: 3, 1: 1}
+2025-01-16 05:07:17,482 - DEBUG - Chose best action 3
+2025-01-16 05:07:17,575 - INFO - Episode 1781/98900: Winner=2, Reward=-30.45, EPSILON=0.984, (W=319,D=1,L=0)
+2025-01-16 05:07:17,735 - INFO - Episode 1782/98900: Winner=2, Reward=-9.00, EPSILON=0.984, (W=320,D=1,L=0)
+2025-01-16 05:07:17,953 - INFO - Episode 1783/98900: Winner=2, Reward=8.75, EPSILON=0.984, (W=320,D=1,L=0)
+2025-01-16 05:07:18,094 - INFO - Episode 1784/98900: Winner=2, Reward=-12.50, EPSILON=0.984, (W=321,D=1,L=0)
+2025-01-16 05:07:18,297 - INFO - Episode 1785/98900: Winner=2, Reward=-10.90, EPSILON=0.984, (W=322,D=1,L=0)
+2025-01-16 05:07:18,547 - INFO - Episode 1786/98900: Winner=2, Reward=-1.85, EPSILON=0.984, (W=322,D=1,L=0)
+2025-01-16 05:07:18,859 - INFO - Episode 1787/98900: Winner=2, Reward=-17.70, EPSILON=0.984, (W=322,D=1,L=0)
+2025-01-16 05:07:19,025 - INFO - Episode 1788/98900: Winner=2, Reward=-15.30, EPSILON=0.984, (W=323,D=1,L=0)
+2025-01-16 05:07:19,076 - INFO - Episode 1789/98900: Winner=2, Reward=0.00, EPSILON=0.984, (W=323,D=1,L=0)
+2025-01-16 05:07:19,389 - DEBUG - Q-vals = [0.07385417 0.0343149  0.05373016 0.15076815 0.35581657 0.05890768
+ 0.2726083 ], best_act=4, best_val=0.356
+2025-01-16 05:07:19,389 - DEBUG - Low Q-value (0.356), using MCTS.
+2025-01-16 05:07:19,389 - INFO - Running MCTS with 81 simulations using 6 processes.
+2025-01-16 05:07:22,139 - DEBUG - Aggregated action counts: {1: 3, 3: 4}
+2025-01-16 05:07:22,139 - DEBUG - Chose best action 3
+2025-01-16 05:07:22,295 - INFO - Episode 1790/98900: Winner=-1, Reward=-73.05, EPSILON=0.984, (W=323,D=2,L=0)
+2025-01-16 05:07:22,592 - INFO - Episode 1791/98900: Winner=2, Reward=-28.60, EPSILON=0.984, (W=324,D=2,L=0)
+2025-01-16 05:07:22,717 - INFO - Episode 1792/98900: Winner=2, Reward=8.20, EPSILON=0.984, (W=324,D=2,L=0)
+2025-01-16 05:07:22,857 - INFO - Episode 1793/98900: Winner=2, Reward=-12.25, EPSILON=0.984, (W=325,D=2,L=0)
+2025-01-16 05:07:23,138 - INFO - Episode 1794/98900: Winner=2, Reward=-27.15, EPSILON=0.984, (W=326,D=2,L=0)
+2025-01-16 05:07:23,420 - INFO - Episode 1795/98900: Winner=2, Reward=-43.95, EPSILON=0.984, (W=327,D=2,L=0)
+2025-01-16 05:07:23,576 - INFO - Episode 1796/98900: Winner=2, Reward=15.15, EPSILON=0.984, (W=327,D=2,L=0)
+2025-01-16 05:07:23,873 - INFO - Episode 1797/98900: Winner=2, Reward=-41.35, EPSILON=0.984, (W=327,D=2,L=0)
+2025-01-16 05:07:24,123 - INFO - Episode 1798/98900: Winner=2, Reward=-3.55, EPSILON=0.984, (W=327,D=2,L=0)
+2025-01-16 05:07:24,185 - INFO - Episode 1799/98900: Winner=2, Reward=15.75, EPSILON=0.984, (W=327,D=2,L=0)
+2025-01-16 05:07:24,435 - INFO - Saved model checkpoint to Connect4_Agent_Model.pth at episode 1800.
+2025-01-16 05:07:24,435 - INFO - Models saved at episode 1800
+2025-01-16 05:07:24,435 - INFO - Target networks updated
+2025-01-16 05:07:24,497 - INFO - Saved model checkpoint to Connect4_Agent_Model.pth at episode 1800.
+2025-01-16 05:07:24,497 - INFO - Episode 1800/98900: Winner=2, Reward=-22.30, EPSILON=0.984, (W=328,D=2,L=0)
+2025-01-16 05:07:24,654 - INFO - Episode 1801/98900: Winner=2, Reward=7.55, EPSILON=0.984, (W=328,D=2,L=0)
+2025-01-16 05:07:25,044 - INFO - Episode 1802/98900: Winner=2, Reward=-15.55, EPSILON=0.984, (W=329,D=2,L=0)
+2025-01-16 05:07:25,325 - INFO - Episode 1803/98900: Winner=2, Reward=25.25, EPSILON=0.984, (W=329,D=2,L=0)
+2025-01-16 05:07:25,544 - INFO - Episode 1804/98900: Winner=2, Reward=-2.35, EPSILON=0.984, (W=329,D=2,L=0)
+2025-01-16 05:07:25,669 - INFO - Episode 1805/98900: Winner=2, Reward=-7.75, EPSILON=0.984, (W=330,D=2,L=0)
+2025-01-16 05:07:25,892 - INFO - Episode 1806/98900: Winner=2, Reward=-1.55, EPSILON=0.984, (W=330,D=2,L=0)
+2025-01-16 05:07:26,023 - INFO - Episode 1807/98900: Winner=2, Reward=-0.40, EPSILON=0.984, (W=330,D=2,L=0)
+2025-01-16 05:07:26,251 - INFO - Episode 1808/98900: Winner=2, Reward=6.75, EPSILON=0.984, (W=330,D=2,L=0)
+2025-01-16 05:07:26,359 - INFO - Episode 1809/98900: Winner=2, Reward=-11.75, EPSILON=0.984, (W=331,D=2,L=0)
+2025-01-16 05:07:26,375 - DEBUG - Q-vals = [0.06487043 0.02243675 0.006654   0.57801354 0.00845174 0.0290087
+ 0.29056475], best_act=3, best_val=0.578
+2025-01-16 05:07:26,375 - DEBUG - Low Q-value (0.578), using MCTS.
+2025-01-16 05:07:26,375 - INFO - Running MCTS with 82 simulations using 6 processes.
+2025-01-16 05:07:29,111 - DEBUG - Aggregated action counts: {1: 2, 6: 2, 3: 2, 0: 1}
+2025-01-16 05:07:29,111 - DEBUG - Chose best action 1
+2025-01-16 05:07:29,189 - INFO - Episode 1810/98900: Winner=2, Reward=-0.10, EPSILON=0.984, (W=331,D=2,L=0)
+2025-01-16 05:07:29,389 - INFO - Episode 1811/98900: Winner=2, Reward=-1.20, EPSILON=0.984, (W=331,D=2,L=0)
+2025-01-16 05:07:29,688 - DEBUG - Q-vals = [0.07405145 0.02034515 0.24522741 0.0324033  0.2846077  0.11203926
+ 0.23132573], best_act=2, best_val=0.245
+2025-01-16 05:07:29,688 - DEBUG - Low Q-value (0.245), using MCTS.
+2025-01-16 05:07:29,699 - INFO - Episode 1812/98900: Winner=2, Reward=-34.00, EPSILON=0.984, (W=332,D=2,L=0)
+2025-01-16 05:07:29,934 - INFO - Episode 1813/98900: Winner=2, Reward=-12.05, EPSILON=0.984, (W=333,D=2,L=0)
+2025-01-16 05:07:30,227 - INFO - Episode 1814/98900: Winner=2, Reward=-19.65, EPSILON=0.984, (W=333,D=2,L=0)
+2025-01-16 05:07:30,367 - INFO - Episode 1815/98900: Winner=2, Reward=-8.85, EPSILON=0.984, (W=334,D=2,L=0)
+2025-01-16 05:07:30,477 - INFO - Episode 1816/98900: Winner=2, Reward=6.65, EPSILON=0.984, (W=334,D=2,L=0)
+2025-01-16 05:07:30,653 - INFO - Episode 1817/98900: Winner=2, Reward=-12.00, EPSILON=0.984, (W=335,D=2,L=0)
+2025-01-16 05:07:30,947 - INFO - Episode 1818/98900: Winner=2, Reward=-0.15, EPSILON=0.984, (W=335,D=2,L=0)
+2025-01-16 05:07:31,010 - DEBUG - Q-vals = [0.23534468 0.09942912 0.12939978 0.11401915 0.15612105 0.20192239
+ 0.06376381], best_act=0, best_val=0.235
+2025-01-16 05:07:31,010 - DEBUG - Low Q-value (0.235), using MCTS.
+2025-01-16 05:07:31,010 - INFO - Running MCTS with 82 simulations using 6 processes.
+2025-01-16 05:07:34,253 - DEBUG - Aggregated action counts: {1: 1, 3: 1, 4: 2, 0: 2, 2: 1}
+2025-01-16 05:07:34,253 - DEBUG - Chose best action 4
+2025-01-16 05:07:34,514 - INFO - Episode 1819/98900: Winner=2, Reward=-26.50, EPSILON=0.984, (W=336,D=2,L=0)
+2025-01-16 05:07:34,795 - INFO - Episode 1820/98900: Winner=2, Reward=-20.55, EPSILON=0.984, (W=337,D=2,L=0)
+2025-01-16 05:07:34,949 - INFO - Episode 1821/98900: Winner=2, Reward=-4.50, EPSILON=0.984, (W=338,D=2,L=0)
+2025-01-16 05:07:34,990 - DEBUG - Q-vals = [0.04685936 0.06420041 0.05698287 0.0144113  0.5495992  0.23407915
+ 0.03386774], best_act=4, best_val=0.550
+2025-01-16 05:07:34,990 - DEBUG - Low Q-value (0.550), using MCTS.
+2025-01-16 05:07:34,991 - INFO - Running MCTS with 82 simulations using 6 processes.
+2025-01-16 05:07:38,390 - DEBUG - Aggregated action counts: {2: 2, 0: 2, 1: 2, 5: 1}
+2025-01-16 05:07:38,391 - DEBUG - Chose best action 2
+2025-01-16 05:07:38,829 - INFO - Episode 1822/98900: Winner=-1, Reward=-68.30, EPSILON=0.984, (W=338,D=3,L=0)
+2025-01-16 05:07:39,221 - INFO - Episode 1823/98900: Winner=2, Reward=-13.65, EPSILON=0.984, (W=338,D=3,L=0)
+2025-01-16 05:07:39,504 - INFO - Episode 1824/98900: Winner=2, Reward=-15.65, EPSILON=0.984, (W=338,D=3,L=0)
+2025-01-16 05:07:39,754 - INFO - Episode 1825/98900: Winner=2, Reward=36.55, EPSILON=0.984, (W=338,D=3,L=0)
+2025-01-16 05:07:39,848 - INFO - Episode 1826/98900: Winner=2, Reward=-1.95, EPSILON=0.984, (W=338,D=3,L=0)
+2025-01-16 05:07:40,064 - INFO - Episode 1827/98900: Winner=2, Reward=-13.10, EPSILON=0.984, (W=339,D=3,L=0)
+2025-01-16 05:07:40,255 - INFO - Episode 1828/98900: Winner=2, Reward=-14.00, EPSILON=0.984, (W=340,D=3,L=0)
+2025-01-16 05:07:40,522 - DEBUG - Q-vals = [0.07973868 0.05746276 0.07691758 0.11313703 0.47783384 0.13253132
+ 0.06237881], best_act=3, best_val=0.113
+2025-01-16 05:07:40,522 - DEBUG - Low Q-value (0.113), using MCTS.
+2025-01-16 05:07:40,523 - INFO - Running MCTS with 83 simulations using 6 processes.
+2025-01-16 05:07:43,667 - DEBUG - Aggregated action counts: {1: 2, 2: 2, 0: 3}
+2025-01-16 05:07:43,667 - DEBUG - Chose best action 0
+2025-01-16 05:07:43,788 - INFO - Episode 1829/98900: Winner=2, Reward=-52.85, EPSILON=0.984, (W=341,D=3,L=0)
+2025-01-16 05:07:43,969 - INFO - Episode 1830/98900: Winner=2, Reward=-5.75, EPSILON=0.984, (W=342,D=3,L=0)
+2025-01-16 05:07:44,047 - DEBUG - Q-vals = [0.22345293 0.04434125 0.05915808 0.13002631 0.35249066 0.02304314
+ 0.16748767], best_act=4, best_val=0.352
+2025-01-16 05:07:44,047 - DEBUG - Low Q-value (0.352), using MCTS.
+2025-01-16 05:07:44,048 - INFO - Running MCTS with 83 simulations using 6 processes.
+2025-01-16 05:07:46,706 - DEBUG - Aggregated action counts: {0: 5, 1: 1, 3: 1}
+2025-01-16 05:07:46,706 - DEBUG - Chose best action 0
+2025-01-16 05:07:46,761 - INFO - Episode 1831/98900: Winner=2, Reward=6.40, EPSILON=0.984, (W=342,D=3,L=0)
+2025-01-16 05:07:46,852 - INFO - Episode 1832/98900: Winner=2, Reward=5.35, EPSILON=0.984, (W=342,D=3,L=0)
+2025-01-16 05:07:46,985 - INFO - Episode 1833/98900: Winner=2, Reward=-10.70, EPSILON=0.984, (W=343,D=3,L=0)
+2025-01-16 05:07:47,280 - INFO - Episode 1834/98900: Winner=2, Reward=-19.45, EPSILON=0.984, (W=343,D=3,L=0)
+2025-01-16 05:07:47,517 - INFO - Episode 1835/98900: Winner=2, Reward=1.70, EPSILON=0.984, (W=343,D=3,L=0)
+2025-01-16 05:07:47,733 - DEBUG - Q-vals = [0.21571602 0.07761715 0.25026527 0.10628055 0.12679718 0.07732192
+ 0.14600183], best_act=2, best_val=0.250
+2025-01-16 05:07:47,733 - DEBUG - Low Q-value (0.250), using MCTS.
+2025-01-16 05:07:47,734 - INFO - Running MCTS with 83 simulations using 6 processes.
+2025-01-16 05:07:50,578 - DEBUG - Aggregated action counts: {1: 1, 5: 1, 6: 1, 3: 2, 0: 2}
+2025-01-16 05:07:50,578 - DEBUG - Chose best action 3
+2025-01-16 05:07:50,625 - INFO - Episode 1836/98900: Winner=2, Reward=6.45, EPSILON=0.984, (W=343,D=3,L=0)
+2025-01-16 05:07:50,963 - INFO - Episode 1837/98900: Winner=2, Reward=-13.40, EPSILON=0.984, (W=344,D=3,L=0)
+2025-01-16 05:07:51,188 - INFO - Episode 1838/98900: Winner=2, Reward=11.20, EPSILON=0.984, (W=344,D=3,L=0)
+2025-01-16 05:07:51,379 - INFO - Episode 1839/98900: Winner=2, Reward=-12.60, EPSILON=0.984, (W=345,D=3,L=0)
+2025-01-16 05:07:51,660 - INFO - Episode 1840/98900: Winner=2, Reward=-1.55, EPSILON=0.984, (W=345,D=3,L=0)
+2025-01-16 05:07:51,746 - INFO - Episode 1841/98900: Winner=2, Reward=0.45, EPSILON=0.984, (W=345,D=3,L=0)
+2025-01-16 05:07:52,146 - INFO - Episode 1842/98900: Winner=2, Reward=-108.10, EPSILON=0.984, (W=345,D=3,L=0)
+2025-01-16 05:07:52,457 - INFO - Episode 1843/98900: Winner=2, Reward=-17.85, EPSILON=0.984, (W=346,D=3,L=0)
+2025-01-16 05:07:52,679 - INFO - Episode 1844/98900: Winner=2, Reward=-1.00, EPSILON=0.984, (W=346,D=3,L=0)
+2025-01-16 05:07:52,833 - INFO - Episode 1845/98900: Winner=2, Reward=-5.55, EPSILON=0.984, (W=347,D=3,L=0)
+2025-01-16 05:07:52,923 - INFO - Episode 1846/98900: Winner=2, Reward=0.90, EPSILON=0.984, (W=347,D=3,L=0)
+2025-01-16 05:07:53,002 - DEBUG - Q-vals = [0.02147658 0.01797418 0.0834842  0.7995439  0.0060898  0.06567436
+ 0.00575689], best_act=3, best_val=0.800
+2025-01-16 05:07:53,002 - DEBUG - Low Q-value (0.800), using MCTS.
+2025-01-16 05:07:53,003 - INFO - Running MCTS with 83 simulations using 6 processes.
+2025-01-16 05:07:56,028 - DEBUG - Aggregated action counts: {1: 1, 4: 1, 3: 2, 2: 1, 0: 2}
+2025-01-16 05:07:56,028 - DEBUG - Chose best action 3
+2025-01-16 05:07:56,253 - INFO - Episode 1847/98900: Winner=2, Reward=-32.95, EPSILON=0.984, (W=347,D=3,L=0)
+2025-01-16 05:07:56,662 - INFO - Episode 1848/98900: Winner=2, Reward=-62.15, EPSILON=0.984, (W=348,D=3,L=0)
+2025-01-16 05:07:56,756 - INFO - Episode 1849/98900: Winner=2, Reward=7.05, EPSILON=0.983, (W=348,D=3,L=0)
+2025-01-16 05:07:57,000 - INFO - Episode 1850/98900: Winner=2, Reward=12.55, EPSILON=0.983, (W=348,D=3,L=0)
+2025-01-16 05:07:57,181 - INFO - Episode 1851/98900: Winner=2, Reward=23.70, EPSILON=0.983, (W=348,D=3,L=0)
+2025-01-16 05:07:57,275 - INFO - Episode 1852/98900: Winner=2, Reward=-9.15, EPSILON=0.983, (W=349,D=3,L=0)
+2025-01-16 05:07:57,434 - INFO - Episode 1853/98900: Winner=2, Reward=6.80, EPSILON=0.983, (W=349,D=3,L=0)
+2025-01-16 05:07:57,470 - DEBUG - Q-vals = [0.12146286 0.09213138 0.07471493 0.14748298 0.26529688 0.26881042
+ 0.03010046], best_act=5, best_val=0.269
+2025-01-16 05:07:57,470 - DEBUG - Low Q-value (0.269), using MCTS.
+2025-01-16 05:07:57,471 - INFO - Running MCTS with 84 simulations using 6 processes.
+2025-01-16 05:08:00,790 - DEBUG - Aggregated action counts: {0: 1, 3: 2, 2: 3}
+2025-01-16 05:08:00,790 - DEBUG - Chose best action 2
+2025-01-16 05:08:01,051 - INFO - Episode 1854/98900: Winner=2, Reward=-24.35, EPSILON=0.983, (W=349,D=3,L=0)
+2025-01-16 05:08:01,344 - INFO - Episode 1855/98900: Winner=2, Reward=-34.05, EPSILON=0.983, (W=350,D=3,L=0)
+2025-01-16 05:08:01,593 - INFO - Episode 1856/98900: Winner=2, Reward=5.50, EPSILON=0.983, (W=350,D=3,L=0)
+2025-01-16 05:08:01,841 - INFO - Episode 1857/98900: Winner=2, Reward=-15.80, EPSILON=0.983, (W=350,D=3,L=0)
+2025-01-16 05:08:02,099 - INFO - Episode 1858/98900: Winner=2, Reward=-22.85, EPSILON=0.983, (W=351,D=3,L=0)
+2025-01-16 05:08:02,296 - INFO - Episode 1859/98900: Winner=2, Reward=15.35, EPSILON=0.983, (W=351,D=3,L=0)
+2025-01-16 05:08:02,556 - INFO - Episode 1860/98900: Winner=2, Reward=-20.25, EPSILON=0.983, (W=352,D=3,L=0)
+2025-01-16 05:08:02,845 - INFO - Episode 1861/98900: Winner=2, Reward=-32.65, EPSILON=0.983, (W=353,D=3,L=0)
+2025-01-16 05:08:03,159 - INFO - Episode 1862/98900: Winner=2, Reward=15.65, EPSILON=0.983, (W=354,D=3,L=0)
+2025-01-16 05:08:03,524 - INFO - Episode 1863/98900: Winner=2, Reward=-39.55, EPSILON=0.983, (W=355,D=3,L=0)
+2025-01-16 05:08:03,842 - INFO - Episode 1864/98900: Winner=2, Reward=24.45, EPSILON=0.983, (W=355,D=3,L=0)
+2025-01-16 05:08:04,136 - INFO - Episode 1865/98900: Winner=2, Reward=-17.15, EPSILON=0.983, (W=355,D=3,L=0)
+2025-01-16 05:08:04,564 - INFO - Episode 1866/98900: Winner=2, Reward=-62.15, EPSILON=0.983, (W=355,D=3,L=0)
+2025-01-16 05:08:04,970 - INFO - Episode 1867/98900: Winner=2, Reward=-71.10, EPSILON=0.983, (W=356,D=3,L=0)
+2025-01-16 05:08:05,163 - INFO - Episode 1868/98900: Winner=2, Reward=-12.65, EPSILON=0.983, (W=357,D=3,L=0)
+2025-01-16 05:08:05,216 - INFO - Episode 1869/98900: Winner=2, Reward=7.75, EPSILON=0.983, (W=357,D=3,L=0)
+2025-01-16 05:08:05,489 - INFO - Episode 1870/98900: Winner=2, Reward=2.10, EPSILON=0.983, (W=358,D=3,L=0)
+2025-01-16 05:08:05,673 - INFO - Episode 1871/98900: Winner=2, Reward=13.05, EPSILON=0.983, (W=358,D=3,L=0)
+2025-01-16 05:08:06,004 - INFO - Episode 1872/98900: Winner=2, Reward=-10.75, EPSILON=0.983, (W=358,D=3,L=0)
+2025-01-16 05:08:06,142 - INFO - Episode 1873/98900: Winner=2, Reward=-9.75, EPSILON=0.983, (W=359,D=3,L=0)
+2025-01-16 05:08:06,392 - INFO - Episode 1874/98900: Winner=2, Reward=-3.85, EPSILON=0.983, (W=360,D=3,L=0)
+2025-01-16 05:08:06,683 - INFO - Episode 1875/98900: Winner=2, Reward=0.25, EPSILON=0.983, (W=360,D=3,L=0)
+2025-01-16 05:08:06,877 - INFO - Episode 1876/98900: Winner=2, Reward=1.80, EPSILON=0.983, (W=360,D=3,L=0)
+2025-01-16 05:08:07,096 - INFO - Episode 1877/98900: Winner=2, Reward=13.35, EPSILON=0.983, (W=360,D=3,L=0)
+2025-01-16 05:08:07,299 - DEBUG - Q-vals = [0.0867822  0.18472582 0.06348164 0.24038006 0.08581591 0.0679442
+ 0.27087012], best_act=6, best_val=0.271
+2025-01-16 05:08:07,299 - DEBUG - Low Q-value (0.271), using MCTS.
+2025-01-16 05:08:07,299 - INFO - Episode 1878/98900: Winner=2, Reward=-24.65, EPSILON=0.983, (W=361,D=3,L=0)
+2025-01-16 05:08:07,372 - DEBUG - Q-vals = [0.12474224 0.10013626 0.1209107  0.14294943 0.17808916 0.26229927
+ 0.07087289], best_act=5, best_val=0.262
+2025-01-16 05:08:07,372 - DEBUG - Low Q-value (0.262), using MCTS.
+2025-01-16 05:08:07,373 - INFO - Running MCTS with 85 simulations using 6 processes.
+2025-01-16 05:08:10,132 - DEBUG - Aggregated action counts: {0: 4, 1: 2, 2: 1}
+2025-01-16 05:08:10,132 - DEBUG - Chose best action 0
+2025-01-16 05:08:10,241 - INFO - Episode 1879/98900: Winner=2, Reward=-11.30, EPSILON=0.983, (W=362,D=3,L=0)
+2025-01-16 05:08:10,423 - INFO - Episode 1880/98900: Winner=2, Reward=21.35, EPSILON=0.983, (W=362,D=3,L=0)
+2025-01-16 05:08:10,579 - INFO - Episode 1881/98900: Winner=2, Reward=-3.90, EPSILON=0.983, (W=363,D=3,L=0)
+2025-01-16 05:08:10,815 - INFO - Episode 1882/98900: Winner=2, Reward=-10.15, EPSILON=0.983, (W=364,D=3,L=0)
+2025-01-16 05:08:10,947 - INFO - Episode 1883/98900: Winner=2, Reward=-12.95, EPSILON=0.983, (W=365,D=3,L=0)
+2025-01-16 05:08:11,143 - INFO - Episode 1884/98900: Winner=2, Reward=-0.35, EPSILON=0.983, (W=365,D=3,L=0)
+2025-01-16 05:08:11,342 - INFO - Episode 1885/98900: Winner=2, Reward=-14.25, EPSILON=0.983, (W=366,D=3,L=0)
+2025-01-16 05:08:11,668 - INFO - Episode 1886/98900: Winner=2, Reward=-7.85, EPSILON=0.983, (W=366,D=3,L=0)
+2025-01-16 05:08:11,999 - INFO - Episode 1887/98900: Winner=2, Reward=-7.90, EPSILON=0.983, (W=366,D=3,L=0)
+2025-01-16 05:08:12,194 - INFO - Episode 1888/98900: Winner=2, Reward=7.85, EPSILON=0.983, (W=366,D=3,L=0)
+2025-01-16 05:08:12,435 - INFO - Episode 1889/98900: Winner=2, Reward=-23.85, EPSILON=0.983, (W=367,D=3,L=0)
+2025-01-16 05:08:12,676 - INFO - Episode 1890/98900: Winner=2, Reward=-15.85, EPSILON=0.983, (W=368,D=3,L=0)
+2025-01-16 05:08:12,985 - INFO - Episode 1891/98900: Winner=2, Reward=-25.90, EPSILON=0.983, (W=369,D=3,L=0)
+2025-01-16 05:08:13,196 - INFO - Episode 1892/98900: Winner=2, Reward=2.15, EPSILON=0.983, (W=369,D=3,L=0)
+2025-01-16 05:08:13,643 - INFO - Episode 1893/98900: Winner=2, Reward=-74.35, EPSILON=0.983, (W=370,D=3,L=0)
+2025-01-16 05:08:13,757 - INFO - Episode 1894/98900: Winner=2, Reward=8.00, EPSILON=0.983, (W=370,D=3,L=0)
+2025-01-16 05:08:13,824 - INFO - Episode 1895/98900: Winner=2, Reward=9.60, EPSILON=0.983, (W=370,D=3,L=0)
+2025-01-16 05:08:14,175 - INFO - Episode 1896/98900: Winner=2, Reward=-59.20, EPSILON=0.983, (W=371,D=3,L=0)
+2025-01-16 05:08:14,420 - INFO - Episode 1897/98900: Winner=2, Reward=0.05, EPSILON=0.983, (W=371,D=3,L=0)
+2025-01-16 05:08:14,772 - INFO - Episode 1898/98900: Winner=2, Reward=-45.95, EPSILON=0.983, (W=372,D=3,L=0)
+2025-01-16 05:08:14,834 - DEBUG - Q-vals = [0.09858925 0.05994366 0.14614668 0.1323946  0.06416983 0.44383445
+ 0.05492143], best_act=5, best_val=0.444
+2025-01-16 05:08:14,834 - DEBUG - Low Q-value (0.444), using MCTS.
+2025-01-16 05:08:14,834 - INFO - Running MCTS with 85 simulations using 6 processes.
+2025-01-16 05:08:17,663 - DEBUG - Aggregated action counts: {0: 1, 2: 2, 6: 2, 4: 1, 1: 1}
+2025-01-16 05:08:17,663 - DEBUG - Chose best action 2
+2025-01-16 05:08:17,814 - INFO - Episode 1899/98900: Winner=2, Reward=-15.00, EPSILON=0.983, (W=373,D=3,L=0)
+2025-01-16 05:08:18,048 - DEBUG - Q-vals = [0.0335172  0.03121089 0.05662781 0.38388902 0.07039916 0.13805206
+ 0.28630388], best_act=3, best_val=0.384
+2025-01-16 05:08:18,048 - DEBUG - Low Q-value (0.384), using MCTS.
+2025-01-16 05:08:18,050 - INFO - Running MCTS with 86 simulations using 6 processes.
+2025-01-16 05:08:20,812 - DEBUG - Aggregated action counts: {4: 2, 1: 2, 5: 1, 2: 1, 0: 1}
+2025-01-16 05:08:20,812 - DEBUG - Chose best action 4
+2025-01-16 05:08:20,890 - INFO - Saved model checkpoint to Connect4_Agent_Model.pth at episode 1900.
+2025-01-16 05:08:20,890 - INFO - Models saved at episode 1900
+2025-01-16 05:08:20,890 - INFO - Target networks updated
+2025-01-16 05:08:20,953 - INFO - Saved model checkpoint to Connect4_Agent_Model.pth at episode 1900.
+2025-01-16 05:08:20,953 - INFO - Episode 1900/98900: Winner=2, Reward=12.45, EPSILON=0.983, (W=373,D=3,L=0)
+2025-01-16 05:08:21,062 - INFO - Episode 1901/98900: Winner=2, Reward=-0.60, EPSILON=0.983, (W=373,D=3,L=0)
+2025-01-16 05:08:21,364 - INFO - Episode 1902/98900: Winner=2, Reward=12.70, EPSILON=0.983, (W=373,D=3,L=0)
+2025-01-16 05:08:21,611 - INFO - Episode 1903/98900: Winner=2, Reward=0.40, EPSILON=0.983, (W=373,D=3,L=0)
+2025-01-16 05:08:21,918 - INFO - Episode 1904/98900: Winner=2, Reward=-10.05, EPSILON=0.983, (W=373,D=3,L=0)
+2025-01-16 05:08:22,076 - INFO - Episode 1905/98900: Winner=2, Reward=7.95, EPSILON=0.983, (W=373,D=3,L=0)
+2025-01-16 05:08:22,399 - INFO - Episode 1906/98900: Winner=2, Reward=1.15, EPSILON=0.983, (W=373,D=3,L=0)
+2025-01-16 05:08:22,700 - INFO - Episode 1907/98900: Winner=2, Reward=3.45, EPSILON=0.983, (W=373,D=3,L=0)
+2025-01-16 05:08:22,989 - INFO - Episode 1908/98900: Winner=2, Reward=-21.45, EPSILON=0.983, (W=374,D=3,L=0)
+2025-01-16 05:08:23,039 - DEBUG - Q-vals = [0.02151527 0.10040237 0.01132262 0.6428617  0.0086646  0.20618486
+ 0.00904864], best_act=3, best_val=0.643
+2025-01-16 05:08:23,039 - DEBUG - Low Q-value (0.643), using MCTS.
+2025-01-16 05:08:23,039 - INFO - Running MCTS with 86 simulations using 6 processes.
+2025-01-16 05:08:25,761 - DEBUG - Aggregated action counts: {0: 2, 1: 2, 4: 2, 3: 1}
+2025-01-16 05:08:25,761 - DEBUG - Chose best action 0
+2025-01-16 05:08:25,933 - INFO - Episode 1909/98900: Winner=2, Reward=0.45, EPSILON=0.983, (W=375,D=3,L=0)
+2025-01-16 05:08:26,228 - INFO - Episode 1910/98900: Winner=2, Reward=-37.00, EPSILON=0.983, (W=375,D=3,L=0)
+2025-01-16 05:08:26,525 - INFO - Episode 1911/98900: Winner=2, Reward=-28.65, EPSILON=0.983, (W=375,D=3,L=0)
+2025-01-16 05:08:26,985 - INFO - Episode 1912/98900: Winner=-1, Reward=-36.35, EPSILON=0.983, (W=375,D=4,L=0)
+2025-01-16 05:08:27,152 - DEBUG - Q-vals = [0.3517382  0.21475515 0.05075559 0.1304418  0.07521108 0.06270585
+ 0.11439231], best_act=0, best_val=0.352
+2025-01-16 05:08:27,152 - DEBUG - Low Q-value (0.352), using MCTS.
+2025-01-16 05:08:27,152 - INFO - Running MCTS with 86 simulations using 6 processes.
+2025-01-16 05:08:30,160 - DEBUG - Aggregated action counts: {0: 2, 6: 2, 3: 1, 2: 1, 4: 1}
+2025-01-16 05:08:30,161 - DEBUG - Chose best action 0
+2025-01-16 05:08:30,217 - INFO - Episode 1913/98900: Winner=2, Reward=4.50, EPSILON=0.983, (W=376,D=4,L=0)
+2025-01-16 05:08:30,305 - INFO - Episode 1914/98900: Winner=2, Reward=6.90, EPSILON=0.983, (W=376,D=4,L=0)
+2025-01-16 05:08:30,508 - INFO - Episode 1915/98900: Winner=2, Reward=3.15, EPSILON=0.983, (W=376,D=4,L=0)
+2025-01-16 05:08:30,665 - INFO - Episode 1916/98900: Winner=2, Reward=2.95, EPSILON=0.983, (W=377,D=4,L=0)
+2025-01-16 05:08:31,086 - INFO - Episode 1917/98900: Winner=2, Reward=-34.60, EPSILON=0.983, (W=377,D=4,L=0)
+2025-01-16 05:08:31,503 - INFO - Episode 1918/98900: Winner=2, Reward=-105.10, EPSILON=0.983, (W=377,D=4,L=0)
+2025-01-16 05:08:31,637 - INFO - Episode 1919/98900: Winner=2, Reward=-10.15, EPSILON=0.983, (W=378,D=4,L=0)
+2025-01-16 05:08:31,856 - INFO - Episode 1920/98900: Winner=2, Reward=-22.30, EPSILON=0.983, (W=379,D=4,L=0)
+2025-01-16 05:08:31,918 - INFO - Episode 1921/98900: Winner=2, Reward=16.05, EPSILON=0.983, (W=379,D=4,L=0)
+2025-01-16 05:08:32,126 - INFO - Episode 1922/98900: Winner=2, Reward=14.65, EPSILON=0.983, (W=379,D=4,L=0)
+2025-01-16 05:08:32,357 - INFO - Episode 1923/98900: Winner=2, Reward=-8.70, EPSILON=0.983, (W=380,D=4,L=0)
+2025-01-16 05:08:32,499 - INFO - Episode 1924/98900: Winner=2, Reward=-13.80, EPSILON=0.983, (W=381,D=4,L=0)
+2025-01-16 05:08:32,839 - INFO - Episode 1925/98900: Winner=2, Reward=-45.55, EPSILON=0.983, (W=382,D=4,L=0)
+2025-01-16 05:08:32,885 - DEBUG - Q-vals = [0.13720126 0.13285613 0.03317981 0.04055339 0.0918881  0.5068792
+ 0.05744203], best_act=5, best_val=0.507
+2025-01-16 05:08:32,885 - DEBUG - Low Q-value (0.507), using MCTS.
+2025-01-16 05:08:32,885 - INFO - Running MCTS with 87 simulations using 6 processes.
+2025-01-16 05:08:35,609 - DEBUG - Aggregated action counts: {3: 1, 1: 2, 2: 2, 0: 2}
+2025-01-16 05:08:35,609 - DEBUG - Chose best action 1
+2025-01-16 05:08:35,655 - DEBUG - Q-vals = [0.14896545 0.11240619 0.14487997 0.10253854 0.25378218 0.1298188
+ 0.10760886], best_act=4, best_val=0.254
+2025-01-16 05:08:35,655 - DEBUG - Low Q-value (0.254), using MCTS.
+2025-01-16 05:08:35,655 - INFO - Running MCTS with 87 simulations using 6 processes.
+2025-01-16 05:08:38,366 - DEBUG - Aggregated action counts: {4: 1, 0: 2, 1: 1, 3: 3}
+2025-01-16 05:08:38,366 - DEBUG - Chose best action 3
+2025-01-16 05:08:38,465 - INFO - Episode 1926/98900: Winner=2, Reward=4.90, EPSILON=0.983, (W=382,D=4,L=0)
+2025-01-16 05:08:38,683 - INFO - Episode 1927/98900: Winner=2, Reward=-1.15, EPSILON=0.983, (W=382,D=4,L=0)
+2025-01-16 05:08:38,838 - INFO - Episode 1928/98900: Winner=2, Reward=22.20, EPSILON=0.983, (W=382,D=4,L=0)
+2025-01-16 05:08:38,969 - INFO - Episode 1929/98900: Winner=2, Reward=-1.05, EPSILON=0.983, (W=382,D=4,L=0)
+2025-01-16 05:08:39,056 - DEBUG - Q-vals = [0.17266536 0.09551078 0.12378438 0.08203845 0.18560576 0.21727519
+ 0.12312013], best_act=5, best_val=0.217
+2025-01-16 05:08:39,056 - DEBUG - Low Q-value (0.217), using MCTS.
+2025-01-16 05:08:39,056 - INFO - Running MCTS with 87 simulations using 6 processes.
+2025-01-16 05:08:41,825 - DEBUG - Aggregated action counts: {0: 3, 1: 2, 2: 2}
+2025-01-16 05:08:41,825 - DEBUG - Chose best action 0
+2025-01-16 05:08:41,898 - INFO - Episode 1930/98900: Winner=2, Reward=-2.70, EPSILON=0.983, (W=382,D=4,L=0)
+2025-01-16 05:08:42,050 - INFO - Episode 1931/98900: Winner=2, Reward=-3.15, EPSILON=0.983, (W=382,D=4,L=0)
+2025-01-16 05:08:42,202 - INFO - Episode 1932/98900: Winner=2, Reward=3.65, EPSILON=0.983, (W=382,D=4,L=0)
+2025-01-16 05:08:42,486 - INFO - Episode 1933/98900: Winner=2, Reward=-12.35, EPSILON=0.983, (W=382,D=4,L=0)
+2025-01-16 05:08:42,729 - INFO - Episode 1934/98900: Winner=2, Reward=-23.65, EPSILON=0.983, (W=383,D=4,L=0)
+2025-01-16 05:08:43,102 - INFO - Episode 1935/98900: Winner=2, Reward=-77.05, EPSILON=0.983, (W=383,D=4,L=0)
+2025-01-16 05:08:43,350 - INFO - Episode 1936/98900: Winner=2, Reward=-1.60, EPSILON=0.983, (W=383,D=4,L=0)
+2025-01-16 05:08:43,608 - INFO - Episode 1937/98900: Winner=2, Reward=-25.70, EPSILON=0.983, (W=384,D=4,L=0)
+2025-01-16 05:08:43,874 - INFO - Episode 1938/98900: Winner=2, Reward=-40.95, EPSILON=0.983, (W=385,D=4,L=0)
+2025-01-16 05:08:44,021 - INFO - Episode 1939/98900: Winner=2, Reward=-1.40, EPSILON=0.983, (W=385,D=4,L=0)
+2025-01-16 05:08:44,099 - INFO - Episode 1940/98900: Winner=2, Reward=-10.45, EPSILON=0.983, (W=386,D=4,L=0)
+2025-01-16 05:08:44,437 - INFO - Episode 1941/98900: Winner=2, Reward=-52.60, EPSILON=0.983, (W=387,D=4,L=0)
+2025-01-16 05:08:44,658 - INFO - Episode 1942/98900: Winner=2, Reward=-6.50, EPSILON=0.983, (W=388,D=4,L=0)
+2025-01-16 05:08:44,854 - INFO - Episode 1943/98900: Winner=2, Reward=0.75, EPSILON=0.983, (W=388,D=4,L=0)
+2025-01-16 05:08:45,036 - INFO - Episode 1944/98900: Winner=2, Reward=3.15, EPSILON=0.983, (W=388,D=4,L=0)
+2025-01-16 05:08:45,145 - INFO - Episode 1945/98900: Winner=2, Reward=-0.40, EPSILON=0.983, (W=388,D=4,L=0)
+2025-01-16 05:08:45,426 - INFO - Episode 1946/98900: Winner=2, Reward=17.15, EPSILON=0.983, (W=389,D=4,L=0)
+2025-01-16 05:08:45,553 - INFO - Episode 1947/98900: Winner=2, Reward=-5.95, EPSILON=0.983, (W=390,D=4,L=0)
+2025-01-16 05:08:45,844 - INFO - Episode 1948/98900: Winner=2, Reward=-27.80, EPSILON=0.983, (W=391,D=4,L=0)
+2025-01-16 05:08:46,164 - INFO - Episode 1949/98900: Winner=2, Reward=-15.85, EPSILON=0.983, (W=392,D=4,L=0)
+2025-01-16 05:08:46,429 - INFO - Episode 1950/98900: Winner=2, Reward=-48.15, EPSILON=0.983, (W=393,D=4,L=0)
+2025-01-16 05:08:46,444 - DEBUG - Q-vals = [0.37013784 0.5124638  0.00222942 0.00056808 0.03130545 0.05042266
+ 0.03287269], best_act=1, best_val=0.512
+2025-01-16 05:08:46,444 - DEBUG - Low Q-value (0.512), using MCTS.
+2025-01-16 05:08:46,445 - INFO - Running MCTS with 88 simulations using 6 processes.
+2025-01-16 05:08:49,163 - DEBUG - Aggregated action counts: {0: 3, 2: 2, 1: 2}
+2025-01-16 05:08:49,164 - DEBUG - Chose best action 0
+2025-01-16 05:08:49,308 - INFO - Episode 1951/98900: Winner=2, Reward=-3.85, EPSILON=0.983, (W=393,D=4,L=0)
+2025-01-16 05:08:49,425 - INFO - Episode 1952/98900: Winner=2, Reward=1.75, EPSILON=0.983, (W=393,D=4,L=0)
+2025-01-16 05:08:49,670 - INFO - Episode 1953/98900: Winner=2, Reward=6.85, EPSILON=0.983, (W=394,D=4,L=0)
+2025-01-16 05:08:49,880 - INFO - Episode 1954/98900: Winner=2, Reward=0.85, EPSILON=0.983, (W=394,D=4,L=0)
+2025-01-16 05:08:50,130 - INFO - Episode 1955/98900: Winner=2, Reward=13.95, EPSILON=0.983, (W=394,D=4,L=0)
+2025-01-16 05:08:50,220 - INFO - Episode 1956/98900: Winner=2, Reward=-1.10, EPSILON=0.983, (W=394,D=4,L=0)
+2025-01-16 05:08:50,272 - DEBUG - Q-vals = [0.2102672  0.13388385 0.15531753 0.06696846 0.09267758 0.2464614
+ 0.09442386], best_act=5, best_val=0.246
+2025-01-16 05:08:50,272 - DEBUG - Low Q-value (0.246), using MCTS.
+2025-01-16 05:08:50,272 - INFO - Running MCTS with 88 simulations using 6 processes.
+2025-01-16 05:08:52,969 - DEBUG - Aggregated action counts: {2: 1, 0: 4, 4: 1, 1: 1}
+2025-01-16 05:08:52,969 - DEBUG - Chose best action 0
+2025-01-16 05:08:53,041 - INFO - Episode 1957/98900: Winner=2, Reward=-8.55, EPSILON=0.983, (W=395,D=4,L=0)
+2025-01-16 05:08:53,218 - INFO - Episode 1958/98900: Winner=2, Reward=-0.65, EPSILON=0.983, (W=395,D=4,L=0)
+2025-01-16 05:08:53,411 - INFO - Episode 1959/98900: Winner=2, Reward=0.85, EPSILON=0.983, (W=395,D=4,L=0)
+2025-01-16 05:08:53,502 - INFO - Episode 1960/98900: Winner=2, Reward=0.75, EPSILON=0.983, (W=395,D=4,L=0)
+2025-01-16 05:08:53,764 - INFO - Episode 1961/98900: Winner=2, Reward=-1.15, EPSILON=0.983, (W=396,D=4,L=0)
+2025-01-16 05:08:53,971 - INFO - Episode 1962/98900: Winner=2, Reward=-5.25, EPSILON=0.982, (W=397,D=4,L=0)
+2025-01-16 05:08:54,156 - INFO - Episode 1963/98900: Winner=2, Reward=-6.45, EPSILON=0.982, (W=398,D=4,L=0)
+2025-01-16 05:08:54,433 - INFO - Episode 1964/98900: Winner=2, Reward=-31.40, EPSILON=0.982, (W=399,D=4,L=0)
+2025-01-16 05:08:54,700 - INFO - Episode 1965/98900: Winner=2, Reward=9.90, EPSILON=0.982, (W=399,D=4,L=0)
+2025-01-16 05:08:54,918 - INFO - Episode 1966/98900: Winner=2, Reward=-7.40, EPSILON=0.982, (W=399,D=4,L=0)
+2025-01-16 05:08:55,216 - INFO - Episode 1967/98900: Winner=2, Reward=-25.85, EPSILON=0.982, (W=399,D=4,L=0)
+2025-01-16 05:08:55,348 - INFO - Episode 1968/98900: Winner=2, Reward=-0.05, EPSILON=0.982, (W=399,D=4,L=0)
+2025-01-16 05:08:55,649 - INFO - Episode 1969/98900: Winner=2, Reward=-30.45, EPSILON=0.982, (W=400,D=4,L=0)
+2025-01-16 05:08:55,868 - INFO - Episode 1970/98900: Winner=2, Reward=1.95, EPSILON=0.982, (W=400,D=4,L=0)
+2025-01-16 05:08:56,137 - DEBUG - Q-vals = [0.06505363 0.01381594 0.31078506 0.03306238 0.42600825 0.03624643
+ 0.1150282 ], best_act=6, best_val=0.115
+2025-01-16 05:08:56,137 - DEBUG - Low Q-value (0.115), using MCTS.
+2025-01-16 05:08:56,137 - INFO - Running MCTS with 88 simulations using 6 processes.
+2025-01-16 05:08:58,827 - DEBUG - Aggregated action counts: {3: 1, 0: 4, 5: 2}
+2025-01-16 05:08:58,827 - DEBUG - Chose best action 0
+2025-01-16 05:08:58,894 - INFO - Episode 1971/98900: Winner=2, Reward=-38.75, EPSILON=0.982, (W=401,D=4,L=0)
+2025-01-16 05:08:59,319 - INFO - Episode 1972/98900: Winner=2, Reward=-66.85, EPSILON=0.982, (W=402,D=4,L=0)
+2025-01-16 05:08:59,378 - DEBUG - Q-vals = [7.0698827e-04 1.9895048e-03 2.3139508e-03 9.8213059e-01 4.0373320e-04
+ 9.2587695e-03 3.1966160e-03], best_act=3, best_val=0.982
+2025-01-16 05:08:59,378 - DEBUG - Low Q-value (0.982), using MCTS.
+2025-01-16 05:08:59,379 - INFO - Running MCTS with 88 simulations using 6 processes.
+2025-01-16 05:09:02,134 - DEBUG - Aggregated action counts: {1: 2, 2: 3, 4: 1, 0: 1}
+2025-01-16 05:09:02,134 - DEBUG - Chose best action 2
+2025-01-16 05:09:02,293 - DEBUG - Q-vals = [0.12732953 0.0247786  0.21017371 0.02996133 0.49028176 0.02303072
+ 0.09444441], best_act=4, best_val=0.490
+2025-01-16 05:09:02,293 - DEBUG - Low Q-value (0.490), using MCTS.
+2025-01-16 05:09:02,303 - INFO - Episode 1973/98900: Winner=2, Reward=-13.45, EPSILON=0.982, (W=403,D=4,L=0)
+2025-01-16 05:09:02,558 - INFO - Episode 1974/98900: Winner=2, Reward=15.35, EPSILON=0.982, (W=403,D=4,L=0)
+2025-01-16 05:09:02,719 - INFO - Episode 1975/98900: Winner=2, Reward=-17.35, EPSILON=0.982, (W=404,D=4,L=0)
+2025-01-16 05:09:02,870 - INFO - Episode 1976/98900: Winner=2, Reward=-5.60, EPSILON=0.982, (W=404,D=4,L=0)
+2025-01-16 05:09:03,183 - INFO - Episode 1977/98900: Winner=2, Reward=-41.00, EPSILON=0.982, (W=404,D=4,L=0)
+2025-01-16 05:09:03,488 - INFO - Episode 1978/98900: Winner=2, Reward=11.75, EPSILON=0.982, (W=404,D=4,L=0)
+2025-01-16 05:09:03,628 - DEBUG - Q-vals = [0.26393643 0.0305396  0.33261743 0.12806912 0.13230397 0.01836742
+ 0.09416613], best_act=2, best_val=0.333
+2025-01-16 05:09:03,628 - DEBUG - Low Q-value (0.333), using MCTS.
+2025-01-16 05:09:03,628 - INFO - Running MCTS with 89 simulations using 6 processes.
+2025-01-16 05:09:06,458 - DEBUG - Aggregated action counts: {4: 1, 5: 1, 6: 1, 3: 2, 0: 2}
+2025-01-16 05:09:06,458 - DEBUG - Chose best action 3
+2025-01-16 05:09:06,631 - INFO - Episode 1979/98900: Winner=2, Reward=-8.20, EPSILON=0.982, (W=405,D=4,L=0)
+2025-01-16 05:09:06,741 - INFO - Episode 1980/98900: Winner=2, Reward=-11.05, EPSILON=0.982, (W=406,D=4,L=0)
+2025-01-16 05:09:06,902 - INFO - Episode 1981/98900: Winner=2, Reward=-3.00, EPSILON=0.982, (W=406,D=4,L=0)
+2025-01-16 05:09:07,020 - DEBUG - Q-vals = [0.09899686 0.11496867 0.08940557 0.07905009 0.17596118 0.21061292
+ 0.23100479], best_act=6, best_val=0.231
+2025-01-16 05:09:07,020 - DEBUG - Low Q-value (0.231), using MCTS.
+2025-01-16 05:09:07,020 - INFO - Running MCTS with 89 simulations using 6 processes.
+2025-01-16 05:09:09,665 - DEBUG - Aggregated action counts: {3: 2, 0: 2, 1: 2, 2: 1}
+2025-01-16 05:09:09,666 - DEBUG - Chose best action 3
+2025-01-16 05:09:09,865 - INFO - Episode 1982/98900: Winner=2, Reward=-19.70, EPSILON=0.982, (W=406,D=4,L=0)
+2025-01-16 05:09:10,172 - INFO - Episode 1983/98900: Winner=2, Reward=6.25, EPSILON=0.982, (W=406,D=4,L=0)
+2025-01-16 05:09:10,476 - INFO - Episode 1984/98900: Winner=2, Reward=-54.20, EPSILON=0.982, (W=407,D=4,L=0)
+2025-01-16 05:09:10,654 - INFO - Episode 1985/98900: Winner=2, Reward=11.30, EPSILON=0.982, (W=407,D=4,L=0)
+2025-01-16 05:09:10,899 - INFO - Episode 1986/98900: Winner=2, Reward=20.15, EPSILON=0.982, (W=407,D=4,L=0)
+2025-01-16 05:09:11,121 - INFO - Episode 1987/98900: Winner=2, Reward=8.95, EPSILON=0.982, (W=407,D=4,L=0)
+2025-01-16 05:09:11,320 - INFO - Episode 1988/98900: Winner=2, Reward=-12.95, EPSILON=0.982, (W=408,D=4,L=0)
+2025-01-16 05:09:11,542 - INFO - Episode 1989/98900: Winner=2, Reward=8.75, EPSILON=0.982, (W=408,D=4,L=0)
+2025-01-16 05:09:11,871 - INFO - Episode 1990/98900: Winner=2, Reward=-52.15, EPSILON=0.982, (W=409,D=4,L=0)
+2025-01-16 05:09:11,905 - DEBUG - Q-vals = [0.01690256 0.00520885 0.06586931 0.8941203  0.00700517 0.00511056
+ 0.00578337], best_act=3, best_val=0.894
+2025-01-16 05:09:11,905 - DEBUG - Low Q-value (0.894), using MCTS.
+2025-01-16 05:09:11,905 - INFO - Running MCTS with 89 simulations using 6 processes.
+2025-01-16 05:09:14,681 - DEBUG - Aggregated action counts: {4: 1, 1: 2, 2: 1, 0: 3}
+2025-01-16 05:09:14,681 - DEBUG - Chose best action 0
+2025-01-16 05:09:14,944 - INFO - Episode 1991/98900: Winner=2, Reward=-2.20, EPSILON=0.982, (W=410,D=4,L=0)
+2025-01-16 05:09:15,079 - INFO - Episode 1992/98900: Winner=2, Reward=14.65, EPSILON=0.982, (W=410,D=4,L=0)
+2025-01-16 05:09:15,319 - DEBUG - Q-vals = [0.11227417 0.32373688 0.00604148 0.01789899 0.04290981 0.07586107
+ 0.4212776 ], best_act=6, best_val=0.421
+2025-01-16 05:09:15,319 - DEBUG - Low Q-value (0.421), using MCTS.
+2025-01-16 05:09:15,321 - INFO - Running MCTS with 89 simulations using 6 processes.
+2025-01-16 05:09:18,054 - DEBUG - Aggregated action counts: {4: 1, 3: 4, 0: 2}
+2025-01-16 05:09:18,054 - DEBUG - Chose best action 3
+2025-01-16 05:09:18,106 - INFO - Episode 1993/98900: Winner=2, Reward=-13.90, EPSILON=0.982, (W=411,D=4,L=0)
+2025-01-16 05:09:18,324 - INFO - Episode 1994/98900: Winner=2, Reward=4.75, EPSILON=0.982, (W=411,D=4,L=0)
+2025-01-16 05:09:18,479 - INFO - Episode 1995/98900: Winner=2, Reward=-15.15, EPSILON=0.982, (W=412,D=4,L=0)
+2025-01-16 05:09:18,698 - INFO - Episode 1996/98900: Winner=2, Reward=-16.50, EPSILON=0.982, (W=413,D=4,L=0)
+2025-01-16 05:09:19,117 - INFO - Episode 1997/98900: Winner=2, Reward=-69.20, EPSILON=0.982, (W=413,D=4,L=0)
+2025-01-16 05:09:19,252 - INFO - Episode 1998/98900: Winner=2, Reward=-7.95, EPSILON=0.982, (W=414,D=4,L=0)
+2025-01-16 05:09:19,447 - INFO - Episode 1999/98900: Winner=2, Reward=-15.70, EPSILON=0.982, (W=415,D=4,L=0)
+2025-01-16 05:09:19,661 - DEBUG - Q-vals = [0.02336321 0.01334293 0.23036462 0.68383336 0.01167844 0.00985065
+ 0.02756684], best_act=3, best_val=0.684
+2025-01-16 05:09:19,661 - DEBUG - Low Q-value (0.684), using MCTS.
+2025-01-16 05:09:19,736 - INFO - Saved model checkpoint to Connect4_Agent_Model.pth at episode 2000.
+2025-01-16 05:09:19,737 - INFO - Models saved at episode 2000
+2025-01-16 05:09:19,738 - INFO - Target networks updated
+2025-01-16 05:09:19,797 - INFO - Saved model checkpoint to Connect4_Agent_Model.pth at episode 2000.
+2025-01-16 05:09:19,797 - INFO - Episode 2000/98900: Winner=2, Reward=-1.95, EPSILON=0.982, (W=416,D=4,L=0)
+2025-01-16 05:09:19,919 - DEBUG - Q-vals = [0.12677573 0.14237133 0.09075356 0.1488005  0.24743554 0.11126978
+ 0.13259357], best_act=4, best_val=0.247
+2025-01-16 05:09:19,919 - DEBUG - Low Q-value (0.247), using MCTS.
+2025-01-16 05:09:19,919 - INFO - Running MCTS with 90 simulations using 6 processes.
+2025-01-16 05:09:22,724 - DEBUG - Aggregated action counts: {1: 2, 5: 1, 3: 2, 2: 1}
+2025-01-16 05:09:22,724 - DEBUG - Chose best action 1
+2025-01-16 05:09:22,911 - INFO - Episode 2001/98900: Winner=2, Reward=-49.15, EPSILON=0.982, (W=417,D=4,L=0)
+2025-01-16 05:09:23,001 - INFO - Episode 2002/98900: Winner=2, Reward=-9.95, EPSILON=0.982, (W=418,D=4,L=0)
+2025-01-16 05:09:23,223 - INFO - Episode 2003/98900: Winner=2, Reward=-8.65, EPSILON=0.982, (W=419,D=4,L=0)
+2025-01-16 05:09:23,486 - INFO - Episode 2004/98900: Winner=2, Reward=1.15, EPSILON=0.982, (W=419,D=4,L=0)
+2025-01-16 05:09:23,500 - DEBUG - Q-vals = [0.22827557 0.17417175 0.03014699 0.02817371 0.07659469 0.4315148
+ 0.03112247], best_act=5, best_val=0.432
+2025-01-16 05:09:23,500 - DEBUG - Low Q-value (0.432), using MCTS.
+2025-01-16 05:09:23,501 - INFO - Running MCTS with 90 simulations using 6 processes.
+2025-01-16 05:09:26,185 - DEBUG - Aggregated action counts: {0: 2, 2: 2, 1: 2}
+2025-01-16 05:09:26,185 - DEBUG - Chose best action 0
+2025-01-16 05:09:26,530 - INFO - Episode 2005/98900: Winner=2, Reward=-24.50, EPSILON=0.982, (W=420,D=4,L=0)
+2025-01-16 05:09:26,546 - DEBUG - Q-vals = [0.21465969 0.13825873 0.03248854 0.01841905 0.06689748 0.4977502
+ 0.03152633], best_act=5, best_val=0.498
+2025-01-16 05:09:26,546 - DEBUG - Low Q-value (0.498), using MCTS.
+2025-01-16 05:09:26,546 - INFO - Running MCTS with 90 simulations using 6 processes.
+2025-01-16 05:09:29,341 - DEBUG - Aggregated action counts: {2: 1, 1: 2, 5: 1, 3: 1, 4: 1}
+2025-01-16 05:09:29,341 - DEBUG - Chose best action 1
+2025-01-16 05:09:29,669 - INFO - Episode 2006/98900: Winner=2, Reward=-51.90, EPSILON=0.982, (W=421,D=4,L=0)
+2025-01-16 05:09:29,740 - INFO - Episode 2007/98900: Winner=2, Reward=8.25, EPSILON=0.982, (W=421,D=4,L=0)
+2025-01-16 05:09:29,962 - INFO - Episode 2008/98900: Winner=2, Reward=-0.55, EPSILON=0.982, (W=422,D=4,L=0)
+2025-01-16 05:09:30,309 - INFO - Episode 2009/98900: Winner=2, Reward=-1.00, EPSILON=0.982, (W=422,D=4,L=0)
+2025-01-16 05:09:30,406 - DEBUG - Q-vals = [0.24046561 0.14836633 0.13626806 0.05999909 0.04171541 0.15338679
+ 0.21979865], best_act=0, best_val=0.240
+2025-01-16 05:09:30,406 - DEBUG - Low Q-value (0.240), using MCTS.
+2025-01-16 05:09:30,406 - INFO - Running MCTS with 90 simulations using 6 processes.
+2025-01-16 05:09:33,313 - DEBUG - Aggregated action counts: {1: 1, 5: 2, 0: 2, 3: 1}
+2025-01-16 05:09:33,313 - DEBUG - Chose best action 5
+2025-01-16 05:09:33,521 - INFO - Episode 2010/98900: Winner=2, Reward=-2.00, EPSILON=0.982, (W=423,D=4,L=0)
+2025-01-16 05:09:33,855 - INFO - Episode 2011/98900: Winner=2, Reward=-4.15, EPSILON=0.982, (W=423,D=4,L=0)
+2025-01-16 05:09:34,030 - INFO - Episode 2012/98900: Winner=2, Reward=-5.45, EPSILON=0.982, (W=424,D=4,L=0)
+2025-01-16 05:09:34,363 - INFO - Episode 2013/98900: Winner=2, Reward=-33.25, EPSILON=0.982, (W=424,D=4,L=0)
+2025-01-16 05:09:34,641 - INFO - Episode 2014/98900: Winner=2, Reward=-12.40, EPSILON=0.982, (W=424,D=4,L=0)
+2025-01-16 05:09:35,103 - INFO - Episode 2015/98900: Winner=2, Reward=-82.45, EPSILON=0.982, (W=424,D=4,L=0)
+2025-01-16 05:09:35,426 - INFO - Episode 2016/98900: Winner=2, Reward=22.55, EPSILON=0.982, (W=424,D=4,L=0)
+2025-01-16 05:09:35,720 - INFO - Episode 2017/98900: Winner=2, Reward=-12.05, EPSILON=0.982, (W=424,D=4,L=0)
+2025-01-16 05:09:35,734 - DEBUG - Q-vals = [0.13874827 0.03334023 0.07249261 0.00262778 0.01790045 0.62486315
+ 0.11002742], best_act=5, best_val=0.625
+2025-01-16 05:09:35,734 - DEBUG - Low Q-value (0.625), using MCTS.
+2025-01-16 05:09:35,735 - INFO - Running MCTS with 90 simulations using 6 processes.
+2025-01-16 05:09:38,719 - DEBUG - Aggregated action counts: {4: 2, 3: 2, 2: 2}
+2025-01-16 05:09:38,719 - DEBUG - Chose best action 4
+2025-01-16 05:09:38,750 - DEBUG - Q-vals = [0.19376335 0.075499   0.09848718 0.01362482 0.09734108 0.44689867
+ 0.07438586], best_act=5, best_val=0.447
+2025-01-16 05:09:38,750 - DEBUG - Low Q-value (0.447), using MCTS.
+2025-01-16 05:09:38,750 - INFO - Running MCTS with 90 simulations using 6 processes.
+2025-01-16 05:09:41,515 - DEBUG - Aggregated action counts: {0: 1, 6: 1, 4: 3, 2: 1}
+2025-01-16 05:09:41,515 - DEBUG - Chose best action 4
+2025-01-16 05:09:41,687 - DEBUG - Q-vals = [0.16749144 0.09878518 0.13484511 0.06725428 0.15408418 0.20818165
+ 0.16935809], best_act=5, best_val=0.208
+2025-01-16 05:09:41,687 - DEBUG - Low Q-value (0.208), using MCTS.
+2025-01-16 05:09:41,687 - INFO - Running MCTS with 90 simulations using 6 processes.
+2025-01-16 05:09:44,514 - DEBUG - Aggregated action counts: {2: 2, 0: 2, 1: 1, 3: 1}
+2025-01-16 05:09:44,514 - DEBUG - Chose best action 2
+2025-01-16 05:09:44,655 - INFO - Episode 2018/98900: Winner=2, Reward=-42.25, EPSILON=0.982, (W=425,D=4,L=0)
+2025-01-16 05:09:44,749 - INFO - Episode 2019/98900: Winner=2, Reward=8.75, EPSILON=0.982, (W=425,D=4,L=0)
+2025-01-16 05:09:45,014 - INFO - Episode 2020/98900: Winner=2, Reward=-10.50, EPSILON=0.982, (W=425,D=4,L=0)
+2025-01-16 05:09:45,373 - INFO - Episode 2021/98900: Winner=2, Reward=-54.50, EPSILON=0.982, (W=425,D=4,L=0)
+2025-01-16 05:09:45,733 - INFO - Episode 2022/98900: Winner=2, Reward=-54.40, EPSILON=0.982, (W=426,D=4,L=0)
+2025-01-16 05:09:45,998 - INFO - Episode 2023/98900: Winner=2, Reward=-5.75, EPSILON=0.982, (W=426,D=4,L=0)
+2025-01-16 05:09:46,233 - INFO - Episode 2024/98900: Winner=2, Reward=3.15, EPSILON=0.982, (W=426,D=4,L=0)
+2025-01-16 05:09:46,545 - INFO - Episode 2025/98900: Winner=2, Reward=-42.05, EPSILON=0.982, (W=427,D=4,L=0)
+2025-01-16 05:09:46,889 - INFO - Episode 2026/98900: Winner=2, Reward=-13.55, EPSILON=0.982, (W=427,D=4,L=0)
+2025-01-16 05:09:46,967 - DEBUG - Q-vals = [0.14387792 0.05578968 0.21844783 0.16795754 0.02738686 0.15966232
+ 0.22687788], best_act=6, best_val=0.227
+2025-01-16 05:09:46,983 - DEBUG - Low Q-value (0.227), using MCTS.
+2025-01-16 05:09:46,983 - INFO - Running MCTS with 91 simulations using 6 processes.
+2025-01-16 05:09:49,810 - DEBUG - Aggregated action counts: {1: 3, 0: 3, 3: 1}
+2025-01-16 05:09:49,810 - DEBUG - Chose best action 1
+2025-01-16 05:09:49,857 - DEBUG - Q-vals = [0.1491915  0.13266282 0.11251834 0.14774218 0.20577243 0.12702061
+ 0.12509201], best_act=4, best_val=0.206
+2025-01-16 05:09:49,857 - DEBUG - Low Q-value (0.206), using MCTS.
+2025-01-16 05:09:49,857 - INFO - Running MCTS with 91 simulations using 6 processes.
+2025-01-16 05:09:52,560 - DEBUG - Aggregated action counts: {3: 3, 0: 3, 1: 1}
+2025-01-16 05:09:52,560 - DEBUG - Chose best action 3
+2025-01-16 05:09:52,622 - INFO - Episode 2027/98900: Winner=2, Reward=-3.05, EPSILON=0.982, (W=427,D=4,L=0)
+2025-01-16 05:09:52,888 - INFO - Episode 2028/98900: Winner=2, Reward=-14.15, EPSILON=0.982, (W=427,D=4,L=0)
+2025-01-16 05:09:53,200 - INFO - Episode 2029/98900: Winner=2, Reward=-2.20, EPSILON=0.982, (W=428,D=4,L=0)
+2025-01-16 05:09:53,591 - INFO - Episode 2030/98900: Winner=2, Reward=-44.35, EPSILON=0.982, (W=429,D=4,L=0)
+2025-01-16 05:09:53,825 - INFO - Episode 2031/98900: Winner=2, Reward=-14.30, EPSILON=0.982, (W=430,D=4,L=0)
+2025-01-16 05:09:54,060 - INFO - Episode 2032/98900: Winner=2, Reward=-19.95, EPSILON=0.982, (W=431,D=4,L=0)
+2025-01-16 05:09:54,138 - INFO - Episode 2033/98900: Winner=2, Reward=8.20, EPSILON=0.982, (W=431,D=4,L=0)
+2025-01-16 05:09:54,341 - INFO - Episode 2034/98900: Winner=2, Reward=0.05, EPSILON=0.982, (W=431,D=4,L=0)
+2025-01-16 05:09:54,560 - INFO - Episode 2035/98900: Winner=2, Reward=-1.05, EPSILON=0.982, (W=431,D=4,L=0)
+2025-01-16 05:09:54,778 - INFO - Episode 2036/98900: Winner=2, Reward=17.45, EPSILON=0.982, (W=431,D=4,L=0)
+2025-01-16 05:09:54,825 - DEBUG - Q-vals = [0.22382574 0.16862383 0.03374368 0.06497997 0.17358673 0.26036942
+ 0.07487066], best_act=5, best_val=0.260
+2025-01-16 05:09:54,825 - DEBUG - Low Q-value (0.260), using MCTS.
+2025-01-16 05:09:54,825 - INFO - Running MCTS with 91 simulations using 6 processes.
+2025-01-16 05:09:57,653 - DEBUG - Aggregated action counts: {5: 1, 1: 3, 0: 3}
+2025-01-16 05:09:57,653 - DEBUG - Chose best action 1
+2025-01-16 05:09:57,840 - INFO - Episode 2037/98900: Winner=2, Reward=4.20, EPSILON=0.982, (W=431,D=4,L=0)
+2025-01-16 05:09:58,121 - INFO - Episode 2038/98900: Winner=2, Reward=-18.80, EPSILON=0.982, (W=432,D=4,L=0)
+2025-01-16 05:09:58,324 - INFO - Episode 2039/98900: Winner=2, Reward=-14.60, EPSILON=0.982, (W=433,D=4,L=0)
+2025-01-16 05:09:58,402 - DEBUG - Q-vals = [0.13839997 0.09148012 0.16750298 0.06368848 0.1887404  0.1977619
+ 0.15242612], best_act=5, best_val=0.198
+2025-01-16 05:09:58,402 - DEBUG - Low Q-value (0.198), using MCTS.
+2025-01-16 05:09:58,402 - INFO - Running MCTS with 91 simulations using 6 processes.
+2025-01-16 05:10:01,123 - DEBUG - Aggregated action counts: {0: 2, 3: 1, 2: 3, 1: 1}
+2025-01-16 05:10:01,123 - DEBUG - Chose best action 2
+2025-01-16 05:10:01,277 - INFO - Episode 2040/98900: Winner=2, Reward=-16.50, EPSILON=0.982, (W=434,D=4,L=0)
+2025-01-16 05:10:01,580 - INFO - Episode 2041/98900: Winner=2, Reward=-25.45, EPSILON=0.982, (W=435,D=4,L=0)
+2025-01-16 05:10:01,787 - INFO - Episode 2042/98900: Winner=2, Reward=19.45, EPSILON=0.982, (W=435,D=4,L=0)
+2025-01-16 05:10:02,200 - INFO - Episode 2043/98900: Winner=2, Reward=-67.95, EPSILON=0.982, (W=435,D=4,L=0)
+2025-01-16 05:10:02,470 - INFO - Episode 2044/98900: Winner=2, Reward=-8.50, EPSILON=0.982, (W=435,D=4,L=0)
+2025-01-16 05:10:02,572 - DEBUG - Q-vals = [0.16914342 0.11985192 0.07454596 0.03382652 0.19255732 0.29429755
+ 0.11577729], best_act=5, best_val=0.294
+2025-01-16 05:10:02,572 - DEBUG - Low Q-value (0.294), using MCTS.
+2025-01-16 05:10:02,573 - INFO - Running MCTS with 91 simulations using 6 processes.
+2025-01-16 05:10:05,304 - DEBUG - Aggregated action counts: {4: 1, 0: 1, 2: 1, 1: 2, 5: 2}
+2025-01-16 05:10:05,304 - DEBUG - Chose best action 1
+2025-01-16 05:10:05,401 - INFO - Episode 2045/98900: Winner=2, Reward=5.20, EPSILON=0.982, (W=435,D=4,L=0)
+2025-01-16 05:10:05,815 - DEBUG - Q-vals = [0.0964602  0.1070619  0.05899036 0.24666391 0.09387894 0.09351972
+ 0.30342492], best_act=3, best_val=0.247
+2025-01-16 05:10:05,815 - DEBUG - Low Q-value (0.247), using MCTS.
+2025-01-16 05:10:05,826 - INFO - Episode 2046/98900: Winner=2, Reward=-67.65, EPSILON=0.982, (W=436,D=4,L=0)
+2025-01-16 05:10:06,099 - INFO - Episode 2047/98900: Winner=2, Reward=-7.60, EPSILON=0.982, (W=437,D=4,L=0)
+2025-01-16 05:10:06,360 - DEBUG - Q-vals = [0.09024554 0.05336891 0.22282647 0.20715766 0.21943882 0.10232363
+ 0.10463904], best_act=2, best_val=0.223
+2025-01-16 05:10:06,360 - DEBUG - Low Q-value (0.223), using MCTS.
+2025-01-16 05:10:06,362 - INFO - Running MCTS with 91 simulations using 6 processes.
+2025-01-16 05:10:10,066 - DEBUG - Aggregated action counts: {4: 2, 1: 2, 0: 3}
+2025-01-16 05:10:10,066 - DEBUG - Chose best action 0
+2025-01-16 05:10:10,077 - INFO - Episode 2048/98900: Winner=2, Reward=14.70, EPSILON=0.982, (W=437,D=4,L=0)
+2025-01-16 05:10:10,411 - INFO - Episode 2049/98900: Winner=2, Reward=-12.65, EPSILON=0.982, (W=437,D=4,L=0)
+2025-01-16 05:10:10,597 - INFO - Episode 2050/98900: Winner=2, Reward=-13.45, EPSILON=0.982, (W=438,D=4,L=0)
+2025-01-16 05:10:10,753 - INFO - Episode 2051/98900: Winner=2, Reward=-9.15, EPSILON=0.982, (W=439,D=4,L=0)
+2025-01-16 05:10:10,925 - INFO - Episode 2052/98900: Winner=2, Reward=-17.45, EPSILON=0.982, (W=440,D=4,L=0)
+2025-01-16 05:10:11,097 - DEBUG - Q-vals = [0.11321063 0.079613   0.1111203  0.15434818 0.25361195 0.10798668
+ 0.18010934], best_act=4, best_val=0.254
+2025-01-16 05:10:11,097 - DEBUG - Low Q-value (0.254), using MCTS.
+2025-01-16 05:10:11,114 - INFO - Running MCTS with 92 simulations using 6 processes.
+2025-01-16 05:10:14,780 - DEBUG - Aggregated action counts: {1: 1, 2: 2, 3: 2, 0: 2}
+2025-01-16 05:10:14,780 - DEBUG - Chose best action 2
+2025-01-16 05:10:14,931 - INFO - Episode 2053/98900: Winner=2, Reward=-4.95, EPSILON=0.982, (W=440,D=4,L=0)
+2025-01-16 05:10:15,136 - INFO - Episode 2054/98900: Winner=2, Reward=1.60, EPSILON=0.982, (W=440,D=4,L=0)
+2025-01-16 05:10:15,274 - INFO - Episode 2055/98900: Winner=2, Reward=-12.20, EPSILON=0.982, (W=441,D=4,L=0)
+2025-01-16 05:10:15,539 - INFO - Episode 2056/98900: Winner=2, Reward=-20.05, EPSILON=0.982, (W=442,D=4,L=0)
+2025-01-16 05:10:15,633 - INFO - Episode 2057/98900: Winner=2, Reward=2.10, EPSILON=0.982, (W=442,D=4,L=0)
+2025-01-16 05:10:15,914 - INFO - Episode 2058/98900: Winner=2, Reward=-25.90, EPSILON=0.982, (W=443,D=4,L=0)
+2025-01-16 05:10:16,180 - INFO - Episode 2059/98900: Winner=2, Reward=-8.65, EPSILON=0.982, (W=443,D=4,L=0)
+2025-01-16 05:10:16,320 - INFO - Episode 2060/98900: Winner=2, Reward=1.90, EPSILON=0.982, (W=443,D=4,L=0)
+2025-01-16 05:10:16,430 - INFO - Episode 2061/98900: Winner=2, Reward=-2.45, EPSILON=0.982, (W=443,D=4,L=0)
+2025-01-16 05:10:16,680 - DEBUG - Q-vals = [0.03461574 0.02887913 0.12597871 0.43871328 0.05289458 0.08512789
+ 0.23379059], best_act=6, best_val=0.234
+2025-01-16 05:10:16,680 - DEBUG - Low Q-value (0.234), using MCTS.
+2025-01-16 05:10:16,695 - INFO - Episode 2062/98900: Winner=2, Reward=-14.55, EPSILON=0.982, (W=444,D=4,L=0)
+2025-01-16 05:10:17,008 - INFO - Episode 2063/98900: Winner=2, Reward=13.10, EPSILON=0.982, (W=444,D=4,L=0)
+2025-01-16 05:10:17,195 - INFO - Episode 2064/98900: Winner=2, Reward=-16.35, EPSILON=0.982, (W=445,D=4,L=0)
+2025-01-16 05:10:17,430 - INFO - Episode 2065/98900: Winner=2, Reward=-11.80, EPSILON=0.982, (W=446,D=4,L=0)
+2025-01-16 05:10:17,555 - INFO - Episode 2066/98900: Winner=2, Reward=0.50, EPSILON=0.982, (W=446,D=4,L=0)
+2025-01-16 05:10:17,883 - INFO - Episode 2067/98900: Winner=2, Reward=-7.85, EPSILON=0.982, (W=447,D=4,L=0)
+2025-01-16 05:10:18,039 - INFO - Episode 2068/98900: Winner=2, Reward=-10.35, EPSILON=0.982, (W=448,D=4,L=0)
+2025-01-16 05:10:18,258 - INFO - Episode 2069/98900: Winner=2, Reward=-24.80, EPSILON=0.982, (W=449,D=4,L=0)
+2025-01-16 05:10:18,492 - INFO - Episode 2070/98900: Winner=2, Reward=0.65, EPSILON=0.982, (W=449,D=4,L=0)
+2025-01-16 05:10:18,757 - INFO - Episode 2071/98900: Winner=2, Reward=-20.65, EPSILON=0.982, (W=450,D=4,L=0)
+2025-01-16 05:10:18,945 - INFO - Episode 2072/98900: Winner=2, Reward=5.65, EPSILON=0.982, (W=450,D=4,L=0)
+2025-01-16 05:10:19,117 - INFO - Episode 2073/98900: Winner=2, Reward=-5.85, EPSILON=0.982, (W=450,D=4,L=0)
+2025-01-16 05:10:19,273 - INFO - Episode 2074/98900: Winner=2, Reward=-8.25, EPSILON=0.982, (W=450,D=4,L=0)
+2025-01-16 05:10:19,601 - INFO - Episode 2075/98900: Winner=2, Reward=-26.25, EPSILON=0.981, (W=451,D=4,L=0)
+2025-01-16 05:10:19,804 - INFO - Episode 2076/98900: Winner=2, Reward=-10.25, EPSILON=0.981, (W=451,D=4,L=0)
+2025-01-16 05:10:20,116 - INFO - Episode 2077/98900: Winner=2, Reward=8.00, EPSILON=0.981, (W=451,D=4,L=0)
+2025-01-16 05:10:20,445 - INFO - Episode 2078/98900: Winner=2, Reward=6.55, EPSILON=0.981, (W=451,D=4,L=0)
+2025-01-16 05:10:20,569 - INFO - Episode 2079/98900: Winner=2, Reward=12.40, EPSILON=0.981, (W=451,D=4,L=0)
+2025-01-16 05:10:20,632 - INFO - Episode 2080/98900: Winner=2, Reward=-0.05, EPSILON=0.981, (W=451,D=4,L=0)
+2025-01-16 05:10:20,939 - INFO - Episode 2081/98900: Winner=2, Reward=-40.45, EPSILON=0.981, (W=452,D=4,L=0)
+2025-01-16 05:10:21,184 - INFO - Episode 2082/98900: Winner=2, Reward=8.20, EPSILON=0.981, (W=452,D=4,L=0)
+2025-01-16 05:10:21,289 - INFO - Episode 2083/98900: Winner=2, Reward=3.95, EPSILON=0.981, (W=453,D=4,L=0)
+2025-01-16 05:10:21,409 - DEBUG - Q-vals = [0.15813106 0.12435158 0.14001869 0.15477857 0.1444898  0.14242923
+ 0.13580108], best_act=0, best_val=0.158
+2025-01-16 05:10:21,409 - DEBUG - Low Q-value (0.158), using MCTS.
+2025-01-16 05:10:21,409 - INFO - Running MCTS with 93 simulations using 6 processes.
+2025-01-16 05:10:24,249 - DEBUG - Aggregated action counts: {5: 2, 2: 1, 1: 1, 0: 2, 6: 1}
+2025-01-16 05:10:24,249 - DEBUG - Chose best action 5
+2025-01-16 05:10:24,327 - INFO - Episode 2084/98900: Winner=2, Reward=-20.75, EPSILON=0.981, (W=454,D=4,L=0)
+2025-01-16 05:10:24,608 - INFO - Episode 2085/98900: Winner=2, Reward=-3.45, EPSILON=0.981, (W=454,D=4,L=0)
+2025-01-16 05:10:24,811 - INFO - Episode 2086/98900: Winner=2, Reward=-23.20, EPSILON=0.981, (W=455,D=4,L=0)
+2025-01-16 05:10:25,045 - INFO - Episode 2087/98900: Winner=2, Reward=-27.15, EPSILON=0.981, (W=456,D=4,L=0)
+2025-01-16 05:10:25,233 - INFO - Episode 2088/98900: Winner=2, Reward=-7.80, EPSILON=0.981, (W=457,D=4,L=0)
+2025-01-16 05:10:25,342 - INFO - Episode 2089/98900: Winner=2, Reward=5.85, EPSILON=0.981, (W=457,D=4,L=0)
+2025-01-16 05:10:25,616 - INFO - Episode 2090/98900: Winner=2, Reward=-17.65, EPSILON=0.981, (W=457,D=4,L=0)
+2025-01-16 05:10:25,881 - INFO - Episode 2091/98900: Winner=2, Reward=-19.00, EPSILON=0.981, (W=457,D=4,L=0)
+2025-01-16 05:10:25,896 - DEBUG - Q-vals = [9.9630260e-01 3.5228820e-03 1.0780157e-05 2.2644565e-06 8.4930525e-06
+ 5.9390975e-05 9.3465511e-05], best_act=0, best_val=0.996
+2025-01-16 05:10:25,896 - DEBUG - Low Q-value (0.996), using MCTS.
+2025-01-16 05:10:25,896 - INFO - Running MCTS with 93 simulations using 6 processes.
+2025-01-16 05:10:28,737 - DEBUG - Aggregated action counts: {1: 2, 0: 2, 6: 1, 4: 1, 3: 1}
+2025-01-16 05:10:28,737 - DEBUG - Chose best action 1
+2025-01-16 05:10:28,815 - DEBUG - Q-vals = [0.16935116 0.16799738 0.09929033 0.10590078 0.14603804 0.18193267
+ 0.12948963], best_act=5, best_val=0.182
+2025-01-16 05:10:28,815 - DEBUG - Low Q-value (0.182), using MCTS.
+2025-01-16 05:10:28,815 - INFO - Running MCTS with 93 simulations using 6 processes.
+2025-01-16 05:10:31,622 - DEBUG - Aggregated action counts: {6: 1, 3: 1, 0: 4, 1: 1}
+2025-01-16 05:10:31,622 - DEBUG - Chose best action 0
+2025-01-16 05:10:31,674 - INFO - Episode 2092/98900: Winner=2, Reward=17.55, EPSILON=0.981, (W=457,D=4,L=0)
+2025-01-16 05:10:32,007 - INFO - Episode 2093/98900: Winner=2, Reward=-24.35, EPSILON=0.981, (W=457,D=4,L=0)
+2025-01-16 05:10:32,161 - INFO - Episode 2094/98900: Winner=2, Reward=12.00, EPSILON=0.981, (W=457,D=4,L=0)
+2025-01-16 05:10:32,341 - INFO - Episode 2095/98900: Winner=2, Reward=-11.15, EPSILON=0.981, (W=457,D=4,L=0)
+2025-01-16 05:10:32,654 - INFO - Episode 2096/98900: Winner=2, Reward=-57.25, EPSILON=0.981, (W=458,D=4,L=0)
+2025-01-16 05:10:32,732 - INFO - Episode 2097/98900: Winner=2, Reward=0.00, EPSILON=0.981, (W=458,D=4,L=0)
+2025-01-16 05:10:32,950 - INFO - Episode 2098/98900: Winner=2, Reward=3.65, EPSILON=0.981, (W=458,D=4,L=0)
+2025-01-16 05:10:33,060 - INFO - Episode 2099/98900: Winner=2, Reward=9.95, EPSILON=0.981, (W=458,D=4,L=0)
+2025-01-16 05:10:33,356 - INFO - Saved model checkpoint to Connect4_Agent_Model.pth at episode 2100.
+2025-01-16 05:10:33,356 - INFO - Models saved at episode 2100
+2025-01-16 05:10:33,372 - INFO - Target networks updated
+2025-01-16 05:10:33,419 - INFO - Saved model checkpoint to Connect4_Agent_Model.pth at episode 2100.
+2025-01-16 05:10:33,419 - INFO - Episode 2100/98900: Winner=2, Reward=-29.55, EPSILON=0.981, (W=459,D=4,L=0)
+2025-01-16 05:10:33,642 - INFO - Episode 2101/98900: Winner=2, Reward=-8.45, EPSILON=0.981, (W=460,D=4,L=0)
+2025-01-16 05:10:33,812 - INFO - Episode 2102/98900: Winner=2, Reward=2.40, EPSILON=0.981, (W=460,D=4,L=0)
+2025-01-16 05:10:34,132 - INFO - Episode 2103/98900: Winner=2, Reward=-52.55, EPSILON=0.981, (W=461,D=4,L=0)
+2025-01-16 05:10:34,399 - INFO - Episode 2104/98900: Winner=2, Reward=-19.75, EPSILON=0.981, (W=461,D=4,L=0)
+2025-01-16 05:10:34,572 - INFO - Episode 2105/98900: Winner=2, Reward=-13.45, EPSILON=0.981, (W=462,D=4,L=0)
+2025-01-16 05:10:34,769 - INFO - Episode 2106/98900: Winner=2, Reward=-14.35, EPSILON=0.981, (W=463,D=4,L=0)
+2025-01-16 05:10:34,992 - DEBUG - Q-vals = [0.15612048 0.020872   0.35213107 0.13266969 0.0702707  0.07679856
+ 0.19113746], best_act=2, best_val=0.352
+2025-01-16 05:10:34,992 - DEBUG - Low Q-value (0.352), using MCTS.
+2025-01-16 05:10:34,992 - INFO - Running MCTS with 94 simulations using 6 processes.
+2025-01-16 05:10:37,964 - DEBUG - Aggregated action counts: {3: 5, 0: 2}
+2025-01-16 05:10:37,964 - DEBUG - Chose best action 3
+2025-01-16 05:10:38,175 - INFO - Episode 2107/98900: Winner=2, Reward=-90.45, EPSILON=0.981, (W=464,D=4,L=0)
+2025-01-16 05:10:38,464 - INFO - Episode 2108/98900: Winner=2, Reward=-25.90, EPSILON=0.981, (W=464,D=4,L=0)
+2025-01-16 05:10:38,652 - INFO - Episode 2109/98900: Winner=2, Reward=-6.05, EPSILON=0.981, (W=464,D=4,L=0)
+2025-01-16 05:10:38,777 - DEBUG - Q-vals = [0.09918135 0.26972485 0.02815201 0.24307774 0.02848602 0.22111166
+ 0.11026643], best_act=1, best_val=0.270
+2025-01-16 05:10:38,777 - DEBUG - Low Q-value (0.270), using MCTS.
+2025-01-16 05:10:38,777 - INFO - Running MCTS with 94 simulations using 6 processes.
+2025-01-16 05:10:41,823 - DEBUG - Aggregated action counts: {0: 2, 4: 2, 5: 2, 2: 1}
+2025-01-16 05:10:41,823 - DEBUG - Chose best action 0
+2025-01-16 05:10:41,963 - INFO - Episode 2110/98900: Winner=2, Reward=-1.25, EPSILON=0.981, (W=465,D=4,L=0)
+2025-01-16 05:10:42,276 - INFO - Episode 2111/98900: Winner=2, Reward=2.35, EPSILON=0.981, (W=466,D=4,L=0)
+2025-01-16 05:10:42,557 - INFO - Episode 2112/98900: Winner=2, Reward=21.00, EPSILON=0.981, (W=466,D=4,L=0)
+2025-01-16 05:10:42,823 - INFO - Episode 2113/98900: Winner=2, Reward=-4.95, EPSILON=0.981, (W=466,D=4,L=0)
+2025-01-16 05:10:43,198 - INFO - Episode 2114/98900: Winner=2, Reward=-63.80, EPSILON=0.981, (W=466,D=4,L=0)
+2025-01-16 05:10:43,369 - INFO - Episode 2115/98900: Winner=2, Reward=-12.25, EPSILON=0.981, (W=467,D=4,L=0)
+2025-01-16 05:10:43,697 - INFO - Episode 2116/98900: Winner=2, Reward=-26.65, EPSILON=0.981, (W=468,D=4,L=0)
+2025-01-16 05:10:43,854 - INFO - Episode 2117/98900: Winner=2, Reward=-14.65, EPSILON=0.981, (W=469,D=4,L=0)
+2025-01-16 05:10:44,088 - DEBUG - Q-vals = [0.19308555 0.08816728 0.21328236 0.21604809 0.12472107 0.09367189
+ 0.07102381], best_act=3, best_val=0.216
+2025-01-16 05:10:44,088 - DEBUG - Low Q-value (0.216), using MCTS.
+2025-01-16 05:10:44,104 - INFO - Episode 2118/98900: Winner=2, Reward=-26.40, EPSILON=0.981, (W=470,D=4,L=0)
+2025-01-16 05:10:44,338 - INFO - Episode 2119/98900: Winner=2, Reward=-6.45, EPSILON=0.981, (W=471,D=4,L=0)
+2025-01-16 05:10:44,463 - DEBUG - Q-vals = [0.10084739 0.0650214  0.03585897 0.02546424 0.09926452 0.5743369
+ 0.09920666], best_act=5, best_val=0.574
+2025-01-16 05:10:44,463 - DEBUG - Low Q-value (0.574), using MCTS.
+2025-01-16 05:10:44,463 - INFO - Running MCTS with 94 simulations using 6 processes.
+2025-01-16 05:10:47,315 - DEBUG - Aggregated action counts: {0: 3, 2: 2, 3: 1, 1: 1}
+2025-01-16 05:10:47,315 - DEBUG - Chose best action 0
+2025-01-16 05:10:47,424 - INFO - Episode 2120/98900: Winner=2, Reward=-12.75, EPSILON=0.981, (W=472,D=4,L=0)
+2025-01-16 05:10:47,543 - INFO - Episode 2121/98900: Winner=2, Reward=-5.30, EPSILON=0.981, (W=473,D=4,L=0)
+2025-01-16 05:10:47,749 - INFO - Episode 2122/98900: Winner=2, Reward=8.40, EPSILON=0.981, (W=473,D=4,L=0)
+2025-01-16 05:10:47,837 - DEBUG - Q-vals = [0.23852783 0.08065974 0.13208824 0.08716615 0.14196266 0.19429523
+ 0.12530014], best_act=0, best_val=0.239
+2025-01-16 05:10:47,838 - DEBUG - Low Q-value (0.239), using MCTS.
+2025-01-16 05:10:47,838 - INFO - Running MCTS with 94 simulations using 6 processes.
+2025-01-16 05:10:50,666 - DEBUG - Aggregated action counts: {2: 1, 0: 4, 6: 1, 1: 1}
+2025-01-16 05:10:50,666 - DEBUG - Chose best action 0
+2025-01-16 05:10:50,911 - INFO - Episode 2123/98900: Winner=2, Reward=-49.60, EPSILON=0.981, (W=474,D=4,L=0)
+2025-01-16 05:10:50,928 - DEBUG - Q-vals = [2.3600790e-03 6.2016519e-03 5.2296533e-04 3.8174834e-04 4.2540632e-02
+ 9.4571304e-01 2.2798486e-03], best_act=5, best_val=0.946
+2025-01-16 05:10:50,928 - DEBUG - Low Q-value (0.946), using MCTS.
+2025-01-16 05:10:50,928 - INFO - Running MCTS with 94 simulations using 6 processes.
+2025-01-16 05:10:53,785 - DEBUG - Aggregated action counts: {3: 2, 4: 2, 6: 1, 1: 1, 0: 1}
+2025-01-16 05:10:53,785 - DEBUG - Chose best action 3
+2025-01-16 05:10:54,011 - DEBUG - Q-vals = [0.15616332 0.1279383  0.07230452 0.22079569 0.07286091 0.07721435
+ 0.272723  ], best_act=3, best_val=0.221
+2025-01-16 05:10:54,011 - DEBUG - Low Q-value (0.221), using MCTS.
+2025-01-16 05:10:54,012 - INFO - Running MCTS with 94 simulations using 6 processes.
+2025-01-16 05:10:56,892 - DEBUG - Aggregated action counts: {3: 2, 2: 1, 0: 3, 1: 1}
+2025-01-16 05:10:56,893 - DEBUG - Chose best action 0
+2025-01-16 05:10:56,972 - INFO - Episode 2124/98900: Winner=2, Reward=-38.30, EPSILON=0.981, (W=474,D=4,L=0)
+2025-01-16 05:10:57,129 - INFO - Episode 2125/98900: Winner=2, Reward=7.65, EPSILON=0.981, (W=474,D=4,L=0)
+2025-01-16 05:10:57,135 - DEBUG - Q-vals = [5.71617067e-01 3.53998505e-03 1.57409888e-02 1.12031549e-02
+ 1.09148765e-04 6.73545823e-02 3.30434978e-01], best_act=0, best_val=0.572
+2025-01-16 05:10:57,135 - DEBUG - Low Q-value (0.572), using MCTS.
+2025-01-16 05:10:57,135 - INFO - Running MCTS with 95 simulations using 6 processes.
+2025-01-16 05:11:00,564 - DEBUG - Aggregated action counts: {4: 1, 1: 1, 5: 1, 2: 1, 0: 3}
+2025-01-16 05:11:00,564 - DEBUG - Chose best action 0
+2025-01-16 05:11:00,817 - INFO - Episode 2126/98900: Winner=2, Reward=-2.20, EPSILON=0.981, (W=474,D=4,L=0)
+2025-01-16 05:11:00,832 - DEBUG - Q-vals = [0.00526125 0.01581497 0.00317097 0.00901084 0.00284649 0.94782096
+ 0.01607445], best_act=5, best_val=0.948
+2025-01-16 05:11:00,832 - DEBUG - Low Q-value (0.948), using MCTS.
+2025-01-16 05:11:00,832 - INFO - Running MCTS with 95 simulations using 6 processes.
+2025-01-16 05:11:03,705 - DEBUG - Aggregated action counts: {0: 3, 2: 1, 5: 1, 3: 2}
+2025-01-16 05:11:03,705 - DEBUG - Chose best action 0
+2025-01-16 05:11:03,896 - INFO - Episode 2127/98900: Winner=2, Reward=-1.75, EPSILON=0.981, (W=474,D=4,L=0)
+2025-01-16 05:11:04,208 - INFO - Episode 2128/98900: Winner=2, Reward=6.80, EPSILON=0.981, (W=475,D=4,L=0)
+2025-01-16 05:11:04,484 - INFO - Episode 2129/98900: Winner=2, Reward=-17.50, EPSILON=0.981, (W=476,D=4,L=0)
+2025-01-16 05:11:04,556 - INFO - Episode 2130/98900: Winner=2, Reward=0.10, EPSILON=0.981, (W=476,D=4,L=0)
+2025-01-16 05:11:04,688 - INFO - Episode 2131/98900: Winner=2, Reward=-3.25, EPSILON=0.981, (W=476,D=4,L=0)
+2025-01-16 05:11:04,864 - INFO - Episode 2132/98900: Winner=2, Reward=12.65, EPSILON=0.981, (W=476,D=4,L=0)
+2025-01-16 05:11:05,085 - INFO - Episode 2133/98900: Winner=2, Reward=-15.20, EPSILON=0.981, (W=477,D=4,L=0)
+2025-01-16 05:11:05,186 - DEBUG - Q-vals = [0.09252844 0.06437427 0.14573665 0.526197   0.05193521 0.06143251
+ 0.05779593], best_act=3, best_val=0.526
+2025-01-16 05:11:05,186 - DEBUG - Low Q-value (0.526), using MCTS.
+2025-01-16 05:11:05,187 - INFO - Running MCTS with 95 simulations using 6 processes.
+2025-01-16 05:11:08,156 - DEBUG - Aggregated action counts: {4: 1, 2: 2, 3: 2, 0: 2}
+2025-01-16 05:11:08,156 - DEBUG - Chose best action 2
+2025-01-16 05:11:08,363 - INFO - Episode 2134/98900: Winner=2, Reward=-31.55, EPSILON=0.981, (W=478,D=4,L=0)
+2025-01-16 05:11:08,452 - INFO - Episode 2135/98900: Winner=2, Reward=-10.45, EPSILON=0.981, (W=479,D=4,L=0)
+2025-01-16 05:11:08,731 - INFO - Episode 2136/98900: Winner=2, Reward=-11.35, EPSILON=0.981, (W=479,D=4,L=0)
+2025-01-16 05:11:09,105 - INFO - Episode 2137/98900: Winner=2, Reward=-34.00, EPSILON=0.981, (W=480,D=4,L=0)
+2025-01-16 05:11:09,309 - INFO - Episode 2138/98900: Winner=2, Reward=3.25, EPSILON=0.981, (W=480,D=4,L=0)
+2025-01-16 05:11:09,345 - DEBUG - Q-vals = [0.21213448 0.05803706 0.05812388 0.10123474 0.27628925 0.2051076
+ 0.08907302], best_act=4, best_val=0.276
+2025-01-16 05:11:09,345 - DEBUG - Low Q-value (0.276), using MCTS.
+2025-01-16 05:11:09,345 - INFO - Running MCTS with 95 simulations using 6 processes.
+2025-01-16 05:11:12,256 - DEBUG - Aggregated action counts: {6: 1, 1: 2, 5: 1, 4: 2, 0: 1}
+2025-01-16 05:11:12,257 - DEBUG - Chose best action 1
+2025-01-16 05:11:12,468 - INFO - Episode 2139/98900: Winner=2, Reward=-34.65, EPSILON=0.981, (W=481,D=4,L=0)
+2025-01-16 05:11:12,652 - INFO - Episode 2140/98900: Winner=2, Reward=0.30, EPSILON=0.981, (W=481,D=4,L=0)
+2025-01-16 05:11:12,915 - INFO - Episode 2141/98900: Winner=2, Reward=-38.65, EPSILON=0.981, (W=482,D=4,L=0)
+2025-01-16 05:11:13,022 - INFO - Episode 2142/98900: Winner=2, Reward=-0.65, EPSILON=0.981, (W=482,D=4,L=0)
+2025-01-16 05:11:13,286 - INFO - Episode 2143/98900: Winner=2, Reward=-15.60, EPSILON=0.981, (W=483,D=4,L=0)
+2025-01-16 05:11:13,422 - DEBUG - Q-vals = [0.16731003 0.14217143 0.14354184 0.15338244 0.10871291 0.14881884
+ 0.13606247], best_act=0, best_val=0.167
+2025-01-16 05:11:13,423 - DEBUG - Low Q-value (0.167), using MCTS.
+2025-01-16 05:11:13,423 - INFO - Running MCTS with 95 simulations using 6 processes.
+2025-01-16 05:11:16,905 - DEBUG - Aggregated action counts: {3: 2, 6: 1, 1: 1, 4: 2, 0: 1}
+2025-01-16 05:11:16,905 - DEBUG - Chose best action 3
+2025-01-16 05:11:16,986 - INFO - Episode 2144/98900: Winner=2, Reward=5.95, EPSILON=0.981, (W=483,D=4,L=0)
+2025-01-16 05:11:17,381 - INFO - Episode 2145/98900: Winner=2, Reward=-83.60, EPSILON=0.981, (W=484,D=4,L=0)
+2025-01-16 05:11:17,497 - INFO - Episode 2146/98900: Winner=2, Reward=6.95, EPSILON=0.981, (W=484,D=4,L=0)
+2025-01-16 05:11:17,577 - DEBUG - Q-vals = [0.17330447 0.13952163 0.10054294 0.21131115 0.06177806 0.2302015
+ 0.08334023], best_act=5, best_val=0.230
+2025-01-16 05:11:17,577 - DEBUG - Low Q-value (0.230), using MCTS.
+2025-01-16 05:11:17,578 - INFO - Running MCTS with 95 simulations using 6 processes.
+2025-01-16 05:11:20,823 - DEBUG - Aggregated action counts: {2: 1, 0: 2, 3: 2, 4: 1, 5: 1}
+2025-01-16 05:11:20,823 - DEBUG - Chose best action 0
+2025-01-16 05:11:21,084 - INFO - Episode 2147/98900: Winner=2, Reward=-17.95, EPSILON=0.981, (W=484,D=4,L=0)
+2025-01-16 05:11:21,286 - INFO - Episode 2148/98900: Winner=2, Reward=-9.00, EPSILON=0.981, (W=485,D=4,L=0)
+2025-01-16 05:11:21,574 - INFO - Episode 2149/98900: Winner=2, Reward=0.40, EPSILON=0.981, (W=485,D=4,L=0)
+2025-01-16 05:11:21,832 - INFO - Episode 2150/98900: Winner=2, Reward=4.90, EPSILON=0.981, (W=485,D=4,L=0)
+2025-01-16 05:11:21,993 - INFO - Episode 2151/98900: Winner=2, Reward=-9.20, EPSILON=0.981, (W=486,D=4,L=0)
+2025-01-16 05:11:22,268 - INFO - Episode 2152/98900: Winner=2, Reward=-1.85, EPSILON=0.981, (W=486,D=4,L=0)
+2025-01-16 05:11:22,589 - INFO - Episode 2153/98900: Winner=2, Reward=-5.60, EPSILON=0.981, (W=486,D=4,L=0)
+2025-01-16 05:11:22,829 - INFO - Episode 2154/98900: Winner=2, Reward=1.30, EPSILON=0.981, (W=487,D=4,L=0)
+2025-01-16 05:11:23,088 - INFO - Episode 2155/98900: Winner=2, Reward=-14.10, EPSILON=0.981, (W=488,D=4,L=0)
+2025-01-16 05:11:23,199 - DEBUG - Q-vals = [0.05255871 0.06833813 0.092278   0.3798629  0.06677049 0.16771814
+ 0.1724736 ], best_act=3, best_val=0.380
+2025-01-16 05:11:23,199 - DEBUG - Low Q-value (0.380), using MCTS.
+2025-01-16 05:11:23,199 - INFO - Running MCTS with 96 simulations using 6 processes.
+2025-01-16 05:11:26,303 - DEBUG - Aggregated action counts: {5: 1, 4: 1, 1: 1, 2: 2, 0: 1}
+2025-01-16 05:11:26,303 - DEBUG - Chose best action 2
+2025-01-16 05:11:26,439 - INFO - Episode 2156/98900: Winner=2, Reward=-10.05, EPSILON=0.981, (W=489,D=4,L=0)
+2025-01-16 05:11:26,583 - INFO - Episode 2157/98900: Winner=2, Reward=8.85, EPSILON=0.981, (W=489,D=4,L=0)
+2025-01-16 05:11:26,687 - DEBUG - Q-vals = [0.17448755 0.11496241 0.19457155 0.1555823  0.04931283 0.12882094
+ 0.18226238], best_act=2, best_val=0.195
+2025-01-16 05:11:26,688 - DEBUG - Low Q-value (0.195), using MCTS.
+2025-01-16 05:11:26,688 - INFO - Running MCTS with 96 simulations using 6 processes.
+2025-01-16 05:11:30,281 - DEBUG - Aggregated action counts: {3: 1, 5: 2, 0: 1, 4: 1, 1: 1}
+2025-01-16 05:11:30,281 - DEBUG - Chose best action 5
+2025-01-16 05:11:30,375 - DEBUG - Q-vals = [0.2985638  0.07629763 0.12397841 0.05309054 0.18081604 0.07809789
+ 0.18915568], best_act=0, best_val=0.299
+2025-01-16 05:11:30,375 - DEBUG - Low Q-value (0.299), using MCTS.
+2025-01-16 05:11:30,375 - INFO - Episode 2158/98900: Winner=2, Reward=-12.85, EPSILON=0.981, (W=490,D=4,L=0)
+2025-01-16 05:11:30,569 - INFO - Episode 2159/98900: Winner=2, Reward=-12.85, EPSILON=0.981, (W=491,D=4,L=0)
+2025-01-16 05:11:30,765 - INFO - Episode 2160/98900: Winner=2, Reward=8.45, EPSILON=0.981, (W=491,D=4,L=0)
+2025-01-16 05:11:31,090 - INFO - Episode 2161/98900: Winner=2, Reward=-24.55, EPSILON=0.981, (W=492,D=4,L=0)
+2025-01-16 05:11:31,264 - INFO - Episode 2162/98900: Winner=2, Reward=11.65, EPSILON=0.981, (W=492,D=4,L=0)
+2025-01-16 05:11:31,610 - INFO - Episode 2163/98900: Winner=2, Reward=-11.30, EPSILON=0.981, (W=492,D=4,L=0)
+2025-01-16 05:11:31,793 - INFO - Episode 2164/98900: Winner=2, Reward=15.15, EPSILON=0.981, (W=492,D=4,L=0)
+2025-01-16 05:11:31,948 - INFO - Episode 2165/98900: Winner=2, Reward=10.80, EPSILON=0.981, (W=492,D=4,L=0)
+2025-01-16 05:11:32,193 - DEBUG - Q-vals = [0.06975981 0.03140587 0.19150068 0.07865553 0.26202837 0.15752462
+ 0.2091251 ], best_act=4, best_val=0.262
+2025-01-16 05:11:32,193 - DEBUG - Low Q-value (0.262), using MCTS.
+2025-01-16 05:11:32,195 - INFO - Running MCTS with 96 simulations using 6 processes.
+2025-01-16 05:11:35,931 - DEBUG - Aggregated action counts: {0: 6}
+2025-01-16 05:11:35,931 - DEBUG - Chose best action 0
+2025-01-16 05:11:35,965 - INFO - Episode 2166/98900: Winner=2, Reward=-23.90, EPSILON=0.981, (W=493,D=4,L=0)
+2025-01-16 05:11:36,387 - INFO - Episode 2167/98900: Winner=2, Reward=-48.60, EPSILON=0.981, (W=494,D=4,L=0)
+2025-01-16 05:11:36,703 - INFO - Episode 2168/98900: Winner=2, Reward=-14.30, EPSILON=0.981, (W=495,D=4,L=0)
+2025-01-16 05:11:36,889 - DEBUG - Q-vals = [0.35370773 0.1440642  0.01786855 0.08862989 0.1535151  0.13160354
+ 0.11061107], best_act=0, best_val=0.354
+2025-01-16 05:11:36,889 - DEBUG - Low Q-value (0.354), using MCTS.
+2025-01-16 05:11:36,890 - INFO - Running MCTS with 96 simulations using 6 processes.
+2025-01-16 05:11:39,696 - DEBUG - Aggregated action counts: {1: 1, 5: 2, 4: 1, 0: 1, 3: 1}
+2025-01-16 05:11:39,696 - DEBUG - Chose best action 5
+2025-01-16 05:11:39,820 - INFO - Episode 2169/98900: Winner=2, Reward=-57.95, EPSILON=0.981, (W=496,D=4,L=0)
+2025-01-16 05:11:40,037 - INFO - Episode 2170/98900: Winner=2, Reward=-8.55, EPSILON=0.981, (W=497,D=4,L=0)
+2025-01-16 05:11:40,115 - INFO - Episode 2171/98900: Winner=2, Reward=-10.00, EPSILON=0.981, (W=498,D=4,L=0)
+2025-01-16 05:11:40,275 - DEBUG - Q-vals = [0.17871507 0.11813674 0.11179963 0.15073039 0.16086258 0.13258216
+ 0.14717348], best_act=0, best_val=0.179
+2025-01-16 05:11:40,275 - DEBUG - Low Q-value (0.179), using MCTS.
+2025-01-16 05:11:40,276 - INFO - Running MCTS with 96 simulations using 6 processes.
+2025-01-16 05:11:43,054 - DEBUG - Aggregated action counts: {1: 1, 3: 1, 6: 1, 4: 1, 0: 2}
+2025-01-16 05:11:43,054 - DEBUG - Chose best action 0
+2025-01-16 05:11:43,253 - INFO - Episode 2172/98900: Winner=2, Reward=-21.75, EPSILON=0.981, (W=499,D=4,L=0)
+2025-01-16 05:11:43,437 - INFO - Episode 2173/98900: Winner=2, Reward=-4.15, EPSILON=0.981, (W=499,D=4,L=0)
+2025-01-16 05:11:43,701 - INFO - Episode 2174/98900: Winner=2, Reward=-22.40, EPSILON=0.981, (W=500,D=4,L=0)
+2025-01-16 05:11:43,967 - INFO - Episode 2175/98900: Winner=2, Reward=-13.40, EPSILON=0.981, (W=501,D=4,L=0)
+2025-01-16 05:11:44,045 - DEBUG - Q-vals = [0.11092584 0.06947238 0.21695659 0.09655874 0.16422462 0.20538123
+ 0.13648066], best_act=2, best_val=0.217
+2025-01-16 05:11:44,045 - DEBUG - Low Q-value (0.217), using MCTS.
+2025-01-16 05:11:44,045 - INFO - Running MCTS with 97 simulations using 6 processes.
+2025-01-16 05:11:46,810 - DEBUG - Aggregated action counts: {3: 1, 6: 1, 4: 2, 1: 2, 0: 1}
+2025-01-16 05:11:46,810 - DEBUG - Chose best action 4
+2025-01-16 05:11:47,060 - INFO - Episode 2176/98900: Winner=2, Reward=-56.30, EPSILON=0.981, (W=501,D=4,L=0)
+2025-01-16 05:11:47,349 - DEBUG - Q-vals = [0.12102649 0.06308987 0.26046386 0.16803248 0.21920876 0.06663326
+ 0.10154527], best_act=4, best_val=0.219
+2025-01-16 05:11:47,349 - DEBUG - Low Q-value (0.219), using MCTS.
+2025-01-16 05:11:47,349 - INFO - Running MCTS with 97 simulations using 6 processes.
+2025-01-16 05:11:50,267 - DEBUG - Aggregated action counts: {1: 2, 0: 3, 3: 2}
+2025-01-16 05:11:50,267 - DEBUG - Chose best action 0
+2025-01-16 05:11:50,387 - INFO - Episode 2177/98900: Winner=2, Reward=-45.30, EPSILON=0.981, (W=502,D=4,L=0)
+2025-01-16 05:11:50,650 - INFO - Episode 2178/98900: Winner=2, Reward=-17.25, EPSILON=0.981, (W=503,D=4,L=0)
+2025-01-16 05:11:50,866 - INFO - Episode 2179/98900: Winner=2, Reward=-5.75, EPSILON=0.981, (W=503,D=4,L=0)
+2025-01-16 05:11:50,955 - INFO - Episode 2180/98900: Winner=2, Reward=1.10, EPSILON=0.981, (W=503,D=4,L=0)
+2025-01-16 05:11:50,958 - DEBUG - Q-vals = [0.07223091 0.04596879 0.01134696 0.02635766 0.02184522 0.77442837
+ 0.04782209], best_act=5, best_val=0.774
+2025-01-16 05:11:50,958 - DEBUG - Low Q-value (0.774), using MCTS.
+2025-01-16 05:11:50,958 - INFO - Running MCTS with 97 simulations using 6 processes.
+2025-01-16 05:11:53,778 - DEBUG - Aggregated action counts: {2: 1, 3: 2, 1: 1, 0: 2, 5: 1}
+2025-01-16 05:11:53,778 - DEBUG - Chose best action 3
+2025-01-16 05:11:53,987 - INFO - Episode 2181/98900: Winner=2, Reward=-8.60, EPSILON=0.981, (W=503,D=4,L=0)
+2025-01-16 05:11:54,273 - INFO - Episode 2182/98900: Winner=2, Reward=8.95, EPSILON=0.981, (W=503,D=4,L=0)
+2025-01-16 05:11:54,445 - INFO - Episode 2183/98900: Winner=2, Reward=-11.05, EPSILON=0.981, (W=504,D=4,L=0)
+2025-01-16 05:11:54,804 - INFO - Episode 2184/98900: Winner=2, Reward=-35.05, EPSILON=0.981, (W=505,D=4,L=0)
+2025-01-16 05:11:54,958 - INFO - Episode 2185/98900: Winner=2, Reward=-13.45, EPSILON=0.981, (W=506,D=4,L=0)
+2025-01-16 05:11:55,126 - DEBUG - Q-vals = [0.06756555 0.09029568 0.06100331 0.45235696 0.10116658 0.11879924
+ 0.10881262], best_act=3, best_val=0.452
+2025-01-16 05:11:55,126 - DEBUG - Low Q-value (0.452), using MCTS.
+2025-01-16 05:11:55,138 - INFO - Episode 2186/98900: Winner=2, Reward=-15.45, EPSILON=0.981, (W=507,D=4,L=0)
+2025-01-16 05:11:55,383 - INFO - Episode 2187/98900: Winner=2, Reward=-20.85, EPSILON=0.981, (W=508,D=4,L=0)
+2025-01-16 05:11:55,503 - INFO - Episode 2188/98900: Winner=2, Reward=-6.25, EPSILON=0.981, (W=509,D=4,L=0)
+2025-01-16 05:11:55,703 - INFO - Episode 2189/98900: Winner=2, Reward=3.70, EPSILON=0.980, (W=509,D=4,L=0)
+2025-01-16 05:11:56,009 - INFO - Episode 2190/98900: Winner=2, Reward=-11.45, EPSILON=0.980, (W=509,D=4,L=0)
+2025-01-16 05:11:56,241 - INFO - Episode 2191/98900: Winner=2, Reward=4.85, EPSILON=0.980, (W=509,D=4,L=0)
+2025-01-16 05:11:56,490 - INFO - Episode 2192/98900: Winner=2, Reward=-16.85, EPSILON=0.980, (W=510,D=4,L=0)
+2025-01-16 05:11:56,845 - INFO - Episode 2193/98900: Winner=2, Reward=-6.65, EPSILON=0.980, (W=510,D=4,L=0)
+2025-01-16 05:11:57,045 - INFO - Episode 2194/98900: Winner=2, Reward=-5.00, EPSILON=0.980, (W=511,D=4,L=0)
+2025-01-16 05:11:57,245 - INFO - Episode 2195/98900: Winner=2, Reward=-12.10, EPSILON=0.980, (W=511,D=4,L=0)
+2025-01-16 05:11:57,427 - INFO - Episode 2196/98900: Winner=2, Reward=-5.30, EPSILON=0.980, (W=511,D=4,L=0)
+2025-01-16 05:11:57,674 - INFO - Episode 2197/98900: Winner=2, Reward=-10.35, EPSILON=0.980, (W=512,D=4,L=0)
+2025-01-16 05:11:57,829 - INFO - Episode 2198/98900: Winner=2, Reward=-3.35, EPSILON=0.980, (W=512,D=4,L=0)
+2025-01-16 05:11:58,118 - INFO - Episode 2199/98900: Winner=2, Reward=-14.00, EPSILON=0.980, (W=513,D=4,L=0)
+2025-01-16 05:11:58,474 - INFO - Saved model checkpoint to Connect4_Agent_Model.pth at episode 2200.
+2025-01-16 05:11:58,474 - INFO - Models saved at episode 2200
+2025-01-16 05:11:58,474 - INFO - Target networks updated
+2025-01-16 05:11:58,537 - INFO - Saved model checkpoint to Connect4_Agent_Model.pth at episode 2200.
+2025-01-16 05:11:58,537 - INFO - Episode 2200/98900: Winner=2, Reward=-31.20, EPSILON=0.980, (W=514,D=4,L=0)
+2025-01-16 05:11:58,651 - INFO - Episode 2201/98900: Winner=2, Reward=0.20, EPSILON=0.980, (W=514,D=4,L=0)
+2025-01-16 05:11:58,930 - INFO - Episode 2202/98900: Winner=2, Reward=15.05, EPSILON=0.980, (W=514,D=4,L=0)
+2025-01-16 05:11:59,185 - INFO - Episode 2203/98900: Winner=2, Reward=-4.95, EPSILON=0.980, (W=514,D=4,L=0)
+2025-01-16 05:11:59,354 - INFO - Episode 2204/98900: Winner=2, Reward=2.70, EPSILON=0.980, (W=514,D=4,L=0)
+2025-01-16 05:11:59,550 - INFO - Episode 2205/98900: Winner=2, Reward=-10.80, EPSILON=0.980, (W=515,D=4,L=0)
+2025-01-16 05:11:59,836 - INFO - Episode 2206/98900: Winner=2, Reward=14.65, EPSILON=0.980, (W=515,D=4,L=0)
+2025-01-16 05:12:00,203 - INFO - Episode 2207/98900: Winner=2, Reward=-41.65, EPSILON=0.980, (W=515,D=4,L=0)
+2025-01-16 05:12:00,533 - INFO - Episode 2208/98900: Winner=2, Reward=-11.80, EPSILON=0.980, (W=515,D=4,L=0)
+2025-01-16 05:12:00,591 - DEBUG - Q-vals = [0.09907804 0.0708406  0.07345605 0.03146376 0.18483488 0.40518126
+ 0.1351454 ], best_act=5, best_val=0.405
+2025-01-16 05:12:00,591 - DEBUG - Low Q-value (0.405), using MCTS.
+2025-01-16 05:12:00,591 - INFO - Running MCTS with 98 simulations using 6 processes.
+2025-01-16 05:12:03,353 - DEBUG - Aggregated action counts: {3: 1, 2: 2, 6: 1, 0: 2, 4: 1}
+2025-01-16 05:12:03,354 - DEBUG - Chose best action 2
+2025-01-16 05:12:03,618 - INFO - Episode 2209/98900: Winner=2, Reward=-10.70, EPSILON=0.980, (W=515,D=4,L=0)
+2025-01-16 05:12:03,786 - INFO - Episode 2210/98900: Winner=2, Reward=9.35, EPSILON=0.980, (W=515,D=4,L=0)
+2025-01-16 05:12:04,158 - INFO - Episode 2211/98900: Winner=2, Reward=-1.40, EPSILON=0.980, (W=515,D=4,L=0)
+2025-01-16 05:12:04,291 - INFO - Episode 2212/98900: Winner=2, Reward=13.05, EPSILON=0.980, (W=515,D=4,L=0)
+2025-01-16 05:12:04,431 - INFO - Episode 2213/98900: Winner=2, Reward=0.25, EPSILON=0.980, (W=515,D=4,L=0)
+2025-01-16 05:12:04,773 - INFO - Episode 2214/98900: Winner=2, Reward=-10.40, EPSILON=0.980, (W=516,D=4,L=0)
+2025-01-16 05:12:05,008 - INFO - Episode 2215/98900: Winner=2, Reward=-12.50, EPSILON=0.980, (W=517,D=4,L=0)
+2025-01-16 05:12:05,234 - DEBUG - Q-vals = [0.26269722 0.18001376 0.080773   0.03961304 0.22954087 0.12838419
+ 0.07897792], best_act=4, best_val=0.230
+2025-01-16 05:12:05,234 - DEBUG - Low Q-value (0.230), using MCTS.
+2025-01-16 05:12:05,244 - INFO - Episode 2216/98900: Winner=2, Reward=-17.35, EPSILON=0.980, (W=518,D=4,L=0)
+2025-01-16 05:12:05,458 - INFO - Episode 2217/98900: Winner=2, Reward=-9.00, EPSILON=0.980, (W=519,D=4,L=0)
+2025-01-16 05:12:05,725 - INFO - Episode 2218/98900: Winner=2, Reward=-21.35, EPSILON=0.980, (W=519,D=4,L=0)
+2025-01-16 05:12:05,994 - INFO - Episode 2219/98900: Winner=2, Reward=-2.25, EPSILON=0.980, (W=520,D=4,L=0)
+2025-01-16 05:12:06,158 - DEBUG - Q-vals = [0.13118729 0.0962211  0.16568008 0.24739861 0.09644113 0.13495685
+ 0.12811495], best_act=3, best_val=0.247
+2025-01-16 05:12:06,158 - DEBUG - Low Q-value (0.247), using MCTS.
+2025-01-16 05:12:06,158 - INFO - Running MCTS with 98 simulations using 6 processes.
+2025-01-16 05:12:09,649 - DEBUG - Aggregated action counts: {2: 2, 1: 2, 3: 1, 0: 2}
+2025-01-16 05:12:09,649 - DEBUG - Chose best action 2
+2025-01-16 05:12:09,682 - INFO - Episode 2220/98900: Winner=2, Reward=-11.15, EPSILON=0.980, (W=521,D=4,L=0)
+2025-01-16 05:12:09,868 - INFO - Episode 2221/98900: Winner=2, Reward=-10.15, EPSILON=0.980, (W=522,D=4,L=0)
+2025-01-16 05:12:09,983 - INFO - Episode 2222/98900: Winner=2, Reward=-9.95, EPSILON=0.980, (W=523,D=4,L=0)
+2025-01-16 05:12:10,243 - INFO - Episode 2223/98900: Winner=2, Reward=-18.10, EPSILON=0.980, (W=524,D=4,L=0)
+2025-01-16 05:12:10,361 - INFO - Episode 2224/98900: Winner=2, Reward=-1.75, EPSILON=0.980, (W=524,D=4,L=0)
+2025-01-16 05:12:10,517 - INFO - Episode 2225/98900: Winner=2, Reward=-16.00, EPSILON=0.980, (W=525,D=4,L=0)
+2025-01-16 05:12:10,767 - DEBUG - Q-vals = [0.27337873 0.04770791 0.2649306  0.22412543 0.08077832 0.03467655
+ 0.07440235], best_act=2, best_val=0.265
+2025-01-16 05:12:10,767 - DEBUG - Low Q-value (0.265), using MCTS.
+2025-01-16 05:12:10,767 - INFO - Episode 2226/98900: Winner=2, Reward=-20.50, EPSILON=0.980, (W=526,D=4,L=0)
+2025-01-16 05:12:11,133 - INFO - Episode 2227/98900: Winner=2, Reward=-46.05, EPSILON=0.980, (W=526,D=4,L=0)
+2025-01-16 05:12:11,351 - INFO - Episode 2228/98900: Winner=2, Reward=-15.75, EPSILON=0.980, (W=526,D=4,L=0)
+2025-01-16 05:12:11,632 - INFO - Episode 2229/98900: Winner=2, Reward=-17.75, EPSILON=0.980, (W=526,D=4,L=0)
+2025-01-16 05:12:11,788 - INFO - Episode 2230/98900: Winner=2, Reward=17.55, EPSILON=0.980, (W=526,D=4,L=0)
+2025-01-16 05:12:11,992 - INFO - Episode 2231/98900: Winner=2, Reward=-9.20, EPSILON=0.980, (W=527,D=4,L=0)
+2025-01-16 05:12:12,170 - INFO - Episode 2232/98900: Winner=2, Reward=-7.75, EPSILON=0.980, (W=528,D=4,L=0)
+2025-01-16 05:12:12,526 - INFO - Episode 2233/98900: Winner=2, Reward=-26.35, EPSILON=0.980, (W=529,D=4,L=0)
+2025-01-16 05:12:12,639 - INFO - Episode 2234/98900: Winner=2, Reward=8.80, EPSILON=0.980, (W=529,D=4,L=0)
+2025-01-16 05:12:12,777 - INFO - Episode 2235/98900: Winner=2, Reward=1.50, EPSILON=0.980, (W=529,D=4,L=0)
+2025-01-16 05:12:12,921 - DEBUG - Q-vals = [0.09673177 0.04540876 0.24661121 0.48049778 0.0587879  0.03900205
+ 0.03296052], best_act=3, best_val=0.480
+2025-01-16 05:12:12,921 - DEBUG - Low Q-value (0.480), using MCTS.
+2025-01-16 05:12:12,921 - INFO - Running MCTS with 99 simulations using 6 processes.
+2025-01-16 05:12:16,215 - DEBUG - Aggregated action counts: {5: 1, 3: 2, 1: 1, 2: 2, 0: 1}
+2025-01-16 05:12:16,215 - DEBUG - Chose best action 3
+2025-01-16 05:12:16,246 - INFO - Episode 2236/98900: Winner=2, Reward=1.00, EPSILON=0.980, (W=529,D=4,L=0)
+2025-01-16 05:12:16,371 - INFO - Episode 2237/98900: Winner=2, Reward=-3.75, EPSILON=0.980, (W=529,D=4,L=0)
+2025-01-16 05:12:16,574 - INFO - Episode 2238/98900: Winner=2, Reward=9.05, EPSILON=0.980, (W=529,D=4,L=0)
+2025-01-16 05:12:16,605 - DEBUG - Q-vals = [0.27625236 0.10668398 0.01999077 0.00628551 0.00172765 0.5083036
+ 0.0807561 ], best_act=5, best_val=0.508
+2025-01-16 05:12:16,605 - DEBUG - Low Q-value (0.508), using MCTS.
+2025-01-16 05:12:16,605 - INFO - Running MCTS with 99 simulations using 6 processes.
+2025-01-16 05:12:19,948 - DEBUG - Aggregated action counts: {0: 3, 2: 1, 1: 1, 6: 1, 5: 1}
+2025-01-16 05:12:19,948 - DEBUG - Chose best action 0
+2025-01-16 05:12:20,307 - INFO - Episode 2239/98900: Winner=2, Reward=-45.85, EPSILON=0.980, (W=530,D=4,L=0)
+2025-01-16 05:12:20,479 - INFO - Episode 2240/98900: Winner=2, Reward=27.85, EPSILON=0.980, (W=530,D=4,L=0)
+2025-01-16 05:12:20,792 - INFO - Episode 2241/98900: Winner=2, Reward=-37.95, EPSILON=0.980, (W=531,D=4,L=0)
+2025-01-16 05:12:21,104 - INFO - Episode 2242/98900: Winner=2, Reward=-15.85, EPSILON=0.980, (W=531,D=4,L=0)
+2025-01-16 05:12:21,323 - INFO - Episode 2243/98900: Winner=2, Reward=11.05, EPSILON=0.980, (W=531,D=4,L=0)
+2025-01-16 05:12:21,401 - INFO - Episode 2244/98900: Winner=2, Reward=1.40, EPSILON=0.980, (W=531,D=4,L=0)
+2025-01-16 05:12:21,635 - INFO - Episode 2245/98900: Winner=2, Reward=-10.15, EPSILON=0.980, (W=531,D=4,L=0)
+2025-01-16 05:12:21,807 - DEBUG - Q-vals = [0.05153494 0.07529412 0.11481784 0.5199943  0.02866149 0.13967799
+ 0.07001934], best_act=3, best_val=0.520
+2025-01-16 05:12:21,807 - DEBUG - Low Q-value (0.520), using MCTS.
+2025-01-16 05:12:21,807 - INFO - Running MCTS with 99 simulations using 6 processes.
+2025-01-16 05:12:25,252 - DEBUG - Aggregated action counts: {1: 2, 6: 1, 0: 2, 4: 1, 2: 1}
+2025-01-16 05:12:25,252 - DEBUG - Chose best action 1
+2025-01-16 05:12:25,392 - INFO - Episode 2246/98900: Winner=2, Reward=-4.40, EPSILON=0.980, (W=531,D=4,L=0)
+2025-01-16 05:12:25,658 - INFO - Episode 2247/98900: Winner=2, Reward=-3.55, EPSILON=0.980, (W=531,D=4,L=0)
+2025-01-16 05:12:25,830 - INFO - Episode 2248/98900: Winner=2, Reward=14.30, EPSILON=0.980, (W=531,D=4,L=0)
+2025-01-16 05:12:26,033 - INFO - Episode 2249/98900: Winner=2, Reward=2.15, EPSILON=0.980, (W=531,D=4,L=0)
+2025-01-16 05:12:26,220 - INFO - Episode 2250/98900: Winner=2, Reward=-4.65, EPSILON=0.980, (W=531,D=4,L=0)
+2025-01-16 05:12:26,517 - INFO - Episode 2251/98900: Winner=2, Reward=14.90, EPSILON=0.980, (W=531,D=4,L=0)
+2025-01-16 05:12:26,705 - INFO - Episode 2252/98900: Winner=2, Reward=-2.50, EPSILON=0.980, (W=532,D=4,L=0)
+2025-01-16 05:12:26,720 - DEBUG - Q-vals = [0.19294643 0.13765623 0.01871386 0.3000979  0.00919347 0.23631817
+ 0.10507387], best_act=3, best_val=0.300
+2025-01-16 05:12:26,720 - DEBUG - Low Q-value (0.300), using MCTS.
+2025-01-16 05:12:26,720 - INFO - Running MCTS with 100 simulations using 6 processes.

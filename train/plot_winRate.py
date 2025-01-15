@@ -15,40 +15,17 @@ total_games = []
 try:
     with open(log_file_path, "r") as log_file:
         for line in log_file:
-            # ------------------------------------------------------
-            # We attempt up to 3 regex patterns in succession:
-            #   1) "Agent1 wins=XX ... Agent2 wins=YY ... draws=ZZ"
-            #   2) "Trainer wins=XX ... Agent wins=YY ... draws=ZZ"
-            #   3) "R=## ... Wins=XX ... OppWins=YY ... Draws=ZZ"
-            #
-            # We'll parse:
-            #   a1 = agent1 or trainer wins
-            #   a2 = agent2 or agent wins
-            #   d  = draws
-            # ------------------------------------------------------
-            match = re.search(r"Agent1\s+wins=(\d+).*Agent2\s+wins=(\d+).*draws=(\d+)", line)
+            # Try to extract win/draw data from the log
+            match = re.search(r"W=(\d+),D=(\d+),L=(\d+)", line)  # Matches "(W=X,D=Y,L=Z)"
             if match:
-                a1 = int(match.group(1))  # agent1 wins
-                a2 = int(match.group(2))  # agent2 wins
-                d  = int(match.group(3))  # draws
-
+                a2 = int(match.group(1))  # Agent1 wins
+                d = int(match.group(2))   # Draws
+                a1 = int(match.group(3))  # Agent2 wins
             else:
-                match = re.search(r"Trainer\s+wins=(\d+).*Agent\s+wins=(\d+).*draws=(\d+)", line)
-                if match:
-                    a1 = int(match.group(1))  # trainer wins
-                    a2 = int(match.group(2))  # agent wins
-                    d  = int(match.group(3))  # draws
-                else:
-                    match = re.search(r"R=\d+.*Wins=(\d+).*OppWins=(\d+).*Draws=(\d+)", line)
-                    if match:
-                        a1 = int(match.group(1))  # "Wins" for agent1
-                        a2 = int(match.group(2))  # "OppWins" for agent2
-                        d  = int(match.group(3))  # "Draws"
-                    else:
-                        # No match => skip this line
-                        continue
+                # Skip lines that don't match the pattern
+                continue
 
-            # If we reach here, we successfully extracted a1, a2, d
+            # If successful, compute total games and append data
             total = a1 + a2 + d
             agent1_wins.append(a1)
             agent2_wins.append(a2)
@@ -62,9 +39,7 @@ except Exception as e:
     print(f"An error occurred: {e}")
     exit()
 
-# -------------------------------------------------------------------
 # If no data was parsed, we can't plot
-# -------------------------------------------------------------------
 if not total_games:
     print("No matching data was found in the log. Exiting.")
     exit()
@@ -100,7 +75,7 @@ for start in range(0, len(agent1_win_rate), interval):
 sum_total = sum(total_games)
 agent1_average = round(sum(agent1_wins) / sum_total * 100, 2)
 agent2_average = round(sum(agent2_wins) / sum_total * 100, 2)
-draw_average   = round(sum(draws) / sum_total * 100, 2)
+draw_average = round(sum(draws) / sum_total * 100, 2)
 
 # --- Plotting ---
 plt.figure(figsize=(14, 8))
@@ -109,7 +84,7 @@ plt.figure(figsize=(14, 8))
 plt.plot(
     agent1_win_rate,
     label=f"Agent1 Wins, Avg-Win ({agent1_average}%)",
-    marker=".",
+    marker="o",
     color="blue",
 )
 
@@ -124,13 +99,13 @@ plt.plot(
 # Annotate rate of change for Agent1
 for midpoint, rate_change in zip(interval_midpoints, agent1_rate_of_change):
     plus_sign = "+" if rate_change > 0 else ""
-    y_offset = agent1_win_rate[midpoint] - 3
+    y_offset = agent1_win_rate[midpoint] + 2
     plt.text(
         midpoint,
         y_offset,
         f"{plus_sign}{rate_change:.2f}%",
         color="blue",
-        fontsize=9,
+        fontsize=8,
         ha="center",
     )
 
@@ -143,7 +118,7 @@ for midpoint, rate_change in zip(interval_midpoints, agent2_rate_of_change):
         y_offset,
         f"{plus_sign}{rate_change:.2f}%",
         color="orange",
-        fontsize=9,
+        fontsize=8,
         ha="center",
     )
 
