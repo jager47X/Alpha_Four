@@ -215,7 +215,10 @@ def periodic_updates(
 # ------------- Main function ------------- #
 
 def main():
+    
     global EPSILON, TOTAL_EPISODES
+
+    
 
     # Configure basic logging
     logging.basicConfig(
@@ -263,14 +266,14 @@ def main():
     # Adjust episodes
     current_episode = start_ep
     TOTAL_EPISODES -= current_episode
+    EPSILON =max(EPSILON_MIN, EPSILON * (EPSILON_DECAY ** start_ep))
     logger.info(f"TOTAL_EPISODES adjusted to {TOTAL_EPISODES} after subtracting {current_episode}.")
-
+    logger.info(f"Current Epsilon adjusted to {EPSILON}.")
     # Agent logic
     agent = AgentLogic(policy_net, device=DEVICE, q_threshold=0.5)
     evaluator = AgentLogic(policy_net, device=DEVICE, q_threshold=0.5)
 
     # Stats
-    global EPSILON
     evaluate_loaded = False
     env = Connect4()
     wins, draws, losses = 0, 0, 0
