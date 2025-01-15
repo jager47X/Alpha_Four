@@ -223,7 +223,7 @@ def main():
     # Configure basic logging
     logging.basicConfig(
         filename='train.log',     # or "./logs/train.log" if you prefer
-        filemode='w',             # 'w' overwrites each run; use 'a' to append
+        filemode='a',             # 'w' overwrites each run; use 'a' to append
         level=logging.DEBUG,      # adjust as needed (e.g., DEBUG, INFO, WARNING)
         format="%(asctime)s - %(levelname)s - %(message)s"
     )

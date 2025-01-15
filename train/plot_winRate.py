@@ -35,10 +35,6 @@ def parse_log_file(log_file_path):
     return winners, rewards
 
 # Function to plot the data
-import matplotlib.pyplot as plt
-import numpy as np
-import time
-
 def plot_data(winners, rewards, total_episodes=100000):
     if not rewards or not winners:
         print("No data to plot.")
@@ -82,11 +78,14 @@ def plot_data(winners, rewards, total_episodes=100000):
     # Calculate progress percentage
     progress_percentage = (total_games / total_episodes) * 100
 
+    # Set black background style
+    plt.style.use('dark_background')
+
     # Plotting
     plt.figure(figsize=(14, 8))
 
     # Plot win rates
-    plt.plot(cumulative_games, win_rate_player1, label="Player 1 Win Rate (%)", marker="o", color="blue")
+    plt.plot(cumulative_games, win_rate_player1, label="Player 1 Win Rate (%)", marker="o", color="cyan")
     plt.plot(cumulative_games, win_rate_player2, label="Player 2 Win Rate (%)", marker="s", color="orange")
 
     # Annotate rate changes for Player 1
@@ -94,7 +93,7 @@ def plot_data(winners, rewards, total_episodes=100000):
         plus_sign = "+" if change > 0 else ""
         y_offset = win_rate_player1[x - 1] + 2  # Offset for annotation
         plt.text(
-            x, y_offset, f"{plus_sign}{change:.2f}%", color="blue", fontsize=8, ha="center"
+            x, y_offset, f"{plus_sign}{change:.2f}%", color="cyan", fontsize=8, ha="center"
         )
 
     # Annotate rate changes for Player 2
@@ -106,7 +105,7 @@ def plot_data(winners, rewards, total_episodes=100000):
         )
 
     # Plot average rewards
-    plt.plot(avg_rewards_x, avg_rewards, label="Average Reward per 100 Games", marker="x", color="green")
+    plt.plot(avg_rewards_x, avg_rewards, label="Average Reward per 100 Games", marker="x", color="lime")
 
     # Display winner statistics and progress percentage in the title
     plt.title(
@@ -119,20 +118,17 @@ def plot_data(winners, rewards, total_episodes=100000):
     plt.xlabel("Game Index")
     plt.ylabel("Percentage / Reward")
     plt.legend()
-    plt.grid()
+    plt.grid(color='gray', linestyle='--', linewidth=0.5)
     plt.tight_layout()
     plt.show()
-    plt.pause(60)  # Pause the plot for 1 minute before closing
-    plt.close()
+    plt.close()  # Close the current plot to reopen a new one
 
-
-
-# Periodically update every 10 seconds
+# Periodically update every 60 seconds
 try:
     while True:
         print("Updating plot...")
         winners, rewards = parse_log_file(log_file_path)
         plot_data(winners, rewards)
-        time.sleep(60)  # Wait 10 seconds before refreshing
+        time.sleep(60)  # Wait for 60 seconds before the next update
 except KeyboardInterrupt:
     print("Exiting...")
