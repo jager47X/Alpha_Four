@@ -51,7 +51,7 @@ class AgentLogic:
             logging.debug(f"Q-vals = {soft_q}, best_act={best_act}, best_val={best_q_val:.3f}")
 
         # If below threshold => fallback to MCTS
-        if best_q_val < self.q_threshold:
+        if best_q_val < self.q_threshold or episode<50000:
             if debug:
                 logging.debug(f"Low Q-value ({best_q_val:.3f}), using MCTS.")
             base_sims = 10  # Minimum number of simulations for small episodes

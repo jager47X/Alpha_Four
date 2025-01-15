@@ -1,59 +1,27 @@
-2025-01-16 04:46:44,995 - INFO - Checkpoint loaded successfully from Connect4_Agent_Model.pth. Starting at episode 2500.
-2025-01-16 04:46:44,995 - INFO - TOTAL_EPISODES adjusted to 97500 after subtracting 2500.
-2025-01-16 04:46:45,011 - INFO - Episode 2501/97500: Winner=2, Reward=-0.85, EPSILON=1.000, (W=0,D=0,L=0)
-2025-01-16 04:46:45,245 - INFO - Episode 2502/97500: Winner=2, Reward=3.05, EPSILON=1.000, (W=0,D=0,L=0)
-2025-01-16 04:46:45,542 - INFO - Episode 2503/97500: Winner=2, Reward=-11.20, EPSILON=1.000, (W=0,D=0,L=0)
-2025-01-16 04:46:45,760 - INFO - Episode 2504/97500: Winner=2, Reward=-4.55, EPSILON=1.000, (W=0,D=0,L=0)
-2025-01-16 04:46:45,854 - INFO - Episode 2505/97500: Winner=2, Reward=7.65, EPSILON=1.000, (W=0,D=0,L=0)
-2025-01-16 04:46:46,042 - INFO - Episode 2506/97500: Winner=2, Reward=-7.75, EPSILON=1.000, (W=0,D=0,L=0)
-2025-01-16 04:46:46,276 - INFO - Episode 2507/97500: Winner=2, Reward=-14.85, EPSILON=1.000, (W=0,D=0,L=0)
-2025-01-16 04:46:46,417 - INFO - Episode 2508/97500: Winner=2, Reward=0.90, EPSILON=1.000, (W=0,D=0,L=0)
-2025-01-16 04:46:46,682 - INFO - Episode 2509/97500: Winner=2, Reward=2.95, EPSILON=1.000, (W=0,D=0,L=0)
-2025-01-16 04:46:46,807 - INFO - Episode 2510/97500: Winner=2, Reward=-8.75, EPSILON=1.000, (W=1,D=0,L=0)
-2025-01-16 04:46:47,041 - INFO - Episode 2511/97500: Winner=2, Reward=-14.30, EPSILON=1.000, (W=2,D=0,L=0)
-2025-01-16 04:46:47,135 - INFO - Episode 2512/97500: Winner=2, Reward=1.05, EPSILON=1.000, (W=2,D=0,L=0)
-2025-01-16 04:46:47,416 - INFO - Episode 2513/97500: Winner=2, Reward=-7.75, EPSILON=1.000, (W=2,D=0,L=0)
-2025-01-16 04:46:47,697 - INFO - Episode 2514/97500: Winner=2, Reward=-36.75, EPSILON=1.000, (W=2,D=0,L=0)
-2025-01-16 04:46:47,932 - INFO - Episode 2515/97500: Winner=2, Reward=-23.40, EPSILON=1.000, (W=3,D=0,L=0)
-2025-01-16 04:46:48,197 - INFO - Episode 2516/97500: Winner=2, Reward=-16.50, EPSILON=1.000, (W=4,D=0,L=0)
-2025-01-16 04:46:48,291 - INFO - Episode 2517/97500: Winner=2, Reward=0.45, EPSILON=1.000, (W=4,D=0,L=0)
-2025-01-16 04:46:48,619 - INFO - Episode 2518/97500: Winner=2, Reward=-70.95, EPSILON=1.000, (W=5,D=0,L=0)
-2025-01-16 04:46:48,791 - INFO - Episode 2519/97500: Winner=2, Reward=23.35, EPSILON=1.000, (W=5,D=0,L=0)
-2025-01-16 04:46:48,947 - INFO - Episode 2520/97500: Winner=2, Reward=-0.90, EPSILON=1.000, (W=5,D=0,L=0)
-2025-01-16 04:46:49,103 - INFO - Episode 2521/97500: Winner=2, Reward=-13.75, EPSILON=1.000, (W=6,D=0,L=0)
-2025-01-16 04:46:49,416 - INFO - Episode 2522/97500: Winner=2, Reward=-49.15, EPSILON=1.000, (W=7,D=0,L=0)
-2025-01-16 04:46:49,650 - INFO - Episode 2523/97500: Winner=2, Reward=-8.20, EPSILON=1.000, (W=8,D=0,L=0)
-2025-01-16 04:46:49,931 - INFO - Episode 2524/97500: Winner=2, Reward=-17.25, EPSILON=1.000, (W=9,D=0,L=0)
-2025-01-16 04:46:50,088 - INFO - Episode 2525/97500: Winner=2, Reward=7.80, EPSILON=1.000, (W=9,D=0,L=0)
-2025-01-16 04:46:50,541 - INFO - Episode 2526/97500: Winner=-1, Reward=-89.65, EPSILON=1.000, (W=9,D=1,L=0)
-2025-01-16 04:46:50,759 - INFO - Episode 2527/97500: Winner=2, Reward=-7.40, EPSILON=1.000, (W=10,D=1,L=0)
-2025-01-16 04:46:50,822 - INFO - Episode 2528/97500: Winner=2, Reward=0.10, EPSILON=1.000, (W=10,D=1,L=0)
-2025-01-16 04:46:50,978 - INFO - Episode 2529/97500: Winner=2, Reward=4.35, EPSILON=1.000, (W=10,D=1,L=0)
-2025-01-16 04:46:51,040 - INFO - Episode 2530/97500: Winner=2, Reward=-0.20, EPSILON=1.000, (W=10,D=1,L=0)
-2025-01-16 04:46:51,197 - INFO - Episode 2531/97500: Winner=2, Reward=10.55, EPSILON=1.000, (W=10,D=1,L=0)
-2025-01-16 04:46:51,556 - INFO - Episode 2532/97500: Winner=2, Reward=-51.05, EPSILON=1.000, (W=11,D=1,L=0)
-2025-01-16 04:46:51,837 - INFO - Episode 2533/97500: Winner=2, Reward=-10.15, EPSILON=1.000, (W=12,D=1,L=0)
-2025-01-16 04:46:52,071 - INFO - Episode 2534/97500: Winner=2, Reward=-19.05, EPSILON=1.000, (W=13,D=1,L=0)
-2025-01-16 04:46:52,337 - INFO - Episode 2535/97500: Winner=2, Reward=-3.85, EPSILON=1.000, (W=14,D=1,L=0)
-2025-01-16 04:46:52,415 - INFO - Episode 2536/97500: Winner=2, Reward=7.10, EPSILON=1.000, (W=14,D=1,L=0)
-2025-01-16 04:46:52,681 - INFO - Episode 2537/97500: Winner=2, Reward=13.90, EPSILON=1.000, (W=14,D=1,L=0)
-2025-01-16 04:46:52,821 - INFO - Episode 2538/97500: Winner=2, Reward=-11.45, EPSILON=1.000, (W=15,D=1,L=0)
-2025-01-16 04:46:53,024 - INFO - Episode 2539/97500: Winner=2, Reward=-27.80, EPSILON=1.000, (W=16,D=1,L=0)
-2025-01-16 04:46:53,196 - INFO - Episode 2540/97500: Winner=2, Reward=-11.65, EPSILON=1.000, (W=17,D=1,L=0)
-2025-01-16 04:46:53,352 - INFO - Episode 2541/97500: Winner=2, Reward=2.90, EPSILON=1.000, (W=18,D=1,L=0)
-2025-01-16 04:46:53,509 - INFO - Episode 2542/97500: Winner=2, Reward=-1.90, EPSILON=1.000, (W=19,D=1,L=0)
-2025-01-16 04:46:53,618 - INFO - Episode 2543/97500: Winner=2, Reward=7.85, EPSILON=1.000, (W=19,D=1,L=0)
-2025-01-16 04:46:53,790 - INFO - Episode 2544/97500: Winner=2, Reward=-16.05, EPSILON=1.000, (W=20,D=1,L=0)
-2025-01-16 04:46:54,087 - INFO - Episode 2545/97500: Winner=2, Reward=-35.50, EPSILON=1.000, (W=21,D=1,L=0)
-2025-01-16 04:46:54,337 - INFO - Episode 2546/97500: Winner=2, Reward=3.80, EPSILON=1.000, (W=22,D=1,L=0)
-2025-01-16 04:46:54,493 - INFO - Episode 2547/97500: Winner=2, Reward=10.65, EPSILON=1.000, (W=22,D=1,L=0)
-2025-01-16 04:46:54,711 - INFO - Episode 2548/97500: Winner=2, Reward=-20.65, EPSILON=1.000, (W=23,D=1,L=0)
-2025-01-16 04:46:54,930 - INFO - Episode 2549/97500: Winner=2, Reward=0.55, EPSILON=1.000, (W=23,D=1,L=0)
-2025-01-16 04:46:55,133 - INFO - Episode 2550/97500: Winner=2, Reward=-8.00, EPSILON=1.000, (W=23,D=1,L=0)
-2025-01-16 04:46:55,196 - INFO - Episode 2551/97500: Winner=2, Reward=7.15, EPSILON=1.000, (W=23,D=1,L=0)
-2025-01-16 04:46:55,414 - INFO - Episode 2552/97500: Winner=2, Reward=9.85, EPSILON=1.000, (W=23,D=1,L=0)
-2025-01-16 04:46:55,508 - INFO - Episode 2553/97500: Winner=2, Reward=-10.25, EPSILON=1.000, (W=24,D=1,L=0)
-2025-01-16 04:46:55,821 - INFO - Episode 2554/97500: Winner=2, Reward=-19.45, EPSILON=1.000, (W=24,D=1,L=0)
-2025-01-16 04:46:56,086 - INFO - Episode 2555/97500: Winner=2, Reward=-8.50, EPSILON=1.000, (W=24,D=1,L=0)
-2025-01-16 04:46:56,258 - INFO - Episode 2556/97500: Winner=2, Reward=-11.25, EPSILON=0.999, (W=25,D=1,L=0)
-2025-01-16 04:46:56,492 - INFO - Episode 2557/97500: Winner=2, Reward=-13.05, EPSILON=0.999, (W=26,D=1,L=0)
+2025-01-16 05:01:24,698 - INFO - Policy network initialized.
+2025-01-16 05:01:24,729 - INFO - Target network initialized.
+2025-01-16 05:01:24,729 - INFO - Optimizer initialized.
+2025-01-16 05:01:24,729 - INFO - Replay buffer initialized.
+2025-01-16 05:01:24,791 - INFO - Checkpoint file path: Connect4_Agent_Model.pth verified.
+2025-01-16 05:01:24,791 - INFO - Loaded policy network state_dict.
+2025-01-16 05:01:24,791 - INFO - Loaded optimizer state_dict.
+2025-01-16 05:01:24,791 - INFO - Loaded start episode: 1100
+2025-01-16 05:01:24,791 - INFO - TOTAL_EPISODES adjusted to 98900 after subtracting 1100.
+2025-01-16 05:01:24,791 - INFO - Current Epsilon adjusted to 0.9901487995715225.
+2025-01-16 05:01:24,791 - INFO - Episode 1101/98900: Winner=2, Reward=2.55, EPSILON=0.990, (W=0,D=0,L=0)
+2025-01-16 05:01:25,073 - INFO - Episode 1102/98900: Winner=2, Reward=-37.20, EPSILON=0.990, (W=1,D=0,L=0)
+2025-01-16 05:01:25,307 - INFO - Episode 1103/98900: Winner=2, Reward=-9.60, EPSILON=0.990, (W=1,D=0,L=0)
+2025-01-16 05:01:25,323 - DEBUG - Q-vals = [0.05728441 0.73519266 0.00738672 0.02657611 0.03809975 0.11895774
+ 0.01650251], best_act=1, best_val=0.735
+2025-01-16 05:01:25,323 - DEBUG - Low Q-value (0.735), using MCTS.
+2025-01-16 05:01:25,323 - INFO - Running MCTS with 54 simulations using 6 processes.
+2025-01-16 05:01:28,463 - DEBUG - Aggregated action counts: {0: 4, 1: 2}
+2025-01-16 05:01:28,463 - DEBUG - Chose best action 0
+2025-01-16 05:01:28,698 - INFO - Episode 1104/98900: Winner=2, Reward=43.45, EPSILON=0.990, (W=1,D=0,L=0)
+2025-01-16 05:01:28,995 - INFO - Episode 1105/98900: Winner=2, Reward=-18.70, EPSILON=0.990, (W=2,D=0,L=0)
+2025-01-16 05:01:29,229 - INFO - Episode 1106/98900: Winner=2, Reward=19.85, EPSILON=0.990, (W=2,D=0,L=0)
+2025-01-16 05:01:29,495 - INFO - Episode 1107/98900: Winner=2, Reward=-4.10, EPSILON=0.990, (W=3,D=0,L=0)
+2025-01-16 05:01:29,667 - DEBUG - Q-vals = [0.2749898  0.1841962  0.05316687 0.09689867 0.07205314 0.07747
+ 0.24122535], best_act=0, best_val=0.275
+2025-01-16 05:01:29,667 - DEBUG - Low Q-value (0.275), using MCTS.
+2025-01-16 05:01:29,667 - INFO - Running MCTS with 54 simulations using 6 processes.
