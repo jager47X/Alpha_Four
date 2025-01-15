@@ -337,7 +337,23 @@ def main():
 
                 if (status != 0) or env.is_draw():
                     done = True
+                    # Update environment to Q tables
+                    next_state = env.get_board().copy()
+
+                    # Push to buffer
+                    replay_buffer.push(state, action, reward, next_state, done)
+                    state = next_state
+
+                    # Q-learning step
+                    train_step(policy_net, target_net, optimizer, replay_buffer,logger)
                     winner = status if status != 0 else -1  # Adjust based on your environment's convention
+                    # Update statistics
+                    if winner == 2:
+                        wins += 1
+                    elif winner == 1:
+                        losses += 1
+                    elif winner == -1:
+                        draws += 1
                     break
 
             else:  # Player2's turn (always model)

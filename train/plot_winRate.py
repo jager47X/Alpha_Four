@@ -35,7 +35,11 @@ def parse_log_file(log_file_path):
     return winners, rewards
 
 # Function to plot the data
-def plot_data(winners, rewards):
+import matplotlib.pyplot as plt
+import numpy as np
+import time
+
+def plot_data(winners, rewards, total_episodes=100000):
     if not rewards or not winners:
         print("No data to plot.")
         return
@@ -75,6 +79,9 @@ def plot_data(winners, rewards):
     ]
     annotation_x = list(range(interval, total_games + 1, interval))
 
+    # Calculate progress percentage
+    progress_percentage = (total_games / total_episodes) * 100
+
     # Plotting
     plt.figure(figsize=(14, 8))
 
@@ -85,7 +92,7 @@ def plot_data(winners, rewards):
     # Annotate rate changes for Player 1
     for x, change in zip(annotation_x, rate_change_player1):
         plus_sign = "+" if change > 0 else ""
-        y_offset = win_rate_player1[x - 1] + 4  # Offset for annotation
+        y_offset = win_rate_player1[x - 1] + 2  # Offset for annotation
         plt.text(
             x, y_offset, f"{plus_sign}{change:.2f}%", color="blue", fontsize=8, ha="center"
         )
@@ -93,7 +100,7 @@ def plot_data(winners, rewards):
     # Annotate rate changes for Player 2
     for x, change in zip(annotation_x, rate_change_player2):
         plus_sign = "+" if change > 0 else ""
-        y_offset = win_rate_player2[x - 1] - 4  # Offset for annotation
+        y_offset = win_rate_player2[x - 1] - 2  # Offset for annotation
         plt.text(
             x, y_offset, f"{plus_sign}{change:.2f}%", color="orange", fontsize=8, ha="center"
         )
@@ -101,10 +108,10 @@ def plot_data(winners, rewards):
     # Plot average rewards
     plt.plot(avg_rewards_x, avg_rewards, label="Average Reward per 100 Games", marker="x", color="green")
 
-    # Display winner statistics in the title
+    # Display winner statistics and progress percentage in the title
     plt.title(
         f"Win Rates and Average Rewards Over Time\n"
-        f"Total Games: {total_games}, "
+        f"Total Games: {total_games}/{total_episodes} ({progress_percentage:.2f}% Completed), "
         f"Player 1 Wins: {winner_counts.get(1, 0)}, "
         f"Player 2 Wins: {winner_counts.get(2, 0)}, "
         f"Draws: {winner_counts.get(-1, 0)}"
@@ -115,6 +122,9 @@ def plot_data(winners, rewards):
     plt.grid()
     plt.tight_layout()
     plt.show()
+    plt.pause(60)  # Pause the plot for 1 minute before closing
+    plt.close()
+
 
 
 # Periodically update every 10 seconds
@@ -123,6 +133,6 @@ try:
         print("Updating plot...")
         winners, rewards = parse_log_file(log_file_path)
         plot_data(winners, rewards)
-        time.sleep(10)  # Wait 10 seconds before refreshing
+        time.sleep(60)  # Wait 10 seconds before refreshing
 except KeyboardInterrupt:
     print("Exiting...")
