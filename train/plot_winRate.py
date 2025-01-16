@@ -9,17 +9,19 @@ log_file_path = input("FILE PATH>> ")
 def parse_log_file(log_file_path):
     rewards = []
     winners = []
+    turns = []
     min_reward = float('inf')  # Initialize to a large value
     max_reward = float('-inf')  # Initialize to a small value
 
     try:
         with open(log_file_path, "r") as log_file:
             for line in log_file:
-                # Extract Winner and Reward data from the log
-                match = re.search(r"Winner=(-?\d+), Reward=([-.\d]+)", line)  # Matches "Winner=X, Reward=Y"
+                # Attempt to extract Winner, Turn, and Reward
+                match = re.search(r"Winner=(-?\d+),Turn=(\d+), Reward=([-.\d]+)", line)
                 if match:
                     winner = int(match.group(1))  # Winner (1, 2, or -1 for draws)
-                    reward = float(match.group(2))  # Reward
+                    turn = int(match.group(2))    # Number of turns
+                    reward = float(match.group(3))  # Reward
 
                     # Update min and max rewards
                     if reward > max_reward:
@@ -30,17 +32,36 @@ def parse_log_file(log_file_path):
                     # Append the extracted values
                     winners.append(winner)
                     rewards.append(reward)
+                    turns.append(turn)
+                else:
+                    # Attempt to extract Winner and Reward without Turn
+                    match = re.search(r"Winner=(-?\d+), Reward=([-.\d]+)", line)
+                    if match:
+                        winner = int(match.group(1))  # Winner (1, 2, or -1 for draws)
+                        reward = float(match.group(2))  # Reward
+                        turn = 0
+                        
+                        # Update min and max rewards
+                        if reward > max_reward:
+                            max_reward = reward
+                        if reward < min_reward:
+                            min_reward = reward
+
+                        # Append the extracted values
+                        winners.append(winner)
+                        rewards.append(reward)
+                        turns.append(turn)
 
     except FileNotFoundError:
         print(f"Error: The log file at '{log_file_path}' was not found.")
     except Exception as e:
         print(f"An error occurred: {e}")
     
-    return winners, rewards, min_reward, max_reward
+    return winners, rewards, turns, min_reward, max_reward
 
 # Function to plot the data
-def plot_data(winners, rewards, min_reward, max_reward, total_episodes=100000):
-    if not rewards or not winners:
+def plot_data(winners, rewards, turns, min_reward, max_reward, total_episodes=100000):
+    if not rewards or not winners or not turns:
         print("No data to plot.")
         return
 
@@ -61,14 +82,29 @@ def plot_data(winners, rewards, min_reward, max_reward, total_episodes=100000):
     win_rate_player2 = cumulative_wins_player2 / cumulative_games * 100
 
     # Compute average rewards for every 1000 games
-    interval_avg = 1000
+    interval_reward = 1000
     avg_rewards = [
-        np.mean(rewards[start:min(start + interval_avg, len(rewards))])
-        for start in range(0, len(rewards), interval_avg)
+        np.mean(rewards[start:min(start + interval_reward, len(rewards))])
+        for start in range(0, len(rewards), interval_reward)
     ]
-    avg_rewards_x = list(range(interval_avg, interval_avg * len(avg_rewards) + 1, interval_avg))
+    avg_rewards_x = list(range(interval_reward, interval_reward * len(avg_rewards) + 1, interval_reward))
 
-    # Compute win rate changes for annotations
+    # Compute average turns for every 100 games
+    interval_turn = 100
+    # Handle cases where Turn data might be missing (None)
+    valid_turns = [turn for turn in turns if turn is not None]
+    if len(valid_turns) == 0:
+        avg_turns = []
+        avg_turns_x = []
+    else:
+        # To align intervals, we consider only games with valid Turn data
+        avg_turns = [
+            np.mean(valid_turns[start:min(start + interval_turn, len(valid_turns))])
+            for start in range(0, len(valid_turns), interval_turn)
+        ]
+        avg_turns_x = list(range(interval_turn, interval_turn * len(avg_turns) + 1, interval_turn))
+
+    # Compute win rate changes for annotations every 1000 games
     interval_annotate = 1000
     rate_change_player1 = [
         win_rate_player1[min(start + interval_annotate - 1, total_games - 1)] - win_rate_player1[start]
@@ -110,11 +146,15 @@ def plot_data(winners, rewards, min_reward, max_reward, total_episodes=100000):
         )
 
     # Plot average rewards
-    plt.plot(avg_rewards_x, avg_rewards, label="Average Reward per 1000 Games", marker="x", color="lime")
+    plt.plot(avg_rewards_x, avg_rewards, label=f"Average Reward per {interval_reward} Games", marker="x", color="lime")
 
+    # Plot average turns if available
+    if avg_turns:
+        plt.plot(avg_turns_x, avg_turns, label=f"Average Turns per {interval_turn} Games", marker="^", color="magenta")
+    
     # Display winner statistics and progress percentage in the title
     plt.title(
-        f"Win Rates and Average Rewards Over Time\n"
+        f"Win Rates, Average Rewards, and Average Turns Over Time\n"
         f"Total Games: {total_games}/{total_episodes} ({progress_percentage:.2f}% Completed), "
         f"Player 1 Wins: {winner_counts.get(1, 0)}, "
         f"Player 2 Wins: {winner_counts.get(2, 0)}, "
@@ -123,12 +163,12 @@ def plot_data(winners, rewards, min_reward, max_reward, total_episodes=100000):
         f"Draws: {winner_counts.get(-1, 0)}"
     )
     plt.xlabel("Game Index")
-    plt.ylabel("Percentage / Reward")
+    plt.ylabel("Percentage / Reward / Turns")
     plt.legend()
     plt.grid(color='gray', linestyle='--', linewidth=0.5)
     plt.tight_layout()
     plt.show()
 
 # Parse the log file and plot the data
-winners, rewards, min_reward, max_reward = parse_log_file(log_file_path)
-plot_data(winners, rewards, min_reward, max_reward)
+winners, rewards, turns, min_reward, max_reward = parse_log_file(log_file_path)
+plot_data(winners, rewards, turns, min_reward, max_reward)

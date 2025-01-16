@@ -286,8 +286,9 @@ def main():
         endep = ep
         total_reward = 0.0
         winner = None  # Initialize winner for each episode
-
+        turn=0
         while not done:
+            turn+=1#add turn
             # Player1's turn
             if env.current_player == 1:
                 # Decide opponent type based on episode
@@ -419,10 +420,10 @@ def main():
 
         # Log and print episode summary
         logger.info(
-            f"Episode {ep}/{TOTAL_EPISODES}: Winner={winner}, Reward={total_reward:.2f}, EPSILON={EPSILON:.3f}, (W={wins},D={draws},L={losses})"
+            f"Episode {ep}/{TOTAL_EPISODES}: Winner={winner},Turn={turn}, Reward={total_reward:.2f}, EPSILON={EPSILON:.3f}, (W={wins},D={draws},L={losses})"
         )
         print(
-            f"Episode {ep}/{TOTAL_EPISODES}: Winner={winner}, Reward={total_reward:.2f}, EPSILON={EPSILON:.3f}, (W={wins}, D={draws}, L={losses})"
+            f"Episode {ep}/{TOTAL_EPISODES}: Winner={winner}, Turn={turn}, Reward={total_reward:.2f}, EPSILON={EPSILON:.3f}, (W={wins}, D={draws}, L={losses})"
         )
 
     # Final save after all episodes
