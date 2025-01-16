@@ -157,7 +157,7 @@ class RewardSystem:
     def get_passive_penalty(self, board, opponent):
         two_in_a_rows = self.count_n_in_a_row(board, opponent, 2)
         three_in_a_rows = self.count_n_in_a_row(board, opponent, 3)
-        return two_in_a_rows * 0.3 + three_in_a_rows * 1.5
+        return two_in_a_rows * 0.15 + three_in_a_rows * 0.5
 
     def get_row_played(self, board, col):
         rows = board.shape[0]
