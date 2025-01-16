@@ -22,7 +22,7 @@ REPLAY_CAPACITY = 10000
 EPSILON = 1.0
 EPSILON_DECAY = 0.999991
 EPSILON_MIN = 0.0001
-REPLAY_BUFFER_SIZE = 1000
+REPLAY_BUFFER_SIZE = 10000
 TARGET_EVALUATE = 100  
 TARGET_UPDATE = 100
 TOTAL_EPISODES = 100000
@@ -117,7 +117,7 @@ def load_model_checkpoint(model_path, learning_rate, buffer_size, logger, device
         optimizer = torch.optim.Adam(policy_net.parameters(), lr=learning_rate)
         logger.info("Optimizer initialized.")
         
-        # Initialize replay_buffer without prefix_path
+        # Initialize replay_buffer
         replay_buffer = DiskReplayBuffer(
             capacity=buffer_size,
             state_shape=(6, 7),
@@ -417,7 +417,7 @@ def main():
                 )
             except Exception as e:
                 logger.error(f"Failed to save model checkpoint at episode {ep}: {e}")
-
+ 
         # Log and print episode summary
         logger.info(
             f"Episode {ep}/{TOTAL_EPISODES}: Winner={winner},Turn={turn}, Reward={total_reward:.2f}, EPSILON={EPSILON:.3f}, (W={wins},D={draws},L={losses})"
@@ -425,7 +425,7 @@ def main():
         print(
             f"Episode {ep}/{TOTAL_EPISODES}: Winner={winner}, Turn={turn}, Reward={total_reward:.2f}, EPSILON={EPSILON:.3f}, (W={wins}, D={draws}, L={losses})"
         )
-
+    
     # Final save after all episodes
     save_model_checkpoint(MODEL_SAVE_PATH, policy_net, target_net, optimizer, endep, logger)
     logger.info("Training finished.")

@@ -32,7 +32,9 @@ class DiskReplayBuffer:
 
     def push(self, state, action, reward, next_state, done):
         """
-        Add a transition to the replay buffer.
+        Add a transition to the replay buffer and flush changes to disk.
+
+        If the buffer is full, it overwrites the oldest data.
 
         Args:
             state (np.ndarray): Current state.
@@ -41,12 +43,21 @@ class DiskReplayBuffer:
             next_state (np.ndarray): Next state.
             done (bool): Whether the episode is done.
         """
+        # Store the transition at the current pointer
         self.states[self.ptr] = state
         self.actions[self.ptr] = action
         self.rewards[self.ptr] = reward
         self.next_states[self.ptr] = next_state
         self.dones[self.ptr] = done
 
+        # Flush changes to disk to ensure data integrity
+        self.states.flush()
+        self.actions.flush()
+        self.rewards.flush()
+        self.next_states.flush()
+        self.dones.flush()
+
+        # Update the pointer and handle overwriting if necessary
         self.ptr += 1
         if self.ptr >= self.capacity:
             self.ptr = 0
@@ -63,7 +74,11 @@ class DiskReplayBuffer:
             dict: Batch of sampled transitions.
         """
         max_index = self.capacity if self.full else self.ptr
-        indices = np.random.choice(max_index, batch_size, replace=False)
+        if max_index == 0:
+            raise ValueError("Cannot sample from an empty buffer.")
+
+        replace = False if self.full else True if batch_size > max_index else False
+        indices = np.random.choice(max_index, batch_size, replace=replace)
 
         batch = {
             "states": torch.tensor(self.states[indices], device=self.device, dtype=torch.float32),
@@ -82,19 +97,3 @@ class DiskReplayBuffer:
             int: Number of elements in the buffer.
         """
         return self.capacity if self.full else self.ptr
-
-    def cleanup(self):
-        """
-        Clean up memory-mapped files by ensuring they are flushed and closed.
-        """
-        self.states._mmap.flush()
-        self.actions._mmap.flush()
-        self.rewards._mmap.flush()
-        self.next_states._mmap.flush()
-        self.dones._mmap.flush()
-        
-        self.states._mmap.close()
-        self.actions._mmap.close()
-        self.rewards._mmap.close()
-        self.next_states._mmap.close()
-        self.dones._mmap.close()

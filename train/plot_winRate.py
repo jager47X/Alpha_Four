@@ -90,7 +90,7 @@ def plot_data(winners, rewards, turns, min_reward, max_reward, total_episodes=10
     avg_rewards_x = list(range(interval_reward, interval_reward * len(avg_rewards) + 1, interval_reward))
 
     # Compute average turns for every 100 games
-    interval_turn = 100
+    interval_turn = 1000
     # Handle cases where Turn data might be missing (None)
     valid_turns = [turn for turn in turns if turn is not None]
     if len(valid_turns) == 0:
