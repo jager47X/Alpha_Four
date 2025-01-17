@@ -203,7 +203,7 @@ def plot_data(winners, rewards, turns, min_reward, max_reward, total_episodes=10
 
     # Plot average turns if available
     if any(turn > 0 for turn in turns):
-        plt.plot(avg_turns_x, avg_turns, label=f"Average Game Length [1-42]", color="magenta", linewidth=2)
+        plt.plot(avg_turns_x, avg_turns, label=f"Average Game Length", color="magenta", linewidth=2)
 
     # Plot IQ values
     if iq_values:
