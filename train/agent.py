@@ -63,11 +63,12 @@ class AgentLogic:
             mcts_action=MCTS(num_simulations=sims, debug=True)
             action=mcts_action.select_action(env,player)
             if debug:
-                logging.debug(f"Random Action SELECT={action}")
+                logging.debug(f"MCTS Action SELECT={action}")
             return action
 
         # Otherwise, pick best Q
-        print("Q chosen")
+        if debug:
+            logging.debug(f"best Q SELECT={best_act}")
         return best_act
     def softmax_q(self,q_values):
         """Convert raw Q-values to a softmax distribution for 'confidence'."""
