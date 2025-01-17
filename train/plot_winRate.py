@@ -102,6 +102,7 @@ def plot_data(winners, rewards, turns, min_reward, max_reward, total_episodes=10
     avg_rewards = [
         np.mean(rewards[start:start + interval])
         for start in range(0, len(rewards), interval)
+        if len(rewards[start:start + interval]) == interval  # Ensure full interval
     ]
     avg_rewards_x = list(range(interval, interval * len(avg_rewards) + 1, interval))
 
@@ -110,6 +111,7 @@ def plot_data(winners, rewards, turns, min_reward, max_reward, total_episodes=10
     avg_turns = [
         np.mean([turn for turn in turns[start:start + interval] if turn > 0]) if any(turn > 0 for turn in turns[start:start + interval]) else 0
         for start in range(0, len(turns), interval)
+        if len(turns[start:start + interval]) == interval  # Ensure full interval
     ]
     avg_turns_x = list(range(interval, interval * len(avg_turns) + 1, interval))
 
@@ -117,12 +119,14 @@ def plot_data(winners, rewards, turns, min_reward, max_reward, total_episodes=10
     rate_change_player1 = [
         win_rate_player1[min(start + interval - 1, total_games - 1)] - win_rate_player1[start]
         for start in range(0, total_games, interval)
+        if start + interval <= total_games  # Ensure full interval
     ]
     rate_change_player2 = [
         win_rate_player2[min(start + interval - 1, total_games - 1)] - win_rate_player2[start]
         for start in range(0, total_games, interval)
+        if start + interval <= total_games  # Ensure full interval
     ]
-    annotation_x = list(range(interval, total_games + 1, interval))
+    annotation_x = list(range(interval, interval * len(rate_change_player1) + 1, interval))
 
     # Calculate progress percentage
     progress_percentage = (total_games / total_episodes) * 100
@@ -208,7 +212,7 @@ def plot_data(winners, rewards, turns, min_reward, max_reward, total_episodes=10
     # Plot IQ values
     if iq_values:
         plt.plot(iq_x, iq_values, label="Agent IQ Metric", color="yellow", linewidth=2)
-
+    
     # Annotate rate changes for Player 1 win rate
     for idx, (x, change) in enumerate(zip(annotation_x, [None] + rate_change_player1)):
         if change is not None and x != 0:
@@ -261,7 +265,7 @@ def plot_data(winners, rewards, turns, min_reward, max_reward, total_episodes=10
     plt.title(
         f"Win Rates, Average Rewards, Average Turns, and IQ Over Time\n"
         f"Total Games: {total_games}/{total_episodes} ({progress_percentage:.2f}% Completed)\n"
-        f"Agent Winrate: {(winner_counts.get(2, 0)/total_games)*100}%, "
+        f"Agent Winrate: {(winner_counts.get(2, 0)/total_games)*100:.2f}%, "
         f"Draws: {winner_counts.get(-1, 0)}, "
         f"Agent MIN Reward: {min_reward:.2f}, "
         f"Agent MAX Reward: {max_reward:.2f}"
