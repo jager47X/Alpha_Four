@@ -286,9 +286,9 @@ def main():
         endep = ep
         total_reward = 0.0
         winner = None  # Initialize winner for each episode
-        turn=0
+        turn=1
         while not done:
-            turn+=1#add turn
+            
             # Player1's turn
             if env.current_player == 1:
                 # Decide opponent type based on episode
@@ -308,11 +308,13 @@ def main():
                     logger.info(f"Copied policy_net into evaluator_net for evaluation from ep:{ep}.") 
                     evaluate_loaded = True
 
-                def get_opponent_action(env):
+                def get_opponent_action(env,debug=False):
                     # Random phase => random only
                     if opponent_type == "Random":
-                        valid_actions = env.get_valid_actions()
-                        return random.choice(valid_actions) if valid_actions else None
+                        action=random.choice(env.get_valid_actions())
+                        if debug:
+                            logging.debug(f"Random Action SELECT={action}")
+                        return action
 
                     # MCTS phase => immediate win/block, then MCTS
                     elif opponent_type == "MCTS":
@@ -321,19 +323,27 @@ def main():
                         sims = int(base_sims + scaling_factor * ep)  # 0.04 *50000=2000 peak performance
                         sims = min(2000, sims)
                         mcts_action = MCTS(num_simulations=sims, debug=True)
-
-                        return mcts_action.select_action(env, env.current_player)
+                        action=mcts_action.select_action(env, env.current_player)
+                        if debug:
+                            logging.debug(f"MCTS Action SELECT={action}")
+                        return action
                     
                     elif ep % TARGET_EVALUATE == 0:  # use evaluator to check performance of the current model
-                        return evaluator.pick_action(env, env.current_player, EPSILON, episode=ep, debug=DEBUGMODE)
-                    
+                        action=evaluator.pick_action(env, env.current_player, EPSILON, episode=ep, debug=DEBUGMODE)
+                        if debug:
+                            logging.debug(f"EVALUATE SELECT={action}")
+                        return action
+
                     # Self-play
                     else:
-                        return agent.pick_action(env, env.current_player, EPSILON, episode=ep, debug=DEBUGMODE)
+                        action=agent.pick_action(env, env.current_player, EPSILON, episode=ep, debug=DEBUGMODE)
+                        if debug:
+                            logging.debug(f"SELF Opponent SELECT={action}")
+                        return action
 
-                action = get_opponent_action(env)
+                action = get_opponent_action(env,debug=DEBUGMODE)
                 env.make_move(action)
-                reward, status = agent.compute_reward(env, action, env.current_player)
+                reward, status = agent.compute_reward(env, action, 1)
                 # total_reward += reward since we focus on Agent 2 we ignore here
 
                 if (status != 0) or env.is_draw():
@@ -355,6 +365,7 @@ def main():
                         losses += 1
                     elif winner == -1:
                         draws += 1
+                    turn=env.turn
                     break
 
             else:  # Player2's turn (always model)
@@ -364,7 +375,7 @@ def main():
                 policy_net.train()
 
                 env.make_move(action)
-                reward, status = agent.compute_reward(env, action, env.current_player)
+                reward, status = agent.compute_reward(env, action, 2)
 
                 if ep > SELF_LEARN_START:  # Check if it is self learn phase
                     if ep % TARGET_EVALUATE == 0:  # If so check if that is TARGET_EVALUATE
@@ -376,6 +387,7 @@ def main():
                     done = True
                     winner = status if status != 0 else -1  # Adjust based on your environment's convention
 
+            
             # Update environment to Q tables
             next_state = env.get_board().copy()
 
@@ -393,7 +405,7 @@ def main():
                 losses += 1
             elif winner == -1:
                 draws += 1
-
+            turn=env.turn
         # Periodically update target net and decay epsilon
         EPSILON = periodic_updates(
             ep,

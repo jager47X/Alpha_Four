@@ -61,6 +61,19 @@ def parse_log_file(log_file_path):
 
     return winners, rewards, turns, min_reward, max_reward
 
+# Function to calculate rate of change
+def calculate_rate_of_change(metric_list):
+    """
+    Calculate the rate of change between consecutive elements in a list.
+    Returns a list where each element is the change from the previous element.
+    The first element is set to None as there is no previous element.
+    """
+    rate_of_change = [None]  # First element has no previous element
+    for i in range(1, len(metric_list)):
+        change = metric_list[i] - metric_list[i - 1]
+        rate_of_change.append(change)
+    return rate_of_change
+
 # Function to plot the data
 def plot_data(winners, rewards, turns, min_reward, max_reward, total_episodes=100000, interval=1000):
     if not rewards or not winners or not turns:
@@ -157,23 +170,23 @@ def plot_data(winners, rewards, turns, min_reward, max_reward, total_episodes=10
         iq_values.append(iq)
         iq_x.append(end)
 
-    # Calculate rate of change for each metric
-    def calculate_rate_of_change(metric_list):
-        """
-        Calculate the rate of change between consecutive elements in a list.
-        Returns a list where each element is the change from the previous element.
-        The first element is set to None as there is no previous element.
-        """
-        rate_of_change = [None]  # First element has no previous element
-        for i in range(1, len(metric_list)):
-            change = metric_list[i] - metric_list[i - 1]
-            rate_of_change.append(change)
-        return rate_of_change
+    # Initialize plots with 0 at episode 0
+    avg_rewards = [0] + avg_rewards
+    avg_rewards_x = [0] + avg_rewards_x
+
+    avg_turns = [0] + avg_turns
+    avg_turns_x = [0] + avg_turns_x
+
+    iq_values = [0] + iq_values
+    iq_x = [0] + iq_x
 
     # Calculate rate of change for all metrics
     roc_avg_rewards = calculate_rate_of_change(avg_rewards)
     roc_avg_turns = calculate_rate_of_change(avg_turns)
     roc_iq_values = calculate_rate_of_change(iq_values)
+
+    # Adjust annotation_x to include 0 if necessary
+    annotation_x = [0] + annotation_x
 
     # Set black background style
     plt.style.use('dark_background')
@@ -182,61 +195,64 @@ def plot_data(winners, rewards, turns, min_reward, max_reward, total_episodes=10
     plt.figure(figsize=(18, 12))
 
     # Plot win rates
-    plt.plot(cumulative_games, win_rate_player1, label="Player 1 Win Rate (%)", color="cyan", linewidth=1)
-    plt.plot(cumulative_games, win_rate_player2, label="Player 2 Win Rate (%)", color="orange", linewidth=1)
+    plt.plot(cumulative_games, win_rate_player1, label="Trainer (P1) Win Rate (%)", color="cyan", linewidth=1)
+    plt.plot(cumulative_games, win_rate_player2, label="Agent (P2) Win Rate (%)", color="orange", linewidth=1)
 
     # Plot average rewards
-    plt.plot(avg_rewards_x, avg_rewards, label=f"Average Reward per {interval} Games", color="lime", linewidth=2)
+    plt.plot(avg_rewards_x, avg_rewards, label=f"Average Reward", color="lime", linewidth=2)
 
     # Plot average turns if available
     if any(turn > 0 for turn in turns):
-        plt.plot(avg_turns_x, avg_turns, label=f"Average Turns per {interval} Games", color="magenta", linewidth=2)
+        plt.plot(avg_turns_x, avg_turns, label=f"Average Game Length [1-42]", color="magenta", linewidth=2)
 
     # Plot IQ values
     if iq_values:
-        plt.plot(iq_x, iq_values, label="IQ Metric", color="yellow", linewidth=2)
+        plt.plot(iq_x, iq_values, label="Agent IQ Metric", color="yellow", linewidth=2)
 
     # Annotate rate changes for Player 1 win rate
-    for idx, (x, change) in enumerate(zip(annotation_x, rate_change_player1)):
-        if change != 0:
+    for idx, (x, change) in enumerate(zip(annotation_x, [None] + rate_change_player1)):
+        if change is not None and x != 0:
             plus_sign = "+" if change > 0 else ""
-            y_offset = win_rate_player1[x - 1] + 2  # Adjust offset as needed
+            y_offset = win_rate_player1[x - 1] + 2  # Offset for annotation
             plt.text(
                 x, y_offset, f"{plus_sign}{change:.2f}%", color="cyan", fontsize=8, ha="center"
             )
 
     # Annotate rate changes for Player 2 win rate
-    for idx, (x, change) in enumerate(zip(annotation_x, rate_change_player2)):
-        if change != 0:
+    for idx, (x, change) in enumerate(zip(annotation_x, [None] + rate_change_player2)):
+        if change is not None and x != 0:
             plus_sign = "+" if change > 0 else ""
-            y_offset = win_rate_player2[x - 1] - 2  # Adjust offset as needed
+            y_offset = win_rate_player2[x - 1] - 2  # Offset for annotation
             plt.text(
                 x, y_offset, f"{plus_sign}{change:.2f}%", color="orange", fontsize=8, ha="center"
             )
 
     # Annotate rate changes for Average Rewards
     for i, (x, change) in enumerate(zip(avg_rewards_x, roc_avg_rewards)):
-        if change is not None:
+        if change is not None and x != 0:
             plus_sign = "+" if change > 0 else ""
-            y_offset = avg_rewards[i] + (0.05 * avg_rewards[i])  # 5% above the point
+            # Prevent division by zero in y_offset calculation
+            y_offset = avg_rewards[i] + (0.05 * avg_rewards[i]) if avg_rewards[i] != 0 else avg_rewards[i] + 1
             plt.text(
                 x, y_offset, f"{plus_sign}{change:.2f}", color="lime", fontsize=8, ha="center"
             )
 
     # Annotate rate changes for Average Turns
     for i, (x, change) in enumerate(zip(avg_turns_x, roc_avg_turns)):
-        if change is not None and avg_turns[i] != 0:
+        if change is not None and x != 0 and avg_turns[i] != 0:
             plus_sign = "+" if change > 0 else ""
-            y_offset = avg_turns[i] + (0.05 * avg_turns[i])  # 5% above the point
+            # Prevent division by zero in y_offset calculation
+            y_offset = avg_turns[i] + (0.05 * avg_turns[i]) if avg_turns[i] != 0 else avg_turns[i] + 1
             plt.text(
                 x, y_offset, f"{plus_sign}{change:.2f}", color="magenta", fontsize=8, ha="center"
             )
 
     # Annotate rate changes for IQ Metric
     for i, (x, change) in enumerate(zip(iq_x, roc_iq_values)):
-        if change is not None:
+        if change is not None and x != 0:
             plus_sign = "+" if change > 0 else ""
-            y_offset = iq_values[i] + (0.05 * iq_values[i])  # 5% above the point
+            # Prevent division by zero in y_offset calculation
+            y_offset = iq_values[i] + (0.05 * iq_values[i]) if iq_values[i] != 0 else iq_values[i] + 1
             plt.text(
                 x, y_offset, f"{plus_sign}{change:.2f}", color="yellow", fontsize=8, ha="center"
             )
@@ -245,8 +261,7 @@ def plot_data(winners, rewards, turns, min_reward, max_reward, total_episodes=10
     plt.title(
         f"Win Rates, Average Rewards, Average Turns, and IQ Over Time\n"
         f"Total Games: {total_games}/{total_episodes} ({progress_percentage:.2f}% Completed)\n"
-        f"Player 1 Wins: {winner_counts.get(1, 0)}, "
-        f"Player 2 Wins: {winner_counts.get(2, 0)}, "
+        f"Agent Winrate: {(winner_counts.get(2, 0)/total_games)*100}%, "
         f"Draws: {winner_counts.get(-1, 0)}, "
         f"Agent MIN Reward: {min_reward:.2f}, "
         f"Agent MAX Reward: {max_reward:.2f}"

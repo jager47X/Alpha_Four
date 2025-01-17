@@ -28,7 +28,10 @@ class AgentLogic:
 
         # (1) Epsilon exploration
         if random.random() < epsilon:
-            return random.choice(valid_actions)
+            action=random.choice(valid_actions)
+            if debug:
+                logging.debug(f"Random Action SELECT={action}")
+            return action
 
         # (2) Check Q Values
         self.policy_net.eval()
@@ -49,9 +52,8 @@ class AgentLogic:
         best_q_val = soft_q[best_act]
         if debug:
             logging.debug(f"Q-vals = {soft_q}, best_act={best_act}, best_val={best_q_val:.3f}")
-
         # If below threshold => fallback to MCTS
-        if best_q_val < self.q_threshold or episode<50000:
+        if best_q_val < self.q_threshold:
             if debug:
                 logging.debug(f"Low Q-value ({best_q_val:.3f}), using MCTS.")
             base_sims = 10  # Minimum number of simulations for small episodes
@@ -59,9 +61,13 @@ class AgentLogic:
             sims = int(base_sims + scaling_factor * episode) # 0.04 *50000=2000 peak performance
             sims =min(2000,sims)
             mcts_action=MCTS(num_simulations=sims, debug=True)
-            return mcts_action.select_action(env,player)
+            action=mcts_action.select_action(env,player)
+            if debug:
+                logging.debug(f"Random Action SELECT={action}")
+            return action
 
         # Otherwise, pick best Q
+        print("Q chosen")
         return best_act
     def softmax_q(self,q_values):
         """Convert raw Q-values to a softmax distribution for 'confidence'."""
@@ -116,13 +122,13 @@ class RewardSystem:
 
         winner = env.check_winner()
         if winner == current_player:
-            result_reward = 10.0
-            win_status = 1
+            result_reward = 25.0
+            win_status = current_player
         elif winner == opponent:
-            result_reward = -10.0
-            win_status = 2
+            result_reward = -25.0
+            win_status = current_player
         elif env.is_draw():
-            result_reward = 5.0
+            result_reward = 12.5
             win_status = -1
         else:
             result_reward = 0.0
@@ -130,9 +136,11 @@ class RewardSystem:
 
         active_reward = self.get_active_reward(board, last_action, current_player, env)
         passive_penalty = self.get_passive_penalty(board, opponent)
-        time=math.log(env.turn) # ealry turn it does not affect too much
-        raw_total = result_reward + active_reward - (passive_penalty*time)
-        total_reward = max(-10.0, min(raw_total, 10.0))
+        fastest_win_possible=8
+        adjustment_factor = fastest_win_possible/ (env.turn)# Adjust total based on turn lower is closer to 1 
+        raw_total = (result_reward*adjustment_factor) + (active_reward) - (passive_penalty)
+        total_reward = math.exp(raw_total / env.turn)
+        #print(total_reward)
         return (total_reward, win_status)
 
     def get_active_reward(self, board, last_action, current_player, env):
@@ -151,6 +159,7 @@ class RewardSystem:
             return 0.5
         if self.blocks_opponent_n_in_a_row(board, row_played, last_action, current_player, 2):
             return 0.3
+            # if just no connection
         return 0.05
 
     def get_passive_penalty(self, board, opponent):
