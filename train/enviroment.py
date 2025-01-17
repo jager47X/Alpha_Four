@@ -6,10 +6,12 @@ class Connect4:
     def __init__(self):
         self.board = np.zeros((6, 7), dtype=int)
         self.current_player = 1
+        self.turn=1
 
     def reset(self):
         self.board = np.zeros((6, 7), dtype=int)
         self.current_player = 1
+        self.turn=1
         return self.board
 
     def get_board(self):
@@ -32,6 +34,7 @@ class Connect4:
             if self.board[row, action] == 0:
                 self.board[row, action] = self.current_player
                 break
+        self.turn+=1
         self.current_player = 3 - self.current_player
 
     def check_winner(self):

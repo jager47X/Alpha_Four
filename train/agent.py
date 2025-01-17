@@ -130,8 +130,8 @@ class RewardSystem:
 
         active_reward = self.get_active_reward(board, last_action, current_player, env)
         passive_penalty = self.get_passive_penalty(board, opponent)
-
-        raw_total = result_reward + active_reward - passive_penalty
+        time=math.log(env.turn) # ealry turn it does not affect too much
+        raw_total = result_reward + active_reward - (passive_penalty*time)
         total_reward = max(-10.0, min(raw_total, 10.0))
         return (total_reward, win_status)
 
@@ -139,7 +139,6 @@ class RewardSystem:
         row_played = self.get_row_played(board, last_action)
         if row_played is None:
             return 0.0
-        # (same logic as your code)
         if self.is_double_threat(board, row_played, current_player):
             return 8.0
         if self.blocks_opponent_n_in_a_row(board, row_played, last_action, current_player, 4):
@@ -157,7 +156,7 @@ class RewardSystem:
     def get_passive_penalty(self, board, opponent):
         two_in_a_rows = self.count_n_in_a_row(board, opponent, 2)
         three_in_a_rows = self.count_n_in_a_row(board, opponent, 3)
-        return two_in_a_rows * 0.15 + three_in_a_rows * 0.5
+        return two_in_a_rows * 0.3 + three_in_a_rows * 1
 
     def get_row_played(self, board, col):
         rows = board.shape[0]
