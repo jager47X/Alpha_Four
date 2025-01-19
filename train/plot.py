@@ -94,7 +94,7 @@ def calculate_iq(w, r, s):
         return 0  # Handle any mathematical errors gracefully
 
 # Function to plot the data
-def plot_data(winners, rewards, turns, min_reward, max_reward, total_episodes=100000, interval=1000):
+def plot_data(winners, rewards, turns, min_reward, max_reward, total_episodes=100000, interval=100):
     if not rewards or not winners or not turns:
         print("No data to plot.")
         return

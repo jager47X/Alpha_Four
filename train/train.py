@@ -263,12 +263,12 @@ def main():
         logger.critical(f"Failed to load model checkpoint: {e}")
         return
 
-    # Adjust episodes
-    current_episode = start_ep
-    TOTAL_EPISODES -= current_episode
+    # Adjust episodes 
     EPSILON =max(EPSILON_MIN, EPSILON * (EPSILON_DECAY ** start_ep))
-    logger.info(f"TOTAL_EPISODES adjusted to {TOTAL_EPISODES} after subtracting {current_episode}.")
+    logger.info(f"Continue from {start_ep}/ {TOTAL_EPISODES}.")
+    print(f"Continue from {start_ep}/ {TOTAL_EPISODES}.")
     logger.info(f"Current Epsilon adjusted to {EPSILON}.")
+    print((f"Current Epsilon adjusted to {EPSILON}."))
     # Agent logic
     agent = AgentLogic(policy_net, device=DEVICE, q_threshold=0.5)
     evaluator = AgentLogic(policy_net, device=DEVICE, q_threshold=0.5)
