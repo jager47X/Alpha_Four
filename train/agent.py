@@ -118,6 +118,7 @@ class AgentLogic:
 # ------------------ Reward Systems ------------------ #
 class RewardSystem:
     def calculate_reward(self, env, last_action, current_player):
+        turn=env.turn-1# Since the turn is already ended 
         board = env.get_board()
         opponent = 3 - current_player
 
@@ -138,9 +139,9 @@ class RewardSystem:
         active_reward = self.get_active_reward(board, last_action, current_player, env)
         passive_penalty = self.get_passive_penalty(board, opponent)
         fastest_win_possible=8
-        adjustment_factor = fastest_win_possible/ (env.turn)# Adjust total based on turn lower is closer to 1 
+        adjustment_factor = fastest_win_possible/ (turn)# Adjust total based on turn lower is closer to 1 
         raw_total = (result_reward*adjustment_factor) + (active_reward) - (passive_penalty)
-        total_reward = math.exp(raw_total / env.turn)
+        total_reward = math.exp(raw_total / turn)
         #print(total_reward)
         return (total_reward, win_status)
 

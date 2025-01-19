@@ -319,7 +319,7 @@ def main():
                     # MCTS phase => immediate win/block, then MCTS
                     elif opponent_type == "MCTS":
                         base_sims = 10  # Minimum number of simulations for small episodes
-                        scaling_factor = 0.04  # Adjust the growth rate
+                        scaling_factor =    0.04  # Adjust the growth rate
                         sims = int(base_sims + scaling_factor * ep)  # 0.04 *50000=2000 peak performance
                         sims = min(2000, sims)
                         mcts_action = MCTS(num_simulations=sims, debug=True)
@@ -365,7 +365,7 @@ def main():
                         losses += 1
                     elif winner == -1:
                         draws += 1
-                    turn=env.turn
+                    turn=env.turn-1
                     break
 
             else:  # Player2's turn (always model)
@@ -397,7 +397,7 @@ def main():
 
             # Q-learning step
             train_step(policy_net, target_net, optimizer, replay_buffer,logger)
-
+            turn=env.turn-1
             # Update statistics
             if winner == 2:
                 wins += 1
@@ -405,7 +405,7 @@ def main():
                 losses += 1
             elif winner == -1:
                 draws += 1
-            turn=env.turn
+            
         # Periodically update target net and decay epsilon
         EPSILON = periodic_updates(
             ep,
