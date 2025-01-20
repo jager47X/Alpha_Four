@@ -88,18 +88,8 @@ def calculate_iq(w, r, s):
     - iq (float): Calculated IQ metric
     """
     try:
-         # Determine the multiplier based on the range of s
-        if 1 <= s <= 20000:
-            multiplier = 1 / 3
-        elif 20001 <= s <= 50000:
-            multiplier = 1 / 2
-        elif 50001 <= s <= 100000:
-            multiplier = 1
-        else:
-            raise ValueError("s must be between 1 and 100000.")
-        
         # Compute the result
-        result = math.exp(w) * math.sqrt(r) * math.log(s) * (s * math.exp(1)) * multiplier / 100000
+        result = math.exp(w) * math.sqrt(r) * math.log(s) * (s) / 100000
         return result
     except (ValueError, OverflowError, ZeroDivisionError) as e:
         print(f"Error calculating IQ: {e}")

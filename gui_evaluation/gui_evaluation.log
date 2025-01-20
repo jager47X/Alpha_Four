@@ -1,72 +1,11 @@
-2025-01-19 14:33:49,822 - WARNING - Model file Connect4_Agent_Model1.pth not found; using uninitialized weights.
-2025-01-19 14:33:49,931 - INFO - New Connect4 game started: Human (Red) vs AI (Yellow)
-2025-01-19 14:33:51,400 - INFO - Human -> Column 4
-2025-01-19 14:33:51,525 - INFO - AI -> Column 4
-2025-01-19 14:33:53,166 - INFO - Human -> Column 3
-2025-01-19 14:33:53,197 - INFO - AI -> Column 4
-2025-01-19 14:33:54,463 - INFO - Human -> Column 5
-2025-01-19 14:33:54,478 - INFO - AI -> Column 4
-2025-01-19 14:33:55,775 - INFO - Human -> Column 4
-2025-01-19 14:33:55,791 - INFO - AI -> Column 4
-2025-01-19 14:33:57,119 - INFO - Human -> Column 5
-2025-01-19 14:33:57,134 - INFO - AI -> Column 2
-2025-01-19 14:33:59,182 - INFO - Human -> Column 6
-2025-01-19 14:34:01,132 - INFO - GAME OVER => Winner: Human (Red)
-2025-01-19 14:34:01,132 - INFO - Resetting game...
-2025-01-19 14:34:02,335 - INFO - Human -> Column 4
-2025-01-19 14:34:02,351 - INFO - AI -> Column 4
-2025-01-19 14:34:03,538 - INFO - Human -> Column 3
-2025-01-19 14:34:03,554 - INFO - AI -> Column 4
-2025-01-19 14:34:04,616 - INFO - Human -> Column 5
-2025-01-19 14:34:04,631 - INFO - AI -> Column 4
-2025-01-19 14:34:05,553 - INFO - Human -> Column 4
-2025-01-19 14:34:05,569 - INFO - AI -> Column 4
-2025-01-19 14:34:07,193 - INFO - Human -> Column 3
-2025-01-19 14:34:07,225 - INFO - AI -> Column 2
-2025-01-19 14:34:08,584 - INFO - Human -> Column 2
-2025-01-19 14:34:08,584 - INFO - AI -> Column 2
-2025-01-19 14:34:09,677 - INFO - Human -> Column 3
-2025-01-19 14:34:09,693 - INFO - AI -> Column 2
-2025-01-19 14:34:10,708 - INFO - Human -> Column 2
-2025-01-19 14:34:10,724 - INFO - AI -> Column 2
-2025-01-19 14:34:12,880 - INFO - Human -> Column 1
-2025-01-19 14:34:12,895 - INFO - AI -> Column 7
-2025-01-19 14:34:14,802 - INFO - Human -> Column 7
-2025-01-19 14:34:14,849 - INFO - AI -> Column 7
-2025-01-19 14:34:15,958 - INFO - Human -> Column 7
-2025-01-19 14:34:15,973 - INFO - AI -> Column 7
-2025-01-19 14:34:16,629 - INFO - Human -> Column 7
-2025-01-19 14:34:16,645 - INFO - AI -> Column 6
-2025-01-19 14:34:19,582 - INFO - Human -> Column 5
-2025-01-19 14:34:19,597 - INFO - AI -> Column 6
-2025-01-19 14:34:21,129 - INFO - Human -> Column 5
-2025-01-19 14:34:21,176 - INFO - AI -> Column 6
-2025-01-19 14:34:22,082 - INFO - Human -> Column 6
-2025-01-19 14:34:22,113 - INFO - AI -> Column 6
-2025-01-19 14:34:23,347 - INFO - Human -> Column 6
-2025-01-19 14:34:23,363 - INFO - AI -> Column 1
-2025-01-19 14:34:29,752 - INFO - Human -> Column 1
-2025-01-19 14:34:29,752 - INFO - AI -> Column 1
-2025-01-19 14:34:31,267 - INFO - Human -> Column 1
-2025-01-19 14:34:31,283 - INFO - AI -> Column 1
-2025-01-19 14:34:33,064 - INFO - Human -> Column 5
-2025-01-19 14:34:35,218 - INFO - GAME OVER => Winner: Human (Red)
-2025-01-19 14:34:35,218 - INFO - Resetting game...
-2025-01-19 14:34:36,952 - INFO - Human -> Column 4
-2025-01-19 14:34:36,968 - INFO - AI -> Column 4
-2025-01-19 14:34:37,921 - INFO - Human -> Column 3
-2025-01-19 14:34:37,936 - INFO - AI -> Column 4
-2025-01-19 14:34:38,764 - INFO - Human -> Column 6
-2025-01-19 14:34:38,780 - INFO - AI -> Column 4
-2025-01-19 14:34:39,546 - INFO - Human -> Column 5
-2025-01-19 14:34:41,651 - INFO - GAME OVER => Winner: Human (Red)
-2025-01-19 14:34:41,651 - INFO - Resetting game...
-2025-01-19 14:34:43,230 - INFO - Human -> Column 4
-2025-01-19 14:34:43,261 - INFO - AI -> Column 4
-2025-01-19 14:34:44,214 - INFO - Human -> Column 3
-2025-01-19 14:34:44,230 - INFO - AI -> Column 4
-2025-01-19 14:34:45,089 - INFO - Human -> Column 5
-2025-01-19 14:34:45,105 - INFO - AI -> Column 4
-2025-01-19 14:34:45,870 - INFO - Human -> Column 6
-2025-01-19 14:34:47,729 - INFO - GAME OVER => Winner: Human (Red)
-2025-01-19 14:34:47,729 - INFO - Resetting game...
+2025-01-21 00:33:51,948 - WARNING - Model file Connect4_Agent_Model1.pth not found; using uninitialized weights.
+2025-01-21 00:33:52,206 - INFO - New Connect4 game started: Human (Red) vs AI (Yellow)
+2025-01-21 00:33:54,270 - INFO - Human -> Column 4
+2025-01-21 00:33:54,383 - INFO - AI -> Column 3
+2025-01-21 00:33:55,798 - INFO - Human -> Column 6
+2025-01-21 00:33:55,809 - INFO - AI -> Column 3
+2025-01-21 00:33:56,790 - INFO - Human -> Column 5
+2025-01-21 00:33:56,801 - INFO - AI -> Column 3
+2025-01-21 00:33:57,486 - INFO - Human -> Column 7
+2025-01-21 00:33:58,525 - INFO - GAME OVER => Winner: Human (Red)
+2025-01-21 00:33:58,525 - INFO - Resetting game...

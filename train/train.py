@@ -216,7 +216,7 @@ def periodic_updates(
 
 def main():
     
-    global EPSILON, TOTAL_EPISODES
+    global EPSILON, TOTAL_EPISODES,DEBUGMODE
 
     
 
