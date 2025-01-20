@@ -5,6 +5,9 @@ import math  # Import math module for IQ calculation
 
 # Path to the log file
 log_file_path = input("FILE PATH>> ")
+total_episodes = int(input("total_episodes>> "))
+interval = int(input("interval>> "))
+annotate_on = input("annotate_on (true/false)>> ").lower() == "true"
 
 # Function to parse the log file
 def parse_log_file(log_file_path):
@@ -96,7 +99,7 @@ def calculate_iq(w, r, s):
         return 0  # Handle any mathematical errors gracefully
 
 # Function to plot the data
-def plot_data(winners, rewards, turns, min_reward, max_reward, total_episodes=100000, interval=1000):
+def plot_data(winners, rewards, turns, min_reward, max_reward, total_episodes=100000, interval=1000,annotate_on=False):
     if not rewards or not winners or not turns:
         print("No data to plot.")
         return
@@ -247,53 +250,54 @@ def plot_data(winners, rewards, turns, min_reward, max_reward, total_episodes=10
     if iq_values:
         plt.plot(iq_x, iq_values, label="Agent IQ Metric", color="yellow", linewidth=2)
 
-    # Annotate rate changes for Player 1 win rate
-    for idx, (x, change) in enumerate(zip(annotation_x, [None] + rate_change_player1)):
-        if change is not None and x != 0:
-            plus_sign = "+" if change > 0 else ""
-            y_offset = win_rate_player1[x - 1] + 2  # Offset for annotation
-            plt.text(
-                x, y_offset, f"{plus_sign}{change:.2f}%", color="cyan", fontsize=8, ha="center"
-            )
+    if annotate_on:
+            # Annotate rate changes for Player 1 win rate
+        for idx, (x, change) in enumerate(zip(annotation_x, [None] + rate_change_player1)):
+            if change is not None and x != 0:
+                plus_sign = "+" if change > 0 else ""
+                y_offset = win_rate_player1[x - 1] + 2  # Offset for annotation
+                plt.text(
+                    x, y_offset, f"{plus_sign}{change:.2f}%", color="cyan", fontsize=8, ha="center"
+                )
 
-    # Annotate rate changes for Player 2 win rate
-    for idx, (x, change) in enumerate(zip(annotation_x, [None] + rate_change_player2)):
-        if change is not None and x != 0:
-            plus_sign = "+" if change > 0 else ""
-            y_offset = win_rate_player2[x - 1] - 2  # Offset for annotation
-            plt.text(
-                x, y_offset, f"{plus_sign}{change:.2f}%", color="orange", fontsize=8, ha="center"
-            )
+        # Annotate rate changes for Player 2 win rate
+        for idx, (x, change) in enumerate(zip(annotation_x, [None] + rate_change_player2)):
+            if change is not None and x != 0:
+                plus_sign = "+" if change > 0 else ""
+                y_offset = win_rate_player2[x - 1] - 2  # Offset for annotation
+                plt.text(
+                    x, y_offset, f"{plus_sign}{change:.2f}%", color="orange", fontsize=8, ha="center"
+                )
 
-    # Annotate rate changes for Average Rewards
-    for i, (x, change) in enumerate(zip(avg_rewards_x, roc_avg_rewards)):
-        if change is not None and x != 0:
-            plus_sign = "+" if change > 0 else ""
-            # Prevent division by zero in y_offset calculation
-            y_offset = avg_rewards[i] + (0.05 * avg_rewards[i]) if avg_rewards[i] != 0 else avg_rewards[i] + 1
-            plt.text(
-                x, y_offset, f"{plus_sign}{change:.2f}", color="lime", fontsize=8, ha="center"
-            )
+        # Annotate rate changes for Average Rewards
+        for i, (x, change) in enumerate(zip(avg_rewards_x, roc_avg_rewards)):
+            if change is not None and x != 0:
+                plus_sign = "+" if change > 0 else ""
+                # Prevent division by zero in y_offset calculation
+                y_offset = avg_rewards[i] + (0.05 * avg_rewards[i]) if avg_rewards[i] != 0 else avg_rewards[i] + 1
+                plt.text(
+                    x, y_offset, f"{plus_sign}{change:.2f}", color="lime", fontsize=8, ha="center"
+                )
 
-    # Annotate rate changes for Average Turns
-    for i, (x, change) in enumerate(zip(avg_turns_x, roc_avg_turns)):
-        if change is not None and x != 0 and avg_turns[i] != 0:
-            plus_sign = "+" if change > 0 else ""
-            # Prevent division by zero in y_offset calculation
-            y_offset = avg_turns[i] + (0.05 * avg_turns[i]) if avg_turns[i] != 0 else avg_turns[i] + 1
-            plt.text(
-                x, y_offset, f"{plus_sign}{change:.2f}", color="magenta", fontsize=8, ha="center"
-            )
+        # Annotate rate changes for Average Turns
+        for i, (x, change) in enumerate(zip(avg_turns_x, roc_avg_turns)):
+            if change is not None and x != 0 and avg_turns[i] != 0:
+                plus_sign = "+" if change > 0 else ""
+                # Prevent division by zero in y_offset calculation
+                y_offset = avg_turns[i] + (0.05 * avg_turns[i]) if avg_turns[i] != 0 else avg_turns[i] + 1
+                plt.text(
+                    x, y_offset, f"{plus_sign}{change:.2f}", color="magenta", fontsize=8, ha="center"
+                )
 
-    # Annotate rate changes for IQ Metric
-    for i, (x, change) in enumerate(zip(iq_x, roc_iq_values)):
-        if change is not None and x != 0:
-            plus_sign = "+" if change > 0 else ""
-            # Prevent division by zero in y_offset calculation
-            y_offset = iq_values[i] + (0.05 * iq_values[i]) if iq_values[i] != 0 else iq_values[i] + 1
-            plt.text(
-                x, y_offset, f"{plus_sign}{change:.2f}", color="yellow", fontsize=8, ha="center"
-            )
+        # Annotate rate changes for IQ Metric
+        for i, (x, change) in enumerate(zip(iq_x, roc_iq_values)):
+            if change is not None and x != 0:
+                plus_sign = "+" if change > 0 else ""
+                # Prevent division by zero in y_offset calculation
+                y_offset = iq_values[i] + (0.05 * iq_values[i]) if iq_values[i] != 0 else iq_values[i] + 1
+                plt.text(
+                    x, y_offset, f"{plus_sign}{change:.2f}", color="yellow", fontsize=8, ha="center"
+                )
 
     # Display winner statistics and progress percentage in the title
     plt.title(
@@ -313,4 +317,4 @@ def plot_data(winners, rewards, turns, min_reward, max_reward, total_episodes=10
 
 # Parse the log file and plot the data
 winners, rewards, turns, min_reward, max_reward = parse_log_file(log_file_path)
-plot_data(winners, rewards, turns, min_reward, max_reward)
+plot_data(winners, rewards, turns, min_reward, max_reward,total_episodes, interval,annotate_on)
