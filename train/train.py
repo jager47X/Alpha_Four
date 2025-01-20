@@ -346,7 +346,7 @@ def main():
                 reward, status = agent.compute_reward(env, action, 1)
                 # total_reward += reward since we focus on Agent 2 we ignore here
 
-                if (status != 0) or env.is_draw():
+                if (status != 0) or env.is_draw() or env.check_winner!=0:
                     done = True
                     # Update environment to Q tables
                     next_state = env.get_board().copy()
@@ -370,22 +370,25 @@ def main():
 
             else:  # Player2's turn (always model)
                 # Set model to eval mode for single inference
-                policy_net.eval()
-                action = agent.pick_action(env, env.current_player, EPSILON, episode=ep, debug=DEBUGMODE)
-                policy_net.train()
-
-                env.make_move(action)
-                reward, status = agent.compute_reward(env, action, 2)
-
-                if ep > SELF_LEARN_START:  # Check if it is self learn phase
-                    if ep % TARGET_EVALUATE == 0:  # If so check if that is TARGET_EVALUATE
-                        total_reward += reward
-                else:
-                    total_reward += reward  # if not self learn phase then add reward
-
-                if (status != 0) or env.is_draw():
+                if (status != 0) or env.is_draw() or env.check_winner!=0:
                     done = True
-                    winner = status if status != 0 else -1  # Adjust based on your environment's convention
+                else:
+                    policy_net.eval()
+                    action = agent.pick_action(env, env.current_player, EPSILON, episode=ep, debug=DEBUGMODE)
+                    policy_net.train()
+
+                    env.make_move(action)
+                    reward, status = agent.compute_reward(env, action, 2)
+
+                    if ep > SELF_LEARN_START:  # Check if it is self learn phase
+                        if ep % TARGET_EVALUATE == 0:  # If so check if that is TARGET_EVALUATE
+                            total_reward += reward
+                    else:
+                        total_reward += reward  # if not self learn phase then add reward
+
+                    if (status != 0) or env.is_draw():
+                        done = True
+                        winner = status if status != 0 else -1  # Adjust based on your environment's convention
 
             
             # Update environment to Q tables
