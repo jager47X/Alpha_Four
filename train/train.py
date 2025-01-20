@@ -17,7 +17,7 @@ from mcts import MCTS
 # ----------------- Hyperparams ----------------- #
 BATCH_SIZE = 32
 GAMMA = 0.99
-LR = 0.001
+LR = 0.0001
 REPLAY_CAPACITY = 10000
 EPSILON = 1.0
 EPSILON_DECAY = 0.9999
@@ -26,7 +26,7 @@ REPLAY_BUFFER_SIZE = 10000
 TARGET_EVALUATE = 100  
 TARGET_UPDATE = 100
 TOTAL_EPISODES = 100000
-RAND_EPISODE_BY = 20000   # use random opp until 20k
+RAND_EPISODE_BY = 10000   # use random opp until 20k
 MCTS_EPISODE_BY = 50000   # use MCTS opp until 50k
 SELF_LEARN_START = 50001
 DEBUGMODE = True
@@ -308,7 +308,7 @@ def main():
                     logger.info(f"Copied policy_net into evaluator_net for evaluation from ep:{ep}.") 
                     evaluate_loaded = True
 
-                def get_opponent_action(env,debug=False):
+                def get_opponent_action(env,debug=True):
                     # Random phase => random only
                     if opponent_type == "Random":
                         action=random.choice(env.get_valid_actions())
