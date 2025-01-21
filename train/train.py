@@ -287,6 +287,7 @@ def main():
         total_reward = 0.0
         winner = None  # Initialize winner for each episode
         turn=1
+        logging.debug(env.board)
         while not done:
             
             # Player1's turn
@@ -307,6 +308,7 @@ def main():
                     evaluator = AgentLogic(policy_net, device=DEVICE, q_threshold=0.5)
                     logger.info(f"Copied policy_net into evaluator_net for evaluation from ep:{ep}.") 
                     evaluate_loaded = True
+                    
 
                 def get_opponent_action(env,debug=True):
                     # Random phase => random only
@@ -346,7 +348,7 @@ def main():
                 reward, status = agent.compute_reward(env, action, 1)
                 # total_reward += reward since we focus on Agent 2 we ignore here
 
-                if (status != 0) or env.is_draw() or env.check_winner!=0:
+                if (status != 0) or env.is_draw():
                     done = True
                     # Update environment to Q tables
                     next_state = env.get_board().copy()
@@ -359,20 +361,25 @@ def main():
                     train_step(policy_net, target_net, optimizer, replay_buffer,logger)
                     winner = status if status != 0 else -1  # Adjust based on your environment's convention
                     # Update statistics
+                    turn=env.turn-1
                     if winner == 2:
                         wins += 1
                     elif winner == 1:
+                        reward, status = agent.compute_reward(env, -1, 2) # when agent lose, put reward
+                        next_state = env.get_board().copy()
+                        # Push to buffer
+                        replay_buffer.push(state, action, reward, next_state, done)
+                        state = next_state
+                        # Q-learning step
+                        train_step(policy_net, target_net, optimizer, replay_buffer,logger)
+                        total_reward += reward  # if not self learn phase then add reward
                         losses += 1
                     elif winner == -1:
                         draws += 1
-                    turn=env.turn-1
-                    break
+
 
             else:  # Player2's turn (always model)
                 # Set model to eval mode for single inference
-                if (status != 0) or env.is_draw() or env.check_winner!=0:
-                    done = True
-                else:
                     policy_net.eval()
                     action = agent.pick_action(env, env.current_player, EPSILON, episode=ep, debug=DEBUGMODE)
                     policy_net.train()
@@ -388,9 +395,10 @@ def main():
 
                     if (status != 0) or env.is_draw():
                         done = True
-                        winner = status if status != 0 else -1  # Adjust based on your environment's convention
+                        winner = status if status != 0 else -1
 
-            
+        
+            logging.debug(env.board)
             # Update environment to Q tables
             next_state = env.get_board().copy()
 
