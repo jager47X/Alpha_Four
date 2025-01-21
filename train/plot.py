@@ -92,7 +92,10 @@ def calculate_iq(w, r, s):
     """
     try:
         # Compute the result
-        result = math.exp(w) * math.sqrt(r) * math.log(s) * (s) / 100000
+        if r <= 0:  # Ensure r is >0
+            print(f"Average Reward is negative:{r} setting into 0.0001 instead")
+            r=0.0001
+        result = math.exp(w) * math.sqrt(r) * math.log(s)
         return result
     except (ValueError, OverflowError, ZeroDivisionError) as e:
         print(f"Error calculating IQ: {e}")
@@ -184,8 +187,7 @@ def plot_data(winners, rewards, turns, min_reward, max_reward, total_episodes=10
         interval_winners = winners[start:end]
 
         # Calculate average reward (r)
-        r = np.mean(interval_rewards) if interval_rewards else 1  # Default to 1 if empty
-        r = min(max(r, 1), 42)  # Clamp r to [1, 42]
+        r = np.mean(interval_rewards) if interval_rewards else 0  # Default to 0 if empty
 
         # Calculate average turns (t)
         valid_interval_turns = [turn for turn in interval_turns if turn > 0]
@@ -296,7 +298,7 @@ def plot_data(winners, rewards, turns, min_reward, max_reward, total_episodes=10
                 # Prevent division by zero in y_offset calculation
                 y_offset = iq_values[i] + (0.05 * iq_values[i]) if iq_values[i] != 0 else iq_values[i] + 1
                 plt.text(
-                    x, y_offset, f"{plus_sign}{change:.2f}", color="yellow", fontsize=8, ha="center"
+                    x, y_offset, f"{plus_sign}{change:.3f}", color="yellow", fontsize=8, ha="center"
                 )
 
     # Display winner statistics and progress percentage in the title

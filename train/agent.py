@@ -124,13 +124,13 @@ class RewardSystem:
 
         winner = env.check_winner()
         if winner == current_player:
-            result_reward = 25.0
+            result_reward = 50.0
             win_status = current_player
         elif winner == opponent:
-            result_reward = -25.0
+            result_reward = -50.0
             win_status = current_player
         elif env.is_draw():
-            result_reward = 12.5
+            result_reward = 25
             win_status = -1
         else:
             result_reward = 0.0
@@ -141,7 +141,7 @@ class RewardSystem:
         fastest_win_possible=8
         adjustment_factor = fastest_win_possible/ (turn)# Adjust total based on turn lower is closer to 1 
         raw_total = (result_reward*adjustment_factor) + (active_reward) - (passive_penalty)
-        total_reward = math.exp(raw_total / turn)
+        total_reward = raw_total
         #print(total_reward)
         return (total_reward, win_status)
 

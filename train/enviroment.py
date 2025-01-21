@@ -74,3 +74,5 @@ class Connect4:
         env_copy.current_player = self.current_player
         return env_copy
 
+    def nextMove(self):
+        self.turn=1+self.turn

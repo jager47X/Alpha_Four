@@ -365,7 +365,9 @@ def main():
                     if winner == 2:
                         wins += 1
                     elif winner == 1:
+                        env.nextMove()# for player 2 without move
                         reward, status = agent.compute_reward(env, -1, 2) # when agent lose, put reward
+                        #print(f"reward lost {reward}")
                         next_state = env.get_board().copy()
                         # Push to buffer
                         replay_buffer.push(state, action, reward, next_state, done)
@@ -373,9 +375,11 @@ def main():
                         # Q-learning step
                         train_step(policy_net, target_net, optimizer, replay_buffer,logger)
                         total_reward += reward  # if not self learn phase then add reward
+                        turn=env.turn-2
                         losses += 1
                     elif winner == -1:
                         draws += 1
+                    break
 
 
             else:  # Player2's turn (always model)
