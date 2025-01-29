@@ -15,20 +15,20 @@ from utils import setup_logger, safe_make_dir, get_next_index
 from mcts import MCTS
 
 # ----------------- Hyperparams ----------------- #
-BATCH_SIZE = 32
-GAMMA = 0.99
-LR = 0.0001
-REPLAY_CAPACITY = 10000
+BATCH_SIZE = 128
+GAMMA = 0.95
+LR = 0.001
+REPLAY_CAPACITY = 100000
 EPSILON = 1.0
 EPSILON_DECAY = 0.9999
-EPSILON_MIN = 0.001
+EPSILON_MIN = 0.05
 REPLAY_BUFFER_SIZE = 10000
-TARGET_EVALUATE = 100  
-TARGET_UPDATE = 100
-TOTAL_EPISODES = 100000
-RAND_EPISODE_BY = 10000   # use random opp until 20k
-MCTS_EPISODE_BY = 50000   # use MCTS opp until 50k
-SELF_LEARN_START = 50001
+TARGET_EVALUATE = 1000 
+TARGET_UPDATE = 500
+TOTAL_EPISODES = 2000000 # use selk opp 1M
+RAND_EPISODE_BY = 100000   # use random opp 100k
+MCTS_EPISODE_BY = 1000000   # use MCTS opp 900k
+SELF_LEARN_START = 1000001
 DEBUGMODE = True
 EVAL_FREQUENCY = 1000
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -41,7 +41,7 @@ EVAL_MODEL_PATH = 'Connect4_Agent_EVAL.pth'
 # ------------- Train function ------------- #
 def train_step(policy_net, target_net, optimizer, replay_buffer,logger):
     if len(replay_buffer) < BATCH_SIZE:
-        print("Replay buffer does not have enough samples.")
+        #print("Replay buffer does not have enough samples.")
         return
 
     # Sample batch
@@ -76,7 +76,7 @@ def train_step(policy_net, target_net, optimizer, replay_buffer,logger):
 
     # Compute loss
     loss = nn.MSELoss()(q_values, targets)
-
+    logger.info(f"LOSS:{loss}")
     # Backpropagation
     optimizer.zero_grad()
     loss.backward()
@@ -270,8 +270,9 @@ def main():
     logger.info(f"Current Epsilon adjusted to {EPSILON}.")
     print((f"Current Epsilon adjusted to {EPSILON}."))
     # Agent logic
-    agent = AgentLogic(policy_net, device=DEVICE, q_threshold=0.5)
-    evaluator = AgentLogic(policy_net, device=DEVICE, q_threshold=0.5)
+    agent = AgentLogic(policy_net, device=DEVICE, q_threshold=0.8)
+    evaluator = AgentLogic(policy_net, device=DEVICE, q_threshold=0.8)
+    
 
     # Stats
     evaluate_loaded = False
@@ -320,9 +321,10 @@ def main():
 
                     # MCTS phase => immediate win/block, then MCTS
                     elif opponent_type == "MCTS":
-                        base_sims = 10  # Minimum number of simulations for small episodes
-                        scaling_factor =    0.04  # Adjust the growth rate
-                        sims = int(base_sims + scaling_factor * ep)  # 0.04 *50000=2000 peak performance
+                        base_sims = 20  # Minimum number of simulations for small episodes
+                        scaling_factor =    0.0022  # Adjust the growth rate
+                        mcts_level= ep-RAND_EPISODE_BY
+                        sims = int(base_sims + scaling_factor * mcts_level)  # 0.0004 *1000000=2000 peak performance
                         sims = min(2000, sims)
                         mcts_action = MCTS(num_simulations=sims, debug=True)
                         action=mcts_action.select_action(env, env.current_player)
@@ -361,11 +363,11 @@ def main():
                     train_step(policy_net, target_net, optimizer, replay_buffer,logger)
                     winner = status if status != 0 else -1  # Adjust based on your environment's convention
                     # Update statistics
-                    turn=env.turn-1
+                    
                     if winner == 2:
                         wins += 1
+                        turn=env.turn-1
                     elif winner == 1:
-                        env.nextMove()# for player 2 without move
                         reward, status = agent.compute_reward(env, -1, 2) # when agent lose, put reward
                         #print(f"reward lost {reward}")
                         next_state = env.get_board().copy()
@@ -375,9 +377,10 @@ def main():
                         # Q-learning step
                         train_step(policy_net, target_net, optimizer, replay_buffer,logger)
                         total_reward += reward  # if not self learn phase then add reward
-                        turn=env.turn-2
+                        turn=env.turn-1
                         losses += 1
                     elif winner == -1:
+                        turn=env.turn-1
                         draws += 1
                     break
 

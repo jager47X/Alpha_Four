@@ -7,6 +7,7 @@ from mcts import MCTS
 from copy import deepcopy
 import logging
 import math
+import numpy as np
 class AgentLogic:
     def __init__(self, policy_net, device, q_threshold=0.5):
         self.policy_net = policy_net
@@ -18,9 +19,7 @@ class AgentLogic:
         """
         This function tries:
           1) with probability epsilon -> random
-          2) check q value
-          3) if q value not defined well run MCTS
-          4) otherwise return q network
+          2) q network
         """
         valid_actions = env.get_valid_actions()
         if not valid_actions:
@@ -44,59 +43,17 @@ class AgentLogic:
         self.policy_net.train()
 
         valid_actions = env.get_valid_actions()
-        # Convert to softmax
-        soft_q = self.softmax_q(q_values).numpy()
 
         # Among valid actions, pick highest
-        best_act = max(valid_actions, key=lambda a: soft_q[a])
-        best_q_val = soft_q[best_act]
-        if debug:
-            logging.debug(f"Q-vals = {soft_q}, best_act={best_act}, best_val={best_q_val:.3f}")
-        # If below threshold => fallback to MCTS
-        if best_q_val < self.q_threshold:
-            if debug:
-                logging.debug(f"Low Q-value ({best_q_val:.3f}), using MCTS.")
-            base_sims = 10  # Minimum number of simulations for small episodes
-            scaling_factor = 0.04  # Adjust the growth rate
-            sims = int(base_sims + scaling_factor * episode) # 0.04 *50000=2000 peak performance
-            sims =min(2000,sims)
-            mcts_action=MCTS(num_simulations=sims, debug=True)
-            action=mcts_action.select_action(env,player)
-            if debug:
-                logging.debug(f"MCTS Action SELECT={action}")
-            return action
+        # Mask invalid actions by setting their Q-values to -inf
+        masked_q = q_values.copy()
+        masked_q[list(set(range(len(q_values))) - set(valid_actions))] = -np.inf
 
-        # Otherwise, pick best Q
+        best_act = np.argmax(masked_q)
+        best_q_val = q_values[best_act]
         if debug:
-            logging.debug(f"best Q SELECT={best_act}")
+            logging.debug(f"Q-vals = {masked_q}, best_act={best_act}, best_val={best_q_val:.3f}")
         return best_act
-    def softmax_q(self,q_values):
-        """Convert raw Q-values to a softmax distribution for 'confidence'."""
-        if not isinstance(q_values, torch.Tensor):
-            q_values = torch.tensor(q_values, dtype=torch.float32)
-        return F.softmax(q_values, dim=0)
-
-    def pick_action_dqn(self, env):
-        """
-        Pure DQN pick action (greedy w.r.t. Q-values) for *a single state*.
-        """
-        # Set model to eval mode for inference on a single state
-        self.policy_net.eval()
-
-        state_tensor = torch.tensor(env.board, dtype=torch.float32, device=self.policy_net.device).unsqueeze(0)
-        with torch.no_grad():
-            q_values = self.policy_net(state_tensor).cpu().numpy().flatten()
-
-        # Restore original mode if needed
-        self.policy_net.train()
-
-        valid_actions = env.get_valid_actions()
-        normalized_q_values = self.softmax_q(q_values)
-
-        # Pick best among valid actions
-        valid_q = {a: normalized_q_values[a].item() for a in valid_actions}
-        best_a = max(valid_q, key=lambda a: valid_q[a])
-        return best_a
 
     def compute_reward(self, env, last_action, current_player):
         """
@@ -130,7 +87,7 @@ class RewardSystem:
             result_reward = -50.0
             win_status = current_player
         elif env.is_draw():
-            result_reward = 25
+            result_reward = 25 # since It will be
             win_status = -1
         else:
             result_reward = 0.0
@@ -162,12 +119,12 @@ class RewardSystem:
         if self.blocks_opponent_n_in_a_row(board, row_played, last_action, current_player, 2):
             return 0.3
             # if just no connection
-        return 0.05
+        return 0.1
 
     def get_passive_penalty(self, board, opponent):
         two_in_a_rows = self.count_n_in_a_row(board, opponent, 2)
         three_in_a_rows = self.count_n_in_a_row(board, opponent, 3)
-        return two_in_a_rows * 0.3 + three_in_a_rows * 1
+        return two_in_a_rows * 0.05 + three_in_a_rows * 0.5
 
     def get_row_played(self, board, col):
         rows = board.shape[0]
