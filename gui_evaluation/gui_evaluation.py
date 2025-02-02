@@ -230,12 +230,10 @@ class DQNAgent:
         with torch.no_grad():
             q_values = self.model(state_tensor).cpu().numpy().flatten()
 
-        # Convert to softmax "confidence"
-        soft_q = self._softmax_q(q_values).numpy()
-        print(soft_q)
+        print(q_values)
         # Among valid actions, pick the highest
-        best_action = max(valid_actions, key=lambda a: soft_q[a])
-        best_val = soft_q[best_action]
+        best_action = max(valid_actions, key=lambda a: q_values[a])
+        best_val = q_values[best_action]
 
         # 3) If below threshold => random
         if best_val < self.q_threshold:
@@ -244,20 +242,22 @@ class DQNAgent:
         return best_action
 
     def train_on_transition(self, state, action, reward, next_state, done):
-        # Force BN layers to use eval mode
+        # Force BatchNorm layers to use running statistics
         was_training = self.model.training
-        self.model.train()  # put model in train mode for dropout, etc.
-        for m in self.model.modules():
-            if isinstance(m, (nn.BatchNorm2d, nn.BatchNorm1d)):
-                m.eval()
+        self.model.train()  # Put model in train mode
+        for module in self.model.modules():
+            if isinstance(module, (nn.BatchNorm2d, nn.BatchNorm1d)):
+                module.eval()
 
-        # Convert to tensors
+        # Convert states to tensors
         state_t = torch.tensor(state, dtype=torch.float32, device=self.device).unsqueeze(0)
         next_state_t = torch.tensor(next_state, dtype=torch.float32, device=self.device).unsqueeze(0)
 
+        # Compute Q-values for the current state and selected action
         q_vals = self.model(state_t)
-        q_val = q_vals[0, action]
+        q_val = q_vals[0, action]  # Extract Q-value for the taken action
 
+        # Compute the target Q-value
         with torch.no_grad():
             q_next = self.model(next_state_t)
             max_q_next = torch.max(q_next)
@@ -265,21 +265,21 @@ class DQNAgent:
         if done:
             target = torch.tensor([reward], dtype=torch.float32, device=self.device)
         else:
-            target = torch.tensor([reward], dtype=torch.float32, device=self.device) + self.gamma * max_q_next
+            target = torch.tensor([reward + self.gamma * max_q_next.item()], dtype=torch.float32, device=self.device)
 
+        # Ensure q_val has the same shape as target
+        q_val = q_val.unsqueeze(0)
         loss = self.loss_fn(q_val, target)
+
+        # Backpropagation
         self.optimizer.zero_grad()
         loss.backward()
         self.optimizer.step()
 
-        # Restore model's original train/eval state if needed
+        # Restore model's original training state
         if not was_training:
             self.model.eval()
 
-    def _softmax_q(self, q_values):
-        """Utility to convert array of Q-values into a softmax distribution."""
-        q_tensor = torch.tensor(q_values, dtype=torch.float32)
-        return F.softmax(q_tensor, dim=0)
 
 
 # ------------------ GUI (Human vs DQN) ------------------ #

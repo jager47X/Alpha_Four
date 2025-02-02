@@ -2,77 +2,102 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-class DQN(nn.Module):
-    def __init__(self, input_shape=(6, 7), num_actions=7, dropout_prob=0.3, device=None):
-        """
-        A deeper and wider DQN for Connect 4.
+class ResidualBlock(nn.Module):
+    """
+    A residual block that applies two 3×3 convolutions with batch normalization 
+    and LeakyReLU activations. If the number of input channels differs from the output,
+    a projection via a 1×1 convolution is applied to the identity.
+    """
+    def __init__(self, in_channels, out_channels):
+        super(ResidualBlock, self).__init__()
+        self.conv1 = nn.Conv2d(in_channels, out_channels, kernel_size=3, padding=1)
+        self.bn1 = nn.BatchNorm2d(out_channels)
+        self.conv2 = nn.Conv2d(out_channels, out_channels, kernel_size=3, padding=1)
+        self.bn2 = nn.BatchNorm2d(out_channels)
+        
+        # If the channel dimensions differ, project the identity to match.
+        if in_channels != out_channels:
+            self.projection = nn.Conv2d(in_channels, out_channels, kernel_size=1)
+        else:
+            self.projection = None
 
-        Args:
-            input_shape (tuple): Shape of the input (rows, columns).
-            num_actions (int): Number of possible actions (e.g., columns in Connect 4).
-            dropout_prob (float): Dropout probability for regularization.
-            device (torch.device): Device to use for computations (CPU or GPU).
-        """
+    def forward(self, x):
+        identity = x
+        out = F.leaky_relu(self.bn1(self.conv1(x)), negative_slope=0.01)
+        out = self.bn2(self.conv2(out))
+        if self.projection is not None:
+            identity = self.projection(identity)
+        out += identity
+        out = F.leaky_relu(out, negative_slope=0.01)
+        return out
+
+class DQN(nn.Module):
+    """
+    A Dueling DQN for Connect 4 that combines convolutional layers,
+    residual blocks, and separate advantage/value streams.
+    """
+    def __init__(self, input_shape=(6, 7), num_actions=7, dropout_prob=0.2, device=None):
         super(DQN, self).__init__()
         self.device = device or torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.input_shape = input_shape
         self.num_actions = num_actions
 
-        # 1) Convolutional Layers
-        self.conv1 = nn.Conv2d(in_channels=1, out_channels=32, kernel_size=3, stride=1, padding=1)  # (32, 6, 7)
+        # -- Convolutional Feature Extraction --
+        # Initial convolution layer: from 1 channel to 32 channels.
+        self.conv1 = nn.Conv2d(1, 32, kernel_size=3, stride=1, padding=1)
         self.bn1 = nn.BatchNorm2d(32)
-        self.conv2 = nn.Conv2d(in_channels=32, out_channels=64, kernel_size=3, stride=1, padding=1)  # (64, 6, 7)
-        self.bn2 = nn.BatchNorm2d(64)
-        self.conv3 = nn.Conv2d(in_channels=64, out_channels=128, kernel_size=3, stride=1, padding=1)  # (128, 6, 7)
-        self.bn3 = nn.BatchNorm2d(128)
-
-        # 2) Flattening Layer and Fully Connected Layers
-        # After conv3, output shape is (batch_size, 128, 6, 7) => Flatten to (batch_size, 128 * 6 * 7)
-        flattened_size = 128 * input_shape[0] * input_shape[1]  # 128 * 6 * 7
-        self.flatten = nn.Flatten()
-        self.fc1 = nn.Linear(flattened_size, 512)
-        self.bn4 = nn.BatchNorm1d(512)
-        self.fc2 = nn.Linear(512, 256)
-        self.bn5 = nn.BatchNorm1d(256)
-        self.fc3 = nn.Linear(256, 128)
-        self.bn6 = nn.BatchNorm1d(128)
-        self.fc4 = nn.Linear(128, num_actions)  # Output: Q-values for each action
-
-        # Dropouts for regularization
-        self.dropout1 = nn.Dropout(p=dropout_prob)
-        self.dropout2 = nn.Dropout(p=dropout_prob)
-        self.dropout3 = nn.Dropout(p=dropout_prob)
-
+        
+        # Residual blocks: first block increases channels from 32 to 64,
+        # second block processes the features at 64 channels.
+        self.resblock1 = ResidualBlock(32, 64)
+        self.resblock2 = ResidualBlock(64, 64)
+        
+        # -- Dueling Network Head --
+        # After the conv/residual layers, the feature map size is (64, 6, 7).
+        # Flattened size: 64 * 6 * 7.
+        flattened_size = 64 * input_shape[0] * input_shape[1]
+        
+        # Advantage Stream:
+        self.fc_adv1 = nn.Linear(flattened_size, 128)
+        self.bn_adv1 = nn.BatchNorm1d(128)
+        self.fc_adv2 = nn.Linear(128, num_actions)
+        
+        # Value Stream:
+        self.fc_val1 = nn.Linear(flattened_size, 128)
+        self.bn_val1 = nn.BatchNorm1d(128)
+        self.fc_val2 = nn.Linear(128, 1)
+        
+        # Dropout for regularization in the fully connected layers.
+        self.dropout = nn.Dropout(p=dropout_prob)
+        
     def forward(self, x):
-        """
-        Forward pass for the network.
+        # Ensure the input is in shape [batch, 1, rows, columns].
+        # Handle cases for single board (2D tensor) or a batch (3D tensor).
+        if len(x.shape) == 2:         # [rows, columns]
+            x = x.unsqueeze(0).unsqueeze(0)  # becomes [1, 1, rows, columns]
+        elif len(x.shape) == 3:       # [batch, rows, columns]
+            x = x.unsqueeze(1)       # becomes [batch, 1, rows, columns]
 
-        Args:
-            x (torch.Tensor): Input tensor of shape [batch_size, rows, columns].
-
-        Returns:
-            torch.Tensor: Q-values for each action of shape [batch_size, num_actions].
-        """
-        # Ensure input has the correct shape: [batch_size, 1, rows, columns]
-        if len(x.shape) == 5:  # Case: [batch_size, 1, 1, rows, columns]
-            x = x.squeeze(2)
-        if len(x.shape) == 3:  # Case: [batch_size, rows, columns]
-            x = x.unsqueeze(1)  # Add channel dimension to make [batch_size, 1, rows, columns]
-
-        # Pass through convolutional layers
-        x = F.relu(self.bn1(self.conv1(x)))  # (batch_size, 32, rows, columns)
-        x = F.relu(self.bn2(self.conv2(x)))  # (batch_size, 64, rows, columns)
-        x = F.relu(self.bn3(self.conv3(x)))  # (batch_size, 128, rows, columns)
-
-        # Flatten and fully connected layers
-        x = self.flatten(x)                  # (batch_size, 128 * rows * columns)
-        x = F.relu(self.bn4(self.fc1(x)))    # Fully connected layer 1
-        x = self.dropout1(x)
-        x = F.relu(self.bn5(self.fc2(x)))    # Fully connected layer 2
-        x = self.dropout2(x)
-        x = F.relu(self.bn6(self.fc3(x)))    # Fully connected layer 3
-        x = self.dropout3(x)
-
-        # Output layer
-        x = self.fc4(x)                      # Output: (batch_size, num_actions)
-        return x
+        # Pass through convolutional layer with LeakyReLU.
+        x = F.leaky_relu(self.bn1(self.conv1(x)), negative_slope=0.01)  # [batch, 32, rows, columns]
+        # Apply residual blocks.
+        x = self.resblock1(x)  # [batch, 64, rows, columns]
+        x = self.resblock2(x)  # [batch, 64, rows, columns]
+        
+        # Flatten the feature maps.
+        x = x.view(x.size(0), -1)  # [batch, flattened_size]
+        
+        # -- Advantage Branch --
+        adv = F.leaky_relu(self.bn_adv1(self.fc_adv1(x)), negative_slope=0.01)
+        adv = self.dropout(adv)
+        adv = self.fc_adv2(adv)
+        
+        # -- Value Branch --
+        val = F.leaky_relu(self.bn_val1(self.fc_val1(x)), negative_slope=0.01)
+        val = self.dropout(val)
+        val = self.fc_val2(val)
+        
+        # Combine streams to compute final Q-values:
+        # Q(s, a) = V(s) + (A(s, a) - mean(A(s, ·)))
+        q = val + (adv - adv.mean(dim=1, keepdim=True))
+        return q

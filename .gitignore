@@ -1,2 +1,2 @@
-/train/**/*.log
-/train/*.log
+/train/train.log
+/train/result/

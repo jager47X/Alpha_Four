@@ -1,195 +1,23 @@
-2025-01-28 14:19:07,380 - WARNING - Model file Connect4_Agent_Model1.pth not found; using uninitialized weights.
-2025-01-28 14:19:09,697 - INFO - New Connect4 game started: Human (Red) vs AI (Yellow)
-2025-01-28 14:19:10,959 - INFO - Human -> Column 4
-2025-01-28 14:19:11,109 - INFO - AI -> Column 4
-2025-01-28 14:19:18,289 - INFO - Human -> Column 4
-2025-01-28 14:19:18,296 - INFO - AI -> Column 7
-2025-01-28 14:19:22,936 - INFO - Human -> Column 2
-2025-01-28 14:19:22,961 - INFO - AI -> Column 5
-2025-01-28 14:19:25,207 - INFO - Human -> Column 3
-2025-01-28 14:19:25,240 - INFO - AI -> Column 3
-2025-01-28 14:19:26,810 - INFO - Human -> Column 1
-2025-01-28 14:19:28,335 - INFO - GAME OVER => Winner: Human (Red)
-2025-01-28 14:19:28,335 - INFO - Resetting game...
-2025-01-28 14:19:29,186 - INFO - Human -> Column 4
-2025-01-28 14:19:29,305 - INFO - AI -> Column 1
-2025-01-28 14:19:30,739 - INFO - Human -> Column 5
-2025-01-28 14:19:30,766 - INFO - AI -> Column 6
-2025-01-28 14:19:31,698 - INFO - Human -> Column 3
-2025-01-28 14:19:31,749 - INFO - AI -> Column 6
-2025-01-28 14:19:33,512 - INFO - Human -> Column 2
-2025-01-28 14:19:34,808 - INFO - GAME OVER => Winner: Human (Red)
-2025-01-28 14:19:34,808 - INFO - Resetting game...
-2025-01-28 14:19:35,747 - INFO - Human -> Column 4
-2025-01-28 14:19:35,773 - INFO - AI -> Column 6
-2025-01-28 14:19:36,930 - INFO - Human -> Column 3
-2025-01-28 14:19:37,007 - INFO - AI -> Column 1
-2025-01-28 14:19:37,828 - INFO - Human -> Column 2
-2025-01-28 14:19:37,851 - INFO - AI -> Column 5
-2025-01-28 14:19:39,237 - INFO - Human -> Column 3
-2025-01-28 14:19:39,306 - INFO - AI -> Column 3
-2025-01-28 14:19:40,333 - INFO - Human -> Column 4
-2025-01-28 14:19:40,390 - INFO - AI -> Column 7
-2025-01-28 14:19:41,861 - INFO - Human -> Column 5
-2025-01-28 14:19:41,887 - INFO - AI -> Column 1
-2025-01-28 14:19:43,068 - INFO - Human -> Column 2
-2025-01-28 14:19:44,151 - INFO - GAME OVER => Winner: Human (Red)
-2025-01-28 14:19:44,151 - INFO - Resetting game...
-2025-01-28 14:19:45,140 - INFO - Human -> Column 4
-2025-01-28 14:19:45,166 - INFO - AI -> Column 4
-2025-01-28 14:19:47,556 - INFO - Human -> Column 3
-2025-01-28 14:19:47,611 - INFO - AI -> Column 1
-2025-01-28 14:19:48,255 - INFO - Human -> Column 5
-2025-01-28 14:19:48,287 - INFO - AI -> Column 7
-2025-01-28 14:19:49,046 - INFO - Human -> Column 6
-2025-01-28 14:19:51,483 - INFO - GAME OVER => Winner: Human (Red)
-2025-01-28 14:19:51,483 - INFO - Resetting game...
-2025-01-28 14:19:52,676 - INFO - Human -> Column 4
-2025-01-28 14:19:52,704 - INFO - AI -> Column 2
-2025-01-28 14:19:53,951 - INFO - Human -> Column 5
-2025-01-28 14:19:53,976 - INFO - AI -> Column 7
-2025-01-28 14:19:54,836 - INFO - Human -> Column 6
-2025-01-28 14:19:54,874 - INFO - AI -> Column 7
-2025-01-28 14:19:55,966 - INFO - Human -> Column 3
-2025-01-28 14:19:58,901 - INFO - GAME OVER => Winner: Human (Red)
-2025-01-28 14:19:58,901 - INFO - Resetting game...
-2025-01-28 14:20:00,065 - INFO - Human -> Column 4
-2025-01-28 14:20:00,073 - INFO - AI -> Column 6
-2025-01-28 14:20:05,913 - INFO - Human -> Column 3
-2025-01-28 14:20:05,968 - INFO - AI -> Column 7
-2025-01-28 14:20:07,289 - INFO - Human -> Column 2
-2025-01-28 14:20:07,311 - INFO - AI -> Column 7
-2025-01-28 14:20:15,442 - INFO - Human -> Column 1
-2025-01-28 14:20:16,911 - INFO - GAME OVER => Winner: Human (Red)
-2025-01-28 14:20:16,912 - INFO - Resetting game...
-2025-01-28 14:20:17,658 - INFO - Human -> Column 4
-2025-01-28 14:20:17,684 - INFO - AI -> Column 7
-2025-01-28 14:20:18,746 - INFO - Human -> Column 3
-2025-01-28 14:20:18,771 - INFO - AI -> Column 7
-2025-01-28 14:20:20,948 - INFO - Human -> Column 2
-2025-01-28 14:20:20,976 - INFO - AI -> Column 5
-2025-01-28 14:20:22,757 - INFO - Human -> Column 1
-2025-01-28 14:20:24,121 - INFO - GAME OVER => Winner: Human (Red)
-2025-01-28 14:20:24,121 - INFO - Resetting game...
-2025-01-28 14:20:25,165 - INFO - Human -> Column 4
-2025-01-28 14:20:25,191 - INFO - AI -> Column 1
-2025-01-28 14:20:25,885 - INFO - Human -> Column 5
-2025-01-28 14:20:25,911 - INFO - AI -> Column 2
-2025-01-28 14:20:27,131 - INFO - Human -> Column 6
-2025-01-28 14:20:27,166 - INFO - AI -> Column 1
-2025-01-28 14:20:27,980 - INFO - Human -> Column 7
-2025-01-28 14:20:28,962 - INFO - GAME OVER => Winner: Human (Red)
-2025-01-28 14:20:28,962 - INFO - Resetting game...
-2025-01-28 14:20:29,945 - INFO - Human -> Column 4
-2025-01-28 14:20:29,974 - INFO - AI -> Column 5
-2025-01-28 14:20:31,055 - INFO - Human -> Column 3
-2025-01-28 14:20:31,104 - INFO - AI -> Column 1
-2025-01-28 14:20:33,559 - INFO - Human -> Column 2
-2025-01-28 14:20:33,584 - INFO - AI -> Column 1
-2025-01-28 14:20:34,302 - INFO - Human -> Column 4
-2025-01-28 14:20:34,321 - INFO - AI -> Column 6
-2025-01-28 14:20:35,383 - INFO - Human -> Column 3
-2025-01-28 14:20:35,429 - INFO - AI -> Column 5
-2025-01-28 14:20:37,599 - INFO - Human -> Column 3
-2025-01-28 14:20:37,651 - INFO - AI -> Column 7
-2025-01-28 14:20:38,703 - INFO - Human -> Column 4
-2025-01-28 14:20:38,763 - INFO - AI -> Column 3
-2025-01-28 14:20:40,591 - INFO - Human -> Column 5
-2025-01-28 14:20:40,616 - INFO - AI -> Column 6
-2025-01-28 14:20:41,751 - INFO - Human -> Column 5
-2025-01-28 14:20:43,563 - INFO - GAME OVER => Winner: Human (Red)
-2025-01-28 14:20:43,563 - INFO - Resetting game...
-2025-01-28 14:20:44,736 - INFO - Human -> Column 4
-2025-01-28 14:20:44,797 - INFO - AI -> Column 4
-2025-01-28 14:20:45,448 - INFO - Human -> Column 5
-2025-01-28 14:20:45,540 - INFO - AI -> Column 5
-2025-01-28 14:20:46,113 - INFO - Human -> Column 3
-2025-01-28 14:20:46,146 - INFO - AI -> Column 4
-2025-01-28 14:20:47,191 - INFO - Human -> Column 6
-2025-01-28 14:20:48,573 - INFO - GAME OVER => Winner: Human (Red)
-2025-01-28 14:20:48,574 - INFO - Resetting game...
-2025-01-28 14:20:49,417 - INFO - Human -> Column 4
-2025-01-28 14:20:49,494 - INFO - AI -> Column 4
-2025-01-28 14:20:50,048 - INFO - Human -> Column 3
-2025-01-28 14:20:50,071 - INFO - AI -> Column 5
-2025-01-28 14:20:51,232 - INFO - Human -> Column 3
-2025-01-28 14:20:51,256 - INFO - AI -> Column 4
-2025-01-28 14:20:52,475 - INFO - Human -> Column 2
-2025-01-28 14:20:52,489 - INFO - AI -> Column 4
-2025-01-28 14:20:54,226 - INFO - Human -> Column 1
-2025-01-28 14:20:55,271 - INFO - GAME OVER => Winner: Human (Red)
-2025-01-28 14:20:55,271 - INFO - Resetting game...
-2025-01-28 14:20:56,274 - INFO - Human -> Column 4
-2025-01-28 14:20:56,340 - INFO - AI -> Column 4
-2025-01-28 14:20:56,867 - INFO - Human -> Column 3
-2025-01-28 14:20:56,892 - INFO - AI -> Column 3
-2025-01-28 14:20:57,643 - INFO - Human -> Column 2
-2025-01-28 14:20:57,669 - INFO - AI -> Column 3
-2025-01-28 14:20:58,651 - INFO - Human -> Column 5
-2025-01-28 14:20:59,647 - INFO - GAME OVER => Winner: Human (Red)
-2025-01-28 14:20:59,648 - INFO - Resetting game...
-2025-01-28 14:21:00,491 - INFO - Human -> Column 4
-2025-01-28 14:21:00,518 - INFO - AI -> Column 1
-2025-01-28 14:21:00,971 - INFO - Human -> Column 3
-2025-01-28 14:21:00,996 - INFO - AI -> Column 4
-2025-01-28 14:21:01,601 - INFO - Human -> Column 5
-2025-01-28 14:21:01,626 - INFO - AI -> Column 7
-2025-01-28 14:21:03,004 - INFO - Human -> Column 2
-2025-01-28 14:21:03,933 - INFO - GAME OVER => Winner: Human (Red)
-2025-01-28 14:21:03,933 - INFO - Resetting game...
-2025-01-28 14:21:04,492 - INFO - Human -> Column 4
-2025-01-28 14:21:04,518 - INFO - AI -> Column 7
-2025-01-28 14:21:04,989 - INFO - Human -> Column 3
-2025-01-28 14:21:05,014 - INFO - AI -> Column 1
-2025-01-28 14:21:05,500 - INFO - Human -> Column 5
-2025-01-28 14:21:05,526 - INFO - AI -> Column 5
-2025-01-28 14:21:06,156 - INFO - Human -> Column 2
-2025-01-28 14:21:07,193 - INFO - GAME OVER => Winner: Human (Red)
-2025-01-28 14:21:07,193 - INFO - Resetting game...
-2025-01-28 14:21:07,965 - INFO - Human -> Column 4
-2025-01-28 14:21:07,993 - INFO - AI -> Column 3
-2025-01-28 14:21:08,365 - INFO - Human -> Column 3
-2025-01-28 14:21:08,389 - INFO - AI -> Column 3
-2025-01-28 14:21:08,804 - INFO - Human -> Column 5
-2025-01-28 14:21:08,830 - INFO - AI -> Column 4
-2025-01-28 14:21:10,563 - INFO - Human -> Column 6
-2025-01-28 14:21:10,588 - INFO - AI -> Column 5
-2025-01-28 14:21:11,621 - INFO - Human -> Column 7
-2025-01-28 14:21:12,690 - INFO - GAME OVER => Winner: Human (Red)
-2025-01-28 14:21:12,690 - INFO - Resetting game...
-2025-01-28 14:21:13,411 - INFO - Human -> Column 4
-2025-01-28 14:21:13,440 - INFO - AI -> Column 2
-2025-01-28 14:21:13,869 - INFO - Human -> Column 5
-2025-01-28 14:21:13,916 - INFO - AI -> Column 4
-2025-01-28 14:21:14,383 - INFO - Human -> Column 6
-2025-01-28 14:21:14,411 - INFO - AI -> Column 5
-2025-01-28 14:21:14,983 - INFO - Human -> Column 7
-2025-01-28 14:21:16,096 - INFO - GAME OVER => Winner: Human (Red)
-2025-01-28 14:21:16,096 - INFO - Resetting game...
-2025-01-28 14:21:16,953 - INFO - Human -> Column 4
-2025-01-28 14:21:16,991 - INFO - AI -> Column 3
-2025-01-28 14:21:17,375 - INFO - Human -> Column 5
-2025-01-28 14:21:17,405 - INFO - AI -> Column 2
-2025-01-28 14:21:17,886 - INFO - Human -> Column 6
-2025-01-28 14:21:17,910 - INFO - AI -> Column 3
-2025-01-28 14:21:18,446 - INFO - Human -> Column 7
-2025-01-28 14:21:19,731 - INFO - GAME OVER => Winner: Human (Red)
-2025-01-28 14:21:19,731 - INFO - Resetting game...
-2025-01-28 14:21:20,674 - INFO - Human -> Column 4
-2025-01-28 14:21:20,701 - INFO - AI -> Column 1
-2025-01-28 14:21:25,961 - INFO - Human -> Column 5
-2025-01-28 14:21:25,988 - INFO - AI -> Column 6
-2025-01-28 14:21:28,777 - INFO - Human -> Column 3
-2025-01-28 14:21:28,884 - INFO - AI -> Column 3
-2025-01-28 14:21:31,025 - INFO - Human -> Column 2
-2025-01-28 14:21:32,246 - INFO - GAME OVER => Winner: Human (Red)
-2025-01-28 14:21:32,246 - INFO - Resetting game...
-2025-01-28 14:21:33,145 - INFO - Human -> Column 4
-2025-01-28 14:21:33,169 - INFO - AI -> Column 3
-2025-01-28 14:21:34,352 - INFO - Human -> Column 4
-2025-01-28 14:21:34,386 - INFO - AI -> Column 3
-2025-01-28 14:21:35,105 - INFO - Human -> Column 4
-2025-01-28 14:21:35,164 - INFO - AI -> Column 1
-2025-01-28 14:21:35,762 - INFO - Human -> Column 4
-2025-01-28 14:21:37,143 - INFO - GAME OVER => Winner: Human (Red)
-2025-01-28 14:21:37,143 - INFO - Resetting game...
+2025-01-30 03:17:06,749 - WARNING - Model file Connect4_Agent_Model1.pth not found; using uninitialized weights.
+2025-01-30 03:17:08,178 - INFO - New Connect4 game started: Human (Red) vs AI (Yellow)
+2025-01-30 03:17:10,629 - INFO - Human -> Column 4
+2025-01-30 03:17:10,777 - INFO - AI -> Column 5
+2025-01-30 03:17:14,783 - INFO - Human -> Column 5
+2025-01-30 03:17:14,796 - INFO - AI -> Column 5
+2025-01-30 03:17:44,341 - INFO - Human -> Column 5
+2025-01-30 03:17:44,357 - INFO - AI -> Column 4
+2025-01-30 03:17:46,588 - INFO - Human -> Column 5
+2025-01-30 03:17:46,597 - INFO - AI -> Column 2
+2025-01-30 03:17:48,311 - INFO - Human -> Column 4
+2025-01-30 03:17:48,340 - INFO - AI -> Column 6
+2025-01-30 03:17:50,133 - INFO - Human -> Column 3
+2025-01-30 03:17:50,139 - INFO - AI -> Column 2
+2025-01-30 03:17:52,213 - INFO - Human -> Column 3
+2025-01-30 03:17:52,217 - INFO - AI -> Column 1
+2025-01-30 03:17:54,794 - INFO - Human -> Column 3
+2025-01-30 03:17:54,810 - INFO - AI -> Column 7
+2025-01-30 03:17:56,592 - INFO - Human -> Column 2
+2025-01-30 03:17:56,607 - INFO - AI -> Column 4
+2025-01-30 03:17:57,702 - INFO - Human -> Column 3
+2025-01-30 03:17:58,974 - INFO - GAME OVER => Winner: Human (Red)
+2025-01-30 03:17:58,974 - INFO - Resetting game...
