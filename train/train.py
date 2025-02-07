@@ -19,16 +19,16 @@ BATCH_SIZE = 128
 GAMMA = 0.95
 LR = 0.0001
 REPLAY_CAPACITY = 1000000
-EPSILON = 1.0
+EPSILON = 0.01
 EPSILON_DECAY = 0.9999
-EPSILON_MIN = 0.05
+EPSILON_MIN = 0.01
 REPLAY_BUFFER_SIZE = 10000
 TARGET_EVALUATE = 1000 
 TARGET_UPDATE = 500
-TOTAL_EPISODES = 2000000 # use selk opp 1M
-RAND_EPISODE_BY = 10000   # use random opp 100k
-MCTS_EPISODE_BY = 1000000   # use MCTS opp 900k
-SELF_LEARN_START = 1000001
+TOTAL_EPISODES = 3000000 # use self opp 1M
+RAND_EPISODE_BY = 100000   # use random opp 100k
+MCTS_EPISODE_BY = 2000000   # use MCTS opp 1.9M
+SELF_LEARN_START = 2000001
 DEBUGMODE = False
 EVAL_FREQUENCY = 1000
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -279,32 +279,15 @@ def main():
     env = Connect4()
     wins, draws, losses = 0, 0, 0
     print("Starting Initialization is over, now training.")
-     # Define opponent type ratios per phase
-    PHASE_RATIOS = {
-                    "Random Phase": {"Random": 100, "MCTS": 0, "Self-Play": 0},  # 0-100k episodes
-                    "MCTS Phase": {"Random": 10, "MCTS": 90, "Self-Play": 0},    # 100k-1M episodes
-                    "Self-Play Phase": {"Random": 0, "MCTS": 10, "Self-Play": 90}  # 1M-2M episodes
-    }
-            # Function to get opponent type based on phase and random sampling
+    
     def get_opponent_type(ep):
         if ep < RAND_EPISODE_BY:
-            phase = "Random Phase"
+            return "Random"
         elif ep <= MCTS_EPISODE_BY:
-            phase = "MCTS Phase"
+            return "MCTS"
         else:
-            phase = "Self-Play Phase"
+           return "Self-Play"
 
-        # Get ratios for the current phase
-        ratios = PHASE_RATIOS[phase]
-
-        # Weighted random sampling for opponent type
-        opponent_type = random.choices(
-            population=["Random", "MCTS", "Self-Play"],
-            weights=[ratios["Random"], ratios["MCTS"], ratios["Self-Play"]],
-            k=1
-        )[0]
-
-        return opponent_type, phase
     endep = None
     for ep in range(start_ep + 1, TOTAL_EPISODES + 1):
         state = env.reset()
@@ -316,9 +299,13 @@ def main():
         logging.debug(env.board)
         while not done:
             # Player1's turn
+            epd=ep+1
+            rand=RAND_EPISODE_BY+1
+            reward_muliplyer=min(1,(epd/rand))
+            
             if env.current_player == 1:
                 # Determine opponent type
-                opponent_type, current_phase = get_opponent_type(ep)
+                opponent_type= get_opponent_type(ep)
 
                 # If we just entered self-play, freeze a copy of the current policy
                 if opponent_type == "Self-Play" and not evaluate_loaded:
@@ -334,12 +321,12 @@ def main():
                     if opponent_type == "Random":
                         action = random.choice(env.get_valid_actions())
                         if debug:
-                            logging.debug(f"Phase: {current_phase}, Random Action SELECT={action}")
+                            logging.debug(f"Phase: {opponent_type}, Random Action SELECT={action}")
                         return action
 
                     # MCTS phase => use MCTS logic
                     elif opponent_type == "MCTS":
-                        base_sims = 20  # Minimum simulations
+                        base_sims = 2  # Minimum simulations
                         MAX_sims=2000
                         scaling_factor = MAX_sims/(MCTS_EPISODE_BY-RAND_EPISODE_BY) # Growth rate for simulations
                         mcts_level = ep - RAND_EPISODE_BY
@@ -348,7 +335,7 @@ def main():
                         mcts_action = MCTS(num_simulations=sims, debug=True)
                         action = mcts_action.select_action(env, env.current_player)
                         if debug:
-                            logging.debug(f"Phase: {current_phase}, MCTS Action SELECT={action}")
+                            logging.debug(f"Phase: {opponent_type}, MCTS Action SELECT={action}")
                         return action
 
                     # Self-play => use the policy network to select actions
@@ -356,12 +343,12 @@ def main():
                         if ep % TARGET_EVALUATE == 0:  # Periodic evaluation
                             action = evaluator.pick_action(env, env.current_player, EPSILON, episode=ep, debug=DEBUGMODE)
                             if debug:
-                                logging.debug(f"Phase: {current_phase}, Evaluator Action SELECT={action}")
+                                logging.debug(f"Phase: {opponent_type}, Evaluator Action SELECT={action}")
                             return action
                         else:
                             action = agent.pick_action(env, env.current_player, EPSILON, episode=ep, debug=DEBUGMODE)
                             if debug:
-                                logging.debug(f"Phase: {current_phase}, Self-Play Action SELECT={action}")
+                                logging.debug(f"Phase: {opponent_type}, Self-Play Action SELECT={action}")
                             return action
 
                 # Get action based on opponent type
@@ -392,6 +379,7 @@ def main():
                         #print(f"reward lost {reward}")
                         next_state = env.get_board().copy()
                         # Push to buffer
+                        reward*=reward_muliplyer
                         replay_buffer.push(state, action, reward, next_state, done)
                         state = next_state
                         # Q-learning step
@@ -427,6 +415,8 @@ def main():
         
             logging.debug(env.board)
             # Update environment to Q tables
+            reward*=reward_muliplyer
+
             next_state = env.get_board().copy()
 
             # Push to buffer
@@ -434,6 +424,7 @@ def main():
             state = next_state
 
             # Q-learning step
+            
             train_step(policy_net, target_net, optimizer, replay_buffer,logger)
             turn=env.turn-1
             # Update statistics

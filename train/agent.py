@@ -27,9 +27,11 @@ class AgentLogic:
 
         # (1) Epsilon exploration
         if random.random() < epsilon:
-            action=random.choice(valid_actions)
+            sims= 2000
+            mcts_action = MCTS(num_simulations=sims, debug=True)
+            action = mcts_action.select_action(env, env.current_player)
             if debug:
-                logging.debug(f"Random Action SELECT={action}")
+                logging.debug(f"MCTS Action SELECT={action}")
             return action
 
         # (2) Check Q Values
@@ -75,56 +77,66 @@ class AgentLogic:
 # ------------------ Reward Systems ------------------ #
 class RewardSystem:
     def calculate_reward(self, env, last_action, current_player):
-        turn=env.turn-1# Since the turn is already ended 
+        turn = env.turn - 1  # Since the turn is already ended
         board = env.get_board()
         opponent = 3 - current_player
 
         winner = env.check_winner()
         if winner == current_player:
-            result_reward = 50.0
+            result_reward = 100.0
             win_status = current_player
         elif winner == opponent:
-            result_reward = -50.0
+            result_reward = -100.0
             win_status = current_player
         elif env.is_draw():
-            result_reward = 25 # since It will be
+            result_reward = 10.0  # Lowered to prevent passive play
             win_status = -1
         else:
             result_reward = 0.0
             win_status = 0
 
-        active_reward = self.get_active_reward(board, last_action, current_player, env)
-        passive_penalty = self.get_passive_penalty(board, opponent)
-        fastest_win_possible=8
-        adjustment_factor = fastest_win_possible/ (turn)# Adjust total based on turn lower is closer to 1 
-        raw_total = (result_reward*adjustment_factor) + (active_reward) - (passive_penalty)
-        total_reward = raw_total
-        #print(total_reward)
-        return (total_reward, win_status)
+        # Adjust scaling for turn-based reward
+        fastest_win_possible = 8
+        adjustment_factor = min(2, fastest_win_possible / (turn + 1))  # Smoother scaling
 
-    def get_active_reward(self, board, last_action, current_player, env):
+        # Active Rewards (Encourage Good Moves)
+        active_reward = self.get_active_reward(board, last_action, current_player)
+
+        # Passive Penalty (Discourage Allowing Opponent Advantage)
+        passive_penalty = self.get_passive_penalty(board, opponent)
+
+        # Total Reward Calculation
+        raw_total = (result_reward * adjustment_factor) + active_reward - passive_penalty
+        total_reward = raw_total
+
+        return total_reward, win_status
+
+    def get_active_reward(self, board, last_action, current_player):
         row_played = self.get_row_played(board, last_action)
         if row_played is None:
             return 0.0
+
+        # More distinct reward scaling
         if self.is_double_threat(board, row_played, current_player):
-            return 8.0
+            return 10.0
         if self.blocks_opponent_n_in_a_row(board, row_played, last_action, current_player, 4):
-            return 4.0
+            return 6.0
         if self.causes_n_in_a_row(board, row_played, last_action, current_player, 3):
-           return 2.0
+            return 3.0
         if self.blocks_opponent_n_in_a_row(board, row_played, last_action, current_player, 3):
-            return 1.5
+            return 2.0
         if self.causes_n_in_a_row(board, row_played, last_action, current_player, 2):
-            return 0.5
+            return 1.0
         if self.blocks_opponent_n_in_a_row(board, row_played, last_action, current_player, 2):
-            return 0.3
-            # if just no connection
-        return 0.1
+            return 0.5
+        return 0.2  # Minor incentive for placing a piece
 
     def get_passive_penalty(self, board, opponent):
+        """Penalize allowing opponent to build connections."""
         two_in_a_rows = self.count_n_in_a_row(board, opponent, 2)
         three_in_a_rows = self.count_n_in_a_row(board, opponent, 3)
-        return two_in_a_rows * 0.05 + three_in_a_rows * 0.5
+        return (two_in_a_rows * 0.1) + (three_in_a_rows * 0.8)  # Increased penalty for stronger threats
+
 
     def get_row_played(self, board, col):
         rows = board.shape[0]

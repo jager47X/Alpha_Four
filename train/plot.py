@@ -2,13 +2,15 @@ import matplotlib.pyplot as plt
 import re
 import numpy as np
 import math  # Import math module for IQ calculation
-
-# Path to the log file
-log_file_path = input("FILE PATH>> ")
-total_episodes = int(input("total_episodes>> "))
-interval = int(input("interval>> "))
-annotate_on = input("annotate_on (true/false)>> ").lower() == "true"
-
+# Get user input or use default values if input is empty
+log_file_path = input("FILE PATH>> ") or "train.log"
+print(log_file_path)
+total_episodes = int(input("total_episodes>> ") or 3000000)
+print(total_episodes)
+interval = int(input("interval>> ") or 1000)
+print(interval)
+annotate_on = (input("annotate_on (true/false)>> ").strip().lower() or "true") == "true"
+print(annotate_on)
 # Function to parse the log file
 def parse_log_file(log_file_path):
     rewards = []
