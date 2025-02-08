@@ -27,11 +27,15 @@ class AgentLogic:
 
         # (1) Epsilon exploration
         if random.random() < epsilon:
-            sims= 2000
-            mcts_action = MCTS(num_simulations=sims, debug=True)
-            action = mcts_action.select_action(env, env.current_player)
+            if(epsilon<100000):
+                action=random.choice(valid_actions)
+            else:
+                sims= 2000
+                mcts_action = MCTS(num_simulations=sims, debug=True)
+                action = mcts_action.select_action(env, env.current_player)
             if debug:
                 logging.debug(f"MCTS Action SELECT={action}")
+            
             return action
 
         # (2) Check Q Values
