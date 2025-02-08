@@ -17,20 +17,20 @@ from mcts import MCTS
 # ----------------- Hyperparams ----------------- #
 BATCH_SIZE = 128
 GAMMA = 0.95
-LR = 0.0001
-REPLAY_CAPACITY = 1000000
-EPSILON = 0.01
-EPSILON_DECAY = 0.9999
-EPSILON_MIN = 0.01
+LR = 0.001
+REPLAY_CAPACITY = 100000
+EPSILON = 1.0
+EPSILON_DECAY = 0.99999
+EPSILON_MIN = 0.05
 REPLAY_BUFFER_SIZE = 10000
-TARGET_EVALUATE = 1000 
+TARGET_EVALUATE = 100
 TARGET_UPDATE = 500
-TOTAL_EPISODES = 3000000 # use self opp 1M
+TOTAL_EPISODES = 300000 # use self opp 1M
 RAND_EPISODE_BY = 100000   # use random opp 100k
-MCTS_EPISODE_BY = 2000000   # use MCTS opp 1.9M
-SELF_LEARN_START = 2000001
+MCTS_EPISODE_BY = 200000   # use MCTS opp 1.9M
+SELF_LEARN_START = 200001
 DEBUGMODE = False
-EVAL_FREQUENCY = 1000
+EVAL_FREQUENCY = 100
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # ------------- File Path ------------- #
@@ -332,6 +332,7 @@ def main():
                         mcts_level = ep - RAND_EPISODE_BY
                         sims = int(base_sims + scaling_factor * mcts_level)
                         sims = min(MAX_sims, sims)  # Cap simulations at 2000
+                        #sims= 2000
                         mcts_action = MCTS(num_simulations=sims, debug=True)
                         action = mcts_action.select_action(env, env.current_player)
                         if debug:
