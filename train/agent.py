@@ -27,12 +27,13 @@ class AgentLogic:
 
         # (1) Epsilon exploration
         if random.random() < epsilon:
-            if(epsilon<100000):
-                action=random.choice(valid_actions)
-            else:
-                sims= 2000
-                mcts_action = MCTS(num_simulations=sims, debug=True)
-                action = mcts_action.select_action(env, env.current_player)
+            base_sims = 2  # Minimum simulations
+            MAX_sims=2000
+            scaling_factor = 0.001 # Growth rate for simulations
+            sims = int(base_sims + scaling_factor * epsilon)
+            sims = min(MAX_sims, sims)  # Cap simulations at 2000
+            mcts_action = MCTS(num_simulations=sims, debug=True)
+            action = mcts_action.select_action(env, env.current_player)
             if debug:
                 logging.debug(f"MCTS Action SELECT={action}")
             

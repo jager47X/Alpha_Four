@@ -1,4 +1,3 @@
-# train.py
 import os
 import math
 import random
@@ -25,26 +24,21 @@ EPSILON_MIN = 0.05
 REPLAY_BUFFER_SIZE = 10000
 TARGET_EVALUATE = 100
 TARGET_UPDATE = 500
-TOTAL_EPISODES = 300000 # use self opp 1M
-RAND_EPISODE_BY = 100000   # use random opp 100k
-MCTS_EPISODE_BY = 200000   # use MCTS opp 1.9M
-SELF_LEARN_START = 200001
+TOTAL_EPISODES = 2500000
+RAND_EPISODE_BY = 1000000
+MCTS_EPISODE_BY = 2000000
 DEBUGMODE = False
 EVAL_FREQUENCY = 100
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+MODEL_SAVE_PATH = 'Connect4_Agent_Model.pth'
+EVAL_MODEL_PATH = 'Connect4_Agent_EVAL.pth'
+NUM_WORKERS=10
 
-# ------------- File Path ------------- #
-LOG_PATH = "./logs"
-MODEL_SAVE_PATH = 'Connect4_Agent_Model.pth'     
-EVAL_MODEL_PATH = 'Connect4_Agent_EVAL.pth'  
-
-# ------------- Train function ------------- #
-def train_step(policy_net, target_net, optimizer, replay_buffer,logger):
+# ----------------- Training Step ----------------- #
+def train_step(policy_net, target_net, optimizer, replay_buffer, logger):
     if len(replay_buffer) < BATCH_SIZE:
-        #print("Replay buffer does not have enough samples.")
         return
 
-    # Sample batch
     batch = replay_buffer.sample(BATCH_SIZE)
     states, actions, rewards, next_states, dones = (
         batch["states"],
@@ -54,108 +48,65 @@ def train_step(policy_net, target_net, optimizer, replay_buffer,logger):
         batch["dones"],
     )
 
-    # Debugging shapes and fixing input
-    if len(states.shape) == 5:  # Remove extra dimension if present
+    # Ensure proper shape
+    if len(states.shape) == 5:
         states = states.squeeze(2)
-    if len(states.shape) == 3:  # Add channel dimension if missing
+    if len(states.shape) == 3:
         states = states.unsqueeze(1)
-
-    # Ensure next_states has the correct shape
     if len(next_states.shape) == 5:
         next_states = next_states.squeeze(2)
     if len(next_states.shape) == 3:
         next_states = next_states.unsqueeze(1)
 
-    # Q(s, a)
     q_values = policy_net(states).gather(1, actions.unsqueeze(1)).squeeze()
-
     with torch.no_grad():
-        # Compute target Q-values
-        next_q = target_net(next_states).max(dim=1)[0]  # Max Q-value for next states
+        next_q = target_net(next_states).max(dim=1)[0]
         targets = rewards + (1 - dones.float()) * GAMMA * next_q
 
-    # Compute loss
     loss = nn.MSELoss()(q_values, targets)
     logger.info(f"LOSS:{loss}")
-    # Backpropagation
     optimizer.zero_grad()
     loss.backward()
     optimizer.step()
 
-    # Optional: Log loss for debuggings
-    #logger.info(f"Loss: {loss.item()}")
-
-
-
-
+# ----------------- Checkpoint Functions ----------------- #
 def load_model_checkpoint(model_path, learning_rate, buffer_size, logger, device):
-    """
-    Load the model checkpoint from the given path. Initialize components if not found.
-
-    Args:
-        model_path (str): Path to the model checkpoint file.
-        learning_rate (float): Learning rate for the optimizer if initializing.
-        buffer_size (int): Capacity for the replay buffer if initializing.
-        logger (logging.Logger): Logger instance.
-        device (torch.device): Device to load the models onto.
-
-    Returns:
-        tuple: (policy_net, target_net, optimizer, replay_buffer, start_episode)
-    """
     try:
-        # Initialize policy_net
-        policy_net = DQN().to(device)
+        policy_net = DQN(device=device).to(device)
         logger.info("Policy network initialized.")
-        
-        # Initialize target_net
-        target_net = DQN().to(device)
+        target_net = DQN(device=device).to(device)
         target_net.load_state_dict(policy_net.state_dict())
         target_net.eval()
         logger.info("Target network initialized.")
-        
-        # Initialize optimizer
         optimizer = torch.optim.Adam(policy_net.parameters(), lr=learning_rate)
         logger.info("Optimizer initialized.")
-        
-        # Initialize replay_buffer
         replay_buffer = DiskReplayBuffer(
             capacity=buffer_size,
             state_shape=(6, 7),
             device=device
         )
         logger.info("Replay buffer initialized.")
-        
         start_episode = 0
-
-        # Check if the checkpoint exists
         if os.path.exists(model_path):
-            checkpoint = torch.load(model_path, map_location=device, weights_only=False)
+            checkpoint = torch.load(model_path, map_location=device)
             logger.info(f"Checkpoint file path: {model_path} verified.")
-            
-            # Load model state_dict
             if 'policy_net_state_dict' in checkpoint:
                 policy_net.load_state_dict(checkpoint['policy_net_state_dict'])
                 logger.info("Loaded policy network state_dict.")
             else:
                 policy_net.load_state_dict(checkpoint)
                 logger.info("Loaded raw policy network state_dict.")
-            
-            # Load optimizer state_dict
             if 'optimizer_state_dict' in checkpoint:
                 optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
                 logger.info("Loaded optimizer state_dict.")
-            
-            # Load start_episode
             start_episode = checkpoint.get('episode', 0)
             logger.info(f"Loaded start episode: {start_episode}")
         else:
             logger.warning(f"Checkpoint file {model_path} does not exist. Starting fresh.")
-
     except Exception as e:
         logger.critical(f"Failed to load model from {model_path}: {e}. Starting fresh.")
-        # Re-initialize everything
-        policy_net = DQN().to(device)
-        target_net = DQN().to(device)
+        policy_net = DQN(device=device).to(device)
+        target_net = DQN(device=device).to(device)
         target_net.load_state_dict(policy_net.state_dict())
         target_net.eval()
         optimizer = torch.optim.Adam(policy_net.parameters(), lr=learning_rate)
@@ -164,23 +115,11 @@ def load_model_checkpoint(model_path, learning_rate, buffer_size, logger, device
             state_shape=(6, 7),
             device=device
         )
-        logger.info("Re-initialized policy_net, target_net, optimizer, and replay_buffer.")
+        logger.info("Re-initialized components.")
         start_episode = 0
-    
     return policy_net, target_net, optimizer, replay_buffer, start_episode
 
 def save_model_checkpoint(model_path, policy_net, target_net, optimizer, episode, logger):
-    """
-    Save the model checkpoint to the given path.
-
-    Args:
-        model_path (str): Path to save the model checkpoint file.
-        policy_net (DQN): The policy network.
-        target_net (DQN): The target network.
-        optimizer (torch.optim.Optimizer): The optimizer.
-        episode (int): Current episode number.
-        logger (logging.Logger): Logger instance.
-    """
     try:
         checkpoint = {
             'policy_net_state_dict': policy_net.state_dict(),
@@ -193,283 +132,119 @@ def save_model_checkpoint(model_path, policy_net, target_net, optimizer, episode
     except Exception as e:
         logger.error(f"Failed to save model checkpoint to {model_path}: {e}.")
 
-def periodic_updates(
-    episode,
-    policy_net, target_net,
-    optimizer, 
-    MODEL_SAVE_PATH,
-    EPSILON, EPSILON_MIN, EPSILON_DECAY, TARGET_UPDATE, logger
-):
+def periodic_updates(episode, policy_net, target_net, optimizer, MODEL_SAVE_PATH, EPSILON, logger):
     try:
         if episode % TARGET_UPDATE == 0:
             save_model_checkpoint(MODEL_SAVE_PATH, policy_net, target_net, optimizer, episode, logger)
             logger.info(f"Models saved at episode {episode}")
-        if episode % TARGET_UPDATE == 0:
             target_net.load_state_dict(policy_net.state_dict())
-            logger.info("Target networks updated")
-        EPSILON = max(EPSILON_MIN, EPSILON * EPSILON_DECAY)
+            logger.info("Target network updated")
+            EPSILON = max(EPSILON_MIN, EPSILON * EPSILON_DECAY)
     except Exception as e:
         logger.error(f"Error during periodic updates at episode {episode}: {e}")
     return EPSILON
 
-# ------------- Main function ------------- #
+# ----------------- Parallel Simulation Function ----------------- #
+def simulate_episode(args):
+    """
+    This function simulates a single game (episode) and returns the transitions,
+    the episode number, the winner, and the total reward.
+    """
+    ep, current_epsilon, policy_state = args
+    # Create a local copy of the policy network for inference
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    local_policy_net = DQN(device=device).to(device)
+    local_policy_net.load_state_dict(policy_state)
+    local_policy_net.eval()
+    agent = AgentLogic(local_policy_net, device=device, q_threshold=0.8)
+    env = Connect4()
+    state = env.reset()
+    transitions = []
+    done = False
+    total_reward = 0.0
+    winner = None
 
+    # For demonstration, we alternate turns.
+    while not done:
+        if env.current_player == 1:
+            # For simplicity in this example, use random moves for player 1.
+            action = random.choice(env.get_valid_actions())
+        else:
+            # Player 2 uses the agent
+            action = agent.pick_action(env, env.current_player, current_epsilon, episode=ep, debug=False)
+        env.make_move(action)
+        reward, status = agent.compute_reward(env, action, env.current_player)
+        next_state = env.get_board().copy()
+        # If the game ends, mark done and set winner accordingly
+        if status != 0 or env.is_draw():
+            done = True
+            winner = status if status != 0 else -1
+        transitions.append((state, action, reward, next_state, done))
+        state = next_state
+        total_reward += reward
+
+    return transitions, ep, winner, total_reward
+
+# ----------------- Main Function with Multiprocessing ----------------- #
 def main():
-    
-    global EPSILON, TOTAL_EPISODES,DEBUGMODE
-
-    
-
-    # Configure basic logging
     logging.basicConfig(
-        filename='train.log',     # or "./logs/train.log" if you prefer
-        filemode='a',             # 'w' overwrites each run; use 'a' to append
-        level=logging.INFO,      # adjust as needed (e.g., DEBUG, INFO, WARNING)
+        filename='train.log',
+        filemode='a',
+        level=logging.INFO,
         format="%(asctime)s - %(levelname)s - %(message)s"
     )
-
-    # Create a named logger
     logger = logging.getLogger("Connect4Logger")
     print("Starting Initialization")
-    
-    # Build replay buffer without prefix_path
-    try:
-        replay_buffer = DiskReplayBuffer(
-            capacity=REPLAY_CAPACITY,
-            state_shape=(6,7),
-            device=DEVICE
-        )
-    except Exception as e:
-        logger.critical(f"Failed to initialize DiskReplayBuffer: {e}")
-        return
 
-    # Build networks
+    replay_buffer = DiskReplayBuffer(
+        capacity=REPLAY_CAPACITY,
+        state_shape=(6, 7),
+        device=DEVICE
+    )
+
     policy_net = DQN(device=DEVICE).to(DEVICE)
     target_net = DQN(device=DEVICE).to(DEVICE)
     target_net.load_state_dict(policy_net.state_dict())
     optimizer = optim.Adam(policy_net.parameters(), lr=LR)
-    evaluate_net = DQN(device=DEVICE).to(DEVICE)
 
-    # Load or initialize the networks
-    try:
-        policy_net, target_net, optimizer, _, start_ep = load_model_checkpoint(
-            MODEL_SAVE_PATH, 
-            LR, 
-            REPLAY_BUFFER_SIZE, 
-            logger, 
-            DEVICE
-        )
-    except Exception as e:
-        logger.critical(f"Failed to load model checkpoint: {e}")
-        return
+    policy_net, target_net, optimizer, replay_buffer, start_ep = load_model_checkpoint(
+        MODEL_SAVE_PATH,
+        LR,
+        REPLAY_BUFFER_SIZE,
+        logger,
+        DEVICE
+    )
 
-    # Adjust episodes 
-    EPSILON =max(EPSILON_MIN, EPSILON * (EPSILON_DECAY ** start_ep))
-    logger.info(f"Continue from {start_ep}/ {TOTAL_EPISODES}.")
-    print(f"Continue from {start_ep}/ {TOTAL_EPISODES}.")
-    logger.info(f"Current Epsilon adjusted to {EPSILON}.")
-    print((f"Current Epsilon adjusted to {EPSILON}."))
-    # Agent logic
-    agent = AgentLogic(policy_net, device=DEVICE, q_threshold=0.8)
-    evaluator = AgentLogic(policy_net, device=DEVICE, q_threshold=0.8)
-    
+    # Adjust epsilon based on the starting episode
+    global EPSILON
+    EPSILON = max(EPSILON_MIN, EPSILON * (EPSILON_DECAY ** start_ep))
+    logger.info(f"Continue from episode {start_ep}. Current EPSILON: {EPSILON:.3f}")
+    print(f"Continue from episode {start_ep}. Current EPSILON: {EPSILON:.3f}")
 
-    # Stats
-    evaluate_loaded = False
-    env = Connect4()
-    wins, draws, losses = 0, 0, 0
-    print("Starting Initialization is over, now training.")
-    
-    def get_opponent_type(ep):
-        if ep < RAND_EPISODE_BY:
-            return "Random"
-        elif ep <= MCTS_EPISODE_BY:
-            return "MCTS"
-        else:
-           return "Self-Play"
+    num_workers = NUM_WORKERS  # Set the number of parallel games to run
+    pool = mp.Pool(processes=num_workers)
+    total_episodes = TOTAL_EPISODES
 
-    endep = None
-    for ep in range(start_ep + 1, TOTAL_EPISODES + 1):
-        state = env.reset()
-        done = False
-        endep = ep
-        total_reward = 0.0
-        winner = None  # Initialize winner for each episode
-        turn=1
-        logging.debug(env.board)
-        while not done:
-            # Player1's turn
-            epd=ep+1
-            rand=RAND_EPISODE_BY+1
-            reward_muliplyer=min(1,(epd/rand))
-            
-            if env.current_player == 1:
-                # Determine opponent type
-                opponent_type= get_opponent_type(ep)
+    # Run episodes in batches concurrently
+    for batch_start in range(start_ep + 1, total_episodes + 1, num_workers):
+        batch_args = []
+        for ep in range(batch_start, min(batch_start + num_workers, total_episodes + 1)):
+            # Pass the current episode number, current epsilon, and current policy parameters
+            batch_args.append((ep, EPSILON, policy_net.state_dict()))
+        results = pool.map(simulate_episode, batch_args)
 
-                # If we just entered self-play, freeze a copy of the current policy
-                if opponent_type == "Self-Play" and not evaluate_loaded:
-                    evaluate_net.load_state_dict(policy_net.state_dict())
-                    evaluate_net.eval()
-                    torch.save(evaluate_net.state_dict(), EVAL_MODEL_PATH)
-                    evaluator = AgentLogic(policy_net, device=DEVICE, q_threshold=0.5)
-                    logger.info(f"Copied policy_net into evaluator_net for evaluation from ep:{ep}.")
-                    evaluate_loaded = True
-                
-                def get_opponent_action(env, debug=True):
-                    # Random phase => random actions
-                    if opponent_type == "Random":
-                        action = random.choice(env.get_valid_actions())
-                        if debug:
-                            logging.debug(f"Phase: {opponent_type}, Random Action SELECT={action}")
-                        return action
+        for transitions, ep, winner, total_reward in results:
+            for transition in transitions:
+                replay_buffer.push(*transition)
+            train_step(policy_net, target_net, optimizer, replay_buffer, logger)
+            logger.info(f"Episode {ep}: Winner={winner}, Total Reward={total_reward:.2f}, EPSILON={EPSILON:.3f}")
+            print(f"Episode {ep}: Winner={winner}, Total Reward={total_reward:.2f}, EPSILON={EPSILON:.3f}")
+            # Periodic updates (checkpoint saving, target network update, epsilon decay)
+            EPSILON = periodic_updates(ep, policy_net, target_net, optimizer, MODEL_SAVE_PATH, EPSILON, logger)
 
-                    # MCTS phase => use MCTS logic
-                    elif opponent_type == "MCTS":
-                        base_sims = 2  # Minimum simulations
-                        MAX_sims=2000
-                        scaling_factor = MAX_sims/(MCTS_EPISODE_BY-RAND_EPISODE_BY) # Growth rate for simulations
-                        mcts_level = ep - RAND_EPISODE_BY
-                        sims = int(base_sims + scaling_factor * mcts_level)
-                        sims = min(MAX_sims, sims)  # Cap simulations at 2000
-                        #sims= 2000
-                        mcts_action = MCTS(num_simulations=sims, debug=True)
-                        action = mcts_action.select_action(env, env.current_player)
-                        if debug:
-                            logging.debug(f"Phase: {opponent_type}, MCTS Action SELECT={action}")
-                        return action
-
-                    # Self-play => use the policy network to select actions
-                    elif opponent_type == "Self-Play":
-                        if ep % TARGET_EVALUATE == 0:  # Periodic evaluation
-                            action = evaluator.pick_action(env, env.current_player, EPSILON, episode=ep, debug=DEBUGMODE)
-                            if debug:
-                                logging.debug(f"Phase: {opponent_type}, Evaluator Action SELECT={action}")
-                            return action
-                        else:
-                            action = agent.pick_action(env, env.current_player, EPSILON, episode=ep, debug=DEBUGMODE)
-                            if debug:
-                                logging.debug(f"Phase: {opponent_type}, Self-Play Action SELECT={action}")
-                            return action
-
-                # Get action based on opponent type
-                action = get_opponent_action(env, debug=DEBUGMODE)
-                env.make_move(action)
-                reward, status = agent.compute_reward(env, action, 1)
-                # total_reward += reward since we focus on Agent 2 we ignore here
-
-                if (status != 0) or env.is_draw():
-                    done = True
-                    # Update environment to Q tables
-                    next_state = env.get_board().copy()
-
-                    # Push to buffer
-                    replay_buffer.push(state, action, reward, next_state, done)
-                    state = next_state
-
-                    # Q-learning step
-                    train_step(policy_net, target_net, optimizer, replay_buffer,logger)
-                    winner = status if status != 0 else -1  # Adjust based on your environment's convention
-                    # Update statistics
-                    
-                    if winner == 2:
-                        wins += 1
-                        turn=env.turn-1
-                    elif winner == 1:
-                        reward, status = agent.compute_reward(env, -1, 2) # when agent lose, put reward
-                        #print(f"reward lost {reward}")
-                        next_state = env.get_board().copy()
-                        # Push to buffer
-                        reward*=reward_muliplyer
-                        replay_buffer.push(state, action, reward, next_state, done)
-                        state = next_state
-                        # Q-learning step
-                        train_step(policy_net, target_net, optimizer, replay_buffer,logger)
-                        total_reward += reward  # if not self learn phase then add reward
-                        turn=env.turn-1
-                        losses += 1
-                    elif winner == -1:
-                        turn=env.turn-1
-                        draws += 1
-                    break
-
-
-            else:  # Player2's turn (always model)
-                # Set model to eval mode for single inference
-                    policy_net.eval()
-                    action = agent.pick_action(env, env.current_player, EPSILON, episode=ep, debug=DEBUGMODE)
-                    policy_net.train()
-
-                    env.make_move(action)
-                    reward, status = agent.compute_reward(env, action, 2)
-
-                    if ep > SELF_LEARN_START:  # Check if it is self learn phase
-                        if ep % TARGET_EVALUATE == 0:  # If so check if that is TARGET_EVALUATE
-                            total_reward += reward
-                    else:
-                        total_reward += reward  # if not self learn phase then add reward
-
-                    if (status != 0) or env.is_draw():
-                        done = True
-                        winner = status if status != 0 else -1
-
-        
-            logging.debug(env.board)
-            # Update environment to Q tables
-            reward*=reward_muliplyer
-
-            next_state = env.get_board().copy()
-
-            # Push to buffer
-            replay_buffer.push(state, action, reward, next_state, done)
-            state = next_state
-
-            # Q-learning step
-            
-            train_step(policy_net, target_net, optimizer, replay_buffer,logger)
-            turn=env.turn-1
-            # Update statistics
-            if winner == 2:
-                wins += 1
-            elif winner == 1:
-                losses += 1
-            elif winner == -1:
-                draws += 1
-            
-        # Periodically update target net and decay epsilon
-        EPSILON = periodic_updates(
-            ep,
-            policy_net, target_net,
-            optimizer,
-            MODEL_SAVE_PATH,
-            EPSILON, EPSILON_MIN, EPSILON_DECAY,
-            TARGET_UPDATE, logger
-        )
-
-        # Save model checkpoint periodically
-        if ep % TARGET_UPDATE == 0:
-            try:
-                save_model_checkpoint(
-                    MODEL_SAVE_PATH,
-                    policy_net,
-                    target_net,
-                    optimizer,
-                    ep,
-                    logger
-                )
-            except Exception as e:
-                logger.error(f"Failed to save model checkpoint at episode {ep}: {e}")
- 
-        # Log and print episode summary
-        logger.info(
-            f"Episode {ep}/{TOTAL_EPISODES}: Winner={winner},Turn={turn}, Reward={total_reward:.2f}, EPSILON={EPSILON:.3f}, (W={wins},D={draws},L={losses})"
-        )
-        print(
-            f"Episode {ep}/{TOTAL_EPISODES}: Winner={winner}, Turn={turn}, Reward={total_reward:.2f}, EPSILON={EPSILON:.3f}, (W={wins}, D={draws}, L={losses})"
-        )
-    
-    # Final save after all episodes
-    save_model_checkpoint(MODEL_SAVE_PATH, policy_net, target_net, optimizer, endep, logger)
+    pool.close()
+    pool.join()
+    save_model_checkpoint(MODEL_SAVE_PATH, policy_net, target_net, optimizer, total_episodes, logger)
     logger.info("Training finished.")
 
 if __name__ == "__main__":

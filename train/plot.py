@@ -5,7 +5,7 @@ import math  # Import math module for IQ calculation
 # Get user input or use default values if input is empty
 log_file_path = input("FILE PATH>> ") or "train.log"
 print(log_file_path)
-total_episodes = int(input("total_episodes>> ") or 3000000)
+total_episodes = int(input("total_episodes>> ") or 250000)
 print(total_episodes)
 interval = int(input("interval>> ") or 1000)
 print(interval)
