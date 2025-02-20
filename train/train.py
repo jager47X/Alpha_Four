@@ -32,7 +32,7 @@ EVAL_FREQUENCY = 100
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 MODEL_SAVE_PATH = 'Connect4_Agent_Model.pth'
 EVAL_MODEL_PATH = 'Connect4_Agent_EVAL.pth'
-NUM_WORKERS=10
+NUM_WORKERS = 6
 
 # ----------------- Training Step ----------------- #
 def train_step(policy_net, target_net, optimizer, replay_buffer, logger):
@@ -248,4 +248,6 @@ def main():
     logger.info("Training finished.")
 
 if __name__ == "__main__":
+    # Use the spawn start method to avoid CUDA issues in forked processes.
+    mp.set_start_method('spawn', force=True)
     main()
