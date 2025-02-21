@@ -15,29 +15,32 @@ class AgentLogic:
         self.q_threshold = q_threshold
 
 
-    def pick_action(self, env, player, epsilon, episode=1, debug=False):
+    def pick_action(self, env, epsilon, episode=1, debug=False):
         """
         This function tries:
           1) with probability epsilon -> random
           2) q network
         """
+        mcts_taken=False
         valid_actions = env.get_valid_actions()
         if not valid_actions:
             return None
 
         # (1) Epsilon exploration
         if random.random() < epsilon:
+
             base_sims = 2  # Minimum simulations
             MAX_sims=2000
             scaling_factor = 0.001 # Growth rate for simulations
-            sims = int(base_sims + scaling_factor * epsilon)
+            sims = int(base_sims + scaling_factor * episode)
             sims = min(MAX_sims, sims)  # Cap simulations at 2000
             mcts_action = MCTS(num_simulations=sims, debug=True)
             action = mcts_action.select_action(env, env.current_player)
+            mcts_taken=True
             if debug:
                 logging.debug(f"MCTS Action SELECT={action}")
             
-            return action
+            return action ,mcts_taken
 
         # (2) Check Q Values
         self.policy_net.eval()
@@ -60,9 +63,9 @@ class AgentLogic:
         best_q_val = q_values[best_act]
         if debug:
             logging.debug(f"Q-vals = {masked_q}, best_act={best_act}, best_val={best_q_val:.3f}")
-        return best_act
+        return best_act,mcts_taken
 
-    def compute_reward(self, env, last_action, current_player):
+    def compute_reward(self, env, last_action, current_player,mcts_taken):
         """
         External function that instantiates RewardSystem and calls its 
         'calculate_reward' method.
@@ -77,11 +80,11 @@ class AgentLogic:
         """
         
         rs = RewardSystem()
-        return rs.calculate_reward(env, last_action, current_player)
+        return rs.calculate_reward(env, last_action, current_player,mcts_taken)
 
 # ------------------ Reward Systems ------------------ #
 class RewardSystem:
-    def calculate_reward(self, env, last_action, current_player):
+    def calculate_reward(self, env, last_action, current_player,mcts_taken):      
         turn = env.turn - 1  # Since the turn is already ended
         board = env.get_board()
         opponent = 3 - current_player
@@ -114,6 +117,8 @@ class RewardSystem:
         raw_total = (result_reward * adjustment_factor) + active_reward - passive_penalty
         total_reward = raw_total
 
+        if mcts_taken:# isoloate mcts from reward
+            return 0, win_status
         return total_reward, win_status
 
     def get_active_reward(self, board, last_action, current_player):

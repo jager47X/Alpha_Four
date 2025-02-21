@@ -5,9 +5,9 @@ import math  # Import math module for IQ calculation
 # Get user input or use default values if input is empty
 log_file_path = input("FILE PATH>> ") or "train.log"
 print(log_file_path)
-total_episodes = int(input("total_episodes>> ") or 250000)
+total_episodes = int(input("total_episodes>> ") or 2500000)
 print(total_episodes)
-interval = int(input("interval>> ") or 1000)
+interval = int(input("interval>> ") or 25000)
 print(interval)
 annotate_on = (input("annotate_on (true/false)>> ").strip().lower() or "true") == "true"
 print(annotate_on)
@@ -16,48 +16,28 @@ def parse_log_file(log_file_path):
     rewards = []
     winners = []
     turns = []
-    min_reward = float('inf')  # Initialize to a large value
-    max_reward = float('-inf')  # Initialize to a small value
+    min_reward = float('inf')
+    max_reward = float('-inf')
 
     try:
         with open(log_file_path, "r") as log_file:
             for line in log_file:
-                # Attempt to extract Winner, Turn, and Reward
-                match = re.search(r"Winner=(-?\d+),Turn=(\d+), Reward=([-.\d]+)", line)
+                # Use an optional group for the Turn value
+                match = re.search(r"Winner=(-?\d+)(?:, Turn=(\d+))?, Reward=([-.\d]+)", line)
                 if match:
-                    winner = int(match.group(1))  # Winner (1, 2, or -1 for draws)
-                    turn = int(match.group(2))    # Number of turns
-                    reward = float(match.group(3))  # Reward
-
+                    winner = int(match.group(1))
+                    turn = int(match.group(2)) if match.group(2) is not None else 0
+                    reward = float(match.group(3))
+                    
                     # Update min and max rewards
                     if reward > max_reward:
                         max_reward = reward
                     if reward < min_reward:
                         min_reward = reward
 
-                    # Append the extracted values
                     winners.append(winner)
                     rewards.append(reward)
                     turns.append(turn)
-                else:
-                    # Attempt to extract Winner and Reward without Turn
-                    match = re.search(r"Winner=(-?\d+), Reward=([-.\d]+)", line)
-                    if match:
-                        winner = int(match.group(1))  # Winner (1, 2, or -1 for draws)
-                        reward = float(match.group(2))  # Reward
-                        turn = 0  # Assuming 0 when Turn is missing
-
-                        # Update min and max rewards
-                        if reward > max_reward:
-                            max_reward = reward
-                        if reward < min_reward:
-                            min_reward = reward
-
-                        # Append the extracted values
-                        winners.append(winner)
-                        rewards.append(reward)
-                        turns.append(turn)
-
     except FileNotFoundError:
         print(f"Error: The log file at '{log_file_path}' was not found.")
     except Exception as e:
@@ -105,7 +85,7 @@ def calculate_iq(w, r, s):
 
 # Function to plot the data
 def plot_data(winners, rewards, turns, min_reward, max_reward, total_episodes=100000, interval=1000, annotate_on=False):
-    if not rewards or not winners or not turns:
+    if not rewards or not winners and not turns:
         print("No data to plot.")
         return
 
