@@ -18,23 +18,26 @@ import time
 BATCH_SIZE = 128
 GAMMA = 0.95
 LR = 0.001
-REPLAY_CAPACITY = 100000
+
 EPSILON = 1.0
-EPSILON_DECAY = 0.999999
+EPSILON_DECAY = 0.99999
 EPSILON_MIN = 0.05
-REPLAY_BUFFER_SIZE = 10000
 TARGET_EVALUATE = 100
-TARGET_UPDATE = 1000
-TOTAL_EPISODES = 2500000
-RAND_EPISODE_BY = 1000000
-MCTS_EPISODE_BY = 2000000
-DEBUGMODE = False
+BACKUP_FREQUENCY=100
+TARGET_UPDATE = 1
+TOTAL_EPISODES = 1100000
+REPLAY_BUFFER_SIZE = TOTAL_EPISODES
+REPLAY_CAPACITY = TOTAL_EPISODES
+RAND_EPISODE_BY = 0
+MCTS_EPISODE_BY = 1000000
+DEBUGMODE = True
 EVAL_FREQUENCY = 100
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 MODEL_SAVE_PATH = 'Connect4_Agent_Model.pth'
+BACKUP_PATH = 'BACKUP.pth'
 EVAL_MODEL_PATH = 'Connect4_Agent_EVAL.pth'
 NUM_WORKERS = 6  # Adjust as needed
-
+MAX_MCTS=2000
 # ----------------- Utility Function ----------------- #
 def get_opponent_type(ep):
     """
@@ -85,6 +88,7 @@ def train_step(policy_net, target_net, optimizer, replay_buffer, logger):
 # ----------------- Checkpoint Functions ----------------- #
 def load_model_checkpoint(model_path, learning_rate, buffer_size, logger, device):
     try:
+        print("Starting Initialization")
         policy_net = DQN(device=device).to(device)
         logger.debug("Policy network initialized.")
         target_net = DQN(device=device).to(device)
@@ -101,6 +105,7 @@ def load_model_checkpoint(model_path, learning_rate, buffer_size, logger, device
         logger.debug("Replay buffer initialized.")
         start_episode = 0
         if os.path.exists(model_path):
+            print("Loading the previous Data")
             checkpoint = torch.load(model_path, map_location=device)
             logger.debug(f"Checkpoint file path: {model_path} verified.")
             if 'policy_net_state_dict' in checkpoint:
@@ -117,19 +122,51 @@ def load_model_checkpoint(model_path, learning_rate, buffer_size, logger, device
         else:
             logger.warning(f"Checkpoint file {model_path} does not exist. Starting fresh.")
     except Exception as e:
-        logger.critical(f"Failed to load model from {model_path}: {e}. Starting fresh.")
-        policy_net = DQN(device=device).to(device)
-        target_net = DQN(device=device).to(device)
-        target_net.load_state_dict(policy_net.state_dict())
-        target_net.eval()
-        optimizer = torch.optim.Adam(policy_net.parameters(), lr=learning_rate)
-        replay_buffer = DiskReplayBuffer(
-            capacity=buffer_size,
-            state_shape=(6, 7),
-            device=device
-        )
-        logger.debug("Re-initialized components.")
-        start_episode = 0
+        logger.critical(f"Failed to load model from {model_path}: {e}. Recovering using backup {BACKUP_PATH}.")
+        print(f"Failed to load model from {model_path}: {e}. Recovering using backup {BACKUP_PATH}.")
+        try:
+            if os.path.exists(BACKUP_PATH):
+                checkpoint = torch.load(BACKUP_PATH, map_location=device)
+                logger.debug(f"Checkpoint file path: {BACKUP_PATH} verified.")
+                if 'policy_net_state_dict' in checkpoint:
+                    policy_net.load_state_dict(checkpoint['policy_net_state_dict'])
+                    logger.debug("Loaded policy network state_dict.")
+                else:
+                    policy_net.load_state_dict(checkpoint)
+                    logger.debug("Loaded raw policy network state_dict.")
+                if 'optimizer_state_dict' in checkpoint:
+                    optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
+                    logger.debug("Loaded optimizer state_dict.")
+                start_episode = checkpoint.get('episode', 0)
+                logger.debug(f"Copying the Data")
+                save_model_checkpoint(model_path, policy_net, target_net, optimizer, start_episode, logger) # Copy the data
+                logger.debug(f"Loaded start episode: {start_episode}")
+        except Exception as e:
+            print(f"Failed to load model from {BACKUP_PATH}: {e}. Starting fresh.")
+            logger.critical(f"Failed to load model from {BACKUP_PATH}: {e}. Starting fresh.")
+            policy_net = DQN(device=device).to(device)
+            target_net = DQN(device=device).to(device)
+            target_net.load_state_dict(policy_net.state_dict())
+            target_net.eval()
+            optimizer = torch.optim.Adam(policy_net.parameters(), lr=learning_rate)
+            replay_buffer = DiskReplayBuffer(
+                capacity=buffer_size,
+                state_shape=(6, 7),
+                device=device
+            )
+            logger.debug("Re-initialized components.")
+            start_episode = 0
+            policy_net = DQN(device=device).to(device)
+            target_net = DQN(device=device).to(device)
+            target_net.load_state_dict(policy_net.state_dict())
+            target_net.eval()
+            optimizer = torch.optim.Adam(policy_net.parameters(), lr=learning_rate)
+            replay_buffer = DiskReplayBuffer(
+                capacity=buffer_size,
+                state_shape=(6, 7),
+                device=device
+            )
+            logger.debug("Re-initialized components.")
     return policy_net, target_net, optimizer, replay_buffer, start_episode
 
 def save_model_checkpoint(model_path, policy_net, target_net, optimizer, episode, logger):
@@ -145,13 +182,17 @@ def save_model_checkpoint(model_path, policy_net, target_net, optimizer, episode
     except Exception as e:
         logger.error(f"Failed to save model checkpoint to {model_path}: {e}.")
 
-def periodic_updates(episode, policy_net, target_net, optimizer, MODEL_SAVE_PATH, EPSILON, logger):
+def periodic_updates(episode, policy_net, target_net, optimizer,logger):
+    global EPSILON
     try:
         if episode % TARGET_UPDATE == 0:
             save_model_checkpoint(MODEL_SAVE_PATH, policy_net, target_net, optimizer, episode, logger)
             logger.debug(f"Models saved at episode {episode}")
             target_net.load_state_dict(policy_net.state_dict())
             logger.debug("Target network updated")
+        if episode % BACKUP_FREQUENCY== 0:
+            save_model_checkpoint(BACKUP_PATH, policy_net, target_net, optimizer, episode, logger)
+            logger.debug(f"Backup saved at episode {episode}")
         EPSILON = max(EPSILON_MIN, EPSILON * EPSILON_DECAY)
     except Exception as e:
         logger.error(f"Error during periodic updates at episode {episode}: {e}")
@@ -186,9 +227,6 @@ def simulate_episode(args):
     
     while not done:
         turn += 1
-        epd = ep + 1
-        rand_val = RAND_EPISODE_BY + 1
-        reward_multiplier = min(1, (epd / rand_val))
         mcts_used = False
         if env.current_player == 1:
             # Determine opponent type
@@ -202,14 +240,15 @@ def simulate_episode(args):
                         logger.debug(f"Phase: {opponent_type}, Random Action SELECT={action}")
                     return action
                 elif opponent_type == "MCTS":
-                    base_sims = 2  # Minimum simulations
-                    MAX_sims = 2000
-                    scaling_factor = MAX_sims / (MCTS_EPISODE_BY - RAND_EPISODE_BY)
+                    scaling_factor = MAX_MCTS / (MCTS_EPISODE_BY - RAND_EPISODE_BY)
                     mcts_level = ep - RAND_EPISODE_BY
-                    sims = int(base_sims + scaling_factor * mcts_level)
-                    sims = min(MAX_sims, sims)
-                    mcts_action = MCTS(num_simulations=sims, debug=True)
-                    action = mcts_action.select_action(env, env.current_player)
+                    sims = int(scaling_factor * mcts_level)
+                    sims = min(MAX_MCTS, sims)
+                    if sims == 0:
+                        action = random.choice(env.get_valid_actions())
+                    else:  
+                        mcts_action = MCTS(num_simulations=sims, debug=True)
+                        action = mcts_action.select_action(env, env.current_player)
                     if debug:
                         logger.debug(f"Phase: {opponent_type}, MCTS Action SELECT={action}")
                     return action
@@ -242,12 +281,11 @@ def simulate_episode(args):
                     wins += 1
                 elif winner == 1:
                     # Compute additional reward when losing
-                    reward_loss, _ = agent.compute_reward(env, -1, 2,mcts_used)
+                    reward, _ = agent.compute_reward(env, -1, 2,mcts_used)
                     next_state = env.get_board().copy()
-                    reward_loss *= reward_multiplier
-                    transitions.append((state, action, reward_loss, next_state, True))
+                    transitions.append((state, action, reward, next_state, True))
                     state = next_state
-                    total_reward += reward_loss
+                    total_reward += reward
                     losses += 1
                 elif winner == -1:
                     draws += 1
@@ -280,11 +318,11 @@ def run_training():
     logging.basicConfig(
         filename='train.log',
         filemode='a',
-        level=logging.INFO,
+        level=logging.DEBUG,
         format="%(asctime)s - %(levelname)s - %(message)s"
     )
     logger = logging.getLogger("Connect4Logger")
-    print("Starting Initialization")
+    
     
     replay_buffer = DiskReplayBuffer(
         capacity=REPLAY_CAPACITY,
@@ -325,9 +363,11 @@ def run_training():
             for transition in transitions:
                 replay_buffer.push(*transition)
             train_step(policy_net, target_net, optimizer, replay_buffer, logger)
-            logger.info(f"Episode {ep}: Winner={winner}, Turn={turn}, Reward={total_reward:.2f}, EPSILON={EPSILON:.6f}")
-            print(f"Episode {ep}: Winner={winner}, Turn={turn}, Reward={total_reward:.2f}, EPSILON={EPSILON:.6f}")
-            EPSILON = periodic_updates(ep, policy_net, target_net, optimizer, MODEL_SAVE_PATH, EPSILON, logger)
+            if ep>RAND_EPISODE_BY:
+                sims=int( MAX_MCTS /(MCTS_EPISODE_BY-RAND_EPISODE_BY)*ep)
+            logger.info(f"Episode {ep}: Winner={winner}, Turn={turn}, Reward={total_reward:.2f}, EPSILON={EPSILON:.6f}, Simulation={sims}")
+            print(f"Episode {ep}: Winner={winner}, Turn={turn}, Reward={total_reward:.2f}, EPSILON={EPSILON:.6f}, Simulation={sims}")
+            EPSILON = periodic_updates(ep, policy_net, target_net, optimizer,logger)
     
     pool.close()
     pool.join()

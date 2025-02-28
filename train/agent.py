@@ -26,33 +26,31 @@ class AgentLogic:
         if not valid_actions:
             return None
 
-        # (1) Epsilon exploration
+        # Epsilon exploration
         if random.random() < epsilon:
 
-            base_sims = 2  # Minimum simulations
-            MAX_sims=2000
-            scaling_factor = 0.001 # Growth rate for simulations
-            sims = int(base_sims + scaling_factor * episode)
-            sims = min(MAX_sims, sims)  # Cap simulations at 2000
-            mcts_action = MCTS(num_simulations=sims, debug=True)
+            #base_sims = 2  # Minimum simulations
+            #MAX_sims=2000
+            #scaling_factor = 0.001 # Growth rate for simulations
+            #sims = int(base_sims + scaling_factor * episode)
+            #sims = min(MAX_sims, sims)  # Cap simulations at 2000
+            mcts_action = MCTS(num_simulations=2000, debug=True)
             action = mcts_action.select_action(env, env.current_player)
+            
             mcts_taken=True
             if debug:
                 logging.debug(f"MCTS Action SELECT={action}")
             
             return action ,mcts_taken
 
-        # (2) Check Q Values
+        # Check Q Values
         self.policy_net.eval()
-
         state_tensor = torch.tensor(env.board, dtype=torch.float32, device=self.policy_net.device).unsqueeze(0)
         with torch.no_grad():
             q_values = self.policy_net(state_tensor).cpu().numpy().flatten()
 
         # Restore original mode if needed
         self.policy_net.train()
-
-        valid_actions = env.get_valid_actions()
 
         # Among valid actions, pick highest
         # Mask invalid actions by setting their Q-values to -inf
@@ -61,43 +59,45 @@ class AgentLogic:
 
         best_act = np.argmax(masked_q)
         best_q_val = q_values[best_act]
+
         if debug:
             logging.debug(f"Q-vals = {masked_q}, best_act={best_act}, best_val={best_q_val:.3f}")
         return best_act,mcts_taken
 
-    def compute_reward(self, env, last_action, current_player,mcts_taken):
+
+    def compute_reward(self, env, last_action,last_player,mcts_taken):
         """
         External function that instantiates RewardSystem and calls its 
         'calculate_reward' method.
         
         Args:
-            env: The current game environment.
+            env: The last game environment.
             last_action: The action taken by the player.
-            current_player: The player (1 or 2).
+            last_player: The player (1 or 2).
         
         Returns:
             tuple: (total_reward, win_status)
         """
         
         rs = RewardSystem()
-        return rs.calculate_reward(env, last_action, current_player,mcts_taken)
+        return rs.calculate_reward(env, last_action, last_player,mcts_taken)
 
 # ------------------ Reward Systems ------------------ #
 class RewardSystem:
-    def calculate_reward(self, env, last_action, current_player,mcts_taken):      
+    def calculate_reward(self, env, last_action, last_player,mcts_taken):      
         turn = env.turn - 1  # Since the turn is already ended
         board = env.get_board()
-        opponent = 3 - current_player
+        opponent = 3 - last_player
 
         winner = env.check_winner()
-        if winner == current_player:
-            result_reward = 100.0
-            win_status = current_player
+        if winner == last_player:
+            result_reward = 20.0
+            win_status = last_player
         elif winner == opponent:
-            result_reward = -100.0
-            win_status = current_player
+            result_reward = -20.0
+            win_status = last_player
         elif env.is_draw():
-            result_reward = 10.0  # Lowered to prevent passive play
+            result_reward = 0.0 
             win_status = -1
         else:
             result_reward = 0.0
@@ -108,44 +108,44 @@ class RewardSystem:
         adjustment_factor = min(2, fastest_win_possible / (turn + 1))  # Smoother scaling
 
         # Active Rewards (Encourage Good Moves)
-        active_reward = self.get_active_reward(board, last_action, current_player)
+        active_reward = self.get_active_reward(board, last_action, last_player)
 
         # Passive Penalty (Discourage Allowing Opponent Advantage)
         passive_penalty = self.get_passive_penalty(board, opponent)
 
         # Total Reward Calculation
-        raw_total = (result_reward * adjustment_factor) + active_reward - passive_penalty
+        raw_total = (result_reward) + active_reward - (passive_penalty* adjustment_factor) 
         total_reward = raw_total
 
         if mcts_taken:# isoloate mcts from reward
-            return 0, win_status
+            return total_reward*0.2, win_status
         return total_reward, win_status
 
-    def get_active_reward(self, board, last_action, current_player):
+    def get_active_reward(self, board, last_action, last_player):
         row_played = self.get_row_played(board, last_action)
         if row_played is None:
             return 0.0
 
         # More distinct reward scaling
-        if self.is_double_threat(board, row_played, current_player):
-            return 10.0
-        if self.blocks_opponent_n_in_a_row(board, row_played, last_action, current_player, 4):
+        if self.is_double_threat(board, row_played, last_player):
+            return 9.0
+        if self.blocks_opponent_n_in_a_row(board, row_played, last_action, last_player, 4):
+            return 8.0
+        if self.causes_n_in_a_row(board, row_played, last_action, last_player, 3):
+            return 4.0
+        if self.blocks_opponent_n_in_a_row(board, row_played, last_action, last_player, 3):
             return 6.0
-        if self.causes_n_in_a_row(board, row_played, last_action, current_player, 3):
-            return 3.0
-        if self.blocks_opponent_n_in_a_row(board, row_played, last_action, current_player, 3):
+        if self.causes_n_in_a_row(board, row_played, last_action, last_player, 2):
             return 2.0
-        if self.causes_n_in_a_row(board, row_played, last_action, current_player, 2):
-            return 1.0
-        if self.blocks_opponent_n_in_a_row(board, row_played, last_action, current_player, 2):
-            return 0.5
-        return 0.2  # Minor incentive for placing a piece
+        if self.blocks_opponent_n_in_a_row(board, row_played, last_action, last_player, 2):
+            return 4.0
+        return 1.0  # Minor incentive for placing a piece
 
     def get_passive_penalty(self, board, opponent):
         """Penalize allowing opponent to build connections."""
         two_in_a_rows = self.count_n_in_a_row(board, opponent, 2)
         three_in_a_rows = self.count_n_in_a_row(board, opponent, 3)
-        return (two_in_a_rows * 0.1) + (three_in_a_rows * 0.8)  # Increased penalty for stronger threats
+        return (two_in_a_rows * 1.0) + (three_in_a_rows * 2.0)  # Increased penalty for stronger threats
 
 
     def get_row_played(self, board, col):

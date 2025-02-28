@@ -5,9 +5,9 @@ import math  # Import math module for IQ calculation
 # Get user input or use default values if input is empty
 log_file_path = input("FILE PATH>> ") or "train.log"
 print(log_file_path)
-total_episodes = int(input("total_episodes>> ") or 2500000)
+total_episodes = int(input("total_episodes>> ") or 500000)
 print(total_episodes)
-interval = int(input("interval>> ") or 25000)
+interval = int(input("interval>> ") or 200)
 print(interval)
 annotate_on = (input("annotate_on (true/false)>> ").strip().lower() or "true") == "true"
 print(annotate_on)
@@ -57,31 +57,6 @@ def calculate_rate_of_change(metric_list):
         change = metric_list[i] - metric_list[i - 1]
         rate_of_change.append(change)
     return rate_of_change
-
-# Function to calculate IQ
-def calculate_iq(w, r, s):
-    """
-    Calculate the IQ metric based on the provided formula.
-    IQ = e^w * sqrt(r) * ln(s)
-    
-    Parameters:
-    - w (float): Total average Player 2 win rate [0.0, 1.0]
-    - r (float): Average reward in the interval [1, 42]
-    - s (int): Current episode number (>= 2)
-    
-    Returns:
-    - iq (float): Calculated IQ metric
-    """
-    try:
-        # Compute the result
-        if r <= 0:  # Ensure r is >0
-            print(f"Average Reward is negative or zero: {r}. Setting to 0.0001 instead.")
-            r = 0.0001
-        result = math.exp(w) * math.sqrt(r / 2) * math.log(s)
-        return result
-    except (ValueError, OverflowError, ZeroDivisionError) as e:
-        print(f"Error calculating IQ: {e}")
-        return 0  # Handle any mathematical errors gracefully
 
 # Function to plot the data
 def plot_data(winners, rewards, turns, min_reward, max_reward, total_episodes=100000, interval=1000, annotate_on=False):
@@ -206,22 +181,16 @@ def plot_data(winners, rewards, turns, min_reward, max_reward, total_episodes=10
         print(f"  s (episode) = {s}")
 
         # Calculate IQ using the separate function
-        iq = calculate_iq(w, r, s)
-        print(f"  iq = {iq}\n")  # Expected: ~59.8984 for sample inputs
-
-        iq_values.append(iq)
-        iq_x.append(end)
+        
 
     # Initialize plots with 0 at episode 0 (only if there is at least one complete interval)
-    if avg_rewards and avg_turns and iq_values:
+    if avg_rewards and avg_turns:
         avg_rewards = [0] + avg_rewards
         avg_rewards_x = [0] + avg_rewards_x
 
         avg_turns = [0] + avg_turns
         avg_turns_x = [0] + avg_turns_x
 
-        iq_values = [0] + iq_values
-        iq_x = [0] + iq_x
     else:
         print("No complete intervals to plot.")
         return
@@ -229,7 +198,7 @@ def plot_data(winners, rewards, turns, min_reward, max_reward, total_episodes=10
     # Calculate rate of change for all metrics
     roc_avg_rewards = calculate_rate_of_change(avg_rewards)
     roc_avg_turns = calculate_rate_of_change(avg_turns)
-    roc_iq_values = calculate_rate_of_change(iq_values)
+    #roc_iq_values = calculate_rate_of_change(iq_values)
 
     # Compute win rate changes for annotations every interval
     rate_change_player1 = []
@@ -356,7 +325,7 @@ def plot_data(winners, rewards, turns, min_reward, max_reward, total_episodes=10
 
     # Display winner statistics and progress percentage in the title
     plt.title(
-        f"Win Rates, Average Rewards, Average Turns, IQ, and P2 Win Rate Over Time\n"
+        f"Win Rates, Average Rewards, Average Turns, and P2 Win Rate Over Time\n"
         f"Total Games: {total_games}/{total_episodes} ({progress_percentage:.2f}% Completed)\n"
         f"Agent Winrate: {(winner_counts.get(2, 0)/total_games)*100:.2f}%, "
         f"Draws: {winner_counts.get(-1, 0)}, "
@@ -364,7 +333,7 @@ def plot_data(winners, rewards, turns, min_reward, max_reward, total_episodes=10
         f"Agent MAX Reward: {max_reward:.2f}"
     )
     plt.xlabel("Game Index")
-    plt.ylabel("Percentage / Reward / Turns / IQ")
+    plt.ylabel("Win Rate / Reward / Turns ")
     plt.legend()
     plt.grid(color='gray', linestyle='--', linewidth=0.5)
     plt.tight_layout()
