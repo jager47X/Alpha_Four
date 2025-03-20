@@ -1,2 +1,9 @@
-/train/train.log
-/train/result/
+# Ignore all __pycache__ directories
+**/__pycache__/
+
+# Ignore compiled Python files
+*.pyc
+*.pyo
+
+# Ignore the entire data directory
+data/

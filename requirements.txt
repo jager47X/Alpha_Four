@@ -1,0 +1,11 @@
+# PyTorch (adjust version for your CUDA / OS environment)
+torch>=1.10
+
+# Numerical / array processing
+numpy>=1.20
+
+# JIT compiler + CUDA utilities
+numba>=0.55
+
+# Plotting library
+matplotlib>=3.3
