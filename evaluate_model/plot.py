@@ -181,7 +181,7 @@ def plot_data(
 
         avg_winrates.append(interval_winrate_p2)
         avg_rewards.append(avg_reward)
-        avg_turns.append(avg_turn)
+        avg_turns.append(avg_turn/2)
         avg_mcts_usage.append(avg_mcts)
         avg_recalc.append(avg_r)
         interval_x.append(end_idx)  # x for this chunk
