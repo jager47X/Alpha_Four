@@ -40,7 +40,6 @@ def parse_log_file(log_file_path):
     epsilons = []
     mcts_levels = []
     mcts_counts = []      # We'll store normalized MCTS usage (count / total_mcts_turns)
-    recalculations = []
     min_reward = float('inf')
     max_reward = float('-inf')
 
@@ -74,12 +73,7 @@ def parse_log_file(log_file_path):
                     epsilons.append(epsilon)
                     mcts_levels.append(mcts_level)
 
-                    # Normalize MCTS usage: (used_mcts / total_mcts_turns) if total_mcts_turns > 0
-                    norm_mcts_usage = (
-                        used_mcts / total_mcts_turns if total_mcts_turns > 0 else 0
-                    )
                     mcts_counts.append( used_mcts)
-                    recalculations.append(recalculation)
 
                     min_reward = min(min_reward, reward)
                     max_reward = max(max_reward, reward)
@@ -96,7 +90,6 @@ def parse_log_file(log_file_path):
         epsilons,
         mcts_levels,
         mcts_counts,
-        recalculations,
         min_reward,
         max_reward,
     )
@@ -120,7 +113,6 @@ def plot_data(
     epsilons,
     mcts_levels,
     mcts_counts,
-    recalculations,
     min_reward,
     max_reward,
     total_episodes=1000000,
@@ -145,7 +137,6 @@ def plot_data(
     avg_rewards = []
     avg_turns = []
     avg_mcts_usage = []
-    avg_recalc = []
     interval_x = []
 
     idx = 0
@@ -156,7 +147,6 @@ def plot_data(
         interval_rewards = rewards[idx:end_idx]
         interval_turns = turns[idx:end_idx]
         interval_mcts_counts = mcts_counts[idx:end_idx]
-        interval_recalcs = recalculations[idx:end_idx]
 
         # 1) Interval-based P2 win rate
         if len(interval_winners) > 0:
@@ -176,14 +166,11 @@ def plot_data(
         # 4) Average MCTS usage (already normalized)
         avg_mcts = np.mean(interval_mcts_counts) if interval_mcts_counts else 0.0
 
-        # 5) Average recalculations
-        avg_r = np.mean(interval_recalcs) if interval_recalcs else 0.0
 
         avg_winrates.append(interval_winrate_p2)
         avg_rewards.append(avg_reward)
         avg_turns.append(avg_turn/2)
         avg_mcts_usage.append(avg_mcts)
-        avg_recalc.append(avg_r)
         interval_x.append(end_idx)  # x for this chunk
 
         idx = end_idx
@@ -200,14 +187,14 @@ def plot_data(
     avg_rewards.insert(0, 0.0)
     avg_turns.insert(0, 0.0)
     avg_mcts_usage.insert(0, 0.0)
-    avg_recalc.insert(0, 0.0)
+
 
     # ---- Rate-of-change (for optional annotation) ----
     roc_winrates = calculate_rate_of_change(avg_winrates)
     roc_rewards = calculate_rate_of_change(avg_rewards)
     roc_turns = calculate_rate_of_change(avg_turns)
     roc_mcts_usage = calculate_rate_of_change(avg_mcts_usage)
-    roc_recalc = calculate_rate_of_change(avg_recalc)
+   
 
     # ---- Overall stats ----
     total_p2_wins = sum(1 for w in winners if w == 2)
@@ -225,37 +212,31 @@ def plot_data(
         interval_x,
         avg_winrates,
         label="Avg P2 WinRate (%)",
-        linewidth=2,    # Thicker line
-        color="red",    # Red
+        linewidth=2,   
+        color="green",   
     )
     line_reward, = ax1.plot(
         interval_x,
         avg_rewards,
         label="Avg Reward",
-        linewidth=2,    # Thicker line
-        color="lime",   # Lime green
+        linewidth=2,   
+        color="Yellow",   
     )
     line_turns, = ax1.plot(
         interval_x,
         avg_turns,
         label="Avg Turns",
-        linewidth=2,    # Thicker line
-        color="cyan",   # Cyan
+        linewidth=4,    
+        color="cyan",  
     )
     line_mcts, = ax1.plot(
         interval_x,
         avg_mcts_usage,
         label="Avg MCTS Usage",
-        linewidth=2,    # Thicker line
-        color="yellow", # Yellow
+        linewidth=2,    
+        color="red", 
     )
-    line_recalc, = ax1.plot(
-        interval_x,
-        avg_recalc,
-        label="Avg Recalc",
-        linewidth=2,    # Thicker line
-        color="magenta" # Magenta
-    )
+  
 
     # Optional annotations
     if annotate_on:
@@ -286,12 +267,6 @@ def plot_data(
                 y_val = avg_mcts_usage[i]
                 ax1.text(x_val, y_val, f"{plus_sign}{roc_mcts_usage[i]:.3f}", 
                          fontsize=7, ha="center", color="yellow")
-            # Recalc
-            if roc_recalc[i] is not None:
-                plus_sign = "+" if roc_recalc[i] > 0 else ""
-                y_val = avg_recalc[i]
-                ax1.text(x_val, y_val, f"{plus_sign}{roc_recalc[i]:.2f}", 
-                         fontsize=7, ha="center", color="magenta")
 
     ax1.set_title(
         f"Figure 1: Interval-Based Metrics\n"
@@ -303,7 +278,7 @@ def plot_data(
     ax1.set_ylabel("Interval-based Metrics")
     ax1.grid(color="gray", linestyle="--", linewidth=0.5)
 
-    lines_1 = [line_winrate, line_reward, line_turns, line_mcts, line_recalc]
+    lines_1 = [line_winrate, line_reward, line_turns, line_mcts]
     labels_1 = [l.get_label() for l in lines_1]
     ax1.legend(lines_1, labels_1, loc="upper left")
 
@@ -324,8 +299,8 @@ def plot_data(
         x_games,
         epsilon_percent,
         label="Epsilon (%)",
-        linewidth=1, 
-        color="lime",
+        linewidth=0.5, 
+        color="blue",
     )
 
     # Avg Win Rate line (RED), same data as figure 1
@@ -334,7 +309,7 @@ def plot_data(
         avg_winrates,
         label="Avg WinRate (%) [interval]",
         linewidth=1,  
-        color="red",
+        color="green",
     )
 
     # MCTS Level line (right axis, yellow)
@@ -343,7 +318,7 @@ def plot_data(
         mcts_levels,
         label="MCTS Level",
         linewidth=1,  
-        color="yellow",
+        color="white",
     )
 
     ax2_left.set_title(
@@ -378,7 +353,6 @@ def plot_data(
     epsilons,
     mcts_levels,
     mcts_counts,
-    recalculations,
     min_reward,
     max_reward,
 ) = parse_log_file(log_file_path)
@@ -390,7 +364,6 @@ plot_data(
     epsilons,
     mcts_levels,
     mcts_counts,
-    recalculations,
     min_reward,
     max_reward,
     total_episodes=total_episodes,
