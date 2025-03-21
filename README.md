@@ -11,7 +11,8 @@ Table of Contents
 -   [Project Structure](#project-structure)
 -   [Requirements and Installation](#requirements-and-installation)
 -   [Usage](#usage)
-    -   [HyperParameter](#hyperparameter)
+    -   [DownLoad Model](#download-model)
+    -   [Tune HyperParameter](#tune-hyperparameter)
     -   [Training](#training)
     -   [Evaluation](#evaluation)
     -   [Manual Play](#manual-play)
@@ -94,7 +95,19 @@ pip install -r requirements.txt
 
 Usage
 -----
-### Hyperparameter
+### Download Model
+#### Under the project directorymake these directory
+``` 
+project/
+├── data/                                
+│   ├── models/                           # saved models.
+│   ├── dat/                              # saved replaybuffer.dats
+│   └── logs/                              # saved logs
+```
+- Model: [Link to Models (Google Drive)](https://drive.google.com/drive/folders/1OqZVeabqI5f7ye2lr2O2Qgo_tb69o1Op?usp=sharing)
+
+
+### Tune Hyperparameter
 #### Hardware Hyperparameters
 - DEVICE :This parameter sets the computation device. It uses PyTorch’s mechanism to choose a CUDA-enabled GPU if available, otherwise it falls back to the CPU. This is crucial for accelerating both training and inference when a GPU is present.
 
