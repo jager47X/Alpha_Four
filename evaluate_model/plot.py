@@ -78,7 +78,7 @@ def parse_log_file(log_file_path):
                     norm_mcts_usage = (
                         used_mcts / total_mcts_turns if total_mcts_turns > 0 else 0
                     )
-                    mcts_counts.append(norm_mcts_usage)
+                    mcts_counts.append( used_mcts)
                     recalculations.append(recalculation)
 
                     min_reward = min(min_reward, reward)
@@ -225,35 +225,35 @@ def plot_data(
         interval_x,
         avg_winrates,
         label="Avg P2 WinRate (%)",
-        linewidth=3,    # Thicker line
+        linewidth=2,    # Thicker line
         color="red",    # Red
     )
     line_reward, = ax1.plot(
         interval_x,
         avg_rewards,
         label="Avg Reward",
-        linewidth=3,    # Thicker line
+        linewidth=2,    # Thicker line
         color="lime",   # Lime green
     )
     line_turns, = ax1.plot(
         interval_x,
         avg_turns,
         label="Avg Turns",
-        linewidth=3,    # Thicker line
+        linewidth=2,    # Thicker line
         color="cyan",   # Cyan
     )
     line_mcts, = ax1.plot(
         interval_x,
         avg_mcts_usage,
         label="Avg MCTS Usage",
-        linewidth=3,    # Thicker line
+        linewidth=2,    # Thicker line
         color="yellow", # Yellow
     )
     line_recalc, = ax1.plot(
         interval_x,
         avg_recalc,
         label="Avg Recalc",
-        linewidth=3,    # Thicker line
+        linewidth=2,    # Thicker line
         color="magenta" # Magenta
     )
 
@@ -324,7 +324,7 @@ def plot_data(
         x_games,
         epsilon_percent,
         label="Epsilon (%)",
-        linewidth=3,  # Thicker line
+        linewidth=1, 
         color="lime",
     )
 
@@ -333,7 +333,7 @@ def plot_data(
         interval_x,
         avg_winrates,
         label="Avg WinRate (%) [interval]",
-        linewidth=3,  # Thicker line
+        linewidth=1,  
         color="red",
     )
 
@@ -342,7 +342,7 @@ def plot_data(
         x_games,
         mcts_levels,
         label="MCTS Level",
-        linewidth=3,  # Thicker line
+        linewidth=1,  
         color="yellow",
     )
 

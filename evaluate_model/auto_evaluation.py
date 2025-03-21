@@ -35,9 +35,10 @@ logging.basicConfig(
 logging.info("Logging setup complete!")
 
 # ----------------- Model Paths ----------------- #
-main_model_version = 3
-other_model_version = 2
-
+main_model_version = input("main_model_version>> ") or 2
+print("main_model_version: ", main_model_version)
+other_model_version = input("other_model_version>> ") or 1
+print("other_model_version: ", other_model_version)
 MODEL_PATH = os.path.join("data", "models", str(main_model_version), "Connect4_Agent_Model.pth")
 OTHER_MODEL_PATH = os.path.join("data", "models", str(other_model_version), "Connect4_Agent_Model.pth")
 
@@ -140,14 +141,15 @@ def main_evaluation(num_games=100):
     1) DQN Model vs Random Opponent
     2) DQN Model vs MCTS Agent
     3) DQN Model vs Another DQN Model
+    Also prints an overall win rate summary for the main agent.
     """
-    print("\n Starting Model Evaluation")
+    print("\nStarting Model Evaluation")
 
     # Create an evaluator instance
     evaluator = AutoEvaluator()
 
     # Load main DQN Agent
-    print(f"\n Loading Main DQN Agent from: {MODEL_PATH}")
+    print(f"\nLoading Main DQN Agent from: {MODEL_PATH}")
     checkpoint = torch.load(MODEL_PATH, map_location=device)
     policy_net = DQN(input_shape=(6, 7), num_actions=7, device=device).to(device)
     policy_net.load_state_dict(checkpoint["policy_net_state_dict"])
@@ -159,42 +161,54 @@ def main_evaluation(num_games=100):
     policy_net_other.load_state_dict(checkpoint_other["policy_net_state_dict"])
     agent_other = AgentLogic(policy_net_other, device)
 
+    # Variables to accumulate overall counts
+    overall_main_wins = 0
+    overall_opponent_wins = 0
+    overall_draws = 0
+    overall_games = 0
+
     # Evaluate vs Random Opponent
     print("\nEvaluating vs Random Opponent...")
     random_agent = AgentLogic(policy_net_other, device, mcts_simulations=0, always_random=True)
     a1_wr, a2_wr, dr = evaluator.evaluate_agents(agent1=random_agent, agent2=agent_main, n_episodes=num_games)
-    print(f"[VS Random] Random Win Rate={a1_wr*100:.1f}% | Agent Win Rate={a2_wr*100:.1f}% | Draw Rate={dr*100:.1f}%")
+    print(f"[VS Random] Random Win Rate = {a1_wr*100:.1f}% | Agent Win Rate = {a2_wr*100:.1f}% | Draw Rate = {dr*100:.1f}%")
+    overall_opponent_wins += a1_wr * num_games
+    overall_main_wins += a2_wr * num_games
+    overall_draws += dr * num_games
+    overall_games += num_games
 
     # Evaluate vs MCTS Agent with different simulation counts
     for sims in range(200, 2001, 200):
         mcts_agent = AgentLogic(policy_net_other, device, mcts_simulations=sims, always_mcts=True)
         print(f"\nEvaluating vs MCTS Agent ({sims} simulations)...")
         a1_wr, a2_wr, dr = evaluator.evaluate_agents(agent1=mcts_agent, agent2=agent_main, n_episodes=num_games)
-        print(f"[VS MCTS {sims}] MCTS Win Rate={a1_wr*100:.1f}% | Agent Win Rate={a2_wr*100:.1f}% | Draw Rate={dr*100:.1f}%")
+        print(f"[VS MCTS {sims}] MCTS Win Rate = {a1_wr*100:.1f}% | Agent Win Rate = {a2_wr*100:.1f}% | Draw Rate = {dr*100:.1f}%")
+        overall_opponent_wins += a1_wr * num_games
+        overall_main_wins += a2_wr * num_games
+        overall_draws += dr * num_games
+        overall_games += num_games
 
     # Evaluate vs Another DQN model
     print(f"\nEvaluating vs Another DQN Model: {OTHER_MODEL_PATH}")
     a1_wr, a2_wr, dr = evaluator.evaluate_agents(agent1=agent_other, agent2=agent_main, n_episodes=num_games)
-    print(f"[VS Other DQN] Agent1 Win Rate={a1_wr*100:.1f}% | Agent2 Win Rate={a2_wr*100:.1f}% | Draw Rate={dr*100:.1f}%")
+    print(f"[VS Other DQN] Agent1 Win Rate = {a1_wr*100:.1f}% | Agent2 Win Rate = {a2_wr*100:.1f}% | Draw Rate = {dr*100:.1f}%")
+    overall_opponent_wins += a1_wr * num_games
+    overall_main_wins += a2_wr * num_games
+    overall_draws += dr * num_games
+    overall_games += num_games
 
+    # Calculate overall percentages
+    overall_main_win_rate = overall_main_wins / overall_games
+    overall_opponent_win_rate = overall_opponent_wins / overall_games
+    overall_draw_rate = overall_draws / overall_games
+
+    print("\nOverall Evaluation Summary:")
+    print(f"Total Games: {overall_games}")
+    print(f"Main Agent Overall Win Rate: {overall_main_win_rate*100:.1f}%")
+    print(f"Opponents Overall Win Rate: {overall_opponent_win_rate*100:.1f}%")
+    print(f"Overall Draw Rate: {overall_draw_rate*100:.1f}%")
     print("\nEvaluation Complete.")
 
 # ------------------- Run Evaluation ------------------- #
 if __name__ == "__main__":
     main_evaluation(num_games=10)
-
-#win rate
-# vs Random 100%
-# vs MCTS 
-# 200 90%
-# 400 90%
-# 600 40%
-# 800 60%
-# 1000 40%
-# 1200 70%
-# 1400 70%
-# 1600 60%
-# 1800 70%
-# 2000 20%
-# vs Previous Model 40%
-# overall 62.5%
