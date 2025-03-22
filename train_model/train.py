@@ -14,7 +14,6 @@ from dependencies.agent import AgentLogic
 from dependencies.replay_buffer import DiskReplayBuffer
 from dependencies.utils import setup_logger, safe_make_dir, get_next_index
 from dependencies.mcts import MCTS
-
 warnings.filterwarnings("ignore", category=NumbaPerformanceWarning)
 
 # ----------------- Hyperparams ----------------- #
@@ -32,7 +31,7 @@ TARGET_UPDATE = 100
 EVAL_FREQUENCY = 100
 EPSILON_DECAY = 0.999
 EPSILON_MIN = 0.05
-TOTAL_EPISODES = 1000000
+TOTAL_EPISODES = 999999999 # Infinite until it the training completed by trigerring the condition
 DEBUGMODE = False
 # --- MCTS  Hyperparam --- #
 WIN_RATE_WINDOW = 100
