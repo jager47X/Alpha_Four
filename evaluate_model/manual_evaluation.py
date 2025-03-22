@@ -228,10 +228,15 @@ class Connect4GUI:
 
 # --------------- Main --------------- #
 if __name__ == "__main__":
-    # Instantiate the DQN model with a matching input shape and number of actions.
-    # Here we assume a board of shape (6,7) hence input_shape=(6,7) and 7 actions.
-    ai_model = DQN(input_shape=(6, 7), num_actions=7).to(device)
-    ai = AgentLogic(ai_model, device)
+    model_version = input("model_version>> ") or 2
+    print("main_model_version: ", model_version)
+    MODEL_PATH = os.path.join("data", "models", str(model_version), "Connect4_Agent_Model.pth")
+    print(f"\nLoading Main DQN Agent from: {MODEL_PATH}")
+    checkpoint = torch.load(MODEL_PATH, map_location=device)
+    policy_net = DQN(input_shape=(6, 7), num_actions=7, device=device).to(device)
+    policy_net.load_state_dict(checkpoint["policy_net_state_dict"])
+    agent_main = AgentLogic(policy_net, device)
+    ai = AgentLogic(policy_net , device)
     
     root = tk.Tk()
     app = Connect4GUI(root, ai)

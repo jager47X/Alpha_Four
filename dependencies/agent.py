@@ -49,11 +49,11 @@ class AgentLogic:
         if not valid_actions:
             if return_mcts_value:
                 return None, 0.0, mcts_taken
-            return None
+            return None,False
 
         if self.always_random:
             action = random.choice(valid_actions)
-            return action
+            return action,False
 
         if self.always_mcts:
             mcts_taken = True
@@ -67,9 +67,20 @@ class AgentLogic:
             action, mcts_value = mcts_agent.select_action(env, env.current_player)
             if return_mcts_value:
                 return action, mcts_value, mcts_taken
-            return action
+            return action,False
 
         # Evaluate Q-values using the policy network.
+        # Build the state tensor with the correct shape: (batch, channels, height, width)
+        board_np = env.board  # Expected shape: (6,7)
+        state_tensor = torch.tensor(board_np, dtype=torch.float32, device=self.device)
+        if state_tensor.ndimension() == 2:
+            # From (6,7) to (1,1,6,7)
+            state_tensor = state_tensor.unsqueeze(0).unsqueeze(0)
+        elif state_tensor.ndimension() == 3:
+            # Assume it's (batch,6,7); add the channel dimension
+            state_tensor = state_tensor.unsqueeze(1)
+
+        # Forward pass to get Q-values; output shape should be (1,7)
         self.policy_net.eval()
         if evaluation:  # In evaluation mode, use MCTS with DQN-based evaluation.
             mcts_taken = True
@@ -94,19 +105,22 @@ class AgentLogic:
                 return action, mcts_value, mcts_taken
             return action
 
-        state_tensor = torch.tensor(env.board, dtype=torch.float32, device=self.device).unsqueeze(0)
+ 
         with torch.no_grad():
             q_values = self.policy_net(state_tensor).cpu().numpy().flatten()
         self.policy_net.train()
-
-        # Mask invalid actions by setting their Q-values to negative infinity.
+        # Check if all q_values are nearly equal (or zero), then use a uniform distribution
+        if np.allclose(q_values, q_values[0]):
+            q_values = np.full_like(q_values, 1.0 / len(q_values))
+        # Mask invalid actions: set Q-value for invalid actions to -inf
         masked_q = np.full_like(q_values, -np.inf)
-        for action in valid_actions:
-            masked_q[action] = q_values[action]
+        for a in valid_actions:
+            masked_q[a] = q_values[a]
 
-        # Compute softmax probabilities for valid actions.
-        exp_q = np.exp(masked_q - np.max(masked_q))  # Numerical stability trick
+        # Apply softmax to obtain normalized probabilities:
+        exp_q = np.exp(masked_q - np.max(masked_q))  # subtract max for numerical stability
         softmax_q = exp_q / np.sum(exp_q)
+
         best_act = int(np.argmax(softmax_q))
         best_q_val = softmax_q[best_act]
 
@@ -114,27 +128,9 @@ class AgentLogic:
         if not mcts_fallback:
             if return_mcts_value:
                 return best_act, best_q_val, False
-            return best_act
+            return best_act,False
 
-        # Branch 1: Use MCTS with probability epsilon.
-        if random.random() < epsilon:
-            mcts_taken = True
-            mcts_agent = MCTS(
-                logger=logger, 
-                num_simulations=self.mcts_simulations, 
-                debug=debug, 
-                dqn_model=self.policy_net, 
-                evaluation=evaluation
-            )
-            action, mcts_value = mcts_agent.select_action(env, env.current_player)
-            if debug:
-                logger.debug(f"MCTS (epsilon exploration) selected action {action} with MCTS value: {mcts_value:.3f}")
-                #print(f"MCTS (epsilon exploration) selected action {action} with MCTS value: {mcts_value:.3f}")
-            if return_mcts_value:
-                return action, mcts_value, mcts_taken
-            return action
-
-        # Adjust the threshold dynamically using epsilon.
+        # Branch 1:  Use MCTS with probability epsilon.
         if epsilon > self.q_threshold:
             self.q_threshold = epsilon
 
@@ -157,7 +153,7 @@ class AgentLogic:
                 #print(f"MCTS (low Q) selected action {action} with MCTS value: {mcts_value:.3f}")
             if return_mcts_value:
                 return action, mcts_value, mcts_taken
-            return action
+            return action,False
 
         # Default: use the best action from DQN.
         if debug:
@@ -165,9 +161,9 @@ class AgentLogic:
             #print(f"Using DQN-selected action {best_act} with Q-value: {best_q_val:.3f}")
         if return_mcts_value:
             return best_act, best_q_val, mcts_taken
-        return best_act
+        return best_act,False
 
-    def compute_reward(self, env, last_action, last_player, mcts_taken, epsilon, low_q_value):
+    def compute_reward(self, env, last_action, last_player):
         """
         Compute the reward for the last move.
 
@@ -192,8 +188,8 @@ class RewardSystem:
         Initialize the reward system with default or provided configuration.
         """
         self.config = config if config is not None else {
-            "win": 50.0,
-            "loss": -50.0,
+            "win": 100.0,
+            "loss": -100.0,
             "draw": 0.0,
             "active_base": 1.0,
             "double_threat": 10.0,
@@ -203,14 +199,7 @@ class RewardSystem:
             "cause_two": 3.0,
             "block_two": 5.0,
             "center_bonus": 2.0,
-        }
-
-    def get_mcts_penalty(self, epsilon, initial_penalty=0.1, min_penalty=0.01):
-        """
-        Calculates a decayed penalty based on the current epsilon.
-        """
-        decayed_penalty = initial_penalty * epsilon
-        return max(decayed_penalty, min_penalty)
+        }   
 
     def calculate_reward(self, env, last_action, last_player):
         """
@@ -218,16 +207,20 @@ class RewardSystem:
         """
         turn = env.turn - 1  # 0-indexed turn
         board = env.get_board()
+        # Fix: set opponent to the other player (assuming players are 1 and 2)
         opponent = 3 - last_player
 
         winner = env.check_winner()
         if winner == last_player:
+            #print("WIN")
             result_reward = self.config["win"]
             win_status = last_player
         elif winner == opponent:
+            #print("LOSS")
             result_reward = self.config["loss"]
-            win_status = last_player
+            win_status = opponent
         elif env.is_draw():
+            #print("DRAW")
             result_reward = self.config["draw"]
             win_status = -1
         else:
@@ -238,37 +231,43 @@ class RewardSystem:
         adjustment_factor = min(2, fastest_win_possible / (turn + 1))
         active_reward = self.get_active_reward(board, last_action, last_player)
         center_reward = self.get_center_bonus(board, last_action)
+        # Use the corrected opponent here for passive penalty.
         passive_penalty = self.get_passive_penalty(board, opponent)
-        total_reward = result_reward + active_reward + center_reward - (passive_penalty * adjustment_factor)
+        total_reward =  (result_reward* adjustment_factor ) +active_reward + center_reward - (passive_penalty * adjustment_factor)
+
         return total_reward, win_status
 
     def get_active_reward(self, board, last_action, last_player):
         """
         Compute the reward for an active move based on various heuristics.
+        You may choose to sum multiple contributions instead of returning immediately.
         """
         row_played = self.get_row_played(board, last_action)
         if row_played is None:
             return 0.0
+
+        # Start with the base reward.
         reward = self.config["active_base"]
-        # FIX: Use the last_action (column) for double threat check instead of the row.
+
+        # Use the column (last_action) for double threat check.
         if self.is_double_threat(board, last_action, last_player):
-            reward += self.config["double_threat"]
+            return self.config["double_threat"]
         if self.blocks_opponent_n_in_a_row(board, row_played, last_action, last_player, 4):
-            reward += self.config["block_four"]
+            return self.config["block_four"]
         if self.causes_n_in_a_row(board, row_played, last_action, last_player, 3):
-            reward += self.config["cause_three"]
+            return self.config["cause_three"]
         if self.blocks_opponent_n_in_a_row(board, row_played, last_action, last_player, 3):
-            reward += self.config["block_three"]
+            return self.config["block_three"]
         if self.causes_n_in_a_row(board, row_played, last_action, last_player, 2):
-            reward += self.config["cause_two"]
+            return self.config["cause_two"]
         if self.blocks_opponent_n_in_a_row(board, row_played, last_action, last_player, 2):
-            reward += self.config["block_two"]
+            return self.config["block_two"]
         return reward
 
     def get_passive_penalty(self, board, opponent):
         two_in_a_rows = self.count_n_in_a_row(board, opponent, 2)
         three_in_a_rows = self.count_n_in_a_row(board, opponent, 3)
-        return (two_in_a_rows * 0.75) + (three_in_a_rows * 1.5)
+        return (two_in_a_rows * 0.5) + (three_in_a_rows * 1.5)
 
     def get_center_bonus(self, board, col):
         center = board.shape[1] // 2
@@ -282,6 +281,9 @@ class RewardSystem:
         return None
 
     def is_double_threat(self, board, col_to_place, current_player):
+        """
+        Check if placing a piece in the given column creates a double threat.
+        """
         temp_board = board.copy()
         if not self.place_piece(temp_board, col_to_place, current_player):
             return False
@@ -313,25 +315,29 @@ class RewardSystem:
 
     def four_in_a_row_exists(self, board, player):
         rows, cols = board.shape
+        # Horizontal check.
         for r in range(rows):
             for c in range(cols - 3):
                 if (board[r, c] == player and board[r, c+1] == player and
                     board[r, c+2] == player and board[r, c+3] == player):
                     return True
+        # Vertical check.
         for r in range(rows - 3):
             for c in range(cols):
                 if (board[r, c] == player and board[r+1, c] == player and
                     board[r+2, c] == player and board[r+3, c] == player):
                     return True
+        # Diagonal (down-right) check.
         for r in range(rows - 3):
             for c in range(cols - 3):
                 if (board[r, c] == player and board[r+1, c+1] == player and
                     board[r+2, c+2] == player and board[r+3, c+3] == player):
                     return True
-        for r in range(rows - 3):
-            for c in range(3, cols):
-                if (board[r, c] == player and board[r+1, c-1] == player and
-                    board[r+2, c-2] == player and board[r+3, c-3] == player):
+        # Diagonal (up-right) check.
+        for r in range(3, rows):
+            for c in range(cols - 3):
+                if (board[r, c] == player and board[r-1, c+1] == player and
+                    board[r-2, c+2] == player and board[r-3, c+3] == player):
                     return True
         return False
 

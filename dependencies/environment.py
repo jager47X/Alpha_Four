@@ -1,4 +1,3 @@
-# environment.py
 import numpy as np
 import logging
 
@@ -6,14 +5,14 @@ class Connect4:
     def __init__(self):
         self.board = np.zeros((6, 7), dtype=int)
         self.current_player = 1
-        self.turn=1
+        self.turn = 1
         self.rows = 6
         self.columns = 7
 
     def reset(self):
         self.board = np.zeros((6, 7), dtype=int)
         self.current_player = 1
-        self.turn=1
+        self.turn = 1
         return self.board
 
     def get_board(self):
@@ -26,26 +25,27 @@ class Connect4:
         if self.board[0, action] != 0:
             return False
         return True
+    
 
     def make_move(self, column):
         # Ensure 'column' is an integer, not a tuple/list
         if isinstance(column, (tuple, list)):
             column = column[0]
 
-        if column < 0 or column >= len(self.board[0]):
+        if column < 0 or column >= self.board.shape[1]:
             return False
 
         # Start from the bottom row and go upward.
-        for row in range(len(self.board) - 1, -1, -1):
-            if self.board[row][column] == 0:
-                self.board[row][column] = self.current_player
+        for row in range(self.board.shape[0] - 1, -1, -1):
+            if self.board[row, column] == 0:
+                self.board[row, column] = self.current_player
                 # Switch players (1 <-> 2)
                 self.current_player = 3 - self.current_player
+                self.turn += 1  # Increment turn on each move
                 return True
         return False
 
     def check_winner(self):
-        # Basic 4-in-a-row checks
         board = self.board
         # Horizontal
         for r in range(6):
@@ -57,12 +57,12 @@ class Connect4:
             for c in range(7):
                 if board[r, c] != 0 and np.all(board[r:r+4, c] == board[r, c]):
                     return board[r, c]
-        # Diag (down-right)
+        # Diagonal (down-right)
         for r in range(3):
             for c in range(4):
                 if board[r, c] != 0 and all(board[r+i, c+i] == board[r, c] for i in range(4)):
                     return board[r, c]
-        # Diag (down-left)
+        # Diagonal (down-left)
         for r in range(3):
             for c in range(3, 7):
                 if board[r, c] != 0 and all(board[r+i, c-i] == board[r, c] for i in range(4)):
@@ -79,10 +79,9 @@ class Connect4:
         env_copy = Connect4()
         env_copy.board = self.board.copy()
         env_copy.current_player = self.current_player
+        env_copy.turn = self.turn
         return env_copy
 
-    def nextMove(self):
-        self.turn=1+self.turn
     def get_state(self):
-    # Return a copy of the board state (adjust as necessary for your DQN input)
-        return [row[:] for row in self.board]
+        # Return a copy of the board state as a NumPy array.
+        return self.board.copy()

@@ -30,8 +30,7 @@ def parse_log_file(log_file_path):
       - turns
       - epsilon
       - mcts_level
-      - mcts_count (per turn)
-      - recalculation
+      - mcts_used_rate (as printed percentage)
     Returns lists for each metric as well as min_reward and max_reward observed.
     """
     winners = []
@@ -39,22 +38,22 @@ def parse_log_file(log_file_path):
     turns = []
     epsilons = []
     mcts_levels = []
-    mcts_counts = []      # We'll store normalized MCTS usage (count / total_mcts_turns)
+    mcts_counts = []  # This will now store the MCTS used rate (in percentage)
     min_reward = float('inf')
     max_reward = float('-inf')
 
     try:
         with open(log_file_path, "r") as log_file:
             for line in log_file:
-                # Example line to match:
-                # Episode 10: Winner=2,Win Rate=50.00%, Turn=15, Reward=1.0,
-                # EPSILON=0.123, MCTS LEVEL=2, Cumulative MCTS used: 13/7, Recalculation: 1
+                # New log format:
+                # Episode {ep}: Winner={winner},Win Rate={current_win_rate*100:.2f}%, Turn={turn}, Reward={total_reward:.2f},
+                # EPSILON={EPSILON:.6f}, MCTS LEVEL={current_mcts_level}, MCTS used Rate:{mcts_rate*100:.2f}
                 match = re.search(
-                    r"Episode\s+\d+:"
-                    r"\s+Winner=(-?\d+),Win Rate=[\d.]+%,"
-                    r"\s+Turn=(\d+),\s+Reward=([-.\d]+),"
-                    r"\s+EPSILON=([\d.e-]+),\s+MCTS LEVEL=(\d+),"
-                    r"\s+Cumulative MCTS used:\s+(\d+)/(\d+),\s+Recalculation:\s+(\d+)",
+                    r"Episode\s+\d+:"                          # Episode number
+                    r"\s+Winner=(-?\d+),Win Rate=[\d.]+%,"       # Winner and win rate (ignored)
+                    r"\s+Turn=(\d+),\s+Reward=([-.\d]+),"         # Turn and reward
+                    r"\s+EPSILON=([\d.e-]+),\s+MCTS LEVEL=(\d+),"  # Epsilon and MCTS LEVEL
+                    r"\s+MCTS used Rate:([\d.]+%)",               # MCTS used rate (as a percentage)
                     line
                 )
                 if match:
@@ -63,17 +62,14 @@ def parse_log_file(log_file_path):
                     reward = float(match.group(3))
                     epsilon = float(match.group(4))
                     mcts_level = int(match.group(5))
-                    used_mcts = int(match.group(6))
-                    total_mcts_turns = int(match.group(7))
-                    recalculation = int(match.group(8))
+                    mcts_used_rate = float(match.group(6))
 
                     winners.append(winner)
                     rewards.append(reward)
                     turns.append(turn)
                     epsilons.append(epsilon)
                     mcts_levels.append(mcts_level)
-
-                    mcts_counts.append( used_mcts)
+                    mcts_counts.append(mcts_used_rate)
 
                     min_reward = min(min_reward, reward)
                     max_reward = max(max_reward, reward)
@@ -232,7 +228,7 @@ def plot_data(
     line_mcts, = ax1.plot(
         interval_x,
         avg_mcts_usage,
-        label="Avg MCTS Usage",
+        label="Avg MCTS Usage (%)",
         linewidth=2,    
         color="red", 
     )

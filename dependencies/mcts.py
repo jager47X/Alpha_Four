@@ -176,4 +176,7 @@ class MCTS:
         if self.debug:
             self.logger.debug(f"Chose best action {best_action} with aggregated value {best_value}")
 
-        return best_action, best_value
+        # 7) Normalize mcts_value
+        mcts_raw=best_value+0.5*draws
+        mcts_value=mcts_raw/self.num_simulations 
+        return best_action, mcts_value
