@@ -463,7 +463,9 @@ def run_training():
 
         # Track if agent (Player 2) won
         agent_win = 1 if winner == 2 else 0
+        agent_draw = 0.5 if winner == -1 else 0
         recent_win_results.append(agent_win)
+        recent_win_results.append(agent_draw)
         if len(recent_win_results) > WIN_RATE_WINDOW:
             recent_win_results.pop(0)
         current_win_rate = compute_win_rate(recent_win_results)
