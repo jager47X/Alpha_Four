@@ -169,17 +169,17 @@ class RewardSystem:
         Initialize the reward system with default or provided configuration.
         """
         self.config = config if config is not None else {
-            "win": 50.0,
-            "loss": -50.0,
+            "win": 100.0,
+            "loss": -100.0,
             "draw": 0.0,
             "active_base": 1.0,
-            "ignore_four_in_row": -25.0,
-            "double_threat": 25.0,
-            "block_four": 9.0,
-            "cause_three": 8.0,
-            "block_three": 7.0,
-            "cause_two": 6.0,
-            "block_two": 5.0,
+            "ignore_four_in_row": -10.0,
+            "double_threat": 9.0,
+            "block_four": 8.0,
+            "cause_three": 7.0,
+            "block_three": 6.0,
+            "cause_two": 5.0,
+            "block_two": 4.0,
             "center_bonus": 2.0,
         }   
 
@@ -271,15 +271,13 @@ class RewardSystem:
         Check if placing a piece in the given column creates a double threat.
         """
         temp_board = board.copy()
-        
-        # Remove the last piece placed in the specified column.
-        new_board = self.takeback_piece(temp_board, col_to_place, current_player)
-        if new_board is False:
-            return False  # Could not take back the piece (e.g. wrong column or piece not found)
+        opponent = 3 -current_player
 
-        if not self.place_piece(temp_board, col_to_place, current_player):
+        if not self.place_piece(temp_board, col_to_place,opponent ):
             return False
         winning_moves = 0
+
+        # current player place the colums (2 places ) and gurantee win
         for c in self.find_valid_columns(temp_board):
             next_board = temp_board.copy()
             if self.place_piece(next_board, c, current_player):
