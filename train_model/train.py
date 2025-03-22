@@ -23,7 +23,7 @@ warnings.filterwarnings("ignore", category=NumbaPerformanceWarning)
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 NUM_WORKERS = 6
 # --- Model  Hyperparam --- #
-MODEL_VERSION= 10
+MODEL_VERSION= 11
 BATCH_SIZE = 16
 GAMMA = 0.95
 LR = 0.0001
@@ -462,10 +462,14 @@ def run_training():
         train_step(policy_net, target_net, optimizer, replay_buffer, mcts_rate)
 
         # Track if agent (Player 2) won
-        agent_win = 1 if winner == 2 else 0
-        agent_draw = 0.5 if winner == -1 else 0
+        if winner == 2:
+            agent_win = 1
+        elif winner == -1:
+            agent_win = 0.5
+        else:
+            agent_win = 0
+
         recent_win_results.append(agent_win)
-        recent_win_results.append(agent_draw)
         if len(recent_win_results) > WIN_RATE_WINDOW:
             recent_win_results.pop(0)
         current_win_rate = compute_win_rate(recent_win_results)
