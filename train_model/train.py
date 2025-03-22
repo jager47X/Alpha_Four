@@ -23,7 +23,7 @@ warnings.filterwarnings("ignore", category=NumbaPerformanceWarning)
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 NUM_WORKERS = 6
 # --- Model  Hyperparam --- #
-MODEL_VERSION= 9
+MODEL_VERSION= 10
 BATCH_SIZE = 16
 GAMMA = 0.95
 LR = 0.0001

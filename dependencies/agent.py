@@ -25,7 +25,7 @@ class AgentLogic:
         self.always_mcts = always_mcts
         self.always_random = always_random
 
-    def pick_action(self, env, epsilon, logger, debug=False, return_mcts_value=False, mcts_fallback=True, evaluation=False):
+    def pick_action(self, env, epsilon, logger, debug=False,mcts_fallback=True, evaluation=False):
         """
         Pick an action using an epsilon-greedy strategy with MCTS fallback.
 
@@ -34,26 +34,17 @@ class AgentLogic:
             epsilon (float): Exploration probability.
             logger: Logger for debugging.
             debug (bool): Whether to output debug info.
-            return_mcts_value (bool): If True, returns a tuple (action, q_value, mcts_taken).
             mcts_fallback (bool): If True, allow MCTS fallback; if False, use pure DQN.
             evaluation (bool): If True, MCTS will use DQN-based state evaluation.
-
-        Returns:
-            If return_mcts_value is True:
-                tuple: (action (int), q_value (float), mcts_taken (bool))
-            Else:
-                int: action
         """
         mcts_taken = False
         valid_actions = env.get_valid_actions()
         if not valid_actions:
-            if return_mcts_value:
-                return None, 0.0, mcts_taken
-            return None,False
+            return action, mcts_taken
 
         if self.always_random:
             action = random.choice(valid_actions)
-            return action,False
+            return action, mcts_taken
 
         if self.always_mcts:
             mcts_taken = True
@@ -65,9 +56,7 @@ class AgentLogic:
                 evaluation=False  # Use DQN-based evaluation if enabled
             )
             action, mcts_value = mcts_agent.select_action(env, env.current_player)
-            if return_mcts_value:
-                return action, mcts_value, mcts_taken
-            return action,False
+            return action, mcts_taken
 
         # Evaluate Q-values using the policy network.
         # Build the state tensor with the correct shape: (batch, channels, height, width)
@@ -101,9 +90,7 @@ class AgentLogic:
                 else:
                     logger.debug(f"Evaluation MCTS+DQN selected action {action} with no MCTS value")
                     #print(f"Evaluation MCTS+DQN selected action {action} with no MCTS value")   
-            if return_mcts_value:
-                return action, mcts_value, mcts_taken
-            return action
+            return action, mcts_taken
 
  
         with torch.no_grad():
@@ -126,9 +113,7 @@ class AgentLogic:
 
         # If in inference mode without MCTS fallback, return the DQN best action.
         if not mcts_fallback:
-            if return_mcts_value:
-                return best_act, best_q_val, False
-            return best_act,False
+            return action, mcts_taken
 
         # Branch 1:  Use MCTS with probability epsilon.
         if epsilon > self.q_threshold:
@@ -151,17 +136,13 @@ class AgentLogic:
             if debug:
                 logger.debug(f"MCTS (low Q) selected action {action} with MCTS value: {mcts_value:.3f}")
                 #print(f"MCTS (low Q) selected action {action} with MCTS value: {mcts_value:.3f}")
-            if return_mcts_value:
-                return action, mcts_value, mcts_taken
-            return action,False
+            return action, mcts_taken
 
         # Default: use the best action from DQN.
         if debug:
             logger.debug(f"Using DQN-selected action {best_act} with Q-value: {best_q_val:.3f}")
             #print(f"Using DQN-selected action {best_act} with Q-value: {best_q_val:.3f}")
-        if return_mcts_value:
-            return best_act, best_q_val, mcts_taken
-        return best_act,False
+        return best_act, mcts_taken
 
     def compute_reward(self, env, last_action, last_player):
         """
