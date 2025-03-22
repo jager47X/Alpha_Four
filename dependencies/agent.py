@@ -169,16 +169,16 @@ class RewardSystem:
         Initialize the reward system with default or provided configuration.
         """
         self.config = config if config is not None else {
-            "win": 100.0,
-            "loss": -100.0,
+            "win": 50.0,
+            "loss": -50.0,
             "draw": 0.0,
             "active_base": 1.0,
-            "ignore_four_in_row": -50.0,
-            "double_threat": 25.0,
+            "ignore_four_in_row": -10.0,
+            "double_threat": 10.0,
             "block_four": 9.0,
-            "cause_three": 8.0,
+            "cause_three": 5.0,
             "block_three": 7.0,
-            "cause_two": 6.0,
+            "cause_two": 3.0,
             "block_two": 5.0,
             "center_bonus": 2.0,
         }   

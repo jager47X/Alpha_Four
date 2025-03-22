@@ -22,7 +22,7 @@ warnings.filterwarnings("ignore", category=NumbaPerformanceWarning)
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 NUM_WORKERS = 6
 # --- Model  Hyperparam --- #
-MODEL_VERSION= 12
+MODEL_VERSION= 14
 BATCH_SIZE = 16
 GAMMA = 0.95
 LR = 0.0001
@@ -219,7 +219,7 @@ current_level_index = 0
 current_mcts_level = DYNAMIC_LEVELS[current_level_index]["mcts_simulations"]
 EPSILON = DYNAMIC_LEVELS[current_level_index]["reset_epsilon"]
 episodes_in_current_level = 0
-
+recent_win_results = []
 # ----------------- Dynamic Training Helpers ----------------- #
 def compute_win_rate(recent_results):
     if not recent_results:
@@ -227,7 +227,7 @@ def compute_win_rate(recent_results):
     return sum(recent_results) / len(recent_results)
 
 def update_dynamic_level(win_rate, logger):
-    global current_level_index, current_mcts_level, EPSILON, episodes_in_current_level
+    global current_level_index, current_mcts_level, EPSILON, episodes_in_current_level,recent_win_results
     threshold = DYNAMIC_LEVELS[current_level_index]["win_rate_threshold"]
     if episodes_in_current_level >= MIN_EPISODES_PER_LEVEL and win_rate >= threshold:
         logger.info(
@@ -243,6 +243,7 @@ def update_dynamic_level(win_rate, logger):
                 f"EPSILON reset to {EPSILON:.2f}"
             )
             episodes_in_current_level = 0
+            recent_win_results.clear()
         else:
             episodes_in_current_level=2001
             logger.info("Maximum dynamic level reached.")
@@ -417,7 +418,7 @@ def run_training():
     target_net.load_state_dict(policy_net.state_dict())
     optimizer = optim.Adam(policy_net.parameters(), lr=LR)
 
-    global EPSILON, current_mcts_level, current_level_index, episodes_in_current_level
+    global EPSILON, current_mcts_level, current_level_index, episodes_in_current_level,recent_win_results
     recent_win_results = []
     
     pool = mp.Pool(processes=NUM_WORKERS)
