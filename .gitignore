@@ -6,4 +6,5 @@
 *.pyo
 
 # Ignore the entire data directory
-data/
+**/logs/
+**/dat/
