@@ -6,7 +6,7 @@ import random
 import torch
 
 from .environment import Connect4
-from .utils import run_simulations_cuda  # Assuming this function exists
+from .utils import run_simulations_cuda 
 
 # Constants
 EMPTY = 0

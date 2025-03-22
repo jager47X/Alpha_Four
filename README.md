@@ -11,7 +11,7 @@ Table of Contents
 -   [Project Structure](#project-structure)
 -   [Requirements and Installation](#requirements-and-installation)
 -   [Usage](#usage)
-    -   [DownLoad Model](#download-model)
+    -   [Online Play (CPU-Version)](#online-play-cpu-version)
     -   [Tune HyperParameter](#tune-hyperparameter)
     -   [Training](#training)
     -   [Evaluation](#evaluation)
@@ -19,14 +19,13 @@ Table of Contents
     -   [Plotting / Analysis](#plotting--analysis)
 -   [TODO / Roadmap](#todo--roadmap)
 -   [License](#license)
-
 * * * * *
 
 Features
 --------
 
 -   **Connect4 Environment**: Lightweight environment class (`Connect4`) with board management, move validity checks, and win/draw detection.
--   **DQN Model**: Convolutional + Residual block architecture for the Q-network, supporting 6×7 board input.
+-   **DQN Model**: Convolutional for the Q-network, supporting 6×7 board input.
 -   **Disk-Based Replay Buffer**: Large replay capability via memory-mapped files.
 -   **MCTS**: Optional fallback or standalone strategy, guided by DQN-based heuristics if enabled.
 -   **GPU-Accelerated Simulations**: Numba-based CUDA kernels for MCTS: simulating random Connect4 games in parallel.
@@ -95,16 +94,8 @@ pip install -r requirements.txt
 
 Usage
 -----
-### Download Model
-#### Under the project directorymake these directory
-``` 
-project/
-├── data/                                
-│   ├── models/                           # saved models.
-│   ├── dat/                              # saved replaybuffer.dats
-│   └── logs/                              # saved logs
-```
-- Model: [Link to Models (Google Drive)](https://drive.google.com/drive/folders/1OqZVeabqI5f7ye2lr2O2Qgo_tb69o1Op?usp=sharing)
+### Online Play (CPU-Version)
+#### Ready to Play: [Alpha Four at Collab](https://colab.research.google.com/drive/1qKZxoU_DjV7CRcB-ir3UXJvf5FCgu1yF#scrollTo=HVa3LSUDDN8s)
 
 
 ### Tune Hyperparameter
