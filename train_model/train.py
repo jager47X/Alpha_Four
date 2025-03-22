@@ -245,6 +245,7 @@ def update_dynamic_level(win_rate, logger):
             )
             episodes_in_current_level = 0
         else:
+            episodes_in_current_level=2001
             logger.info("Maximum dynamic level reached.")
 
 # ----------------- Simulation Function ----------------- #
