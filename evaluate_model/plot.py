@@ -30,15 +30,15 @@ def parse_log_file(log_file_path):
       - turns
       - epsilon
       - mcts_level
-      - mcts_used_rate (as printed percentage)
-    Returns lists for each metric as well as min_reward and max_reward observed.
+      - mcts_used_rate (as printed percentage, without the % symbol)
+    Returns lists for each metric as well as the min_reward and max_reward observed.
     """
     winners = []
     rewards = []
     turns = []
     epsilons = []
     mcts_levels = []
-    mcts_counts = []  # This will now store the MCTS used rate (in percentage)
+    mcts_used_rate_list = []  # Renamed to avoid conflict with local variable below
     min_reward = float('inf')
     max_reward = float('-inf')
 
@@ -47,14 +47,14 @@ def parse_log_file(log_file_path):
             for line in log_file:
                 # New log format:
                 # Episode {ep}: Winner={winner},Win Rate={current_win_rate*100:.2f}%, Turn={turn}, Reward={total_reward:.2f},
-                # EPSILON={EPSILON:.6f}, MCTS LEVEL={current_mcts_level}, MCTS used Rate:{mcts_rate*100:.2f}
+                # EPSILON={EPSILON:.6f}, MCTS LEVEL={current_mcts_level}, MCTS used Rate:{mcts_rate*100:.2f}%
                 match = re.search(
                     r"Episode\s+\d+:"                          # Episode number
                     r"\s+Winner=(-?\d+),Win Rate=[\d.]+%,"       # Winner and win rate (ignored)
                     r"\s+Turn=(\d+),\s+Reward=([-.\d]+),"         # Turn and reward
                     r"\s+EPSILON=([\d.e-]+),\s+MCTS LEVEL=(\d+),"  # Epsilon and MCTS LEVEL
-                    r"\s+MCTS used Rate:([\d.]+%)",               # MCTS used rate (as a percentage)
-                    line
+                    r"\s+MCTS used Rate:([\d.]+)%"                # MCTS used rate (as a percentage number)
+                    , line
                 )
                 if match:
                     winner = int(match.group(1))
@@ -62,14 +62,14 @@ def parse_log_file(log_file_path):
                     reward = float(match.group(3))
                     epsilon = float(match.group(4))
                     mcts_level = int(match.group(5))
-                    mcts_used_rate = float(match.group(6))
+                    used_rate = float(match.group(6))  # renamed local variable
 
                     winners.append(winner)
                     rewards.append(reward)
                     turns.append(turn)
                     epsilons.append(epsilon)
                     mcts_levels.append(mcts_level)
-                    mcts_counts.append(mcts_used_rate)
+                    mcts_used_rate_list.append(used_rate)
 
                     min_reward = min(min_reward, reward)
                     max_reward = max(max_reward, reward)
@@ -85,7 +85,7 @@ def parse_log_file(log_file_path):
         turns,
         epsilons,
         mcts_levels,
-        mcts_counts,
+        mcts_used_rate_list,
         min_reward,
         max_reward,
     )
@@ -108,7 +108,7 @@ def plot_data(
     turns,
     epsilons,
     mcts_levels,
-    mcts_counts,
+    mcts_used_rate,
     min_reward,
     max_reward,
     total_episodes=1000000,
@@ -142,7 +142,7 @@ def plot_data(
         interval_winners = winners[idx:end_idx]
         interval_rewards = rewards[idx:end_idx]
         interval_turns = turns[idx:end_idx]
-        interval_mcts_counts = mcts_counts[idx:end_idx]
+        interval_mcts_used_rate = mcts_used_rate[idx:end_idx]
 
         # 1) Interval-based P2 win rate
         if len(interval_winners) > 0:
@@ -160,8 +160,7 @@ def plot_data(
         avg_turn = np.mean(non_zero_turns) if non_zero_turns else 0.0
 
         # 4) Average MCTS usage (already normalized)
-        avg_mcts = np.mean(interval_mcts_counts) if interval_mcts_counts else 0.0
-
+        avg_mcts = np.mean(interval_mcts_used_rate) if interval_mcts_used_rate else 0.0
 
         avg_winrates.append(interval_winrate_p2)
         avg_rewards.append(avg_reward)
@@ -184,13 +183,11 @@ def plot_data(
     avg_turns.insert(0, 0.0)
     avg_mcts_usage.insert(0, 0.0)
 
-
     # ---- Rate-of-change (for optional annotation) ----
     roc_winrates = calculate_rate_of_change(avg_winrates)
     roc_rewards = calculate_rate_of_change(avg_rewards)
     roc_turns = calculate_rate_of_change(avg_turns)
     roc_mcts_usage = calculate_rate_of_change(avg_mcts_usage)
-   
 
     # ---- Overall stats ----
     total_p2_wins = sum(1 for w in winners if w == 2)
@@ -208,31 +205,30 @@ def plot_data(
         interval_x,
         avg_winrates,
         label="Avg P2 WinRate (%)",
-        linewidth=2,   
+        linewidth=1,   
         color="green",   
     )
     line_reward, = ax1.plot(
         interval_x,
         avg_rewards,
         label="Avg Reward",
-        linewidth=2,   
-        color="Yellow",   
+        linewidth=1,   
+        color="yellow",   
     )
     line_turns, = ax1.plot(
         interval_x,
         avg_turns,
         label="Avg Turns",
-        linewidth=4,    
+        linewidth=1,    
         color="cyan",  
     )
     line_mcts, = ax1.plot(
         interval_x,
         avg_mcts_usage,
         label="Avg MCTS Usage (%)",
-        linewidth=2,    
+        linewidth=1,    
         color="red", 
     )
-  
 
     # Optional annotations
     if annotate_on:
@@ -290,7 +286,7 @@ def plot_data(
     epsilon_percent = [e * 100 for e in epsilons]
     x_games = np.arange(1, total_games + 1)
 
-    # Epsilon line (left axis, lime)
+    # Epsilon line (left axis, blue)
     line_epsilon, = ax2_left.plot(
         x_games,
         epsilon_percent,
@@ -299,7 +295,7 @@ def plot_data(
         color="blue",
     )
 
-    # Avg Win Rate line (RED), same data as figure 1
+    # Avg Win Rate line (green), same data as figure 1
     line_avg_win, = ax2_left.plot(
         interval_x,
         avg_winrates,
@@ -308,7 +304,7 @@ def plot_data(
         color="green",
     )
 
-    # MCTS Level line (right axis, yellow)
+    # MCTS Level line (right axis, white)
     line_mcts_level, = ax2_right.plot(
         x_games,
         mcts_levels,
@@ -348,7 +344,7 @@ def plot_data(
     turns,
     epsilons,
     mcts_levels,
-    mcts_counts,
+    mcts_used_rate,
     min_reward,
     max_reward,
 ) = parse_log_file(log_file_path)
@@ -359,7 +355,7 @@ plot_data(
     turns,
     epsilons,
     mcts_levels,
-    mcts_counts,
+    mcts_used_rate,
     min_reward,
     max_reward,
     total_episodes=total_episodes,
