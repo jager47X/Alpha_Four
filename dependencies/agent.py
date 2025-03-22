@@ -123,7 +123,7 @@ class AgentLogic:
         if best_q_val < self.q_threshold:
             if debug:
                 logger.debug(f"Q-value {best_q_val:.3f} below threshold {self.q_threshold:.3f}, using MCTS fallback.")
-                #print(f"Q-value {best_q_val:.3f} below threshold {self.q_threshold:.3f}, using MCTS fallback.")
+                print(f"Q-value {best_q_val:.3f} below threshold {self.q_threshold:.3f}, using MCTS fallback.")
             mcts_taken = True
             mcts_agent = MCTS(
                 logger=logger, 
@@ -169,18 +169,18 @@ class RewardSystem:
         Initialize the reward system with default or provided configuration.
         """
         self.config = config if config is not None else {
-            "win": 100.0,
-            "loss": -100.0,
-            "draw": 0.0,
-            "active_base": 1.0,
-            "ignore_four_in_row": -10.0,
-            "double_threat": 9.0,
-            "block_four": 8.0,
-            "cause_three": 7.0,
-            "block_three": 6.0,
-            "cause_two": 5.0,
-            "block_two": 4.0,
-            "center_bonus": 2.0,
+            "win": 50.0,
+            "loss": -50.0,
+            "draw": 1.0,
+            "active_base": 0.1,
+            "ignore_four_in_row": -5.0,
+            "double_threat": 4.5,
+            "block_four": 4.0,
+            "cause_three": 3.5,
+            "block_three": 3.0,
+            "cause_two": 2.5,
+            "block_two": 2.0,
+            "center_bonus": 0.5,
         }   
 
     def calculate_reward(self, env, last_action, last_player):
@@ -220,33 +220,28 @@ class RewardSystem:
         return total_reward, win_status
 
     def get_active_reward(self, board, last_action, last_player):
-        """
-        Compute the reward for an active move based on various heuristics.
-        You may choose to sum multiple contributions instead of returning immediately.
-        """
+        reward = self.config["active_base"]
         row_played = self.get_row_played(board, last_action)
         if row_played is None:
             return 0.0
 
-        # Start with the base reward.
-        reward = self.config["active_base"]
-
-        # Use the column (last_action) for double threat check.
         if self.is_ignore_four_in_row(board, last_action, last_player):
-            return self.config["ignore_four_in_row"]
+            reward += self.config["ignore_four_in_row"]
         if self.is_double_threat(board, last_action, last_player):
-            return self.config["double_threat"]
+            reward += self.config["double_threat"]
         if self.blocks_opponent_n_in_a_row(board, row_played, last_action, last_player, 4):
-            return self.config["block_four"]
+            reward += self.config["block_four"]
         if self.causes_n_in_a_row(board, row_played, last_action, last_player, 3):
-            return self.config["cause_three"]
+            reward += self.config["cause_three"]
         if self.blocks_opponent_n_in_a_row(board, row_played, last_action, last_player, 3):
-            return self.config["block_three"]
+            reward += self.config["block_three"]
         if self.causes_n_in_a_row(board, row_played, last_action, last_player, 2):
-            return self.config["cause_two"]
+            reward += self.config["cause_two"]
         if self.blocks_opponent_n_in_a_row(board, row_played, last_action, last_player, 2):
-            return self.config["block_two"]
+            reward += self.config["block_two"]
+
         return reward
+
 
     def get_passive_penalty(self, board, opponent):
         two_in_a_rows = self.count_n_in_a_row(board, opponent, 2)
@@ -267,17 +262,12 @@ class RewardSystem:
 
 
     def is_double_threat(self, board, col_to_place, current_player):
-        """
-        Check if placing a piece in the given column creates a double threat.
-        """
         temp_board = board.copy()
-        opponent = 3 -current_player
 
-        if not self.place_piece(temp_board, col_to_place,opponent ):
+        if not self.place_piece(temp_board, col_to_place, current_player):
             return False
         winning_moves = 0
 
-        # current player place the colums (2 places ) and gurantee win
         for c in self.find_valid_columns(temp_board):
             next_board = temp_board.copy()
             if self.place_piece(next_board, c, current_player):
@@ -286,6 +276,7 @@ class RewardSystem:
             if winning_moves >= 2:
                 return True
         return False
+
 
 
     def is_ignore_four_in_row(self, board, col_to_takeback, current_player):

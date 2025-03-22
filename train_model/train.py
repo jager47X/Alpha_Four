@@ -12,7 +12,7 @@ from dependencies.environment import Connect4
 from dependencies.models import DQN
 from dependencies.agent import AgentLogic
 from dependencies.replay_buffer import DiskReplayBuffer
-from dependencies.utils import setup_logger, safe_make_dir, get_next_index
+from dependencies.utils import safe_make_dir
 from dependencies.mcts import MCTS
 warnings.filterwarnings("ignore", category=NumbaPerformanceWarning)
 
@@ -22,7 +22,7 @@ warnings.filterwarnings("ignore", category=NumbaPerformanceWarning)
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 NUM_WORKERS = 6
 # --- Model  Hyperparam --- #
-MODEL_VERSION= 17
+MODEL_VERSION= 19
 BATCH_SIZE = 16
 GAMMA = 0.95
 LR = 0.0001
@@ -122,7 +122,8 @@ def load_model_checkpoint(model_path, learning_rate, buffer_size, logger, device
         replay_buffer = DiskReplayBuffer(
             capacity=buffer_size,
             state_shape=(6, 7),
-            device=device
+            device=device,
+            version=MODEL_VERSION
         )
         logger.debug("Replay buffer initialized.")
         start_episode = 0
@@ -170,7 +171,8 @@ def load_model_checkpoint(model_path, learning_rate, buffer_size, logger, device
         replay_buffer = DiskReplayBuffer(
             capacity=buffer_size,
             state_shape=(6, 7),
-            device=device
+            device=device,
+            version=MODEL_VERSION
         )
         logger.debug("Re-initialized components.")
         start_episode = 0
@@ -410,7 +412,8 @@ def run_training():
     replay_buffer = DiskReplayBuffer(
         capacity=100000,
         state_shape=(6, 7),
-        device=DEVICE
+        device=DEVICE,
+        version=MODEL_VERSION
     )
 
     policy_net = DQN().to(DEVICE)

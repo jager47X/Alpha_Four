@@ -3,7 +3,7 @@ import numpy as np
 import torch
 
 class DiskReplayBuffer:
-    def __init__(self, capacity, state_shape=(6, 7), device=torch.device("cuda" if torch.cuda.is_available() else "cpu")):
+    def __init__(self, capacity, state_shape=(6, 7), device=torch.device("cuda" if torch.cuda.is_available() else "cpu"),version=0):
         """
         Initialize a disk-based replay buffer using memory-mapped files.
         Stores replay buffer files in `data/dat/` following the specified project structure.
@@ -13,9 +13,9 @@ class DiskReplayBuffer:
         self.device = device
         self.ptr = 0
         self.full = False
-
+        
         # Define the directory where replay buffer `.dat` files will be stored
-        self.data_dir = os.path.join("data", "dat")
+        self.data_dir = os.path.join("data", "dat",str(version))
         os.makedirs(self.data_dir, exist_ok=True)  # Ensure the directory exists
 
         def init_memmap(filename, dtype, shape, mode="w+"):
