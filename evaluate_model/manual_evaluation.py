@@ -135,8 +135,8 @@ class Connect4GUI:
         self.update_ai_status("AI is thinking...")
 
         # Expect pick_action to return (action, q_value, extra)
-        action, q_value, _ = self.ai.pick_action(
-            self.env, epsilon=0.1, logger=logger, debug=True, return_mcts_value=True, mcts_fallback=True,evaluation=True
+        action, q_value = self.ai.pick_action(
+            self.env, epsilon=0.1, logger=logger, debug=True, mcts_fallback=True,evaluation=True
         )
 
         if action is None:
@@ -233,7 +233,7 @@ if __name__ == "__main__":
     MODEL_PATH = os.path.join("data", "models", str(model_version), "Connect4_Agent_Model.pth")
     print(f"\nLoading Main DQN Agent from: {MODEL_PATH}")
     checkpoint = torch.load(MODEL_PATH, map_location=device)
-    policy_net = DQN(input_shape=(6, 7), num_actions=7, device=device).to(device)
+    policy_net = DQN().to(device)
     policy_net.load_state_dict(checkpoint["policy_net_state_dict"])
     agent_main = AgentLogic(policy_net, device)
     ai = AgentLogic(policy_net , device)

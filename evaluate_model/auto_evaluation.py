@@ -69,7 +69,6 @@ class AutoEvaluator:
                 epsilon=0,
                 logger=logging,
                 debug=True,
-                return_mcts_value=True,
                 mcts_fallback=True,
                 evaluation=False
             )
@@ -93,7 +92,6 @@ class AutoEvaluator:
                 epsilon=0.1,
                 logger=logging,
                 debug=True,
-                return_mcts_value=True,
                 mcts_fallback=True,
                 evaluation=True
             )
@@ -151,13 +149,13 @@ def main_evaluation(num_games=100):
     # Load main DQN Agent
     print(f"\nLoading Main DQN Agent from: {MODEL_PATH}")
     checkpoint = torch.load(MODEL_PATH, map_location=device)
-    policy_net = DQN(input_shape=(6, 7), num_actions=7, device=device).to(device)
+    policy_net = DQN().to(device)
     policy_net.load_state_dict(checkpoint["policy_net_state_dict"])
     agent_main = AgentLogic(policy_net, device)
 
     # Load the second DQN model
     checkpoint_other = torch.load(OTHER_MODEL_PATH, map_location=device)
-    policy_net_other = DQN(input_shape=(6, 7), num_actions=7, device=device).to(device)
+    policy_net_other = DQN().to(device)
     policy_net_other.load_state_dict(checkpoint_other["policy_net_state_dict"])
     agent_other = AgentLogic(policy_net_other, device)
 
