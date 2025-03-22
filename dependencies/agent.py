@@ -173,11 +173,12 @@ class RewardSystem:
             "loss": -100.0,
             "draw": 0.0,
             "active_base": 1.0,
-            "double_threat": 100.0,
+            "ignore_four_in_row": -50.0,
+            "double_threat": 25.0,
             "block_four": 9.0,
-            "cause_three": 6.0,
+            "cause_three": 8.0,
             "block_three": 7.0,
-            "cause_two": 4.0,
+            "cause_two": 6.0,
             "block_two": 5.0,
             "center_bonus": 2.0,
         }   
@@ -231,6 +232,8 @@ class RewardSystem:
         reward = self.config["active_base"]
 
         # Use the column (last_action) for double threat check.
+        if self.is_ignore_four_in_row(board, last_action, last_player):
+            return self.config["ignore_four_in_row"]
         if self.is_double_threat(board, last_action, last_player):
             return self.config["double_threat"]
         if self.blocks_opponent_n_in_a_row(board, row_played, last_action, last_player, 4):
@@ -248,7 +251,7 @@ class RewardSystem:
     def get_passive_penalty(self, board, opponent):
         two_in_a_rows = self.count_n_in_a_row(board, opponent, 2)
         three_in_a_rows = self.count_n_in_a_row(board, opponent, 3)
-        return (two_in_a_rows * 0.5) + (three_in_a_rows * 1.5)
+        return (two_in_a_rows * 1) + (three_in_a_rows * 2)
 
     def get_center_bonus(self, board, col):
         center = board.shape[1] // 2
@@ -256,16 +259,24 @@ class RewardSystem:
 
     def get_row_played(self, board, col):
         rows = board.shape[0]
-        for r in range(rows):
+        # Iterate from the bottom to the top to get the most recently placed piece.
+        for r in range(rows - 1, -1, -1):
             if board[r, col] != 0:
                 return r
         return None
+
 
     def is_double_threat(self, board, col_to_place, current_player):
         """
         Check if placing a piece in the given column creates a double threat.
         """
         temp_board = board.copy()
+        
+        # Remove the last piece placed in the specified column.
+        new_board = self.takeback_piece(temp_board, col_to_place, current_player)
+        if new_board is False:
+            return False  # Could not take back the piece (e.g. wrong column or piece not found)
+
         if not self.place_piece(temp_board, col_to_place, current_player):
             return False
         winning_moves = 0
@@ -277,6 +288,52 @@ class RewardSystem:
             if winning_moves >= 2:
                 return True
         return False
+
+
+    def is_ignore_four_in_row(self, board, col_to_takeback, current_player):
+        """
+        First, remove (take back) the last piece placed by current_player in col_to_takeback.
+        Then, for each column (assumed to be 7 total, or dynamically using board.shape[1]),
+        simulate placing a piece for current_player and check if it would be a winning move.
+        Returns True if any such winning move is found, otherwise False.
+        """
+        temp_board = board.copy()
+        
+        # Remove the last piece placed in the specified column.
+        new_board = self.takeback_piece(temp_board, col_to_takeback, current_player)
+        if new_board is False:
+            return False  # Could not take back the piece (e.g. wrong column or piece not found)
+        
+        # Brute force: Try each column as a potential move.
+        for c in range(new_board.shape[1]):  # or simply use range(7) if board is 7 columns wide
+            candidate_board = new_board.copy()
+            if self.place_piece(candidate_board, c, current_player):
+                if self.check_if_winning_move(candidate_board, current_player):
+                    return True
+        return False
+
+
+    def takeback_piece(self, board, col, player):
+        """
+        Remove the most recently placed piece (i.e. the bottom-most nonzero piece)
+        from the given column if that piece belongs to the specified player.
+        """
+        temp_board = board.copy()
+        if col < 0 or col >= temp_board.shape[1]:
+            return False
+
+        # Iterate from bottom to top to remove the most recent piece.
+        for row in range(temp_board.shape[0] - 1, -1, -1):
+            if temp_board[row, col] != 0:
+                if temp_board[row, col] == player:
+                    temp_board[row, col] = 0  # Remove the piece.
+                    return temp_board
+                else:
+                    return False  # The piece in this column does not belong to player.
+        return False  # No piece found in the column.
+
+
+
 
     def place_piece(self, board, col, player):
         if col < 0 or col >= board.shape[1] or board[0, col] != 0:
