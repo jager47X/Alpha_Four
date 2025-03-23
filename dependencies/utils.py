@@ -6,8 +6,6 @@ from numba import cuda
 import numba
 import warnings
 from numba.core.errors import NumbaPerformanceWarning
-
-from .replay_buffer import DiskReplayBuffer
 from .environment import Connect4
 warnings.filterwarnings("ignore", category=NumbaPerformanceWarning)
 # ----------------- Utility Functions ----------------- #

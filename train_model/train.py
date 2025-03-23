@@ -22,10 +22,10 @@ warnings.filterwarnings("ignore", category=NumbaPerformanceWarning)
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 NUM_WORKERS = 6
 # --- Model  Hyperparam --- #
-MODEL_VERSION= 19
+MODEL_VERSION= 25
 BATCH_SIZE = 16
-GAMMA = 0.95
-LR = 0.0001
+GAMMA = 0.90
+LR = 0.001
 TARGET_EVALUATE = 100
 TARGET_UPDATE = 100  
 EVAL_FREQUENCY = 100
@@ -54,22 +54,33 @@ def get_opponent_type(current_ep,last_ep_MCTS=0):
     else:
         return "MCTS"
 
+
+# ----------------- Soft Update Function ----------------- #
+def soft_update(target_net, policy_net, tau=0.001):
+    """
+    Soft-update the target network's parameters:
+        θ_target = tau * θ_policy + (1 - tau) * θ_target
+    """
+    for target_param, policy_param in zip(target_net.parameters(), policy_net.parameters()):
+        target_param.data.copy_(tau * policy_param.data + (1 - tau) * target_param.data)
+
 # ----------------- Training Step ----------------- #
 def train_step(policy_net, target_net, optimizer, replay_buffer, mcts_rate: float):
+    policy_net.train()
+    
     # Ensure there are enough samples in the replay buffer.
     if len(replay_buffer) < BATCH_SIZE:
         return
 
     # Sample a batch from the replay buffer.
+    # (If using prioritized experience replay, your batch may include IS weights and indices.)
     batch = replay_buffer.sample(BATCH_SIZE)
-    states, actions, rewards, next_states, dones, mcts_values = (
-        batch["states"],
-        batch["actions"],
-        batch["rewards"],
-        batch["next_states"],
-        batch["dones"],
-        batch["mcts_values"],
-    )
+    states = batch["states"]
+    actions = batch["actions"]
+    rewards = batch["rewards"]
+    next_states = batch["next_states"]
+    dones = batch["dones"]
+    mcts_values = batch["mcts_values"]
 
     # Adjust shapes so that states and next_states are of shape [batch, channels, rows, columns]
     if len(states.shape) == 5:
@@ -81,29 +92,44 @@ def train_step(policy_net, target_net, optimizer, replay_buffer, mcts_rate: floa
     if len(next_states.shape) == 3:
         next_states = next_states.unsqueeze(1)
 
-    # Compute Q-values for the taken actions using the policy network.
-    # policy_net(states) outputs shape [batch, 7] (7 possible actions for Connect4),
-    # and .gather(...) extracts the Q-value corresponding to the taken action.
     q_values = policy_net(states).gather(1, actions.unsqueeze(1)).squeeze()
+    # Compute the TD targets using DQN:
+    # ---------------------------------------------------------
+    # We use the target network to compute the Q-values for the next state.
+    # These Q-values are used to form the target for our Bellman update.
+    # Since we want the target values to remain constant (i.e., we do not want
+    # gradients to flow back through the target network), we disable gradient tracking
+    # by wrapping these operations in a 'torch.no_grad()' block.
+    #
+    # If we removed 'torch.no_grad()', the target network's computations would be
+    # included in the computational graph. This would increase memory usage,
+    # slow down training, and potentially destabilize learning because the target network
+    # is supposed to be a stable reference that is not updated during backpropagation.
 
-    # Compute the standard TD target using the target network (with no gradient tracking).
+
     with torch.no_grad():
         next_q_values = target_net(next_states)
         max_next_q_values, _ = next_q_values.max(dim=1)
         dqn_targets = rewards + GAMMA * (1 - dones.float()) * max_next_q_values
 
-
-    lambda_weight=mcts_rate # Represents how much it trusts MCTS 1 is high 0 is low
-    # Compute the blended target using the MCTS values.
-    # blended_target = lambda * MCTS(s,a) + (1 - lambda) * dqn_target
+    # Blend the DQN targets with the MCTS values.
+    lambda_weight = mcts_rate  # Represents trust in MCTS (1: high, 0: low)
     mcts_values = mcts_values.clone().detach().float().to(states.device)
     blended_targets = lambda_weight * mcts_values + (1 - lambda_weight) * dqn_targets
-    
-    # Compute the loss between predicted Q-values and final targets, then update the network.
+
+    # Compute the loss between predicted Q-values and blended targets.
     loss = nn.MSELoss()(q_values, blended_targets)
+    
     optimizer.zero_grad()
     loss.backward()
+
+    # Gradient Clipping
+    torch.nn.utils.clip_grad_norm_(policy_net.parameters(), max_norm=1.0)
+
     optimizer.step()
+
+    # Optionally, update the target network using soft updates.
+    soft_update(target_net, policy_net, tau=0.001)
 # ----------------- Checkpoint Functions ----------------- #
 def load_model_checkpoint(model_path, learning_rate, buffer_size, logger, device):
     try:
@@ -212,7 +238,7 @@ DYNAMIC_LEVELS = [
     {
         "mcts_simulations": 20 * i,
         "win_rate_threshold": WIN_RATE_THRESHOLD,
-        "reset_epsilon": max(1 - 0.01 * i, 0.75)
+        "reset_epsilon": max(1 - 0.01 * i,0.05)
     }
     for i in range(1, 101)
 ]

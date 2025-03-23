@@ -7,7 +7,7 @@ from .mcts import MCTS
 
 
 class AgentLogic:
-    def __init__(self, policy_net, device, q_threshold=0.5, mcts_simulations=2000, always_mcts=False, always_random=False):
+    def __init__(self, policy_net, device, q_threshold=0.2, mcts_simulations=2000, always_mcts=False, always_random=False):
         """
         Initialize the agent logic with a policy network, device, and a Q-value threshold.
         If the best Q-value for valid actions is below the threshold, the agent will fall back to MCTS.
@@ -15,7 +15,7 @@ class AgentLogic:
         Args:
             policy_net: The DQN policy network.
             device: The device to run the model (CPU or GPU).
-            q_threshold (float): Threshold for Q-value fallback to MCTS.
+            q_threshold (float): Threshold for Q-value fallback to MCTS. (lowest)
             mcts_simulations (int): Number of MCTS simulations per decision.
         """
         self.policy_net = policy_net
@@ -91,35 +91,42 @@ class AgentLogic:
                     logger.debug(f"Evaluation MCTS+DQN selected action {action} with no MCTS value")
                     #print(f"Evaluation MCTS+DQN selected action {action} with no MCTS value")   
             return action, mcts_taken
+        
 
- 
+        # Adjust senstivity og softmax with probability epsilon.
+        temperature = epsilon
+
         with torch.no_grad():
             q_values = self.policy_net(state_tensor).cpu().numpy().flatten()
-        self.policy_net.train()
+        #if debug:    
+            #print("q_values",q_values)
         # Check if all q_values are nearly equal (or zero), then use a uniform distribution
         if np.allclose(q_values, q_values[0]):
             q_values = np.full_like(q_values, 1.0 / len(q_values))
+        
         # Mask invalid actions: set Q-value for invalid actions to -inf
         masked_q = np.full_like(q_values, -np.inf)
         for a in valid_actions:
             masked_q[a] = q_values[a]
 
-        # Apply softmax to obtain normalized probabilities:
-        exp_q = np.exp(masked_q - np.max(masked_q))  # subtract max for numerical stability
+        # Apply softmax with temperature:
+        exp_q = np.exp((masked_q - np.max(masked_q)) / temperature)  # temperature scaling
         softmax_q = exp_q / np.sum(exp_q)
-
+        #print(softmax_q)
         best_act = int(np.argmax(softmax_q))
         best_q_val = softmax_q[best_act]
+
+
+        # Make the q-threshold dynamic till the lowest point
+        if epsilon> self.q_threshold:
+            self.q_threshold=epsilon
+
 
         # If in inference mode without MCTS fallback, return the DQN best action.
         if not mcts_fallback:
             return action, mcts_taken
 
-        # Branch 1:  Use MCTS with probability epsilon.
-        if epsilon > self.q_threshold:
-            self.q_threshold = epsilon
-
-        # Branch 2: If best Q-value is below the threshold, fall back to MCTS.
+        #   If best Q-value is below the threshold, fall back to MCTS.
         if best_q_val < self.q_threshold:
             if debug:
                 logger.debug(f"Q-value {best_q_val:.3f} below threshold {self.q_threshold:.3f}, using MCTS fallback.")
@@ -169,8 +176,8 @@ class RewardSystem:
         Initialize the reward system with default or provided configuration.
         """
         self.config = config if config is not None else {
-            "win": 50.0,
-            "loss": -50.0,
+            "win": 100.0,
+            "loss": -100.0,
             "draw": 1.0,
             "active_base": 0.1,
             "ignore_four_in_row": -5.0,

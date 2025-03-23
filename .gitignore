@@ -7,4 +7,3 @@
 
 # Ignore the entire data directory
 **/logs/
-**/dat/
