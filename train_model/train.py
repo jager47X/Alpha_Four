@@ -22,7 +22,7 @@ warnings.filterwarnings("ignore", category=NumbaPerformanceWarning)
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 NUM_WORKERS = 6
 # --- Model  Hyperparam --- #
-MODEL_VERSION= 25
+MODEL_VERSION= 27
 BATCH_SIZE = 16
 GAMMA = 0.90
 LR = 0.001
@@ -64,8 +64,8 @@ def soft_update(target_net, policy_net, tau=0.001):
     for target_param, policy_param in zip(target_net.parameters(), policy_net.parameters()):
         target_param.data.copy_(tau * policy_param.data + (1 - tau) * target_param.data)
 
-# ----------------- Training Step ----------------- #
-def train_step(policy_net, target_net, optimizer, replay_buffer, mcts_rate: float):
+# ----------------- Training Step ----------------- 
+def train_step(policy_net, target_net, optimizer, replay_buffer):
     policy_net.train()
     
     # Ensure there are enough samples in the replay buffer.
@@ -73,16 +73,17 @@ def train_step(policy_net, target_net, optimizer, replay_buffer, mcts_rate: floa
         return
 
     # Sample a batch from the replay buffer.
-    # (If using prioritized experience replay, your batch may include IS weights and indices.)
     batch = replay_buffer.sample(BATCH_SIZE)
-    states = batch["states"]
-    actions = batch["actions"]
-    rewards = batch["rewards"]
-    next_states = batch["next_states"]
-    dones = batch["dones"]
-    mcts_values = batch["mcts_values"]
+    states       = batch["states"]           # shape: [batch, ...]
+    q_actions    = batch["q_actions"]        # Action taken by the agent (from its own policy).
+    rewards      = batch["rewards"]
+    next_states  = batch["next_states"]
+    dones        = batch["dones"]
+    mcts_values  = batch["mcts_values"]      # MCTS confidence/value for its recommended action.
+    mcts_actions = batch["mcts_actions"]     # Action recommended by MCTS.
+    mcts_used    = batch["mcts_used"]          # Flag: True if MCTS was used (i.e. network's Q-value was below threshold).
 
-    # Adjust shapes so that states and next_states are of shape [batch, channels, rows, columns]
+    # Adjust shapes so that states and next_states are [batch, channels, rows, columns]
     if len(states.shape) == 5:
         states = states.squeeze(2)
     if len(states.shape) == 3:
@@ -92,44 +93,50 @@ def train_step(policy_net, target_net, optimizer, replay_buffer, mcts_rate: floa
     if len(next_states.shape) == 3:
         next_states = next_states.unsqueeze(1)
 
-    q_values = policy_net(states).gather(1, actions.unsqueeze(1)).squeeze()
-    # Compute the TD targets using DQN:
-    # ---------------------------------------------------------
-    # We use the target network to compute the Q-values for the next state.
-    # These Q-values are used to form the target for our Bellman update.
-    # Since we want the target values to remain constant (i.e., we do not want
-    # gradients to flow back through the target network), we disable gradient tracking
-    # by wrapping these operations in a 'torch.no_grad()' block.
-    #
-    # If we removed 'torch.no_grad()', the target network's computations would be
-    # included in the computational graph. This would increase memory usage,
-    # slow down training, and potentially destabilize learning because the target network
-    # is supposed to be a stable reference that is not updated during backpropagation.
+    # Compute the policy network's outputs (Q-values) for all actions.
+    policy_outputs = policy_net(states)  # shape: [batch, num_actions]
 
+    # --- Safely gather Q-values for both the agent's chosen action and the MCTS action ---
+    # For transitions that represent a loss (indicated by -1 in q_actions or mcts_actions),
+    # we temporarily replace -1 with 0 so that gather doesn't fail, then later reset the value.
+    safe_q_actions = q_actions.clone()
+    safe_mcts_actions = mcts_actions.clone()
+    loss_mask_env = (q_actions != -1)
+    loss_mask_mcts = (mcts_actions != -1)
+    safe_q_actions[~loss_mask_env] = 0
+    safe_mcts_actions[~loss_mask_mcts] = 0
 
+    q_value_env  = policy_outputs.gather(1, safe_q_actions.unsqueeze(1)).squeeze()
+    q_value_mcts = policy_outputs.gather(1, safe_mcts_actions.unsqueeze(1)).squeeze()
+    
+    # For invalid indices (loss transitions), set Q-values to -1.
+    q_value_env[~loss_mask_env] = -1.0
+    q_value_mcts[~loss_mask_mcts] = -1.0
+
+    # Convert mcts_used to a boolean tensor.
+    mcts_used = mcts_used.to(torch.bool)
+    # If mcts_used is True, use the Q-value for the MCTS action; otherwise, use the agent's action.
+    predicted_q = torch.where(mcts_used, q_value_mcts, q_value_env)
+
+    # --- Compute Standard DQN Target ---
     with torch.no_grad():
         next_q_values = target_net(next_states)
         max_next_q_values, _ = next_q_values.max(dim=1)
         dqn_targets = rewards + GAMMA * (1 - dones.float()) * max_next_q_values
 
-    # Blend the DQN targets with the MCTS values.
-    lambda_weight = mcts_rate  # Represents trust in MCTS (1: high, 0: low)
-    mcts_values = mcts_values.clone().detach().float().to(states.device)
-    blended_targets = lambda_weight * mcts_values + (1 - lambda_weight) * dqn_targets
+    # --- Choose the Training Target ---
+    # When mcts_used is True, we use mcts_values as the target; otherwise, we use dqn_targets.
+    selected_target = torch.where(mcts_used, mcts_values, dqn_targets)
 
-    # Compute the loss between predicted Q-values and blended targets.
-    loss = nn.MSELoss()(q_values, blended_targets)
+    # Compute the loss.
+    loss = nn.MSELoss()(predicted_q, selected_target)
     
     optimizer.zero_grad()
     loss.backward()
-
-    # Gradient Clipping
     torch.nn.utils.clip_grad_norm_(policy_net.parameters(), max_norm=1.0)
-
     optimizer.step()
-
-    # Optionally, update the target network using soft updates.
     soft_update(target_net, policy_net, tau=0.001)
+
 # ----------------- Checkpoint Functions ----------------- #
 def load_model_checkpoint(model_path, learning_rate, buffer_size, logger, device):
     try:
@@ -325,6 +332,7 @@ def simulate_episode(args):
         Returns a triple: (action, mcts_value, mcts_used).
         """
         nonlocal evaluate_loaded, evaluator
+        mcts_used=False
         last_mcts_ep = 0
         # Optionally pass the last MCTS episode if enough episodes have been played in this level.
         if episodes_in_current_level > 2000:
@@ -333,16 +341,18 @@ def simulate_episode(args):
         mcts_value = 0.0
 
         if opponent_type == "MCTS":
+            mcts_used=True
             # Use dynamic MCTS level from DYNAMIC_LEVELS
             sims = current_mcts_level if current_mcts_level is not None else 0
             if sims == 0:
-                action = random.choice(env.get_valid_actions())
+                mcts_action = random.choice(env.get_valid_actions())
+                mcts_used=False
             else:
                 mcts_agent = MCTS(logger, num_simulations=sims, debug=True)
-                action, mcts_value = mcts_agent.select_action(env, env.current_player)
+                mcts_action, mcts_value = mcts_agent.select_action(env, env.current_player)
             if debug:
-                logger.debug(f"Phase: {opponent_type}, MCTS Action SELECT={action}, MCTS_value={mcts_value}")
-            return action, mcts_value
+                logger.debug(f"Phase: {opponent_type}, MCTS Action SELECT={mcts_action}, MCTS_value={mcts_value}")
+            return -1,mcts_action, mcts_value,mcts_used
 
         elif opponent_type == "Self-Train":
             if not evaluate_loaded:
@@ -352,18 +362,26 @@ def simulate_episode(args):
                 evaluate_loaded = True
             # Use evaluator every TARGET_EVALUATE episodes; otherwise use agent.
             if ep % TARGET_EVALUATE == 0:
-                action = evaluator.pick_action(env, current_epsilon, logger, debug=True)
+                q_action,mcts_action, mcts_value,mcts_used = evaluator.pick_action(env, current_epsilon, logger, debug=True)
+                if mcts_used:
+                    action=mcts_action
+                else:
+                    action=q_action
                 if debug:
                     logger.debug(f"Phase: {opponent_type}, Evaluator Action SELECT={action}")
-                return action, mcts_value
+                return q_action,mcts_action, mcts_value,mcts_used
             else:
-                action = agent.pick_action(env, current_epsilon, logger, debug=True)
+                q_action,mcts_action, mcts_value,mcts_used = agent.pick_action(env, current_epsilon, logger, debug=True)
+                if mcts_used:
+                    action=mcts_action
+                else:
+                    action=q_action
                 if debug:
                     logger.debug(f"Phase: {opponent_type}, Self-Play Action SELECT={action}")
-                return action, mcts_value
+                return q_action,mcts_action, mcts_value,mcts_used
         else:
             # When training is completed or an unexpected type is encountered.
-            return None, None
+            return None, None,None,None
         
     # Connect 4 game
     while not done:
@@ -372,16 +390,21 @@ def simulate_episode(args):
 
         if env.current_player == 1:
             # Player 1's turn (opponent)
-            action, mcts_value= get_opponent_action(env, logger, debug=True)
+            q_action,mcts_action, mcts_value,mcts_used= get_opponent_action(env, logger, debug=True)
             # Terminate the game if training is completed.
-            if action is None and mcts_value is None and mcts_used is None:
+            if q_action is None and mcts_value is None and mcts_used is None:
                 return None, None, None, None, None, None, None
+            
+            if mcts_used:
+                action=mcts_action
+            else:
+                action=q_action
             env.make_move(action)
             reward_1, status = agent.compute_reward(env, action, 1)
             next_state = env.get_board().copy()
             if (status != 0) or env.is_draw(): # when 1 wins
                 done = True
-                transitions.append((state, action, reward_1, next_state, (status != 0 or env.is_draw()), mcts_value)) # push the reward_1
+                transitions.append((state, action, reward_1, next_state, (status != 0 or env.is_draw()), mcts_value,mcts_action,mcts_used)) # push the reward_1
                 state = next_state
                 winner = status if status != 0 else -1
                 if winner == 1:
@@ -389,19 +412,22 @@ def simulate_episode(args):
                     reward_2, _ = agent.compute_reward(env, -1, 2)
                     #print(f"Agent lost and the final reward is: {reward_2}")
                     next_state = env.get_board().copy()
-                    transitions.append((state, action, reward_2, next_state, (status != 0 or env.is_draw()), mcts_value))
+                    # add transaction where P2 lost all -1 as N/A
+                    transitions.append((state, -1, reward_2, next_state, (status != 0 or env.is_draw()), -1,-1,False))
                     state = next_state
                     total_reward += reward_2
                     break
             else: # game keeps going 
-                transitions.append((state, action, reward_1, next_state, (status != 0 or env.is_draw()), mcts_value))
+                transitions.append((state, action, reward_1, next_state, (status != 0 or env.is_draw()), mcts_value,mcts_action,mcts_used))
                 state = next_state
         else:  # Player2's turn (always model)
             local_policy_net.eval()
-            action,mcts_used= agent.pick_action(env, current_epsilon,logger, debug=DEBUGMODE)
-
+            q_action,mcts_action, mcts_value,mcts_used= agent.pick_action(env, current_epsilon,logger, debug=DEBUGMODE)
             if mcts_used:
                 mcts_count+=1
+                action=mcts_action
+            else:
+                action=q_action
 
             env.make_move(action)
             reward_2, status = agent.compute_reward(env, action, 2)
@@ -409,12 +435,12 @@ def simulate_episode(args):
             next_state = env.get_board().copy()
             if (status != 0) or env.is_draw():
                 done = True
-                transitions.append((state, action, reward_2, next_state, (status != 0 or env.is_draw()), mcts_value))
+                transitions.append((state, action, reward_2, next_state, (status != 0 or env.is_draw()), mcts_value,mcts_action,mcts_used))
                 state = next_state
                 winner = status if status != 0 else -1
                 break
             else:
-                transitions.append((state, action, reward_2, next_state, (status != 0 or env.is_draw()), mcts_value))
+                transitions.append((state, action, reward_2, next_state, (status != 0 or env.is_draw()), mcts_value,mcts_action,mcts_used))
                 state = next_state
 
     return transitions, ep, winner, total_reward, turn, mcts_count
@@ -474,7 +500,7 @@ def run_training():
             simulate_episode,
             args=((episode, EPSILON, current_mcts_level, policy_net.state_dict(), logger),)
         )
-        transitions, ep, winner, total_reward, turn, mcts_count = async_result.get(timeout=10)
+        transitions, ep, winner, total_reward, turn, mcts_count = async_result.get(timeout=30)
 
         if transitions is None and ep is None and winner is None:
             pool.close()
@@ -488,7 +514,7 @@ def run_training():
 
         mcts_rate=mcts_count/int(turn/2)
         # Update the DQN
-        train_step(policy_net, target_net, optimizer, replay_buffer, mcts_rate)
+        train_step(policy_net, target_net, optimizer, replay_buffer)
 
         # Track if agent (Player 2) won
         if winner == 2:

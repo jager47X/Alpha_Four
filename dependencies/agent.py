@@ -7,7 +7,7 @@ from .mcts import MCTS
 
 
 class AgentLogic:
-    def __init__(self, policy_net, device, q_threshold=0.2, mcts_simulations=2000, always_mcts=False, always_random=False):
+    def __init__(self, policy_net, device, q_threshold=0.5, mcts_simulations=2000, always_mcts=False, always_random=False):
         """
         Initialize the agent logic with a policy network, device, and a Q-value threshold.
         If the best Q-value for valid actions is below the threshold, the agent will fall back to MCTS.
@@ -15,7 +15,7 @@ class AgentLogic:
         Args:
             policy_net: The DQN policy network.
             device: The device to run the model (CPU or GPU).
-            q_threshold (float): Threshold for Q-value fallback to MCTS. (lowest)
+            q_threshold (float): Threshold for Q-value fallback to MCTS.    
             mcts_simulations (int): Number of MCTS simulations per decision.
         """
         self.policy_net = policy_net
@@ -37,17 +37,19 @@ class AgentLogic:
             mcts_fallback (bool): If True, allow MCTS fallback; if False, use pure DQN.
             evaluation (bool): If True, MCTS will use DQN-based state evaluation.
         """
-        mcts_taken = False
+        q_action = mcts_action = mcts_value = None
+        mcts_used = False
+
         valid_actions = env.get_valid_actions()
         if not valid_actions:
-            return action, mcts_taken
+            return -1, -1, -1,mcts_used
 
-        if self.always_random:
-            action = random.choice(valid_actions)
-            return action, mcts_taken
+        if self.always_random:  # We only use this for Evaluation Purpose Only
+            random_action = random.choice(valid_actions)
+            return random_action, -1, -1,mcts_used
 
-        if self.always_mcts:
-            mcts_taken = True
+        if self.always_mcts:# We only use this for Evaluation Purpose Only
+            mcts_used = True
             mcts_agent = MCTS(
                 logger=logger, 
                 num_simulations=self.mcts_simulations, 
@@ -55,9 +57,9 @@ class AgentLogic:
                 dqn_model=None, 
                 evaluation=False  # Use DQN-based evaluation if enabled
             )
-            action, mcts_value = mcts_agent.select_action(env, env.current_player)
-            return action, mcts_taken
-
+            mcts_action, mcts_value = mcts_agent.select_action(env, env.current_player)
+            return -1, mcts_action,-1,mcts_used
+                
         # Evaluate Q-values using the policy network.
         # Build the state tensor with the correct shape: (batch, channels, height, width)
         board_np = env.board  # Expected shape: (6,7)
@@ -71,29 +73,8 @@ class AgentLogic:
 
         # Forward pass to get Q-values; output shape should be (1,7)
         self.policy_net.eval()
-        if evaluation:  # In evaluation mode, use MCTS with DQN-based evaluation.
-            mcts_taken = True
 
-            mcts_agent = MCTS(
-                logger=logger, 
-                num_simulations=self.mcts_simulations, 
-                debug=debug, 
-                dqn_model=self.policy_net, 
-                evaluation=evaluation,
-                q_threshold=self.q_threshold
-            )
-            action, mcts_value = mcts_agent.select_action(env, env.current_player)
-            if debug:
-                if mcts_value is not None:
-                    logger.debug(f"Evaluation MCTS+DQN selected action {action} with MCTS value: {mcts_value:.3f}")
-                    #print(f"Evaluation MCTS+DQN selected action {action} with MCTS value: {mcts_value:.3f}")
-                else:
-                    logger.debug(f"Evaluation MCTS+DQN selected action {action} with no MCTS value")
-                    #print(f"Evaluation MCTS+DQN selected action {action} with no MCTS value")   
-            return action, mcts_taken
-        
-
-        # Adjust senstivity og softmax with probability epsilon.
+                # Adjust senstivity og softmax with probability epsilon.
         temperature = epsilon
 
         with torch.no_grad():
@@ -115,41 +96,59 @@ class AgentLogic:
         #print(softmax_q)
         best_act = int(np.argmax(softmax_q))
         best_q_val = softmax_q[best_act]
+        q_action=best_act
 
+        if evaluation:  # In evaluation mode, use MCTS with DQN-based evaluation.
+            mcts_used = True
 
-        # Make the q-threshold dynamic till the lowest point
-        if epsilon> self.q_threshold:
-            self.q_threshold=epsilon
-
-
-        # If in inference mode without MCTS fallback, return the DQN best action.
-        if not mcts_fallback:
-            return action, mcts_taken
-
-        #   If best Q-value is below the threshold, fall back to MCTS.
-        if best_q_val < self.q_threshold:
-            if debug:
-                logger.debug(f"Q-value {best_q_val:.3f} below threshold {self.q_threshold:.3f}, using MCTS fallback.")
-                print(f"Q-value {best_q_val:.3f} below threshold {self.q_threshold:.3f}, using MCTS fallback.")
-            mcts_taken = True
             mcts_agent = MCTS(
                 logger=logger, 
                 num_simulations=self.mcts_simulations, 
                 debug=debug, 
                 dqn_model=self.policy_net, 
-                evaluation=evaluation
+                evaluation=evaluation,
+                q_threshold=self.q_threshold
             )
-            action, mcts_value = mcts_agent.select_action(env, env.current_player)
+            mcts_action, mcts_value = mcts_agent.select_action(env, env.current_player)
             if debug:
-                logger.debug(f"MCTS (low Q) selected action {action} with MCTS value: {mcts_value:.3f}")
-                #print(f"MCTS (low Q) selected action {action} with MCTS value: {mcts_value:.3f}")
-            return action, mcts_taken
+                if mcts_value is not None:
+                    logger.debug(f"Evaluation MCTS+DQN selected action {mcts_action} with MCTS value: {mcts_value:.3f}")
+                    #print(f"Evaluation MCTS+DQN selected action {action} with MCTS value: {mcts_value:.3f}")
+                else:
+                    logger.debug(f"Evaluation MCTS+DQN selected action {mcts_action} with no MCTS value")
+                    #print(f"Evaluation MCTS+DQN selected action {action} with no MCTS value")   
+            return q_action, mcts_action, mcts_value, mcts_used
+        
+        # Make the q-threshold dynamic till the lowest point
+        if epsilon> self.q_threshold:
+            self.q_threshold=epsilon
 
-        # Default: use the best action from DQN.
+        # If in inference mode without MCTS fallback, return the DQN best action.
+        if not mcts_fallback:
+            return q_action, -1, -1, mcts_used
+
+        #   If best Q-value is below the threshold, fall back to MCTS.
+        
         if debug:
-            logger.debug(f"Using DQN-selected action {best_act} with Q-value: {best_q_val:.3f}")
-            #print(f"Using DQN-selected action {best_act} with Q-value: {best_q_val:.3f}")
-        return best_act, mcts_taken
+            logger.debug(f"Q-value {best_q_val:.3f} below threshold {self.q_threshold:.3f}, using MCTS fallback.")
+            print(f"Q-value {best_q_val:.3f} below threshold {self.q_threshold:.3f}, using MCTS fallback.")
+            
+        mcts_agent = MCTS(
+                logger=logger, 
+                num_simulations=self.mcts_simulations, 
+                debug=debug, 
+                dqn_model=self.policy_net, 
+                evaluation=evaluation
+        )
+        mcts_action, mcts_value = mcts_agent.select_action(env, env.current_player)
+        if debug:
+            logger.debug(f"MCTS (low Q) selected action {mcts_action} with MCTS value: {mcts_value:.3f}")
+            #print(f"MCTS (low Q) selected action {action} with MCTS value: {mcts_value:.3f}")
+
+
+        if best_q_val < self.q_threshold and q_action is not mcts_action:
+            mcts_used = True       
+        return q_action, mcts_action, mcts_value, mcts_used
 
     def compute_reward(self, env, last_action, last_player):
         """
@@ -159,7 +158,7 @@ class AgentLogic:
             env: The game environment.
             last_action: The action taken.
             last_player: The player (1 or 2).
-            mcts_taken (bool): True if MCTS was used.
+            mcts_used (bool): True if MCTS was used.
             epsilon (float): The exploration probability.
             low_q_value (bool): True if the Q-value was below threshold.
 
