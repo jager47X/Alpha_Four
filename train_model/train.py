@@ -22,14 +22,14 @@ warnings.filterwarnings("ignore", category=NumbaPerformanceWarning)
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 NUM_WORKERS = 6
 # --- Model  Hyperparam --- #
-MODEL_VERSION= 27
+MODEL_VERSION= 35
 BATCH_SIZE = 16
 GAMMA = 0.90
-LR = 0.001
+LR = 0.00001
 TARGET_EVALUATE = 100
 TARGET_UPDATE = 100  
 EVAL_FREQUENCY = 100
-EPSILON_DECAY = 0.999
+EPSILON_DECAY = 0.9999
 EPSILON_MIN = 0.05
 TOTAL_EPISODES = 999999999 # Infinite until it the training completed by trigerring the condition
 DEBUGMODE = True
