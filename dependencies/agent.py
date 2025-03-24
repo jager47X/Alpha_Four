@@ -165,7 +165,7 @@ class AgentLogic:
                 print(f"MCTS is matched with Q-action")
                 
         return q_action, mcts_action, mcts_value, mcts_used
-
+        # + hybrid used(evaluation), dqn_used=> model_used as string: mcts, dqn, hybrid
     def compute_reward(self, env, last_action, last_player):
         """
         Compute the reward for the last move.
