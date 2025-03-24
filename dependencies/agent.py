@@ -21,9 +21,8 @@ class AgentLogic:
         self.policy_net = policy_net
         self.device = device
         self.q_threshold = q_threshold
-        self.mcts_value_threshold=0.1
         self.q_threshold_min=q_threshold/2
-        self.temperature = 1
+        self.temperature = 0.5
         self.mcts_simulations = mcts_simulations
         self.always_mcts = always_mcts
         self.always_random = always_random
@@ -102,7 +101,9 @@ class AgentLogic:
         masked_q = np.full_like(q_values, -np.inf)
         for a in valid_actions:
             masked_q[a] = q_values[a]
-
+        dynamic_temp=min(epsilon*2 ,1) # i.e 0.25 * 0.5= 1 RANGE: EPISLON 1->0.25:0.5, 0.25->0.05: 0.5->0.1 
+        if dynamic_temp>self.temperature: # min would be temperature =0.5
+            self.temperature=dynamic_temp
         # Apply softmax with temperature:
         exp_q = np.exp((masked_q - np.max(masked_q)) /  self.temperature)  # temperature scaling
         softmax_q = exp_q / np.sum(exp_q)
@@ -119,9 +120,13 @@ class AgentLogic:
         # If best Q-value is below the threshold, fall back to MCTS but with DQN
         if evaluation:
             evaluation=True
+    
         elif best_q_val < self.q_threshold and best_q_val>self.q_threshold_min: # self.q_threshold_min<best_q_val<self.q_threshold
             evaluation=True
         elif best_q_val > self.q_threshold: # best_q_val > self.q_threshold
+            if debug:
+                logger.debug(f"Returning high Q Value: {best_q_val} ")
+                print(f"Returning high Q Value: {best_q_val}")
             return q_action,-1, -1, mcts_used
         else:#best_q_val<self.q_threshold_min
             evaluation=False
@@ -135,34 +140,15 @@ class AgentLogic:
                 evaluation=evaluation,# In evaluation mode, use MCTS with DQN-based evaluation.
                 q_threshold=self.q_threshold
             )
-        repeat=0
-        # Recalucurate If MCTS_value < 0.1
-        while mcts_value>self.mcts_value_threshold: # at least 0.1 rate need to be passed 
-            mcts_action, mcts_value = mcts_agent.select_action(env, env.current_player)
-            if repeat%10==0:
-                # Switch the methods
-                if evaluation is True:
-                    evaluation=False
-                else:
-                    evaluation=True
-                mcts_agent = MCTS( # Switcg back and force
-                logger=logger, 
-                num_simulations=self.mcts_simulations, 
-                debug=debug, 
-                dqn_model=self.policy_net, 
-                evaluation=evaluation,# In evaluation mode, use MCTS with DQN-based evaluation.
-                q_threshold=self.q_threshold
-            )
-            repeat+=1
-            
+        mcts_action, mcts_value = mcts_agent.select_action(env, env.current_player)
+ 
         if evaluation is not True:
             mcts_used = True
             if debug:
-                logger.debug(f"Q-value {best_q_val:.3f} below threshold {self.q_threshold:.3f}, using MCTS fallback.")
-                print(f"Q-value {best_q_val:.3f} below threshold {self.q_threshold:.3f}, using MCTS fallback.")
+                logger.debug(f"Q-value {best_q_val:.3f} below threshold {self.q_threshold:.3f}, using MCTS&DQN.")
+                print(f"Q-value {best_q_val:.3f} below threshold {self.q_threshold:.3f}, using MCTS&DQN .")
                 logger.debug(f"MCTS selected action {mcts_action} with MCTS value: {mcts_value:.3f}")
                 print(f"MCTS selected action {mcts_action} with MCTS value: {mcts_value:.3f}")
-
         else:
             if debug:
                 if mcts_value is not None:
@@ -175,9 +161,8 @@ class AgentLogic:
         if q_action is mcts_action:
             mcts_used=False
             if debug:
-                logger.debug(f"MCTS selected action {mcts_action} is Matched with Q-action")
-                print(f"MCTS selected action {mcts_action} is Matched with Q-action")
-
+                logger.debug(f"MCTS is matched with Q-action")
+                print(f"MCTS is matched with Q-action")
                 
         return q_action, mcts_action, mcts_value, mcts_used
 
