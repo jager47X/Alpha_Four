@@ -22,7 +22,7 @@ warnings.filterwarnings("ignore", category=NumbaPerformanceWarning)
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 NUM_WORKERS = 6
 # --- Model  Hyperparam --- #
-MODEL_VERSION= 37
+MODEL_VERSION= 39
 BATCH_SIZE = 16
 GAMMA = 0.90
 LR = 0.00001
@@ -33,6 +33,7 @@ EPSILON_DECAY = 0.9999
 EPSILON_MIN = 0.05
 TOTAL_EPISODES = 999999999 # Infinite until it the training completed by trigerring the condition
 DEBUGMODE = True
+TAU=0.001
 # --- MCTS  Hyperparam --- #
 WIN_RATE_WINDOW = 100
 MAX_MCTS = 2000
@@ -64,78 +65,126 @@ def soft_update(target_net, policy_net, tau=0.001):
     for target_param, policy_param in zip(target_net.parameters(), policy_net.parameters()):
         target_param.data.copy_(tau * policy_param.data + (1 - tau) * target_param.data)
 
-# ----------------- Training Step ----------------- 
+# ----------------- train_step Function ----------------- #
+
 def train_step(policy_net, target_net, optimizer, replay_buffer):
-    policy_net.train()
+    """
+    Perform one training step on a batch of transitions.
     
-    # Ensure there are enough samples in the replay buffer.
+    Transition order:
+      state, q_action, reward_2, next_state, done, best_q_val,
+      mcts_value, hybrid_value, mcts_action, model_used
+       
+    model_used is a string: "dqn", "mcts", "hybrid", or None.
+    For transitions where the agent loses (action is None), the predicted Q-value
+    and target are forced to -1.
+    
+    For hybrid mode:
+      - Predicted Q-value is computed as the average of the agent’s own Q-value and the MCTS Q-value.
+      - Target is taken from the stored hybrid_value.
+    For mcts mode:
+      - Predicted Q-value is the MCTS Q-value.
+      - Target is the scaled MCTS value (scaled from [0,1] to [-100,100]).
+    For dqn mode or if model_used is None:
+      - Predicted Q-value is the agent’s own Q-value.
+      - Target is the stored best_q_val.
+    """
+    policy_net.train()
+
     if len(replay_buffer) < BATCH_SIZE:
         return
 
     # Sample a batch from the replay buffer.
     batch = replay_buffer.sample(BATCH_SIZE)
-    states       = batch["states"]           # shape: [batch, ...]
-    q_actions    = batch["q_actions"]        # Action taken by the agent (from its own policy).
-    rewards      = batch["rewards"]
-    next_states  = batch["next_states"]
-    dones        = batch["dones"]
-    mcts_values  = batch["mcts_values"]      # MCTS confidence/value for its recommended action.
-    mcts_actions = batch["mcts_actions"]     # Action recommended by MCTS.
-    mcts_used    = batch["mcts_used"]          # Flag: True if MCTS was used (i.e. network's Q-value was below threshold).
+    states        = batch["states"]         # [batch, ...]
+    actions       = batch["q_actions"]      # Agent's own action (int or None)
+    rewards       = batch["rewards"]
+    next_states   = batch["next_states"]
+    dones         = batch["dones"]
+    best_q_vals   = batch["best_q_vals"]    # Stored best Q-value (float)
+    mcts_values   = batch["mcts_values"]      # MCTS confidence/value in [0,1]
+    hybrid_values = batch["hybrid_values"]    # Stored hybrid confidence value (float)
+    mcts_actions  = batch["mcts_actions"]     # MCTS recommended action (int or None)
+    model_used    = batch["model_used"]       # List of strings: "dqn", "mcts", "hybrid", or None
 
-    # Adjust shapes so that states and next_states are [batch, channels, rows, columns]
-    if len(states.shape) == 5:
+    # Adjust states and next_states shapes: [batch, channels, rows, columns]
+    if states.ndimension() == 5:
         states = states.squeeze(2)
-    if len(states.shape) == 3:
+    elif states.ndimension() == 3:
         states = states.unsqueeze(1)
-    if len(next_states.shape) == 5:
+    if next_states.ndimension() == 5:
         next_states = next_states.squeeze(2)
-    if len(next_states.shape) == 3:
+    elif next_states.ndimension() == 3:
         next_states = next_states.unsqueeze(1)
 
-    # Compute the policy network's outputs (Q-values) for all actions.
+    # Compute Q-values for all actions.
     policy_outputs = policy_net(states)  # shape: [batch, num_actions]
 
-    # --- Safely gather Q-values for both the agent's chosen action and the MCTS action ---
-    # For transitions that represent a loss (indicated by -1 in q_actions or mcts_actions),
-    # we temporarily replace -1 with 0 so that gather doesn't fail, then later reset the value.
-    safe_q_actions = q_actions.clone()
-    safe_mcts_actions = mcts_actions.clone()
-    loss_mask_env = (q_actions != -1)
-    loss_mask_mcts = (mcts_actions != -1)
-    safe_q_actions[~loss_mask_env] = 0
-    safe_mcts_actions[~loss_mask_mcts] = 0
+    # --- Safe Gathering of Q-values ---
+    # For transitions where actions are None, temporarily replace with 0.
+    q_actions_list = [a if a is not None else 0 for a in actions]
+    mcts_actions_list = [a if a is not None else 0 for a in mcts_actions]
+    loss_mask_env = torch.tensor([a is not None for a in actions], device=states.device)
+    loss_mask_mcts = torch.tensor([a is not None for a in mcts_actions], device=states.device)
+    safe_q_actions = torch.tensor(q_actions_list, device=states.device, dtype=torch.int64)
+    safe_mcts_actions = torch.tensor(mcts_actions_list, device=states.device, dtype=torch.int64)
 
-    q_value_env  = policy_outputs.gather(1, safe_q_actions.unsqueeze(1)).squeeze()
+    q_value_env = policy_outputs.gather(1, safe_q_actions.unsqueeze(1)).squeeze()
     q_value_mcts = policy_outputs.gather(1, safe_mcts_actions.unsqueeze(1)).squeeze()
-    
-    # For invalid indices (loss transitions), set Q-values to -1.
+
+    # For loss transitions, force Q-values to -1.
     q_value_env[~loss_mask_env] = -1.0
     q_value_mcts[~loss_mask_mcts] = -1.0
 
-    # Convert mcts_used to a boolean tensor.
-    mcts_used = mcts_used.to(torch.bool)
-    # If mcts_used is True, use the Q-value for the MCTS action; otherwise, use the agent's action.
-    predicted_q = torch.where(mcts_used, q_value_mcts, q_value_env)
+    # --- Select Predicted Q-value Based on model_used ---
+    predicted_q_list = []
+    for i in range(policy_outputs.shape[0]):
+        mode = model_used[i] if model_used[i] is not None else "dqn"
+        if mode == "mcts":
+            predicted_q_list.append(q_value_mcts[i])
+        elif mode == "hybrid":
+            # Use the simple average of the two Q-values.
+            blended_q = (q_value_env[i] + q_value_mcts[i]) / 2.0
+            predicted_q_list.append(blended_q)
+        else:  # "dqn" or None
+            predicted_q_list.append(q_value_env[i])
+    predicted_q = torch.stack(predicted_q_list)
 
-    # --- Compute Standard DQN Target ---
+    # --- Compute the Standard DQN Target ---
     with torch.no_grad():
         next_q_values = target_net(next_states)
         max_next_q_values, _ = next_q_values.max(dim=1)
         dqn_targets = rewards + GAMMA * (1 - dones.float()) * max_next_q_values
 
-    # --- Choose the Training Target ---
-    # When mcts_used is True, we use mcts_values as the target; otherwise, we use dqn_targets.
-    selected_target = torch.where(mcts_used, mcts_values, dqn_targets)
+    # --- Scale MCTS Values from [0,1] to [-100,100] ---
+    scaled_mcts_values = mcts_values * 200 - 100
 
-    # Compute the loss.
-    loss = nn.MSELoss()(predicted_q, selected_target)
-    
+    # --- Select the Training Target per Sample ---
+    target_list = []
+    for i in range(predicted_q.shape[0]):
+        mode = model_used[i] if model_used[i] is not None else "dqn"
+        if mode == "mcts":
+            target_list.append(scaled_mcts_values[i])
+        elif mode == "hybrid":
+            target_list.append(hybrid_values[i])
+        else:  # "dqn" or None
+            target_list.append(dqn_targets[i])
+    selected_target = torch.stack(target_list)
+
+    # --- Handle Loss Transitions ---
+    # For transitions where the agent's action is None, force both predicted Q-value and target to -1.
+    loss_mask = torch.tensor([a is not None for a in actions], device=states.device)
+    predicted_q_final = torch.where(loss_mask, predicted_q, torch.full_like(predicted_q, -1.0))
+    selected_target_final = torch.where(loss_mask, selected_target, torch.full_like(selected_target, -1.0))
+
+    # --- Loss Computation and Backpropagation ---
+    loss = nn.MSELoss()(predicted_q_final, selected_target_final)
     optimizer.zero_grad()
     loss.backward()
     torch.nn.utils.clip_grad_norm_(policy_net.parameters(), max_norm=1.0)
     optimizer.step()
-    soft_update(target_net, policy_net, tau=0.001)
+    soft_update(target_net, policy_net, tau=TAU)
+
 
 # ----------------- Checkpoint Functions ----------------- #
 def load_model_checkpoint(model_path, learning_rate, buffer_size, logger, device):
@@ -320,39 +369,62 @@ def simulate_episode(args):
     winner = None
     turn = 0
     mcts_count = 0
+    hybrid_count = 0
+    dqn_count = 0   
+    model_used, dqn_action, mcts_action, hybrid_action, rand_action, best_q_val, mcts_value, hybrid_value = (None,) * 8
 
     # Variables for self-train evaluation
     evaluate_loaded = False
     evaluator = None
-
+    def switch_model(model_used,mcts_action,rand_action,dqn_action,hybrid_action):
+        if model_used=="mcts"and mcts_action is not None:
+            action=mcts_action
+        elif model_used=="random" and rand_action is not None:
+            action=rand_action
+        elif model_used=="dqn"and dqn_action is not None:
+            action=dqn_action
+        elif model_used=="hybrid"and hybrid_action is not None:
+            action=hybrid_action
+        else:
+            action=None
+        return action
     def get_opponent_action(env, logger, debug=True):
         """
         Determines the action for player 1 based on the opponent type.
         For Self-Train opponents, an evaluator may be loaded on the fly.
-        Returns a triple: (action, mcts_value, mcts_used).
+        Returns a tuple: 
+        (model_used, dqn_action, mcts_action, hybrid_action, rand_action, best_q_val, mcts_value, hybrid_value).
         """
         nonlocal evaluate_loaded, evaluator
-        mcts_used=False
+
+        # Initialize all return variables to None (or a default value) so that they're always defined.
+        model_used = None
+        dqn_action = None
+        mcts_action = None
+        hybrid_action = None
+        rand_action = None
+        best_q_val = None
+        mcts_value = 0.0  # Default value already used later in the code
+        hybrid_value = None
+
         last_mcts_ep = 0
         # Optionally pass the last MCTS episode if enough episodes have been played in this level.
         if episodes_in_current_level > 2000:
             last_mcts_ep = ep
         opponent_type = get_opponent_type(ep, last_mcts_ep)
-        mcts_value = 0.0
 
         if opponent_type == "MCTS":
-            mcts_used=True
             # Use dynamic MCTS level from DYNAMIC_LEVELS
             sims = current_mcts_level if current_mcts_level is not None else 0
             if sims == 0:
-                mcts_action = random.choice(env.get_valid_actions())
-                mcts_used=False
+                rand_action = random.choice(env.get_valid_actions())
+                model_used = "random"
             else:
                 mcts_agent = MCTS(logger, num_simulations=sims, debug=True)
                 mcts_action, mcts_value = mcts_agent.select_action(env, env.current_player)
+                model_used = "mcts"
             if debug:
                 logger.debug(f"Phase: {opponent_type}, MCTS Action SELECT={mcts_action}, MCTS_value={mcts_value}")
-            return -1,mcts_action, mcts_value,mcts_used
 
         elif opponent_type == "Self-Train":
             if not evaluate_loaded:
@@ -360,51 +432,43 @@ def simulate_episode(args):
                 torch.save(local_policy_net.state_dict(), EVAL_MODEL_PATH)
                 logger.info(f"Copied local_policy_net into evaluator for evaluation from ep:{ep}.")
                 evaluate_loaded = True
+
             # Use evaluator every TARGET_EVALUATE episodes; otherwise use agent.
             if ep % TARGET_EVALUATE == 0:
-                q_action,mcts_action, mcts_value,mcts_used = evaluator.pick_action(env, current_epsilon, logger, debug=True)
-                if mcts_used:
-                    action=mcts_action
-                else:
-                    action=q_action
-                if debug:
-                    logger.debug(f"Phase: {opponent_type}, Evaluator Action SELECT={action}")
-                return q_action,mcts_action, mcts_value,mcts_used
+                (model_used, dqn_action, mcts_action, hybrid_action,
+                rand_action, best_q_val, mcts_value, hybrid_value) = evaluator.pick_action(env, current_epsilon, logger, debug=True)
+                if debug and (dqn_action is None and mcts_action is None and hybrid_action is None and rand_action is None):
+                    logger.debug("Phase: Self-Train, Evaluator Action SELECT returned no valid action")
             else:
-                q_action,mcts_action, mcts_value,mcts_used = agent.pick_action(env, current_epsilon, logger, debug=True)
-                if mcts_used:
-                    action=mcts_action
-                else:
-                    action=q_action
-                if debug:
-                    logger.debug(f"Phase: {opponent_type}, Self-Play Action SELECT={action}")
-                return q_action,mcts_action, mcts_value,mcts_used
+                (model_used, dqn_action, mcts_action, hybrid_action,
+                rand_action, best_q_val, mcts_value, hybrid_value) = agent.pick_action(env, current_epsilon, logger, debug=True)
+                if debug and (dqn_action is None and mcts_action is None and hybrid_action is None and rand_action is None):
+                    logger.debug("Phase: Self-Train, Self-Play Action SELECT returned no valid action")
         else:
-            # When training is completed or an unexpected type is encountered.
-            return None, None,None,None
+            # When training is completed or an unexpected type is encountered, we simply return the initialized values.
+            logger.debug("Unexpected opponent type encountered. Returning default values.")
+
+        return model_used, dqn_action, mcts_action, hybrid_action, rand_action, best_q_val, mcts_value, hybrid_value
+
         
     # Connect 4 game
     while not done:
         turn += 1
-        mcts_used = False
 
         if env.current_player == 1:
             # Player 1's turn (opponent)
-            q_action,mcts_action, mcts_value,mcts_used= get_opponent_action(env, logger, debug=True)
+            model_used,dqn_action, mcts_action,hybrid_action,rand_action, best_q_val, mcts_value,hybrid_value= get_opponent_action(env, logger, debug=True)
             # Terminate the game if training is completed.
-            if q_action is None and mcts_value is None and mcts_used is None:
-                return None, None, None, None, None, None, None
+            if model_used is None:
+                return None, None, None, None, None, None, None, None
             
-            if mcts_used:
-                action=mcts_action
-            else:
-                action=q_action
+            action=switch_model(model_used,mcts_action,rand_action,dqn_action,hybrid_action)
             env.make_move(action)
             reward_1, status = agent.compute_reward(env, action, 1)
             next_state = env.get_board().copy()
             if (status != 0) or env.is_draw(): # when 1 wins
                 done = True
-                transitions.append((state, action, reward_1, next_state, (status != 0 or env.is_draw()), mcts_value,mcts_action,mcts_used)) # push the reward_1
+                transitions.append((state, action, reward_1, next_state, (status != 0 or env.is_draw()), best_q_val, mcts_value,hybrid_value,mcts_action,model_used)) # push the reward_1
                 state = next_state
                 winner = status if status != 0 else -1
                 if winner == 1:
@@ -413,21 +477,24 @@ def simulate_episode(args):
                     #print(f"Agent lost and the final reward is: {reward_2}")
                     next_state = env.get_board().copy()
                     # add transaction where P2 lost all -1 as N/A
-                    transitions.append((state, -1, reward_2, next_state, (status != 0 or env.is_draw()), -1,-1,False))
+                    transitions.append((state, -1, reward_2, next_state, (status != 0 or env.is_draw()), None,None,None,None,None,model_used))
                     state = next_state
                     total_reward += reward_2
                     break
             else: # game keeps going 
-                transitions.append((state, action, reward_1, next_state, (status != 0 or env.is_draw()), mcts_value,mcts_action,mcts_used))
+                transitions.append((state, action, reward_1, next_state, (status != 0 or env.is_draw()), best_q_val, mcts_value,hybrid_value,mcts_action,model_used))
                 state = next_state
         else:  # Player2's turn (always model)
             local_policy_net.eval()
-            q_action,mcts_action, mcts_value,mcts_used= agent.pick_action(env, current_epsilon,logger, debug=DEBUGMODE)
-            if mcts_used:
+            model_used,dqn_action, mcts_action,hybrid_action, best_q_val, mcts_value,hybrid_value= agent.pick_action(env, current_epsilon,logger, debug=DEBUGMODE)
+            action=switch_model(model_used,mcts_action,rand_action,dqn_action,hybrid_action)
+
+            if model_used=="mcts":
                 mcts_count+=1
-                action=mcts_action
-            else:
-                action=q_action
+            elif model_used=="hybrid":
+                hybrid_count+=1
+            elif model_used=="dqn":
+                dqn_count+=1    
 
             env.make_move(action)
             reward_2, status = agent.compute_reward(env, action, 2)
@@ -435,15 +502,15 @@ def simulate_episode(args):
             next_state = env.get_board().copy()
             if (status != 0) or env.is_draw():
                 done = True
-                transitions.append((state, action, reward_2, next_state, (status != 0 or env.is_draw()), mcts_value,mcts_action,mcts_used))
+                transitions.append((state, action, reward_2, next_state, (status != 0 or env.is_draw()), best_q_val, mcts_value,hybrid_value,mcts_action,model_used))
                 state = next_state
                 winner = status if status != 0 else -1
                 break
             else:
-                transitions.append((state, action, reward_2, next_state, (status != 0 or env.is_draw()), mcts_value,mcts_action,mcts_used))
+                transitions.append((state, action, reward_2, next_state, (status != 0 or env.is_draw()), best_q_val, mcts_value,hybrid_value,mcts_action,model_used))
                 state = next_state
 
-    return transitions, ep, winner, total_reward, turn, mcts_count
+    return transitions, ep, winner, total_reward, turn, mcts_count,hybrid_count,dqn_count
 
 
 # ----------------- Training Loop ----------------- #
@@ -500,8 +567,8 @@ def run_training():
             simulate_episode,
             args=((episode, EPSILON, current_mcts_level, policy_net.state_dict(), logger),)
         )
-        transitions, ep, winner, total_reward, turn, mcts_count = async_result.get(timeout=3000)
-
+        transitions, ep, winner, total_reward, turn, mcts_count,hybrid_count,dqn_count = async_result.get(timeout=3000)
+        
         if transitions is None and ep is None and winner is None:
             pool.close()
             pool.join()
@@ -511,9 +578,12 @@ def run_training():
         for transition in transitions:
             replay_buffer.push(*transition)
 
-
+        hybrid_rate=hybrid_count/int(turn/2)
+        dqn_rate=dqn_count/int(turn/2)
         mcts_rate=mcts_count/int(turn/2)
+
         # Update the DQN
+
         train_step(policy_net, target_net, optimizer, replay_buffer)
 
         # Track if agent (Player 2) won
@@ -528,14 +598,13 @@ def run_training():
         if len(recent_win_results) > WIN_RATE_WINDOW:
             recent_win_results.pop(0)
         current_win_rate = compute_win_rate(recent_win_results)
-
       
         logger.info(f"Episode {ep}: Winner={winner},Win Rate={current_win_rate*100:.2f}%, Turn={turn}, Reward={total_reward:.2f}, "
                         f"EPSILON={EPSILON:.6f}, MCTS LEVEL={current_mcts_level}, "
-                        f"MCTS used Rate:{mcts_rate*100:.2f}%")
+                        f"MCTS Rate:{mcts_rate*100:.2f}%, DQN Rate:{dqn_rate*100:.2f}%, HYBRID Rate:{hybrid_rate*100:.2f}%")
         print(f"Episode {ep}: Winner={winner},Win Rate={current_win_rate*100:.2f}%, Turn={turn}, Reward={total_reward:.2f}, "
                         f"EPSILON={EPSILON:.6f}, MCTS LEVEL={current_mcts_level}, "
-                        f"MCTS used Rate:{mcts_rate*100:.2f}%")
+                        f"MCTS Rate:{mcts_rate*100:.2f}, DQN Rate:{dqn_rate*100:.2f}%, HYBRID Rate:{hybrid_rate*100:.2f}%%")
 
         # Possibly advance dynamic training level
         update_dynamic_level(current_win_rate, logger)

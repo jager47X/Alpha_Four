@@ -17,12 +17,12 @@ COLUMNS = 7
 WIN_LENGTH = 4
 
 class MCTS:
-    def __init__(self, logger=logging, num_simulations=4096, debug=False, dqn_model=None, evaluation=False, q_threshold=0.5):
+    def __init__(self, logger=logging, num_simulations=4096, debug=False, dqn_model=None, hybrid=False, q_threshold=0.5):
         self.num_simulations = num_simulations
         self.debug = debug
         self.logger = logger
-        self.dqn_model = dqn_model  # Optional DQN to guide evaluation
-        self.evaluation = evaluation  # Use DQN for evaluation if True
+        self.dqn_model = dqn_model  # Optional DQN to guide hybrid
+        self.hybrid = hybrid  # Use DQN for hybrid if True
         self.q_threshold = q_threshold
 
     def dqn_evaluate_state(self, env):
@@ -79,8 +79,8 @@ class MCTS:
                 self.logger.info(f"Immediate block by playing column {move}")
             return move, 0.5
 
-        # 3) DQN-Guided Initialization (only in evaluation mode)
-        if self.evaluation and self.dqn_model is not None:
+        # 3) DQN-Guided Initialization (only in hybrid mode)
+        if self.hybrid and self.dqn_model is not None:
             valid_actions = env.get_valid_actions()
             dqn_q_values = {}
             for action in valid_actions:
@@ -117,7 +117,7 @@ class MCTS:
         if not valid_actions:
             return None, 0.0
 
-        # 5) Assign Simulations per Action, with DQN leaf evaluation if confident,
+        # 5) Assign Simulations per Action, with DQN leaf hybrid if confident,
         #    otherwise fall back to simulation outcomes.
         simulations_per_action = self.num_simulations // len(valid_actions)
         extra_simulations = self.num_simulations % len(valid_actions)
@@ -132,7 +132,7 @@ class MCTS:
             if sims == 0:
                 continue
 
-            if self.evaluation and self.dqn_model is not None:
+            if self.hybrid and self.dqn_model is not None:
                 q_values_tensor = self.dqn_evaluate_state(temp_env)
                 value_estimate = q_values_tensor.max().item()
                 if value_estimate >= self.q_threshold:

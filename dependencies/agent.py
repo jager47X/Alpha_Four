@@ -22,12 +22,12 @@ class AgentLogic:
         self.device = device
         self.q_threshold = q_threshold
         self.q_threshold_min=q_threshold/2
-        self.temperature = 0.5
+        self.temperature = 0.1
         self.mcts_simulations = mcts_simulations
         self.always_mcts = always_mcts
         self.always_random = always_random
 
-    def pick_action(self, env, epsilon, logger, debug=False,mcts_fallback=True, evaluation=False):
+    def pick_action(self, env, epsilon, logger, debug=False,mcts_fallback=True, hybrid=False):
         """
         Pick an action using an epsilon-greedy strategy with MCTS fallback.
 
@@ -37,35 +37,37 @@ class AgentLogic:
             logger: Logger for debugging.
             debug (bool): Whether to output debug info.
             mcts_fallback (bool): If True, allow MCTS fallback; if False, use pure DQN.
-            evaluation (bool): If True, MCTS will use DQN-based state evaluation.
+            hybrid (bool): If True, MCTS will use DQN-based state hybrid.
         Return:
-            q_action:
-            mcts_action:
-            mcts_value:
-            mcts_used: Either Q-value meets threshold or equal to mcts_action then return flase for 
+         tuple:
+            q_action(int): dqn based action
+            mcts_action(int): mcts action either from hybrid or mcts 
+            mcts_value(float): mcts win confidence
+            model_used: (String): mcts, dqn, hybrid, random
         """
         q_action = mcts_action = mcts_value = None
-        mcts_used = False
+        model_used = None
 
         valid_actions = env.get_valid_actions()
         if not valid_actions:
-            return -1, -1, -1,mcts_used
+            return -1, -1, -1,model_used
 
-        if self.always_random:  # We only use this for Evaluation Purpose Only
+        if self.always_random:  # We only use this for Hybrid Purpose Only
             random_action = random.choice(valid_actions)
-            return random_action, -1, -1,mcts_used
+            model_used="random"
+            return random_action, -1, -1,model_used
 
-        if self.always_mcts:# We only use this for Evaluation Purpose Only
-            mcts_used = True
+        if self.always_mcts:# We only use this for Hybrid Purpose Only
+            model_used = "mcts"
             mcts_agent = MCTS(
                 logger=logger, 
                 num_simulations=self.mcts_simulations, 
                 debug=debug, 
                 dqn_model=None, 
-                evaluation=False  # Use DQN-based evaluation if enabled
+                hybrid=False  # Use DQN-based hybrid if enabled
             )
             mcts_action, mcts_value = mcts_agent.select_action(env, env.current_player)
-            return -1, mcts_action,-1,mcts_used
+            return -1, mcts_action,-1,model_used
                 
         # Evaluate Q-values using the policy network.
         # Build the state tensor with the correct shape: (batch, channels, height, width)
@@ -101,6 +103,7 @@ class AgentLogic:
         masked_q = np.full_like(q_values, -np.inf)
         for a in valid_actions:
             masked_q[a] = q_values[a]
+            
         dynamic_temp=min(epsilon*2 ,1) # i.e 0.25 * 0.5= 1 RANGE: EPISLON 1->0.25:0.5, 0.25->0.05: 0.5->0.1 
         if dynamic_temp>self.temperature: # min would be temperature =0.5
             self.temperature=dynamic_temp
@@ -115,57 +118,68 @@ class AgentLogic:
         # Make the q-threshold dynamic till the lowest point
         # If in inference mode without MCTS fallback, return the DQN best action.
         if not mcts_fallback:
-            return q_action, -1, -1, mcts_used
+            model_used="dqn"
+            return q_action, -1, -1, model_used
         
         # If best Q-value is below the threshold, fall back to MCTS but with DQN
-        if evaluation:
-            evaluation=True
+        if hybrid:
+            hybrid=True
     
         elif best_q_val < self.q_threshold and best_q_val>self.q_threshold_min: # self.q_threshold_min<best_q_val<self.q_threshold
-            evaluation=True
+            model_used = "hybrid"
+            hybrid=True
         elif best_q_val > self.q_threshold: # best_q_val > self.q_threshold
+            model_used="dqn"
             if debug:
                 logger.debug(f"Returning high Q Value: {best_q_val} ")
                 print(f"Returning high Q Value: {best_q_val}")
-            return q_action,-1, -1, mcts_used
+            return q_action,-1, -1, model_used
         else:#best_q_val<self.q_threshold_min
-            evaluation=False
+            model_used = "mcts"
+            hybrid=False
 
-        mcts_used = True
+        
         mcts_agent = MCTS(
                 logger=logger, 
                 num_simulations=self.mcts_simulations, 
                 debug=debug, 
                 dqn_model=self.policy_net, 
-                evaluation=evaluation,# In evaluation mode, use MCTS with DQN-based evaluation.
+                hybrid=hybrid,# In hybrid mode, use MCTS with DQN-based hybrid.
                 q_threshold=self.q_threshold
+
             )
+
         mcts_action, mcts_value = mcts_agent.select_action(env, env.current_player)
- 
-        if evaluation is not True:
-            mcts_used = True
+
+            
+
+        if hybrid is not True:
             if debug:
                 logger.debug(f"Q-value {best_q_val:.3f} below threshold {self.q_threshold:.3f}, using MCTS&DQN.")
-                print(f"Q-value {best_q_val:.3f} below threshold {self.q_threshold:.3f}, using MCTS&DQN .")
+                print(f"Q-value {best_q_val:.3f} below threshold {self.q_threshold:.3f}, using MCTS&DQN.")
                 logger.debug(f"MCTS selected action {mcts_action} with MCTS value: {mcts_value:.3f}")
                 print(f"MCTS selected action {mcts_action} with MCTS value: {mcts_value:.3f}")
+            hybrid_value=None
+            hybrid_action=None
         else:
             if debug:
                 if mcts_value is not None:
-                    logger.debug(f"Evaluation MCTS+DQN selected action {mcts_action} with MCTS value: {mcts_value:.3f}")
-                    #print(f"Evaluation MCTS+DQN selected action {action} with MCTS value: {mcts_value:.3f}")
+                    logger.debug(f"Hybrid MCTS+DQN selected action {mcts_action} with MCTS value: {mcts_value:.3f}")
+                    #print(f"Hybrid MCTS+DQN selected action {action} with MCTS value: {mcts_value:.3f}")
                 else:
-                    logger.debug(f"Evaluation MCTS+DQN selected action {mcts_action} with no MCTS value")
-                    #print(f"Evaluation MCTS+DQN selected action {action} with no MCTS value")   
+                    logger.debug(f"Hybrid MCTS+DQN selected action {mcts_action} with no MCTS value")
+                    #print(f"Hybrid MCTS+DQN selected action {action} with no MCTS value")   
+            hybrid_value=mcts_value
+            hybrid_action=mcts_action
                     
-        if q_action is mcts_action:
-            mcts_used=False
+        if q_action is mcts_action or q_action is hybrid_action: # Prioritize value to Q-value if it match with hybrid and mcts_action
+            model_used="dqn"
             if debug:
                 logger.debug(f"MCTS is matched with Q-action")
                 print(f"MCTS is matched with Q-action")
                 
-        return q_action, mcts_action, mcts_value, mcts_used
-        # + hybrid used(evaluation), dqn_used=> model_used as string: mcts, dqn, hybrid
+        return model_used,q_action, mcts_action,hybrid_action, best_q_val, mcts_value,hybrid_value
+        # Hybrid used(hybrid), dqn_used=> model_used as string: mcts, dqn, hybrid
     def compute_reward(self, env, last_action, last_player):
         """
         Compute the reward for the last move.
