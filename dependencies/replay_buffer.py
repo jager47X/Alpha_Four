@@ -10,7 +10,7 @@ class DiskReplayBuffer:
         """
         Initialize a disk-based replay buffer using memory-mapped files.
         Transition order:
-            state, action, reward_2, next_state, done flag, best_q_val,
+            state, action, reward, next_state, done flag, best_q_val,
             mcts_value, hybrid_value, mcts_action, model_used
         Stored in `data/dat/{version}`.
         """
@@ -33,7 +33,7 @@ class DiskReplayBuffer:
         # Allocate memory-mapped arrays for each field.
         self.states = init_memmap("replay_buffer_states.dat", np.float32, (capacity, *state_shape))
         self.actions = init_memmap("replay_buffer_actions.dat", np.int32, (capacity,))
-        self.rewards = init_memmap("replay_buffer_rewards.dat", np.float32, (capacity,))  # reward_2
+        self.rewards = init_memmap("replay_buffer_rewards.dat", np.float32, (capacity,))  # reward
         self.next_states = init_memmap("replay_buffer_next_states.dat", np.float32, (capacity, *state_shape))
         self.dones = init_memmap("replay_buffer_dones.dat", bool, (capacity,))
         self.best_q_vals = init_memmap("replay_buffer_best_q_vals.dat", np.float32, (capacity,))
@@ -43,25 +43,40 @@ class DiskReplayBuffer:
         # Store model_used as an integer code: 0: "dqn", 1: "mcts", 2: "hybrid", 3: None
         self.model_used = init_memmap("replay_buffer_model_used.dat", np.int32, (capacity,))
 
+    def default_if_none(self, value, default=-1):
+        """Return value if it is not None; otherwise, return the default."""
+        return value if value is not None else default
+
     def push(self, state, action, reward, next_state, done, 
              best_q_val, mcts_value, hybrid_value, mcts_action, model_used):
         """
         Add a transition to the replay buffer.
         Expected order:
-            state, action, reward_2, next_state, done, best_q_val,
+            state, action, reward, next_state, done, best_q_val,
             mcts_value, hybrid_value, mcts_action, model_used
         model_used should be a string ("dqn", "mcts", "hybrid") or None.
         """
-        self.states[self.ptr] = state
-        self.actions[self.ptr] = action
-        self.rewards[self.ptr] = reward
-        self.next_states[self.ptr] = next_state
-        self.dones[self.ptr] = done
-        self.best_q_vals[self.ptr] = best_q_val
-        self.mcts_values[self.ptr] = mcts_value
-        self.hybrid_values[self.ptr] = hybrid_value
-        self.mcts_actions[self.ptr] = mcts_action
-        
+        # Apply default value (-1) for any None value
+        state_val         = self.default_if_none(state)
+        action_val        = self.default_if_none(action)
+        reward_val        = self.default_if_none(reward)
+        next_state_val    = self.default_if_none(next_state)
+        done_val          = self.default_if_none(done)
+        best_q_val_val    = self.default_if_none(best_q_val)
+        mcts_value_val    = self.default_if_none(mcts_value)
+        hybrid_value_val  = self.default_if_none(hybrid_value)
+        mcts_action_val   = self.default_if_none(mcts_action)
+
+        self.states[self.ptr]       = state_val
+        self.actions[self.ptr]        = action_val
+        self.rewards[self.ptr]        = reward_val
+        self.next_states[self.ptr]    = next_state_val
+        self.dones[self.ptr]          = done_val
+        self.best_q_vals[self.ptr]    = best_q_val_val
+        self.mcts_values[self.ptr]    = mcts_value_val
+        self.hybrid_values[self.ptr]  = hybrid_value_val
+        self.mcts_actions[self.ptr]   = mcts_action_val
+
         # Convert model_used string to integer code.
         if model_used is None:
             code = 3

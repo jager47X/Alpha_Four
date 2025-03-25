@@ -22,10 +22,10 @@ warnings.filterwarnings("ignore", category=NumbaPerformanceWarning)
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 NUM_WORKERS = 6
 # --- Model  Hyperparam --- #
-MODEL_VERSION= 39
+MODEL_VERSION= 41
 BATCH_SIZE = 16
 GAMMA = 0.90
-LR = 0.00001
+LR = 0.0001
 TARGET_EVALUATE = 100
 TARGET_UPDATE = 100  
 EVAL_FREQUENCY = 100
@@ -67,16 +67,22 @@ def soft_update(target_net, policy_net, tau=0.001):
 
 # ----------------- train_step Function ----------------- #
 
+import torch
+import torch.nn as nn
+
+# Make sure these constants and functions (BATCH_SIZE, GAMMA, TAU, soft_update) are defined/imported in your code.
+
 def train_step(policy_net, target_net, optimizer, replay_buffer):
     """
     Perform one training step on a batch of transitions.
     
     Transition order:
-      state, q_action, reward_2, next_state, done, best_q_val,
+      state, q_action, reward, next_state, done, best_q_val,
       mcts_value, hybrid_value, mcts_action, model_used
        
-    model_used is a string: "dqn", "mcts", "hybrid", or None.
-    For transitions where the agent loses (action is None), the predicted Q-value
+    model_used is stored as an integer code:
+      0: "dqn", 1: "mcts", 2: "hybrid", 3: (None, treated as "dqn").
+    For transitions where the agent loses (action is -1), the predicted Q-value
     and target are forced to -1.
     
     For hybrid mode:
@@ -85,7 +91,7 @@ def train_step(policy_net, target_net, optimizer, replay_buffer):
     For mcts mode:
       - Predicted Q-value is the MCTS Q-value.
       - Target is the scaled MCTS value (scaled from [0,1] to [-100,100]).
-    For dqn mode or if model_used is None:
+    For dqn mode (or if model_used is None/3):
       - Predicted Q-value is the agent’s own Q-value.
       - Target is the stored best_q_val.
     """
@@ -97,15 +103,15 @@ def train_step(policy_net, target_net, optimizer, replay_buffer):
     # Sample a batch from the replay buffer.
     batch = replay_buffer.sample(BATCH_SIZE)
     states        = batch["states"]         # [batch, ...]
-    actions       = batch["q_actions"]      # Agent's own action (int or None)
+    actions       = batch["q_actions"]        # Agent's own action (int; -1 means invalid)
     rewards       = batch["rewards"]
     next_states   = batch["next_states"]
     dones         = batch["dones"]
-    best_q_vals   = batch["best_q_vals"]    # Stored best Q-value (float)
-    mcts_values   = batch["mcts_values"]      # MCTS confidence/value in [0,1]
-    hybrid_values = batch["hybrid_values"]    # Stored hybrid confidence value (float)
-    mcts_actions  = batch["mcts_actions"]     # MCTS recommended action (int or None)
-    model_used    = batch["model_used"]       # List of strings: "dqn", "mcts", "hybrid", or None
+    best_q_vals   = batch["best_q_vals"]      # Stored best Q-value (float)
+    mcts_values   = batch["mcts_values"]        # MCTS value in [0,1]
+    hybrid_values = batch["hybrid_values"]      # Stored hybrid value (float)
+    mcts_actions  = batch["mcts_actions"]       # MCTS recommended action (int; -1 means invalid)
+    model_used    = batch["model_used"]         # Tensor of integer codes: 0,1,2,3
 
     # Adjust states and next_states shapes: [batch, channels, rows, columns]
     if states.ndimension() == 5:
@@ -121,32 +127,34 @@ def train_step(policy_net, target_net, optimizer, replay_buffer):
     policy_outputs = policy_net(states)  # shape: [batch, num_actions]
 
     # --- Safe Gathering of Q-values ---
-    # For transitions where actions are None, temporarily replace with 0.
-    q_actions_list = [a if a is not None else 0 for a in actions]
-    mcts_actions_list = [a if a is not None else 0 for a in mcts_actions]
-    loss_mask_env = torch.tensor([a is not None for a in actions], device=states.device)
-    loss_mask_mcts = torch.tensor([a is not None for a in mcts_actions], device=states.device)
+    # For transitions where actions are -1, temporarily replace with 0.
+    q_actions_list = [a if a != -1 else 0 for a in actions]
+    mcts_actions_list = [a if a != -1 else 0 for a in mcts_actions]
+    loss_mask_env = torch.tensor([a != -1 for a in actions], device=states.device)
+    loss_mask_mcts = torch.tensor([a != -1 for a in mcts_actions], device=states.device)
     safe_q_actions = torch.tensor(q_actions_list, device=states.device, dtype=torch.int64)
     safe_mcts_actions = torch.tensor(mcts_actions_list, device=states.device, dtype=torch.int64)
 
     q_value_env = policy_outputs.gather(1, safe_q_actions.unsqueeze(1)).squeeze()
     q_value_mcts = policy_outputs.gather(1, safe_mcts_actions.unsqueeze(1)).squeeze()
 
-    # For loss transitions, force Q-values to -1.
+    # For transitions with invalid actions, force Q-values to -1.
     q_value_env[~loss_mask_env] = -1.0
     q_value_mcts[~loss_mask_mcts] = -1.0
 
     # --- Select Predicted Q-value Based on model_used ---
+    mode_dict = {0: "dqn", 1: "mcts", 2: "hybrid", 3: "dqn"}
     predicted_q_list = []
     for i in range(policy_outputs.shape[0]):
-        mode = model_used[i] if model_used[i] is not None else "dqn"
+        mode_code = model_used[i].item() if hasattr(model_used[i], "item") else model_used[i]
+        mode = mode_dict.get(mode_code, "dqn")
         if mode == "mcts":
             predicted_q_list.append(q_value_mcts[i])
         elif mode == "hybrid":
             # Use the simple average of the two Q-values.
             blended_q = (q_value_env[i] + q_value_mcts[i]) / 2.0
             predicted_q_list.append(blended_q)
-        else:  # "dqn" or None
+        else:  # "dqn"
             predicted_q_list.append(q_value_env[i])
     predicted_q = torch.stack(predicted_q_list)
 
@@ -162,18 +170,19 @@ def train_step(policy_net, target_net, optimizer, replay_buffer):
     # --- Select the Training Target per Sample ---
     target_list = []
     for i in range(predicted_q.shape[0]):
-        mode = model_used[i] if model_used[i] is not None else "dqn"
+        mode_code = model_used[i].item() if hasattr(model_used[i], "item") else model_used[i]
+        mode = mode_dict.get(mode_code, "dqn")
         if mode == "mcts":
             target_list.append(scaled_mcts_values[i])
         elif mode == "hybrid":
             target_list.append(hybrid_values[i])
-        else:  # "dqn" or None
+        else:  # "dqn"
             target_list.append(dqn_targets[i])
     selected_target = torch.stack(target_list)
 
     # --- Handle Loss Transitions ---
-    # For transitions where the agent's action is None, force both predicted Q-value and target to -1.
-    loss_mask = torch.tensor([a is not None for a in actions], device=states.device)
+    # For transitions where the agent's action is -1, force both predicted Q-value and target to -1.
+    loss_mask = torch.tensor([a != -1 for a in actions], device=states.device)
     predicted_q_final = torch.where(loss_mask, predicted_q, torch.full_like(predicted_q, -1.0))
     selected_target_final = torch.where(loss_mask, selected_target, torch.full_like(selected_target, -1.0))
 
@@ -371,7 +380,7 @@ def simulate_episode(args):
     mcts_count = 0
     hybrid_count = 0
     dqn_count = 0   
-    model_used, dqn_action, mcts_action, hybrid_action, rand_action, best_q_val, mcts_value, hybrid_value = (None,) * 8
+    model_used, dqn_action, mcts_action, hybrid_action, rand_action, best_q_val, mcts_value, hybrid_value= (None,) * 8
 
     # Variables for self-train evaluation
     evaluate_loaded = False
@@ -436,12 +445,12 @@ def simulate_episode(args):
             # Use evaluator every TARGET_EVALUATE episodes; otherwise use agent.
             if ep % TARGET_EVALUATE == 0:
                 (model_used, dqn_action, mcts_action, hybrid_action,
-                rand_action, best_q_val, mcts_value, hybrid_value) = evaluator.pick_action(env, current_epsilon, logger, debug=True)
+                rand_action, best_q_val, mcts_value, hybrid_value,rand_action) = evaluator.pick_action(env, current_epsilon, logger, debug=True)
                 if debug and (dqn_action is None and mcts_action is None and hybrid_action is None and rand_action is None):
                     logger.debug("Phase: Self-Train, Evaluator Action SELECT returned no valid action")
             else:
                 (model_used, dqn_action, mcts_action, hybrid_action,
-                rand_action, best_q_val, mcts_value, hybrid_value) = agent.pick_action(env, current_epsilon, logger, debug=True)
+                rand_action, best_q_val, mcts_value, hybrid_value,rand_action) = agent.pick_action(env, current_epsilon, logger, debug=True)
                 if debug and (dqn_action is None and mcts_action is None and hybrid_action is None and rand_action is None):
                     logger.debug("Phase: Self-Train, Self-Play Action SELECT returned no valid action")
         else:
@@ -477,7 +486,7 @@ def simulate_episode(args):
                     #print(f"Agent lost and the final reward is: {reward_2}")
                     next_state = env.get_board().copy()
                     # add transaction where P2 lost all -1 as N/A
-                    transitions.append((state, -1, reward_2, next_state, (status != 0 or env.is_draw()), None,None,None,None,None,model_used))
+                    transitions.append((state, -1, reward_2, next_state, (status != 0 or env.is_draw()), None,None,None,None,model_used))
                     state = next_state
                     total_reward += reward_2
                     break
@@ -486,7 +495,7 @@ def simulate_episode(args):
                 state = next_state
         else:  # Player2's turn (always model)
             local_policy_net.eval()
-            model_used,dqn_action, mcts_action,hybrid_action, best_q_val, mcts_value,hybrid_value= agent.pick_action(env, current_epsilon,logger, debug=DEBUGMODE)
+            model_used,dqn_action, mcts_action,hybrid_action, best_q_val, mcts_value,hybrid_value,rand_action= agent.pick_action(env, current_epsilon,logger, debug=DEBUGMODE)
             action=switch_model(model_used,mcts_action,rand_action,dqn_action,hybrid_action)
 
             if model_used=="mcts":
@@ -604,7 +613,7 @@ def run_training():
                         f"MCTS Rate:{mcts_rate*100:.2f}%, DQN Rate:{dqn_rate*100:.2f}%, HYBRID Rate:{hybrid_rate*100:.2f}%")
         print(f"Episode {ep}: Winner={winner},Win Rate={current_win_rate*100:.2f}%, Turn={turn}, Reward={total_reward:.2f}, "
                         f"EPSILON={EPSILON:.6f}, MCTS LEVEL={current_mcts_level}, "
-                        f"MCTS Rate:{mcts_rate*100:.2f}, DQN Rate:{dqn_rate*100:.2f}%, HYBRID Rate:{hybrid_rate*100:.2f}%%")
+                        f"MCTS Rate:{mcts_rate*100:.2f}, DQN Rate:{dqn_rate*100:.2f}%, HYBRID Rate:{hybrid_rate*100:.2f}%")
 
         # Possibly advance dynamic training level
         update_dynamic_level(current_win_rate, logger)
