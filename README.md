@@ -182,19 +182,19 @@ py -m manual_evaluation
 
 ### Figure 1: Main Values Over Time 
 ![figure1](data/models/plots/42/figure1.PNG)
-[Interact with Figure 1](data/models/plots/42/figure1.html)
+[Interact with Figure 1](https://yutomorimori.com/figure1.html)
 - Visualizes the evolution of decision-making—from initial MCTS dominance to a gradual shift toward DQN and hybrid strategies.  
   
 
  ### Figure 2: Epsilon vs. MCTS Level 
    ![figure2](data/models/plots/42/figure2.PNG)
-   [Interact with Figure 2](data/models/plots/42/figure2.html)
+   [Interact with Figure 2](https://yutomorimori.com/figure2.html)
 - Shows that higher simulation levels (focusing on long-term planning) correspond to lower epsilon values, indicating a shift in strategy as midterm win scenarios (levels around 500–700) are encountered.  
   
 
 ### Figure 3: Contribution to Winning
   ![figure3](data/models/plots/42/figure3.PNG)
-  [Interact with Figure 3](data/models/plots/42/figure3.html)
+  [Interact with Figure 3](https://yutomorimori.com/figure3.html)
    - Illustrates the contributions of pure MCTS, MCTS-supervised DQN, and the hybrid MCTS+DQN to overall win rates.  
   
 
@@ -206,7 +206,7 @@ py -m manual_evaluation
 
 ### Figure 5: KNN-Predicted Future Win Rate Post-Training Multiplier**
   ![figure5](data/models/plots/42/figure5.PNG)
-  [Interact with Figure 5](https://yutomorimori.com/figure4.html)
+  [Interact with Figure 5](https://yutomorimori.com/figure5.html)
 - Building on Figure 4, Figure 5 applies a KNN (k-nearest neighbors) regression model to predict future win rate outcomes after applying a training multiplier. The scatter points represent the performance metrics from the three approaches, as seen in Figure 4, where each point corresponds to features such as simulation count, DQN confidence, and the observed win rate.
 
 - A KNN model is fitted on these data points, generating a smooth prediction curve that projects the win rate evolution under the influence of the new training multiplier. A secondary axis or color gradient in the visualization indicates the multiplier effect, illustrating how changes in training intensity affect win rate. Confidence bands around the prediction curve denote the uncertainty in the forecast, especially in areas with sparse data.
