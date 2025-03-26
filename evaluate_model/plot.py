@@ -14,6 +14,11 @@ log_file_path = os.path.join(log_dir, "train.log")
 os.makedirs(log_dir, exist_ok=True)
 print("Log file path:", log_file_path)
 
+# Create the plots directory for the given version:
+plots_dir = os.path.join("data", "models", "plots", version)
+os.makedirs(plots_dir, exist_ok=True)
+print("Plots will be saved in:", plots_dir)
+
 # Fixed intervals:
 FIG1_INTERVAL = 100    # For Figure 1
 FIG2_INTERVAL = 1000   # For Figure 2 (and used for Figures 3 & 4 win rate aggregation)
@@ -43,7 +48,7 @@ def parse_log_file(log_file_path):
                     r"\s+EPSILON=([\d.e-]+),\s+MCTS LEVEL=(\d+),"  
                     r"\s+MCTS Rate:([\d.]+)%,"                    
                     r"\s+DQN Rate:([\d.]+)%,"                     
-                    r"\s+HYBRID Rate:([\d.]+)%"                   
+                    r"\s+HYBRID Rate:([\d.]+)%"                    
                     , line)
                 if match:
                     winners.append(int(match.group(1)))
@@ -163,7 +168,7 @@ def plot_figure1(agg_data, total_games, total_p2_wins, draws, min_reward, max_re
             template="plotly_dark"
         )
         print("Displaying Figure 1 in offline mode...")
-        pyo.plot(fig1, filename="figure1.html", auto_open=True)
+        pyo.plot(fig1, filename=os.path.join(plots_dir, "figure1.html"), auto_open=True)
     except Exception as e:
         print("An error occurred while plotting Figure 1:", str(e))
 
@@ -192,7 +197,7 @@ def plot_figure2(interval_x_full, avg_winrates_full, mcts_levels, epsilons):
         fig2.update_yaxes(title_text="Epsilon (%) / Ave Win Rate (%)", secondary_y=False)
         fig2.update_yaxes(title_text="MCTS Level", secondary_y=True)
         print("Displaying Figure 2 in offline mode...")
-        pyo.plot(fig2, filename="figure2.html", auto_open=True)
+        pyo.plot(fig2, filename=os.path.join(plots_dir, "figure2.html"), auto_open=True)
     except Exception as e:
         print("An error occurred while plotting Figure 2:", str(e))
 
@@ -325,7 +330,7 @@ def plot_figure3(avg_mcts_usage, avg_dqn_usage, avg_hybrid_usage, avg_winrates, 
             }]
         )
         print("Displaying Figure 3 in offline mode...")
-        pyo.plot(fig3, filename="figure3.html", auto_open=True)
+        pyo.plot(fig3, filename=os.path.join(plots_dir, "figure3.html"), auto_open=True)
     except Exception as e:
         print("An error occurred while plotting Figure 3:", str(e))
 
@@ -407,7 +412,7 @@ def plot_figure4(agg_data, total_games, interval):
             }]
         )
         print("Displaying Figure 4 in offline mode...")
-        pyo.plot(fig4, filename="figure4.html", auto_open=True)
+        pyo.plot(fig4, filename=os.path.join(plots_dir, "figure4.html"), auto_open=True)
     except Exception as e:
         print("An error occurred while plotting Figure 4:", str(e))
 
@@ -443,7 +448,6 @@ def plot_figure5(avg_mcts_usage, avg_dqn_usage, avg_hybrid_usage, winners):
         print("KNN model fitted on raw row data.")
 
         # Create prediction grid: Only combinations where x + y + z = 1.0
-        # Increase resolution: using steps=100 for dots every 1% instead of 10%
         steps = 100
         grid_vals = np.linspace(0, 1, steps + 1)
         X_list, Y_list, Z_list = [], [], []
@@ -516,12 +520,10 @@ def plot_figure5(avg_mcts_usage, avg_dqn_usage, avg_hybrid_usage, winners):
             frames=frames
         )
         print("Displaying Figure 5 in offline mode...")
-        pyo.plot(fig5, filename="figure5.html", auto_open=True)
+        pyo.plot(fig5, filename=os.path.join(plots_dir, "figure5.html"), auto_open=True)
         print("Figure 5 loaded successfully.")
     except Exception as e:
         print("An error occurred while plotting Figure 5:", str(e))
-
-
 
 
 # --------------------- Main Execution ---------------------
