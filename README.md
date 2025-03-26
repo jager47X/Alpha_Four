@@ -176,10 +176,48 @@ py -m manual_evaluation
 -   A **Connect4** window appears, where you can drop your discs, and the AI responds.
 -   Useful for demos or quick sanity checks.
 
-### Plotting / Analysis
+### Plotting/Analysis
 
--   **Plot.py** reads your chosen log file (`train.log` by default, or any custom path).
--   Adjust intervals or annotation settings via command-line prompts or inline input calls.
+#### Key Findings from R&D
+
+##### Unsupervised DQN Training
+- **Training Stability:** Training was unstable, with ineffective learning and a tendency to overfit.
+- **Performance:** The model could only beat random agents.
+
+##### MCTS-Supervised DQN Training
+- **Supervised Learning:** Training DQN with supervision from MCTS resulted in approximately an 80% win rate against MCTS at the 480 simulation level (with 100 simulations per window).
+
+##### Hybrid Approach – MCTS + DQN Fusion
+- **Integration:** Integrated DQN layers into the MCTS framework.
+- **Dynamic Switching:** The model dynamically switches based on the "statistical confidence" of each method:
+  - **MCTS:** Confidence is derived from simulation counts (e.g., 2000 simulations identifying the move with the highest win rate).
+  - **DQN:** Softmaxed Q-values are used to gauge confidence.
+- **Heuristics:** Simple heuristics (e.g., block/fill strategies for four-in-a-row) are used alongside DQN layers for enhanced decision-making.
+- **Results:** The hybrid MCTS+DQN model is still being fine-tuned, but it has already demonstrated a more stable learning process, improved performance, and effectiveness—marking a 50% improvement over the MCTS-supervised DQN model.
+
+#### Data Visualizations & Insights
+
+- **Figure 1: Main Values Over Time**  
+  Visualizes the evolution of decision-making—from initial MCTS dominance to a gradual shift toward DQN and hybrid strategies.  
+  [View Figure](data/models/plots/42/figure1.html)
+
+- **Figure 2: Epsilon vs. MCTS Level**  
+  Shows that higher simulation levels (focusing on long-term planning) correspond to lower epsilon values, indicating a shift in strategy as midterm win scenarios (levels around 500–700) are encountered.  
+  [View Figure](data/models/plots/42/figure2.html)
+
+- **Figure 3: Contribution to Winning**  
+  Illustrates the contributions of pure MCTS, MCTS-supervised DQN, and the hybrid MCTS+DQN to overall win rates.  
+  [View Figure](data/models/plots/42/figure3.html)
+
+- **Figure 4: 3D Visualization of Models**  
+  Offers a spatial perspective of performance dynamics across the three models.  
+  [View Figure](data/models/plots/42/figure4.html)
+
+- **Figure 5: Additional Insights**  
+  Provides further insights and comparative analysis across models.  
+  [View Figure](data/models/plots/42/figure5.html)
+
+I will be releasing a detailed research report soon. If you're interested in AI, reinforcement learning, or game strategy research, please feel free to reach out.
 
 * * * * *
 

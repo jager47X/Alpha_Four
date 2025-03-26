@@ -7,7 +7,7 @@ from .mcts import MCTS
 
 
 class AgentLogic:
-    def __init__(self, policy_net, device, q_threshold=0.5, mcts_simulations=2000, always_mcts=False, always_random=False):
+    def __init__(self, policy_net, device, q_threshold=0.9, mcts_simulations=2000, always_mcts=False, always_random=False):
         """
         Initialize the agent logic with a policy network, device, and a Q-value threshold.
         If the best Q-value for valid actions is below the threshold, the agent will fall back to MCTS.
@@ -21,11 +21,13 @@ class AgentLogic:
         self.policy_net = policy_net
         self.device = device
         self.q_threshold = q_threshold
+        self.hybrid_threshold=0.7   #hybrid_threshold
+        self.temperature = 0.1
         self.mcts_simulations = mcts_simulations
         self.always_mcts = always_mcts
         self.always_random = always_random
 
-    def pick_action(self, env, epsilon, logger, debug=False,mcts_fallback=True, evaluation=False):
+    def pick_action(self, env, epsilon, logger, debug=False,mcts_fallback=True, hybrid=False):
         """
         Pick an action using an epsilon-greedy strategy with MCTS fallback.
 
@@ -35,30 +37,37 @@ class AgentLogic:
             logger: Logger for debugging.
             debug (bool): Whether to output debug info.
             mcts_fallback (bool): If True, allow MCTS fallback; if False, use pure DQN.
-            evaluation (bool): If True, MCTS will use DQN-based state evaluation.
+            hybrid (bool): If True, MCTS will use DQN-based state hybrid.
+        Return:
+         tuple:
+            q_action(int): dqn based action
+            mcts_action(int): mcts action either from hybrid or mcts 
+            mcts_value(float): mcts win confidence
+            model_used: (String): mcts, dqn, hybrid, random
         """
         q_action = mcts_action = mcts_value = None
-        mcts_used = False
+        model_used = None
 
         valid_actions = env.get_valid_actions()
         if not valid_actions:
-            return -1, -1, -1,mcts_used
+            return -1, -1, -1,model_used
 
-        if self.always_random:  # We only use this for Evaluation Purpose Only
+        if self.always_random:  # We only use this for Hybrid Purpose Only
             random_action = random.choice(valid_actions)
-            return random_action, -1, -1,mcts_used
+            model_used="random"
+            model_used,q_action, None, None, None, None, None,random_action
 
-        if self.always_mcts:# We only use this for Evaluation Purpose Only
-            mcts_used = True
+        if self.always_mcts:# We only use this for Hybrid Purpose Only
+            model_used = "mcts"
             mcts_agent = MCTS(
                 logger=logger, 
                 num_simulations=self.mcts_simulations, 
                 debug=debug, 
                 dqn_model=None, 
-                evaluation=False  # Use DQN-based evaluation if enabled
+                hybrid=False  # Use DQN-based hybrid if enabled
             )
             mcts_action, mcts_value = mcts_agent.select_action(env, env.current_player)
-            return -1, mcts_action,-1,mcts_used
+            return model_used,None, mcts_action, None, None, None, None,None
                 
         # Evaluate Q-values using the policy network.
         # Build the state tensor with the correct shape: (batch, channels, height, width)
@@ -74,8 +83,13 @@ class AgentLogic:
         # Forward pass to get Q-values; output shape should be (1,7)
         self.policy_net.eval()
 
-                # Adjust senstivity og softmax with probability epsilon.
-        temperature = epsilon
+        # Adjust senstivity og softmax with probability epsilon.
+
+        if epsilon> self.q_threshold:
+              self.q_threshold = epsilon
+
+        if epsilon> self.temperature:
+              self.temperature = epsilon
 
         with torch.no_grad():
             q_values = self.policy_net(state_tensor).cpu().numpy().flatten()
@@ -90,66 +104,65 @@ class AgentLogic:
         for a in valid_actions:
             masked_q[a] = q_values[a]
 
+        dynamic_temp=min(epsilon*2 ,1) # i.e 0.25 * 0.5= 1 RANGE: EPISLON 1->0.25:0.5, 0.25->0.05: 0.5->0.1 
+        if dynamic_temp>self.temperature: # min would be temperature =0.5
+            self.temperature=dynamic_temp
         # Apply softmax with temperature:
-        exp_q = np.exp((masked_q - np.max(masked_q)) / temperature)  # temperature scaling
+        exp_q = np.exp((masked_q - np.max(masked_q)) /  self.temperature)  # temperature scaling
         softmax_q = exp_q / np.sum(exp_q)
         #print(softmax_q)
         best_act = int(np.argmax(softmax_q))
         best_q_val = softmax_q[best_act]
         q_action=best_act
 
-        if evaluation:  # In evaluation mode, use MCTS with DQN-based evaluation.
-            mcts_used = True
-
-            mcts_agent = MCTS(
-                logger=logger, 
-                num_simulations=self.mcts_simulations, 
-                debug=debug, 
-                dqn_model=self.policy_net, 
-                evaluation=evaluation,
-                q_threshold=self.q_threshold
-            )
-            mcts_action, mcts_value = mcts_agent.select_action(env, env.current_player)
-            if debug:
-                if mcts_value is not None:
-                    logger.debug(f"Evaluation MCTS+DQN selected action {mcts_action} with MCTS value: {mcts_value:.3f}")
-                    #print(f"Evaluation MCTS+DQN selected action {action} with MCTS value: {mcts_value:.3f}")
-                else:
-                    logger.debug(f"Evaluation MCTS+DQN selected action {mcts_action} with no MCTS value")
-                    #print(f"Evaluation MCTS+DQN selected action {action} with no MCTS value")   
-            return q_action, mcts_action, mcts_value, mcts_used
-        
         # Make the q-threshold dynamic till the lowest point
-        if epsilon> self.q_threshold:
-            self.q_threshold=epsilon
-
         # If in inference mode without MCTS fallback, return the DQN best action.
         if not mcts_fallback:
-            return q_action, -1, -1, mcts_used
+            model_used="dqn"
+            return model_used,q_action, None, None, None, None, None,None
 
-        #   If best Q-value is below the threshold, fall back to MCTS.
-        
-        if debug:
-            logger.debug(f"Q-value {best_q_val:.3f} below threshold {self.q_threshold:.3f}, using MCTS fallback.")
-            print(f"Q-value {best_q_val:.3f} below threshold {self.q_threshold:.3f}, using MCTS fallback.")
-            
+        if best_q_val > self.q_threshold: # best_q_val > self.q_threshold
+            model_used="dqn"
+            if debug:
+                logger.debug(f"Returning high Q Value: {best_q_val} ")
+                print(f"Returning high Q Value: {best_q_val}")
+            return model_used,q_action, None, None, None, None, None,None
+
+        hybrid=True
         mcts_agent = MCTS(
                 logger=logger, 
                 num_simulations=self.mcts_simulations, 
                 debug=debug, 
                 dqn_model=self.policy_net, 
-                evaluation=evaluation
-        )
+                hybrid=hybrid,# In hybrid mode, use MCTS with DQN-based hybrid.
+                q_threshold=self.q_threshold
+
+            )
+        hybrid_action, hybrid_value = mcts_agent.select_action(env, env.current_player)
+
+        hybrid=False
+        mcts_agent = MCTS(
+                logger=logger, 
+                num_simulations=self.mcts_simulations, 
+                debug=debug, 
+                dqn_model=self.policy_net, 
+                hybrid=hybrid,# In hybrid mode, use MCTS with DQN-based hybrid.
+                q_threshold=self.q_threshold
+
+            )
         mcts_action, mcts_value = mcts_agent.select_action(env, env.current_player)
+
+        if hybrid_value > mcts_value:
+            hybrid=True
+            model_used = "hybrid"
+        else:
+            hybrid=False
+            model_used= "mcts"
         if debug:
-            logger.debug(f"MCTS (low Q) selected action {mcts_action} with MCTS value: {mcts_value:.3f}")
-            #print(f"MCTS (low Q) selected action {action} with MCTS value: {mcts_value:.3f}")
-
-
-        if best_q_val < self.q_threshold and q_action is not mcts_action:
-            mcts_used = True       
-        return q_action, mcts_action, mcts_value, mcts_used
-
+            logger.debug(f"Model used: {model_used}, Q Action: {q_action}, MCTS Action: {mcts_action}, Hybrid Action: {hybrid_action}, Best Q Value: {best_q_val}, MCTS Value: {mcts_value}, Hybrid Value: {hybrid_value}")    
+            print(f"Model used: {model_used}, Q Action: {q_action}, MCTS Action: {mcts_action}, Hybrid Action: {hybrid_action}, Best Q Value: {best_q_val}, MCTS Value: {mcts_value}, Hybrid Value: {hybrid_value}")        
+        return model_used, q_action, mcts_action,hybrid_action, best_q_val, mcts_value,hybrid_value,None
+        # Hybrid used(hybrid), dqn_used=> model_used as string: mcts, dqn, hybrid
     def compute_reward(self, env, last_action, last_player):
         """
         Compute the reward for the last move.
@@ -326,9 +339,6 @@ class RewardSystem:
                 else:
                     return False  # The piece in this column does not belong to player.
         return False  # No piece found in the column.
-
-
-
 
     def place_piece(self, board, col, player):
         if col < 0 or col >= board.shape[1] or board[0, col] != 0:
