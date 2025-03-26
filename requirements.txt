@@ -9,3 +9,6 @@ numba>=0.55
 
 # For interactive 3D plot
 plotly>=5.0 
+
+# For prediction 3D plot
+scipy
