@@ -196,7 +196,6 @@ def plot_figure2(interval_x_full, avg_winrates_full, mcts_levels, epsilons):
     except Exception as e:
         print("An error occurred while plotting Figure 2:", str(e))
 
-
 def plot_figure3(avg_mcts_usage, avg_dqn_usage, avg_hybrid_usage, avg_winrates, game_index):
     try:
         print("Starting Figure 3 plotting with game index filter slider (using interval = 1000 data, game index scaled by 1/1000)...")
@@ -218,8 +217,9 @@ def plot_figure3(avg_mcts_usage, avg_dqn_usage, avg_hybrid_usage, avg_winrates, 
         
         min_game, max_game = game_ix.min(), game_ix.max()
         
+        # Use percentage labels for the slider
         filter_options = {}
-        filter_options["All"] = {
+        filter_options["0-100%"] = {
             "mcts_x": mcts,
             "mcts_y": winrates,
             "dqn_x": dqn,
@@ -235,7 +235,7 @@ def plot_figure3(avg_mcts_usage, avg_dqn_usage, avg_hybrid_usage, avg_winrates, 
             upper = min_game + (max_game - min_game) * ((i + 1) / 10)
             indices = np.where((game_ix >= lower) & (game_ix <= upper))[0]
             if indices.size == 0:
-                filter_options[f"{int(lower*1000)}-{int(upper*1000)}"] = {
+                filter_options[f"{i*10}-{(i+1)*10}%"] = {
                     "mcts_x": [],
                     "mcts_y": [],
                     "dqn_x": [],
@@ -251,7 +251,7 @@ def plot_figure3(avg_mcts_usage, avg_dqn_usage, avg_hybrid_usage, avg_winrates, 
                 f_dqn = dqn[indices]
                 f_hybrid = hybrid[indices]
                 f_winrates = winrates[indices]
-                filter_options[f"{int(lower*1000)}-{int(upper*1000)}"] = {
+                filter_options[f"{i*10}-{(i+1)*10}%"] = {
                     "mcts_x": f_mcts,
                     "mcts_y": f_winrates,
                     "dqn_x": f_dqn,
@@ -265,7 +265,7 @@ def plot_figure3(avg_mcts_usage, avg_dqn_usage, avg_hybrid_usage, avg_winrates, 
         
         fig3 = make_subplots(rows=1, cols=3,
                              subplot_titles=("MCTS vs Ave Win Rate", "DQN vs Ave Win Rate", "HYBRID vs Ave Win Rate"))
-        init = filter_options["All"]
+        init = filter_options["0-100%"]
         fig3.add_trace(go.Scatter(x=init["mcts_x"], y=init["mcts_y"],
                                   mode='markers', marker=dict(color='red'),
                                   name="MCTS Usage"), row=1, col=1)
@@ -331,31 +331,18 @@ def plot_figure3(avg_mcts_usage, avg_dqn_usage, avg_hybrid_usage, avg_winrates, 
 
 
 def plot_figure4(agg_data, total_games, interval):
-    """
-    Figure 4: 3D Scatter Cube with a slider filter by game index range.
-    Uses aggregated data (excluding the initial 0 point) for:
-      - X: Ave MCTS Usage (%) (capped 0-100%)
-      - Y: Ave DQN Usage (%) (capped 0-100%)
-      - Z: Ave HYBRID Usage (%) (capped 0-100%)
-      - Marker Color: Ave Win Rate (%)
-    (Game index is scaled by 1/1000)
-    """
     try:
         print("Starting Figure 4 (3D scatter with slider filter) plotting...")
         (interval_x_full, avg_winrates_full, avg_rewards_full, avg_turns_full,
          avg_mcts_usage_full, avg_dqn_usage_full, avg_hybrid_usage_full) = agg_data
-        # Scale game index by 1/1000
-        game_ix = np.array(interval_x_full[1:]) / 1000.0
-        # Clip usage values to [0, 100] for each model
-        mcts = np.clip(np.array(avg_mcts_usage_full[1:]), 0, 100)
-        dqn = np.clip(np.array(avg_dqn_usage_full[1:]), 0, 100)
-        hybrid = np.clip(np.array(avg_hybrid_usage_full[1:]), 0, 100)
+        game_ix = np.array(interval_x_full[1:]) / 1000.0  # scale by 1/1000
+        mcts = np.array(avg_mcts_usage_full[1:])
+        dqn = np.array(avg_dqn_usage_full[1:])
+        hybrid = np.array(avg_hybrid_usage_full[1:])
         winrates = np.array(avg_winrates_full[1:])
-        
         min_game, max_game = game_ix.min(), game_ix.max()
-        
         filter_options = {}
-        filter_options["All"] = {
+        filter_options["0-100%"] = {
             "x": mcts,
             "y": dqn,
             "z": hybrid,
@@ -365,13 +352,12 @@ def plot_figure4(agg_data, total_games, interval):
             lower = min_game + (max_game - min_game) * (i / 10)
             upper = min_game + (max_game - min_game) * ((i + 1) / 10)
             indices = np.where((game_ix >= lower) & (game_ix <= upper))[0]
-            filter_options[f"{int(lower*1000)}-{int(upper*1000)}"] = {
+            filter_options[f"{i*10}-{(i+1)*10}%"] = {
                 "x": mcts[indices] if indices.size > 0 else [],
                 "y": dqn[indices] if indices.size > 0 else [],
                 "z": hybrid[indices] if indices.size > 0 else [],
                 "text": [f"Game Index: {game_ix[j]:.2f}" for j in indices] if indices.size > 0 else []
             }
-        
         slider_steps = []
         for label, data in filter_options.items():
             step = {
@@ -383,8 +369,7 @@ def plot_figure4(agg_data, total_games, interval):
                 "method": "restyle"
             }
             slider_steps.append(step)
-        
-        init_data = filter_options["All"]
+        init_data = filter_options["0-100%"]
         fig4 = go.Figure(data=[go.Scatter3d(
             x=init_data["x"],
             y=init_data["y"],
@@ -398,7 +383,6 @@ def plot_figure4(agg_data, total_games, interval):
             ),
             text=init_data["text"]
         )])
-        
         fig4.update_layout(
             title="Figure 4: 3D Scatter Cube with Game Index Filter (Interval = 1000, Game Index scaled by 1/1000)",
             scene=dict(
@@ -410,7 +394,6 @@ def plot_figure4(agg_data, total_games, interval):
             scene_aspectmode="cube",
             scene_camera=dict(eye=dict(x=1.5, y=1.5, z=1.5))
         )
-        
         fig4.update_layout(
             sliders=[{
                 "active": 0,
@@ -427,109 +410,119 @@ def plot_figure4(agg_data, total_games, interval):
         pyo.plot(fig4, filename="figure4.html", auto_open=True)
     except Exception as e:
         print("An error occurred while plotting Figure 4:", str(e))
-from sklearn.neighbors import KNeighborsRegressor
 
-from sklearn.neighbors import KNeighborsRegressor
 
 def plot_figure5(avg_mcts_usage, avg_dqn_usage, avg_hybrid_usage, winners):
     try:
-        print("Starting Figure 5 (prediction outcome with buttons using KNN on raw row data) plotting...")
-        # Compute raw win rate: if winner==2 then 100, else 0.
-        y_winrates_raw = np.where(np.array(winners) == 2, 100, 0)
-        # Use raw row data for usage (from parse function) and normalize to [0,1]
-        X_mcts = np.array(mcts_used_rate) / 100.0
-        X_dqn  = np.array(dqn_rates) / 100.0
-        X_hybrid = np.array(hybrid_rates) / 100.0
-        y_winrates = y_winrates_raw / 100.0
+        print("Starting Figure 5 plotting (prediction outcome with slider)...")
+        import numpy as np
+        import plotly.graph_objects as go
+        import plotly.offline as pyo
+        from sklearn.neighbors import KNeighborsRegressor
 
-        # Create a normalized time array for raw row data; scale time by 1/5 (i.e., 1/5000 relative scaling)
+        # Normalize inputs (assumed percentages)
+        X_mcts = np.array(avg_mcts_usage) / 100.0
+        X_dqn = np.array(avg_dqn_usage) / 100.0
+        X_hybrid = np.array(avg_hybrid_usage) / 100.0
+        y_winrates = np.where(np.array(winners) == 2, 1.0, 0.0)
+
+        # Enforce MCTS + DQN + HYBRID = 1.0 exactly
+        total = X_mcts + X_dqn + X_hybrid
+        X_mcts /= total
+        X_dqn /= total
+        X_hybrid /= total
+
+        # Create a normalized time array (scaled by 1/5)
         n = len(X_mcts)
         time_array = np.linspace(0, 1, n) / 5.0
-
-        # Build a 4D feature matrix: [MCTS, DQN, HYBRID, time]
         features = np.column_stack([X_mcts, X_dqn, X_hybrid, time_array])
 
-        # Fit a KNeighborsRegressor with k=5 on the raw data
+        # Train KNN model
         knn_model = KNeighborsRegressor(n_neighbors=5)
         knn_model.fit(features, y_winrates)
         print("KNN model fitted on raw row data.")
 
-        # Define button factors (future time multipliers)
-        # These factors correspond to 100%, 200%, 600%, 1200%, 2400%, 4800%, 10000%
+        # Create prediction grid: Only combinations where x + y + z = 1.0
+        # Increase resolution: using steps=100 for dots every 1% instead of 10%
+        steps = 100
+        grid_vals = np.linspace(0, 1, steps + 1)
+        X_list, Y_list, Z_list = [], [], []
+        for x in grid_vals:
+            for y in grid_vals:
+                z = 1.0 - x - y
+                if 0 <= z <= 1:
+                    X_list.append(x)
+                    Y_list.append(y)
+                    Z_list.append(z)
+        X_grid = np.array(X_list)
+        Y_grid = np.array(Y_list)
+        Z_grid = np.array(Z_list)
+        grid_points = np.column_stack([X_grid, Y_grid, Z_grid])
+
+        # Define future time factors and create animation frames
         factors = [1.0, 2.0, 6.0, 12.0, 24.0, 48.0, 100.0]
-
-        # Create a dense grid in normalized usage space [0,1]
-        steps = 40  # increased grid density for smoother volume
-        grid_vals = np.linspace(0, 1, steps+1)
-        X_grid, Y_grid, Z_grid = np.meshgrid(grid_vals, grid_vals, grid_vals, indexing='ij')
-        grid_points = np.column_stack([X_grid.flatten(), Y_grid.flatten(), Z_grid.flatten()])
-
-        slider_data = {}
+        frames = []
+        slider_steps = []
         for factor in factors:
-            # Future time = factor/5.0 because time is scaled by 1/5
             future_time = factor / 5.0
             future_time_array = np.full((grid_points.shape[0], 1), future_time)
             grid_points_4d = np.hstack([grid_points, future_time_array])
             pred_norm = knn_model.predict(grid_points_4d)
-            pred_norm = np.clip(pred_norm, 0, 1)
-            pred_percent = pred_norm * 100
-            slider_data[factor] = pred_percent.flatten()
+            pred_percent = np.clip(pred_norm, 0, 1) * 100
 
-        init_factor = 1.0
-        init_pred = slider_data[init_factor].reshape((steps+1, steps+1, steps+1))
+            frames.append(go.Frame(
+                data=[go.Scatter3d(
+                    x=X_grid * 100,
+                    y=Y_grid * 100,
+                    z=Z_grid * 100,
+                    mode='markers',
+                    marker=dict(
+                        size=3,
+                        color=pred_percent,
+                        colorscale='Rainbow',
+                        cmin=0,
+                        cmax=100,
+                        colorbar=dict(title="Predicted Win Rate (%)")
+                    )
+                )],
+                name=f"{int(factor * 100)}%"
+            ))
+            slider_steps.append({
+                "args": [[f"{int(factor * 100)}%"],
+                         {"frame": {"duration": 0, "redraw": True}, "mode": "immediate"}],
+                "label": f"{int(factor * 100)}%",
+                "method": "animate"
+            })
 
-        # Create a Volume plot for the predicted win rate.
-        volume_trace = go.Volume(
-            x=(X_grid * 100).flatten(),
-            y=(Y_grid * 100).flatten(),
-            z=(Z_grid * 100).flatten(),
-            value=init_pred.flatten(),
-            isomin=0,
-            isomax=100,
-            opacity=0.1,
-            surface_count=15,
-            colorscale='Rainbow',
-            colorbar=dict(title="Predicted Ave Win Rate (%)")
-        )
-
-        fig5 = go.Figure(data=[volume_trace])
-        fig5.update_layout(
-            title=f"Figure 5: Prediction Outcome using KNN at Future Time {int(init_factor*100)}%",
-            scene=dict(
-                xaxis_title="Ave MCTS Usage (%)",
-                yaxis_title="Ave DQN Usage (%)",
-                zaxis_title="Ave HYBRID Usage (%)"
+        # Initialize figure with first frame
+        init_frame = frames[0].data[0]
+        fig5 = go.Figure(
+            data=[init_frame],
+            layout=go.Layout(
+                title=f"Figure 5: Prediction Outcome using KNN at Future Time {int(factors[0]*100)}%",
+                scene=dict(
+                    xaxis_title="[z]:Ave MCTS Usage (%)",
+                    yaxis_title="[y]:Ave DQN Usage (%)",
+                    zaxis_title="[x]:Ave HYBRID Usage (%)"
+                ),
+                template="plotly_dark",
+                sliders=[{
+                    "active": 0,
+                    "currentvalue": {"prefix": "Future Time: "},
+                    "pad": {"t": 50},
+                    "steps": slider_steps
+                }]
             ),
-            template="plotly_dark"
+            frames=frames
         )
-
-        # Create buttons for future time multipliers (positioned at top center)
-        buttons = [
-            {
-                "args": [{"value": [slider_data[factor]]}],
-                "label": f"{int(factor*100)}%",
-                "method": "restyle"
-            }
-            for factor in factors
-        ]
-        updatemenus = [{
-            "buttons": buttons,
-            "direction": "down",
-            "pad": {"r": 10, "t": 10},
-            "showactive": True,
-            "x": 0.5,
-            "xanchor": "center",
-            "y": 1.15,
-            "yanchor": "top",
-            "active": 0
-        }]
-        fig5.update_layout(updatemenus=updatemenus)
-
         print("Displaying Figure 5 in offline mode...")
         pyo.plot(fig5, filename="figure5.html", auto_open=True)
         print("Figure 5 loaded successfully.")
     except Exception as e:
-        print("An error occurred while plotting Figure 5 :", str(e))
+        print("An error occurred while plotting Figure 5:", str(e))
+
+
+
 
 # --------------------- Main Execution ---------------------
 winners, rewards, turns, epsilons, mcts_levels, mcts_used_rate, dqn_rates, hybrid_rates, min_reward, max_reward = parse_log_file(log_file_path)

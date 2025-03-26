@@ -21,6 +21,7 @@ warnings.filterwarnings("ignore", category=NumbaPerformanceWarning)
 # ---  Hardware Hyperparam --- #
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 NUM_WORKERS = 6
+REPLAYBUFFER_CAPACITY=10000000
 # --- Model  Hyperparam --- #
 MODEL_VERSION= 42
 BATCH_SIZE = 16
@@ -538,7 +539,7 @@ def run_training():
     safe_make_dir(os.path.dirname(MODEL_SAVE_PATH))
 
     replay_buffer = DiskReplayBuffer(
-        capacity=100000,
+        capacity=REPLAYBUFFER_CAPACITY,
         state_shape=(6, 7),
         device=DEVICE,
         version=MODEL_VERSION
@@ -556,7 +557,7 @@ def run_training():
 
     # Load checkpoint from disk.
     policy_net, target_net, optimizer, replay_buffer, start_ep = load_model_checkpoint(
-        MODEL_SAVE_PATH, LR, 100000, logger, DEVICE
+        MODEL_SAVE_PATH, LR, REPLAYBUFFER_CAPACITY, logger, DEVICE
     )
 
     # If it's a fresh start, use default epsilon; else continue from checkpoint
