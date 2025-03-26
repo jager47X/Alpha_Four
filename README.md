@@ -178,16 +178,52 @@ py -m manual_evaluation
 
 ### Plotting/Analysis
 
-#### Key Findings from R&D
+##  Data Visualizations & Insights
 
-##### Unsupervised DQN Training
+### Figure 1: Main Values Over Time 
+![figure1](data/models/plots/42/figure1.PNG)
+[Interact with Figure 1](data/models/plots/42/figure1.html)
+- Visualizes the evolution of decision-making—from initial MCTS dominance to a gradual shift toward DQN and hybrid strategies.  
+  
+
+ ### Figure 2: Epsilon vs. MCTS Level 
+   ![figure2](data/models/plots/42/figure2.PNG)
+   [Interact with Figure 2](data/models/plots/42/figure2.html)
+- Shows that higher simulation levels (focusing on long-term planning) correspond to lower epsilon values, indicating a shift in strategy as midterm win scenarios (levels around 500–700) are encountered.  
+  
+
+### Figure 3: Contribution to Winning
+  ![figure3](data/models/plots/42/figure3.PNG)
+  [Interact with Figure 3](data/models/plots/42/figure3.html)
+   - Illustrates the contributions of pure MCTS, MCTS-supervised DQN, and the hybrid MCTS+DQN to overall win rates.  
+  
+
+### Figure 4: 3D Visualization of Models
+  ![figure4](data/models/plots/42/figure4.PNG)
+  [Interact with Figure 4](https://yutomorimori.com/figure4.html)
+- Offers a spatial perspective of performance dynamics across the three models.  
+  
+
+### Figure 5: KNN-Predicted Future Win Rate Post-Training Multiplier**
+  ![figure5](data/models/plots/42/figure5.PNG)
+  [Interact with Figure 5](https://yutomorimori.com/figure4.html)
+- Building on Figure 4, Figure 5 applies a KNN (k-nearest neighbors) regression model to predict future win rate outcomes after applying a training multiplier. The scatter points represent the performance metrics from the three approaches, as seen in Figure 4, where each point corresponds to features such as simulation count, DQN confidence, and the observed win rate.
+
+- A KNN model is fitted on these data points, generating a smooth prediction curve that projects the win rate evolution under the influence of the new training multiplier. A secondary axis or color gradient in the visualization indicates the multiplier effect, illustrating how changes in training intensity affect win rate. Confidence bands around the prediction curve denote the uncertainty in the forecast, especially in areas with sparse data.
+
+- The figure contrasts current performance (scatter points) with predicted performance (KNN curve), demonstrating an upward trend in win rate as the hybrid model leverages the enhanced training dynamics.
+
+
+### Analysis
+
+#### Unsupervised DQN Training
 - **Training Stability:** Training was unstable, with ineffective learning and a tendency to overfit.
 - **Performance:** The model could only beat random agents.
 
-##### MCTS-Supervised DQN Training
+#### MCTS-Supervised DQN Training
 - **Supervised Learning:** Training DQN with supervision from MCTS resulted in approximately an 80% win rate against MCTS at the 480 simulation level (with 100 simulations per window).
 
-##### Hybrid Approach – MCTS + DQN Fusion
+#### Hybrid Approach – MCTS + DQN Fusion
 - **Integration:** Integrated DQN layers into the MCTS framework.
 - **Dynamic Switching:** The model dynamically switches based on the "statistical confidence" of each method:
   - **MCTS:** Confidence is derived from simulation counts (e.g., 2000 simulations identifying the move with the highest win rate).
@@ -195,39 +231,11 @@ py -m manual_evaluation
 - **Heuristics:** Simple heuristics (e.g., block/fill strategies for four-in-a-row) are used alongside DQN layers for enhanced decision-making.
 - **Results:** The hybrid MCTS+DQN model is still being fine-tuned, but it has already demonstrated a more stable learning process, improved performance, and effectiveness—marking a 50% improvement over the MCTS-supervised DQN model.
 
-#### Data Visualizations & Insights
-
-- **Figure 1: Main Values Over Time**  
-  Visualizes the evolution of decision-making—from initial MCTS dominance to a gradual shift toward DQN and hybrid strategies.  
-  [View Figure](data/models/plots/42/figure1.html)
-
-- **Figure 2: Epsilon vs. MCTS Level**  
-  Shows that higher simulation levels (focusing on long-term planning) correspond to lower epsilon values, indicating a shift in strategy as midterm win scenarios (levels around 500–700) are encountered.  
-  [View Figure](data/models/plots/42/figure2.html)
-
-- **Figure 3: Contribution to Winning**  
-  Illustrates the contributions of pure MCTS, MCTS-supervised DQN, and the hybrid MCTS+DQN to overall win rates.  
-  [View Figure](data/models/plots/42/figure3.html)
-
-- **Figure 4: 3D Visualization of Models**  
-  Offers a spatial perspective of performance dynamics across the three models.  
-  [View Figure](data/models/plots/42/figure4.html)
-
-- **Figure 5: Additional Insights**  
-  Provides further insights and comparative analysis across models.  
-  [View Figure](data/models/plots/42/figure5.html)
-
-I will be releasing a detailed research report soon. If you're interested in AI, reinforcement learning, or game strategy research, please feel free to reach out.
-
 * * * * *
 
 TODO / Roadmap
 --------------
-
 -   **Hyperparameter Tuning**: Further refine network size, learning rate, or MCTS parameters.
--   **Parallel Training**: Use multiple processes or distributed training to speed up experience collection.
--   **More Comprehensive Tests**: Expand unit tests in a `/test/` folder for agent logic, environment correctness, etc.
-
 * * * * *
 
 License
