@@ -7,7 +7,7 @@ from .mcts import MCTS
 
 
 class AgentLogic:
-    def __init__(self, policy_net, device, q_threshold=0.9, mcts_simulations=2000, always_mcts=False, always_random=False):
+    def __init__(self, policy_net, device, q_threshold=0.9,temperature = 0.1, hybrid_value_threshold =1.0,mcts_simulations=2000, always_mcts=False, always_random=False):
         """
         Initialize the agent logic with a policy network, device, and a Q-value threshold.
         If the best Q-value for valid actions is below the threshold, the agent will fall back to MCTS.
@@ -17,16 +17,17 @@ class AgentLogic:
             device: The device to run the model (CPU or GPU).
             q_threshold (float): Threshold for Q-value fallback to MCTS.    
             mcts_simulations (int): Number of MCTS simulations per decision.
+            temperature (float): Senstivety of softmaxed Q-value 
+            hybrid_value_threshold (float): multiplier on Mcts_value (hybrid_value>mcts_value*hybrid_value_threshold), higher means more strict on picking hybrid over mcts
         """
         self.policy_net = policy_net
         self.device = device
         self.q_threshold = q_threshold
-        self.hybrid_threshold=0.7   #hybrid_threshold
-        self.temperature = 0.1
+        self.temperature = temperature
         self.mcts_simulations = mcts_simulations
         self.always_mcts = always_mcts
         self.always_random = always_random
-        self.hybrid_value_threshold =1.1
+        self.hybrid_value_threshold = hybrid_value_threshold
 
     def pick_action(self, env, epsilon, logger, debug=False,mcts_fallback=True, hybrid=False):
         """

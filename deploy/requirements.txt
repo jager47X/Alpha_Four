@@ -9,3 +9,8 @@
 
     # JIT compiler + CUDA utilities
     numba>=0.55
+
+    # Loading Screen
+    Pillow
+
+

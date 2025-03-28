@@ -7,15 +7,15 @@ from flask import Flask, render_template, request, jsonify
 from numba.core.errors import NumbaPerformanceWarning
 import numpy as np
 import webbrowser
+import tkinter as tk
+from PIL import Image, ImageTk
 
 # Import your dependencies
 from dependencies.environment import Connect4
+
 from dependencies.agent import AgentLogic
 from dependencies.utils import setup_logger, safe_make_dir, get_next_index
 from dependencies.mcts import MCTS
-
-warnings.filterwarnings("ignore", category=NumbaPerformanceWarning)
-
 # ----------------- Logging Setup ----------------- #
 logging.basicConfig(
     filemode="w",       # Overwrite each run; change to 'a' to append
@@ -41,8 +41,6 @@ if model_version>=45:
 else:
    from dependencies.layer_models.model1 import DQN
 
-
-# Check if the file exists and log a clear error if not
 if not os.path.exists(MODEL_PATH):
     logger.error(f"Model file not found at {MODEL_PATH}")
     raise FileNotFoundError(f"Model file not found at {MODEL_PATH}")
@@ -66,12 +64,47 @@ def open_browser():
 def get_board_state():
     """Return the current board as a list of lists with native Python ints."""
     board_list = game_env.board.tolist()
-    # Convert each element to int (from np.int64) to ensure JSON serialization.
     return [[int(cell) for cell in row] for row in board_list]
 
 def check_game_over():
     winner = game_env.check_winner()
     return (winner != 0) or game_env.is_draw()
+
+# ----------------- Splash Screen Function ----------------- #
+def show_splash_screen(duration=3000):
+    """
+    Displays a splash screen for the given duration (in milliseconds)
+    and shows the model version.
+    """
+    splash = tk.Tk()
+    splash.overrideredirect(True)  # Remove window borders
+
+    splash_image_path = os.path.join(BASE_DIR, "dependencies", "templates", "loading.png")
+    image = Image.open(splash_image_path)
+    photo = ImageTk.PhotoImage(image)
+    
+    # Display the splash image
+    label_img = tk.Label(splash, image=photo)
+    label_img.image = photo  # Keep a reference to avoid garbage collection
+    label_img.pack()
+    
+    # Display the model version below the image
+    version_text = f"v0.{model_version}"
+    label_version = tk.Label(splash, text=version_text, font=("Helvetica", 16, "bold"),
+                             bg="white", fg="black")
+    label_version.pack()
+    
+    # Calculate geometry: add extra height for the version label (approx. 30 pixels)
+    screen_width = splash.winfo_screenwidth()
+    screen_height = splash.winfo_screenheight()
+    img_width, img_height = image.size
+    total_height = img_height + 30  # image height plus extra for version label
+    x = (screen_width - img_width) // 2
+    y = (screen_height - total_height) // 2
+    splash.geometry(f"{img_width}x{total_height}+{x}+{y}")
+
+    splash.after(duration, splash.destroy)
+    splash.mainloop()
 
 @app.route("/")
 def index():
@@ -91,7 +124,6 @@ def human_move():
     col = data.get("col")
     response = {}
 
-    # Process human move inside the lock.
     with game_lock:
         if game_env.current_player != 1:
             response["error"] = "Not your turn"
@@ -108,7 +140,6 @@ def human_move():
             response["board"] = get_board_state()
             return jsonify(response)
 
-    # Process AI move outside the previous lock block.
     def ai_move_thread():
         with game_lock:
             (model_used, dqn_action, mcts_action, hybrid_action, 
@@ -133,7 +164,7 @@ def human_move():
                 )
     t = threading.Thread(target=ai_move_thread)
     t.start()
-    t.join()  # Wait until AI move is complete
+    t.join()
 
     with game_lock:
         if check_game_over():
@@ -147,5 +178,6 @@ def human_move():
     return jsonify(response)
 
 if __name__ == "__main__":
+    show_splash_screen(duration=3000)  # Display the splash screen for 3 seconds
     threading.Thread(target=open_browser).start()
     app.run(debug=True, use_reloader=False)
