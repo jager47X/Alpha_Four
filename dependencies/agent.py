@@ -26,6 +26,7 @@ class AgentLogic:
         self.mcts_simulations = mcts_simulations
         self.always_mcts = always_mcts
         self.always_random = always_random
+        self.hybrid_value_threshold =1.1
 
     def pick_action(self, env, epsilon, logger, debug=False,mcts_fallback=True, hybrid=False):
         """
@@ -91,41 +92,42 @@ class AgentLogic:
         if epsilon> self.temperature:
               self.temperature = epsilon
 
-        with torch.no_grad():
-            q_values = self.policy_net(state_tensor).cpu().numpy().flatten()
-        #if debug:    
-            #print("q_values",q_values)
-        # Check if all q_values are nearly equal (or zero), then use a uniform distribution
-        if np.allclose(q_values, q_values[0]):
-            q_values = np.full_like(q_values, 1.0 / len(q_values))
-        
-        # Mask invalid actions: set Q-value for invalid actions to -inf
-        masked_q = np.full_like(q_values, -np.inf)
+        # Compute raw Q-values with gradient tracking.
+        q_values = self.policy_net(state_tensor).flatten()  # Assuming state_tensor is for a single state
+
+        # Check if all q_values are nearly equal; if so, use a uniform distribution.
+        if torch.allclose(q_values, q_values[0].expand_as(q_values)):
+            q_values = torch.full_like(q_values, 1.0 / q_values.numel())
+
+        # Mask invalid actions: set invalid actions to -inf so they receive zero probability.
+        masked_q = torch.full_like(q_values, float('-inf'))
         for a in valid_actions:
             masked_q[a] = q_values[a]
 
-        dynamic_temp=min(epsilon*2 ,1) # i.e 0.25 * 0.5= 1 RANGE: EPISLON 1->0.25:0.5, 0.25->0.05: 0.5->0.1 
-        if dynamic_temp>self.temperature: # min would be temperature =0.5
-            self.temperature=dynamic_temp
-        # Apply softmax with temperature:
-        exp_q = np.exp((masked_q - np.max(masked_q)) /  self.temperature)  # temperature scaling
-        softmax_q = exp_q / np.sum(exp_q)
-        #print(softmax_q)
-        best_act = int(np.argmax(softmax_q))
-        best_q_val = softmax_q[best_act]
-        q_action=best_act
+        # Adjust temperature dynamically (assuming self.temperature is a float)
+        dynamic_temp = min(epsilon * 2, 1)
+        if dynamic_temp > self.temperature:
+            self.temperature = dynamic_temp
+
+        # Compute softmax with temperature scaling in a differentiable manner.
+        softmax_q = torch.nn.functional.softmax(masked_q / self.temperature, dim=0)
+
+        # Option 1: Stochastically sample an action from the softmax distribution.
+        sampled_action_tensor = torch.multinomial(softmax_q, num_samples=1)
+        q_action = sampled_action_tensor.item()
+
+        # Option 2 (for debugging): Also compute the best (argmax) action.
+        best_act = torch.argmax(softmax_q)
+        best_q_val = softmax_q[best_act].detach()  # Detach for logging or serialization
+
+
+
+
 
         # Make the q-threshold dynamic till the lowest point
         # If in inference mode without MCTS fallback, return the DQN best action.
         if not mcts_fallback:
             model_used="dqn"
-            return model_used,q_action, None, None, None, None, None,None
-
-        if best_q_val > self.q_threshold: # best_q_val > self.q_threshold
-            model_used="dqn"
-            if debug:
-                logger.debug(f"Returning high Q Value: {best_q_val} ")
-                print(f"Returning high Q Value: {best_q_val}")
             return model_used,q_action, None, None, None, None, None,None
 
         hybrid=True
@@ -152,15 +154,20 @@ class AgentLogic:
             )
         mcts_action, mcts_value = mcts_agent.select_action(env, env.current_player)
 
-        if hybrid_value > mcts_value:
+
+
+        if hybrid_value> mcts_value*self.hybrid_value_threshold : # 1.1* hybrid >mcts_value so hybrid value has to be little more tha 10% than mcts_value
             hybrid=True
             model_used = "hybrid"
         else:
             hybrid=False
             model_used= "mcts"
+        if best_q_val > self.q_threshold:
+            model_used="dqn"
+        
         if debug:
-            logger.debug(f"Model used: {model_used}, Q Action: {q_action}, MCTS Action: {mcts_action}, Hybrid Action: {hybrid_action}, Best Q Value: {best_q_val}, MCTS Value: {mcts_value}, Hybrid Value: {hybrid_value}")    
-            print(f"Model used: {model_used}, Q Action: {q_action}, MCTS Action: {mcts_action}, Hybrid Action: {hybrid_action}, Best Q Value: {best_q_val}, MCTS Value: {mcts_value}, Hybrid Value: {hybrid_value}")        
+            logger.debug(f"Model used: {model_used}, Q Action: {best_act.item()}, MCTS Action: {mcts_action}, Hybrid Action: {hybrid_action}, Best Q Value: {best_q_val.item()}, MCTS Value: {mcts_value}, Hybrid Value: {hybrid_value}")    
+            print(f"Model used: {model_used}, Q Action: {best_act.item()}, MCTS Action: {mcts_action}, Hybrid Action: {hybrid_action}, Best Q Value: {best_q_val.item()}, MCTS Value: {mcts_value}, Hybrid Value: {hybrid_value}")        
         return model_used, q_action, mcts_action,hybrid_action, best_q_val, mcts_value,hybrid_value,None
         # Hybrid used(hybrid), dqn_used=> model_used as string: mcts, dqn, hybrid
     def compute_reward(self, env, last_action, last_player):

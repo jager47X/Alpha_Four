@@ -8,3 +8,8 @@
 # Ignore the entire data directory
 **/logs/
 **/dat/
+
+**/build/
+**/dist/
+*.spec
+**/venv/

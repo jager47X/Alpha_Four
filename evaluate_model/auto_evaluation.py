@@ -4,11 +4,11 @@ import torch.nn as nn
 import torch.optim as optim
 import multiprocessing as mp
 import logging
+import random
 from numba.core.errors import NumbaPerformanceWarning
 import warnings
 
 from dependencies.environment import Connect4
-from dependencies.models import DQN
 from dependencies.agent import AgentLogic
 from dependencies.replay_buffer import DiskReplayBuffer
 from dependencies.utils import setup_logger, safe_make_dir, get_next_index
@@ -17,92 +17,248 @@ from dependencies.mcts import MCTS
 warnings.filterwarnings("ignore", category=NumbaPerformanceWarning)
 
 # ----------------- Logging Setup ----------------- #
-
-# Define the log directory and log file path
 log_dir = os.path.join("data", "logs", "evaluation_logs")
 log_file = os.path.join(log_dir, "manual_evaluation.log")
-
-# Ensure the log directory exists before logging
 os.makedirs(log_dir, exist_ok=True)
 
 logging.basicConfig(
-    filename=log_file,  # Logs go here
-    filemode="w",       # 'w' overwrites each run; use 'a' to append
+    filename=log_file,  
+    filemode="w",       
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s"
 )
-
 logging.info("Logging setup complete!")
 
 # ----------------- Model Paths ----------------- #
-main_model_version = input("main_model_version>> ") or 2
+main_model_version = int(input("main_model_version>> ") or 2)
 print("main_model_version: ", main_model_version)
-other_model_version = input("other_model_version>> ") or 1
+other_model_version = int(input("other_model_version>> ") or 1)
 print("other_model_version: ", other_model_version)
 MODEL_PATH = os.path.join("data", "models", str(main_model_version), "Connect4_Agent_Model.pth")
 OTHER_MODEL_PATH = os.path.join("data", "models", str(other_model_version), "Connect4_Agent_Model.pth")
 
-# ----------------- Initialization ----------------- #
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-print("Using device:", device)
+if main_model_version >= 45:
+    from dependencies.layer_models.model2 import DQN as main_DQN
+else:
+    from dependencies.layer_models.model1 import DQN as main_DQN
 
-# ----------------- AutoEvaluator ----------------- #
+if other_model_version >= 45:
+    from dependencies.layer_models.model2 import DQN as other_DQN
+else:
+    from dependencies.layer_models.model1 import DQN as other_DQN
+
+# ----------------- AgentLogic Class ----------------- #
+class AgentLogic:
+    def __init__(self, policy_net, device, q_threshold=0.9, mcts_simulations=2000, always_mcts=False, always_random=False):
+        """
+        Initialize the agent logic with a policy network, device, and a Q-value threshold.
+        """
+        self.policy_net = policy_net
+        self.device = device
+        self.q_threshold = q_threshold
+        self.hybrid_threshold = 0.7   # hybrid threshold for comparing MCTS values
+        self.temperature = 0.1
+        self.mcts_simulations = mcts_simulations
+        self.always_mcts = always_mcts
+        self.always_random = always_random
+
+    def pick_action(self, env, epsilon, logger, debug=False, mcts_fallback=True, hybrid_flag=False):
+        """
+        Pick an action using an epsilon-greedy strategy with MCTS fallback.
+
+        Returns an 8-element tuple:
+            (model_used, q_action, mcts_action, hybrid_action, best_q_val, mcts_value, hybrid_value, random_action)
+        """
+        q_action = None
+        mcts_action = None
+        hybrid_action = None
+        best_q_val = None
+        mcts_value = None
+        hybrid_value = None
+        random_action = None
+        model_used = None
+
+        valid_actions = env.get_valid_actions()
+        if not valid_actions:
+            return -1, -1, -1, -1, -1, -1, -1, -1
+
+        # Branch for always using random action
+        if self.always_random:
+            random_action = random.choice(valid_actions)
+            model_used = "random"
+            return model_used, q_action, mcts_action, hybrid_action, best_q_val, mcts_value, hybrid_value, random_action
+
+        # Branch for always using MCTS
+        if self.always_mcts:
+            model_used = "mcts"
+            mcts_agent = MCTS(
+                logger=logger, 
+                num_simulations=self.mcts_simulations, 
+                debug=debug, 
+                dqn_model=None, 
+                hybrid=False
+            )
+            mcts_action, mcts_value = mcts_agent.select_action(env, env.current_player)
+            return model_used, q_action, mcts_action, hybrid_action, best_q_val, mcts_value, hybrid_value, random_action
+
+        # Evaluate Q-values using the policy network.
+        board_np = env.board  # Expected shape: (rows, cols)
+        state_tensor = torch.tensor(board_np, dtype=torch.float32, device=self.device)
+        if state_tensor.ndimension() == 2:
+            state_tensor = state_tensor.unsqueeze(0).unsqueeze(0)
+        elif state_tensor.ndimension() == 3:
+            state_tensor = state_tensor.unsqueeze(1)
+
+        self.policy_net.eval()
+
+        if epsilon > self.q_threshold:
+            self.q_threshold = epsilon
+        if epsilon > self.temperature:
+            self.temperature = epsilon
+
+        q_values = self.policy_net(state_tensor).flatten()
+        if torch.allclose(q_values, q_values[0].expand_as(q_values)):
+            q_values = torch.full_like(q_values, 1.0 / q_values.numel())
+
+        masked_q = torch.full_like(q_values, float('-inf'))
+        for a in valid_actions:
+            masked_q[a] = q_values[a]
+
+        dynamic_temp = min(epsilon * 2, 1)
+        if dynamic_temp > self.temperature:
+            self.temperature = dynamic_temp
+
+        softmax_q = torch.nn.functional.softmax(masked_q / self.temperature, dim=0)
+        sampled_action_tensor = torch.multinomial(softmax_q, num_samples=1)
+        q_action = sampled_action_tensor.item()
+        best_act = torch.argmax(softmax_q)
+        best_q_val = softmax_q[best_act].detach()
+
+        # If no MCTS fallback is desired, return DQN result directly.
+        if not mcts_fallback:
+            model_used = "dqn"
+            return model_used, q_action, None, None, best_q_val, None, None, None
+
+        # Otherwise, perform MCTS fallback with a hybrid option.
+        # First, try hybrid MCTS.
+        hybrid_flag = True
+        mcts_agent = MCTS(
+            logger=logger, 
+            num_simulations=self.mcts_simulations, 
+            debug=debug, 
+            dqn_model=self.policy_net, 
+            hybrid=hybrid_flag,
+            q_threshold=self.q_threshold
+        )
+        hybrid_action, hybrid_value = mcts_agent.select_action(env, env.current_player)
+
+        # Next, compute the plain MCTS action.
+        hybrid_flag = False
+        mcts_agent = MCTS(
+            logger=logger, 
+            num_simulations=self.mcts_simulations, 
+            debug=debug, 
+            dqn_model=self.policy_net, 
+            hybrid=hybrid_flag,
+            q_threshold=self.q_threshold
+        )
+        mcts_action, mcts_value = mcts_agent.select_action(env, env.current_player)
+
+        # Decide which action to use based on hybrid vs. mcts value.
+        if hybrid_value is not None and mcts_value is not None and hybrid_value * self.hybrid_threshold > mcts_value:
+            model_used = "hybrid"
+        else:
+            model_used = "mcts"
+
+        # If the DQN best Q-value is high enough, prefer the DQN action.
+        if best_q_val is not None and best_q_val > self.q_threshold:
+            model_used = "dqn"
+
+        if debug:
+            logger.debug(
+                f"Model used: {model_used}, Q Action: {best_act.item()}, MCTS Action: {mcts_action}, "
+                f"Hybrid Action: {hybrid_action}, Best Q Value: {best_q_val.item()}, "
+                f"MCTS Value: {mcts_value}, Hybrid Value: {hybrid_value}"
+            )
+            print(
+                f"Model used: {model_used}, Q Action: {best_act.item()}, MCTS Action: {mcts_action}, "
+                f"Hybrid Action: {hybrid_action}, Best Q Value: {best_q_val.item()}, "
+                f"MCTS Value: {mcts_value}, Hybrid Value: {hybrid_value}"
+            )
+        return model_used, q_action, mcts_action, hybrid_action, best_q_val, mcts_value, hybrid_value, random_action
+
+# ----------------- AutoEvaluator Class ----------------- #
 class AutoEvaluator:
     """
-    Class-based approach to keep 'self.env' as an attribute, instead of passing it around.
+    Evaluator class that plays games between two agents and tracks main agent usage.
     """
     def __init__(self):
-        # Use FixedConnect4 for piece-dropping logic
         self.env = Connect4()
+        # Tracking main agent's (assumed agent2) usage.
+        self.main_agent_usage = {"dqn": 0, "mcts": 0, "hybrid": 0, "random": 0, "total": 0}
 
     def play_one_game(self, agent1, agent2):
         """
-        Plays a single game where agent1 (PLAYER1) starts and agent2 (PLAYER2) follows.
+        Plays one game between agent1 (Player 1) and agent2 (Player 2).
         Returns the winner: 1 (agent1), 2 (agent2), or 0 (draw).
         """
         self.env.reset()
 
         while True:
             # ---------------- AGENT 1 (Player 1) ----------------
-            action_1 = agent1.pick_action(
-                self.env,
-                epsilon=0,
-                logger=logging,
-                debug=True,
-                mcts_fallback=True,
-                evaluation=False
+            (_, q_action, mcts_action, hybrid_action,
+             best_q_val, mcts_value, hybrid_value, random_action) = agent1.pick_action(
+                self.env, epsilon=0, logger=logging, debug=True, mcts_fallback=True, hybrid_flag=True
             )
+            # For opponent (agent1) we don't track usage.
+            if mcts_action is not None:
+                action1 = mcts_action
+            elif random_action is not None:
+                action1 = random_action
+            elif q_action is not None:
+                action1 = q_action
+            elif hybrid_action is not None:
+                action1 = hybrid_action
+            else:
+                action1 = None
 
-            if action_1 is None:  # No valid moves → draw
-                return 0
+            if action1 is not None:
+                if isinstance(action1, (tuple, list)):
+                    action1 = action1[0]
+                self.env.make_move(action1)
 
-            if isinstance(action_1, (tuple, list)):  # If pick_action returns a tuple, extract action
-                action_1 = action_1[0]
-
-            self.env.make_move(action_1)
             winner = self.env.check_winner()
             if winner != 0:
                 return winner
             if self.env.is_draw():
                 return 0
 
-            # ---------------- AGENT 2 (Player 2) ----------------
-            action_2 = agent2.pick_action(
-                self.env,
-                epsilon=0.1,
-                logger=logging,
-                debug=True,
-                mcts_fallback=True,
-                evaluation=True
+            # ---------------- AGENT 2 (Player 2 - main agent) ----------------
+            (model_used, q_action, mcts_action, hybrid_action,
+             best_q_val, mcts_value, hybrid_value, random_action) = agent2.pick_action(
+                self.env, epsilon=0, logger=logging, debug=True, mcts_fallback=True, hybrid_flag=True
             )
+            # Track main agent usage.
+            self.main_agent_usage["total"] += 1
+            if model_used in self.main_agent_usage:
+                self.main_agent_usage[model_used] += 1
 
-            if action_2 is None:
-                return 0
+            if model_used == "mcts" and mcts_action is not None:
+                action2 = mcts_action
+            elif model_used == "random" and random_action is not None:
+                action2 = random_action
+            elif model_used == "dqn" and q_action is not None:
+                action2 = q_action
+            elif model_used == "hybrid" and hybrid_action is not None:
+                action2 = hybrid_action
+            else:
+                action2 = None
 
-            if isinstance(action_2, (tuple, list)):
-                action_2 = action_2[0]
+            if action2 is not None:
+                if isinstance(action2, (tuple, list)):
+                    action2 = action2[0]
+                self.env.make_move(action2)
 
-            self.env.make_move(action_2)
             winner = self.env.check_winner()
             if winner != 0:
                 return winner
@@ -111,8 +267,8 @@ class AutoEvaluator:
 
     def evaluate_agents(self, agent1, agent2, n_episodes=100):
         """
-        Plays agent1 vs agent2 for n_episodes.
-        Returns (agent1_win_rate, agent2_win_rate, draw_rate).
+        Evaluates agent1 vs agent2 for n_episodes.
+        Returns win rates as a tuple: (agent1_win_rate, agent2_win_rate, draw_rate).
         """
         agent1_wins = 0
         agent2_wins = 0
@@ -133,33 +289,32 @@ class AutoEvaluator:
             draws / n_episodes
         )
 
+# ----------------- Main Evaluation Function ----------------- #
 def main_evaluation(num_games=100):
     """
-    Evaluates:
-    1) DQN Model vs Random Opponent
-    2) DQN Model vs MCTS Agent
-    3) DQN Model vs Another DQN Model
-    Also prints an overall win rate summary for the main agent.
+    Evaluates three matchups:
+      1) DQN Model vs Random Opponent
+      2) DQN Model vs MCTS Agent (with varying simulations)
+      3) DQN Model vs Another DQN Model
+    Prints overall win rate and usage summary.
     """
     print("\nStarting Model Evaluation")
-
-    # Create an evaluator instance
     evaluator = AutoEvaluator()
 
     # Load main DQN Agent
     print(f"\nLoading Main DQN Agent from: {MODEL_PATH}")
     checkpoint = torch.load(MODEL_PATH, map_location=device)
-    policy_net = DQN().to(device)
+    policy_net = main_DQN().to(device)
     policy_net.load_state_dict(checkpoint["policy_net_state_dict"])
     agent_main = AgentLogic(policy_net, device)
 
-    # Load the second DQN model
+    # Load second DQN Agent
+    print(f"\nLoading Second DQN Agent from: {OTHER_MODEL_PATH}")
     checkpoint_other = torch.load(OTHER_MODEL_PATH, map_location=device)
-    policy_net_other = DQN().to(device)
+    policy_net_other = other_DQN().to(device)
     policy_net_other.load_state_dict(checkpoint_other["policy_net_state_dict"])
     agent_other = AgentLogic(policy_net_other, device)
 
-    # Variables to accumulate overall counts
     overall_main_wins = 0
     overall_opponent_wins = 0
     overall_draws = 0
@@ -186,7 +341,7 @@ def main_evaluation(num_games=100):
         overall_draws += dr * num_games
         overall_games += num_games
 
-    # Evaluate vs Another DQN model
+    # Evaluate vs Another DQN Model
     print(f"\nEvaluating vs Another DQN Model: {OTHER_MODEL_PATH}")
     a1_wr, a2_wr, dr = evaluator.evaluate_agents(agent1=agent_other, agent2=agent_main, n_episodes=num_games)
     print(f"[VS Other DQN] Agent1 Win Rate = {a1_wr*100:.1f}% | Agent2 Win Rate = {a2_wr*100:.1f}% | Draw Rate = {dr*100:.1f}%")
@@ -195,18 +350,59 @@ def main_evaluation(num_games=100):
     overall_draws += dr * num_games
     overall_games += num_games
 
-    # Calculate overall percentages
     overall_main_win_rate = overall_main_wins / overall_games
     overall_opponent_win_rate = overall_opponent_wins / overall_games
     overall_draw_rate = overall_draws / overall_games
 
+    # Usage summary for main agent (agent_main used as agent2 in every game)
+    usage = evaluator.main_agent_usage
+    total = usage["total"] if usage["total"] > 0 else 1  # Avoid division by zero
+    dqn_pct = (usage["dqn"] / total) * 100
+    mcts_pct = (usage["mcts"] / total) * 100
+    hybrid_pct = (usage["hybrid"] / total) * 100
+    random_pct = (usage["random"] / total) * 100
+    hybrid_dqn_pct = ((usage["dqn"] + usage["hybrid"]) / total) * 100
+
+    # Determine model maturity based on Hybrid+DQN usage.
+    if hybrid_dqn_pct < 30:
+        maturity = "immature"
+    elif 50 <= hybrid_dqn_pct < 70:
+        maturity = "developing"
+    elif 80 <= hybrid_dqn_pct <= 100:
+        maturity = "mature"
+    else:
+        maturity = "undetermined"
+
+    # Determine performance comment based on win rate.
+    if overall_main_win_rate < 0.3:
+        performance = "low performance"
+    elif overall_main_win_rate < 0.6:
+        performance = "medium"
+    elif overall_main_win_rate < 0.8:
+        performance = "good"
+    elif overall_main_win_rate < 0.9:
+        performance = "impressive"
+    elif overall_main_win_rate < 0.99:
+        performance = "perfect"
+    else:
+        performance = "outstanding"
+
+    # Print summary
     print("\nOverall Evaluation Summary:")
     print(f"Total Games: {overall_games}")
-    print(f"Main Agent Overall Win Rate: {overall_main_win_rate*100:.1f}%")
+    print(f"Main Agent Overall Win Rate: {overall_main_win_rate*100:.1f}% ({performance})")
     print(f"Opponents Overall Win Rate: {overall_opponent_win_rate*100:.1f}%")
     print(f"Overall Draw Rate: {overall_draw_rate*100:.1f}%")
+    print("\nMain Agent Action Usage:")
+    print(f"  DQN: {dqn_pct:.1f}%")
+    print(f"  MCTS: {mcts_pct:.1f}%")
+    print(f"  Hybrid: {hybrid_pct:.1f}%")
+    print(f"  Random: {random_pct:.1f}%")
+    print(f"  (Hybrid + DQN): {hybrid_dqn_pct:.1f}% → Model is {maturity}.")
     print("\nEvaluation Complete.")
 
 # ------------------- Run Evaluation ------------------- #
 if __name__ == "__main__":
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    print("Using device:", device)
     main_evaluation(num_games=10)

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Alpha Four</title>
+  <!-- Bootstrap 5 CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #000;
+      padding: 20px;
+      color: #fff;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    #turnIndicator {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 1.25rem;
+    }
+    .column-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .column-buttons button {
+      width: 60px;
+      height: 60px;
+      font-size: 24px;
+      border-radius: 50%;
+    }
+    /* The square wrapper for the board */
+    .board-wrapper {
+      width: 468px;  /* Adjust based on your cell and gap sizes */
+      height: 468px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .connect4-board {
+      display: grid;
+      gap: 8px;
+      padding: 20px;
+      background-color: #333;
+      border-radius: 10px;
+      box-shadow: 0 0 15px 5px rgba(255, 255, 255, 0.7);
+      /* Remove dynamic centering width – the wrapper now centers it */
+    }
+    .cell {
+      width: 60px;
+      height: 60px;
+      background-color: #e9ecef;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+    }
+    .cell.human {
+      background-color: #dc3545;
+      color: #fff;
+    }
+    .cell.ai {
+      background-color: #ffc107;
+      color: #212529;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Alpha Four</h1>
+    </div>
+    <div id="turnIndicator"></div>
+    <!-- Row of buttons to select a column -->
+    <div class="column-buttons" id="column-buttons"></div>
+    <!-- Square board container -->
+    <div class="board-wrapper">
+      <div id="board" class="connect4-board"></div>
+    </div>
+    <!-- Reset button below the board -->
+    <div class="text-center mt-3">
+      <button class="btn btn-primary" onclick="resetGame()">Reset Game</button>
+    </div>
+  </div>
+
+  <script>
+    // Compute whose turn it is based on board state.
+    function computeTurn(board) {
+      let humanCount = 0, aiCount = 0;
+      board.forEach(row => {
+        row.forEach(cell => {
+          if (cell === 1) humanCount++;
+          if (cell === 2) aiCount++;
+        });
+      });
+      return (humanCount === aiCount) ? 1 : 2;
+    }
+
+    // Update the turn indicator element.
+    function updateTurnIndicator(turn) {
+      const turnIndicator = document.getElementById("turnIndicator");
+      if (turn === 1) {
+        turnIndicator.textContent = "Turn: Human (Red)";
+      } else if (turn === 2) {
+        turnIndicator.textContent = "Turn: AI (Yellow)";
+      } else {
+        turnIndicator.textContent = "";
+      }
+    }
+
+    // Create and render column selection buttons based on number of columns.
+    function createColumnButtons(numCols) {
+      const colButtonsContainer = document.getElementById("column-buttons");
+      colButtonsContainer.innerHTML = "";
+      for (let col = 0; col < numCols; col++) {
+        const btn = document.createElement("button");
+        btn.classList.add("btn", "btn-secondary");
+        btn.textContent = "↓";
+        btn.addEventListener("click", function() {
+          console.log("Column " + col + " clicked");
+          cellClick(col);
+        });
+        colButtonsContainer.appendChild(btn);
+      }
+    }
+
+    // Render the board as a grid of divs (cells)
+    function renderBoard(board, turn) {
+      const boardDiv = document.getElementById("board");
+      boardDiv.innerHTML = "";
+      if (board.length > 0) {
+        const numCols = board[0].length;
+        boardDiv.style.gridTemplateColumns = `repeat(${numCols}, 60px)`;
+        createColumnButtons(numCols);
+      }
+      board.forEach(row => {
+        row.forEach(cellValue => {
+          const cellDiv = document.createElement("div");
+          cellDiv.classList.add("cell");
+          if (cellValue === 1) {
+            cellDiv.classList.add("human");
+            cellDiv.textContent = "X";
+          } else if (cellValue === 2) {
+            cellDiv.classList.add("ai");
+            cellDiv.textContent = "O";
+          }
+          boardDiv.appendChild(cellDiv);
+        });
+      });
+      if (turn === undefined) {
+        turn = computeTurn(board);
+      }
+      updateTurnIndicator(turn);
+    }
+
+    // Send the human move to the server.
+    function cellClick(col) {
+      console.log("Sending move for column:", col);
+      fetch("/human_move", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ col: col })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.error) {
+          alert(data.error);
+          return;
+        }
+        renderBoard(data.board, data.turn);
+        if (data.message === "Game Over") {
+          const winnerText = data.winner === 1 ? "Human (Red)" : data.winner === 2 ? "AI (Yellow)" : "Draw";
+          alert("Game Over! Winner: " + winnerText);
+        }
+      })
+      .catch(err => console.error("Error:", err));
+    }
+
+    // Reset the game.
+    function resetGame() {
+      console.log("Reset game requested");
+      fetch("/reset", { method: "POST" })
+        .then(response => response.json())
+        .then(data => renderBoard(data.board, data.turn))
+        .catch(err => console.error("Error:", err));
+    }
+
+    // Wait for the DOM to load before rendering the board.
+    document.addEventListener("DOMContentLoaded", function() {
+      const initialBoard = {{ board | tojson | safe }};
+      const initialTurn = {{ turn | default(1) | tojson | safe }};
+      console.log("Initial board:", initialBoard, "Turn:", initialTurn);
+      renderBoard(initialBoard, initialTurn);
+    });
+  </script>
+</body>
+</html>
