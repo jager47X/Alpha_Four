@@ -47,146 +47,6 @@ if other_model_version >= 45:
 else:
     from dependencies.layer_models.model1 import DQN as other_DQN
 
-# ----------------- AgentLogic Class ----------------- #
-class AgentLogic:
-    def __init__(self, policy_net, device, q_threshold=0.9, mcts_simulations=2000, always_mcts=False, always_random=False):
-        """
-        Initialize the agent logic with a policy network, device, and a Q-value threshold.
-        """
-        self.policy_net = policy_net
-        self.device = device
-        self.q_threshold = q_threshold
-        self.hybrid_threshold = 0.7   # hybrid threshold for comparing MCTS values
-        self.temperature = 0.1
-        self.mcts_simulations = mcts_simulations
-        self.always_mcts = always_mcts
-        self.always_random = always_random
-
-    def pick_action(self, env, epsilon, logger, debug=False, mcts_fallback=True, hybrid_flag=False):
-        """
-        Pick an action using an epsilon-greedy strategy with MCTS fallback.
-
-        Returns an 8-element tuple:
-            (model_used, q_action, mcts_action, hybrid_action, best_q_val, mcts_value, hybrid_value, random_action)
-        """
-        q_action = None
-        mcts_action = None
-        hybrid_action = None
-        best_q_val = None
-        mcts_value = None
-        hybrid_value = None
-        random_action = None
-        model_used = None
-
-        valid_actions = env.get_valid_actions()
-        if not valid_actions:
-            return -1, -1, -1, -1, -1, -1, -1, -1
-
-        # Branch for always using random action
-        if self.always_random:
-            random_action = random.choice(valid_actions)
-            model_used = "random"
-            return model_used, q_action, mcts_action, hybrid_action, best_q_val, mcts_value, hybrid_value, random_action
-
-        # Branch for always using MCTS
-        if self.always_mcts:
-            model_used = "mcts"
-            mcts_agent = MCTS(
-                logger=logger, 
-                num_simulations=self.mcts_simulations, 
-                debug=debug, 
-                dqn_model=None, 
-                hybrid=False
-            )
-            mcts_action, mcts_value = mcts_agent.select_action(env, env.current_player)
-            return model_used, q_action, mcts_action, hybrid_action, best_q_val, mcts_value, hybrid_value, random_action
-
-        # Evaluate Q-values using the policy network.
-        board_np = env.board  # Expected shape: (rows, cols)
-        state_tensor = torch.tensor(board_np, dtype=torch.float32, device=self.device)
-        if state_tensor.ndimension() == 2:
-            state_tensor = state_tensor.unsqueeze(0).unsqueeze(0)
-        elif state_tensor.ndimension() == 3:
-            state_tensor = state_tensor.unsqueeze(1)
-
-        self.policy_net.eval()
-
-        if epsilon > self.q_threshold:
-            self.q_threshold = epsilon
-        if epsilon > self.temperature:
-            self.temperature = epsilon
-
-        q_values = self.policy_net(state_tensor).flatten()
-        if torch.allclose(q_values, q_values[0].expand_as(q_values)):
-            q_values = torch.full_like(q_values, 1.0 / q_values.numel())
-
-        masked_q = torch.full_like(q_values, float('-inf'))
-        for a in valid_actions:
-            masked_q[a] = q_values[a]
-
-        dynamic_temp = min(epsilon * 2, 1)
-        if dynamic_temp > self.temperature:
-            self.temperature = dynamic_temp
-
-        softmax_q = torch.nn.functional.softmax(masked_q / self.temperature, dim=0)
-        sampled_action_tensor = torch.multinomial(softmax_q, num_samples=1)
-        q_action = sampled_action_tensor.item()
-        best_act = torch.argmax(softmax_q)
-        best_q_val = softmax_q[best_act].detach()
-
-        # If no MCTS fallback is desired, return DQN result directly.
-        if not mcts_fallback:
-            model_used = "dqn"
-            return model_used, q_action, None, None, best_q_val, None, None, None
-
-        # Otherwise, perform MCTS fallback with a hybrid option.
-        # First, try hybrid MCTS.
-        hybrid_flag = True
-        mcts_agent = MCTS(
-            logger=logger, 
-            num_simulations=self.mcts_simulations, 
-            debug=debug, 
-            dqn_model=self.policy_net, 
-            hybrid=hybrid_flag,
-            q_threshold=self.q_threshold
-        )
-        hybrid_action, hybrid_value = mcts_agent.select_action(env, env.current_player)
-
-        # Next, compute the plain MCTS action.
-        hybrid_flag = False
-        mcts_agent = MCTS(
-            logger=logger, 
-            num_simulations=self.mcts_simulations, 
-            debug=debug, 
-            dqn_model=self.policy_net, 
-            hybrid=hybrid_flag,
-            q_threshold=self.q_threshold
-        )
-        mcts_action, mcts_value = mcts_agent.select_action(env, env.current_player)
-
-        # Decide which action to use based on hybrid vs. mcts value.
-        if hybrid_value is not None and mcts_value is not None and hybrid_value * self.hybrid_threshold > mcts_value:
-            model_used = "hybrid"
-        else:
-            model_used = "mcts"
-
-        # If the DQN best Q-value is high enough, prefer the DQN action.
-        if best_q_val is not None and best_q_val > self.q_threshold:
-            model_used = "dqn"
-
-        if debug:
-            logger.debug(
-                f"Model used: {model_used}, Q Action: {best_act.item()}, MCTS Action: {mcts_action}, "
-                f"Hybrid Action: {hybrid_action}, Best Q Value: {best_q_val.item()}, "
-                f"MCTS Value: {mcts_value}, Hybrid Value: {hybrid_value}"
-            )
-            print(
-                f"Model used: {model_used}, Q Action: {best_act.item()}, MCTS Action: {mcts_action}, "
-                f"Hybrid Action: {hybrid_action}, Best Q Value: {best_q_val.item()}, "
-                f"MCTS Value: {mcts_value}, Hybrid Value: {hybrid_value}"
-            )
-        return model_used, q_action, mcts_action, hybrid_action, best_q_val, mcts_value, hybrid_value, random_action
-
 # ----------------- AutoEvaluator Class ----------------- #
 class AutoEvaluator:
     """
@@ -208,7 +68,7 @@ class AutoEvaluator:
             # ---------------- AGENT 1 (Player 1) ----------------
             (_, q_action, mcts_action, hybrid_action,
              best_q_val, mcts_value, hybrid_value, random_action) = agent1.pick_action(
-                self.env, epsilon=0, logger=logging, debug=True, mcts_fallback=True, hybrid_flag=True
+                self.env, epsilon=0, logger=logging, debug=True, mcts_fallback=True, hybrid=True
             )
             # For opponent (agent1) we don't track usage.
             if mcts_action is not None:
@@ -236,7 +96,7 @@ class AutoEvaluator:
             # ---------------- AGENT 2 (Player 2 - main agent) ----------------
             (model_used, q_action, mcts_action, hybrid_action,
              best_q_val, mcts_value, hybrid_value, random_action) = agent2.pick_action(
-                self.env, epsilon=0, logger=logging, debug=True, mcts_fallback=True, hybrid_flag=True
+                self.env, epsilon=0, logger=logging, debug=True, mcts_fallback=True, hybrid=True
             )
             # Track main agent usage.
             self.main_agent_usage["total"] += 1
@@ -322,7 +182,7 @@ def main_evaluation(num_games=100):
 
     # Evaluate vs Random Opponent
     print("\nEvaluating vs Random Opponent...")
-    random_agent = AgentLogic(policy_net_other, device, mcts_simulations=0, always_random=True)
+    random_agent = AgentLogic(policy_net, device, q_threshold=0.9,temperature = 0.1, hybrid_value_threshold =1.0,mcts_simulations=2000, always_mcts=True, always_random=True)
     a1_wr, a2_wr, dr = evaluator.evaluate_agents(agent1=random_agent, agent2=agent_main, n_episodes=num_games)
     print(f"[VS Random] Random Win Rate = {a1_wr*100:.1f}% | Agent Win Rate = {a2_wr*100:.1f}% | Draw Rate = {dr*100:.1f}%")
     overall_opponent_wins += a1_wr * num_games
@@ -332,7 +192,7 @@ def main_evaluation(num_games=100):
 
     # Evaluate vs MCTS Agent with different simulation counts
     for sims in range(200, 2001, 200):
-        mcts_agent = AgentLogic(policy_net_other, device, mcts_simulations=sims, always_mcts=True)
+        mcts_agent = AgentLogic( policy_net, device, q_threshold=0.9,temperature = 0.1, hybrid_value_threshold =1.0,mcts_simulations=2000, always_mcts=True, always_random=False)
         print(f"\nEvaluating vs MCTS Agent ({sims} simulations)...")
         a1_wr, a2_wr, dr = evaluator.evaluate_agents(agent1=mcts_agent, agent2=agent_main, n_episodes=num_games)
         print(f"[VS MCTS {sims}] MCTS Win Rate = {a1_wr*100:.1f}% | Agent Win Rate = {a2_wr*100:.1f}% | Draw Rate = {dr*100:.1f}%")

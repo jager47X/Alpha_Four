@@ -34,13 +34,16 @@ EPSILON_MIN = 0.05
 TOTAL_EPISODES = 999999999 # Infinite until it the training completed by trigerring the condition
 DEBUGMODE = True
 TAU=0.001
+Q_THRESHOLD=0.9
+HYBRID_THRESHOLD =1.1
+TEMPERATURE=1.0
 if MODEL_VERSION>=45:
    from dependencies.layer_models.model2 import DQN
 else:
    from dependencies.layer_models.model1 import DQN
 # --- MCTS  Hyperparam --- #
 WIN_RATE_WINDOW = 100
-MAX_MCTS = 2000
+MCTS_SIMULATIONS=2000
 MIN_EPISODES_PER_LEVEL = 100  # Minimum episodes at each dynamic level before advancing
 WIN_RATE_THRESHOLD=0.80 # Minimum win rate to pass the mcts level
 # ---  file paths under dat/ directory --- #
@@ -373,8 +376,8 @@ def simulate_episode(args):
     local_policy_net = DQN().to(DEVICE)
     local_policy_net.load_state_dict(policy_state)
     local_policy_net.eval()
-    
-    agent = AgentLogic(local_policy_net, DEVICE)
+            
+    agent = AgentLogic(policy_net=local_policy_net, device=DEVICE, q_threshold=Q_THRESHOLD,temperature = TEMPERATURE, hybrid_value_threshold =HYBRID_THRESHOLD,mcts_simulations=MCTS_SIMULATIONS, always_mcts=False, always_random=False)
     env = Connect4()
     state = env.reset()
     transitions = []
