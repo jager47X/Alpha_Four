@@ -47,7 +47,7 @@ Features
 
 Installation
 -----------------
-## [Download the latest Alpha-Four (.exe) for Windows](https://yutomorimori.com/AlphaFour/download/v0.4.6/app.exe)
+## [Download the Alpha-Four (.exe) for Windows](https://drive.google.com/drive/folders/1cpMmDVNIxupyDfqahKbVVV-HXeLRfECK?usp=drive_link)
 ### Minimum Requirements
 **RAM**: 8GB
 
