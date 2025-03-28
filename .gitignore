@@ -13,3 +13,5 @@
 **/dist/
 *.spec
 **/venv/
+
+*.html
