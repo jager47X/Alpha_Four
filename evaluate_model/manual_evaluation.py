@@ -8,7 +8,7 @@ import warnings
 from numba.core.errors import NumbaPerformanceWarning
 
 from dependencies.environment import Connect4
-from dependencies.models import DQN
+
 from dependencies.agent import AgentLogic
 from dependencies.replay_buffer import DiskReplayBuffer
 from dependencies.utils import setup_logger, safe_make_dir, get_next_index
@@ -37,8 +37,17 @@ logger = logging.getLogger(__name__)  # Initialize logger before use
 logger.info("Logging setup complete!")
 
 # ----------------- Initialization ----------------- #
+model_version = int(input("model_version>> ") or 2)
+print("main_model_version: ", model_version)
+MODEL_PATH = os.path.join("data", "models", str(model_version), "Connect4_Agent_Model.pth")
+print(f"\nLoading Main DQN Agent from: {MODEL_PATH}")
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print("Using device:", device)
+
+if model_version>=45:
+   from dependencies.layer_models.model2 import DQN
+else:
+   from dependencies.layer_models.model1 import DQN
 
 
 # ------------------ GUI (Human vs AI) ------------------ #
@@ -135,25 +144,32 @@ class Connect4GUI:
         self.update_ai_status("AI is thinking...")
 
         # Expect pick_action to return (action, q_value, extra)
-        action, q_value = self.ai.pick_action(
-            self.env, epsilon=0.1, logger=logger, debug=True, mcts_fallback=True,evaluation=True
-        )
-
-        if action is None:
-            self.root.after(0, lambda: messagebox.showinfo("Game Over", "No valid moves left. It's a draw!"))
-            logger.info("Game ended in a draw (no valid moves for AI).")
-            self.root.after(0, self.reset_game)
-            return
-
-        success = self.env.make_move(action)
+        model_used,dqn_action, mcts_action,hybrid_action, best_q_val, mcts_value,hybrid_value,rand_action= ai.pick_action(self.env,epsilon=0,logger=logging, debug=True,
+                mcts_fallback=True,
+                hybrid=True)
+            
+        if model_used=="mcts"and mcts_action is not None:
+            action=mcts_action
+            logger.info(f"AI -> Column {action+1} (mcts-Value: {mcts_value:.3f})")
+        elif model_used=="random" and rand_action is not None:
+            action=rand_action
+            logger.info(f"AI -> Column {action+1} (Random)")
+        elif model_used=="dqn"and dqn_action is not None:
+            action=dqn_action
+            logger.info(f"AI -> Column {action+1} (Q-Value: {best_q_val:.3f})")
+        elif model_used=="hybrid"and hybrid_action is not None:
+            action=hybrid_action
+            logger.info(f"AI -> Column {action+1} (hybrid-Value: {hybrid_value:.3f})")
+        else:
+            action=None
+        if action is not None:
+            success = self.env.make_move(action)
         if not success:
             self.root.after(0, lambda: messagebox.showwarning("Invalid Move", "AI attempted an invalid move!"))
             logger.warning("AI attempted an invalid move!")
             self.update_ai_status("AI Ready")
             return
 
-        if q_value is not None:
-            logger.info(f"AI -> Column {action+1} (Q-Value: {q_value:.3f})")
         self.move_history.append(f"AI: Column {action+1}")
         self.update_board()
         self.update_history()
@@ -228,10 +244,6 @@ class Connect4GUI:
 
 # --------------- Main --------------- #
 if __name__ == "__main__":
-    model_version = input("model_version>> ") or 2
-    print("main_model_version: ", model_version)
-    MODEL_PATH = os.path.join("data", "models", str(model_version), "Connect4_Agent_Model.pth")
-    print(f"\nLoading Main DQN Agent from: {MODEL_PATH}")
     checkpoint = torch.load(MODEL_PATH, map_location=device)
     policy_net = DQN().to(device)
     policy_net.load_state_dict(checkpoint["policy_net_state_dict"])

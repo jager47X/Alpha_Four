@@ -1,24 +1,35 @@
-# Alpha Four -Optimized MCTS with DQN in Connect Four Evnviroment-
+# Alpha Four
 
 This repository implements a Deep Q-Network (DQN) approach to play Connect4. It leverages Monte Carlo Tree Search (MCTS) with deep reinforcement learning for optimized decision-making. The model uses PyTorch for training, Numba/CUDA for fast simulations, and parallel training using Python's multiprocessing.
-For a detailed explanation of the logic and implementation, please refer to  [Optimized MCTS with DQN in Connect Four Environment.pdf](Optimized_MCTS_with_DQN_in_Connect_Four_Environment.pdf)
+For a detailed explanation of the logic and implementation, please refer to  [Optimized MCTS with DQN in Connect Four Environment](Optimized_MCTS_with_DQN_in_Connect_Four_Environment.pdf)
 
 
 Table of Contents
 -----------------
-
+-   [Objective](#objective)
 -   [Features](#features)
+-   [Installation](#installation)
 -   [Project Structure](#project-structure)
--   [Requirements and Installation](#requirements-and-installation)
+-   [Requirements](#requirements)
 -   [Usage](#usage)
-    -   [Online Play (CPU-Version)](#online-play-cpu-version)
     -   [Tune HyperParameter](#tune-hyperparameter)
     -   [Training](#training)
     -   [Evaluation](#evaluation)
-    -   [Manual Play](#manual-play)
-    -   [Plotting / Analysis](#plotting--analysis)
+    -   [Data Visualizations](#data-visualizations)
+    -   [Analysis](#analysis)
+   
 -   [TODO / Roadmap](#todo--roadmap)
 -   [License](#license)
+* * * * *
+
+Objective
+--------
+
+- This project not only demonstrates that AI can achieve superhuman performance in Connect Four through the integration of Deep Q-Networks (DQN) and Monte Carlo Tree Search (MCTS), but also proposes a novel simulation-based framework for adaptive learning. 
+- By combining MCTS with artificial neural networks (ANNs), we can simulate the environment and observe the convergence of strategies throughout training—offering significantly better performance than random tree-based approaches. 
+- My aim is to build a reusable and extendable framework that supports environment simulation, adaptive learning, and high-accuracy prediction, alongside dynamic data visualization. 
+- Connect Four serves as the primary testbed to validate this approach and prove its effectiveness both as a research tool and a foundation for broader AI applications.
+
 * * * * *
 
 Features
@@ -31,8 +42,32 @@ Features
 -   **GPU-Accelerated Simulations**: Numba-based CUDA kernels for MCTS: simulating random Connect4 games in parallel.
 -   **Evaluation Suite**: Scripts for auto evaluation (model vs. random, MCTS, or other DQN models) and a GUI for human vs. AI.
 
+
 * * * * *
 
+Installation
+-----------------
+## [Download the latest Alpha-Four (.exe) for Windows](https://yutomorimori.com/AlphaFour/download/v0.4.6/app.exe)
+### Minimum Requirements
+**RAM**: 8GB
+
+**Storage**: 5GB available
+
+**CPU**: A processor that performs better than an 8th generation Intel i5 (for example, an i5-8400 or equivalent)
+
+**GPU**: Integrated graphics (the graphics processor built into the CPU)
+
+### Recommended Requirements
+**RAM**: 16GB
+
+**Storage**: 5GB available
+
+**CPU**: A processor that outperforms a 10th generation Intel i5 (for example, an i5-10400 or similar)
+
+**GPU**: A dedicated graphics card with performance at or above the level of an Nvidia GTX 750 with cuda v11.8 installation 
+
+
+* * * * *
 Project Structure
 -----------------
 
@@ -72,7 +107,7 @@ project/
 
 * * * * *
 
-Requirements and Installation
+Requirements
 -----------------------------
 
 1.  **Clone** this repository or download the ZIP.
@@ -94,9 +129,6 @@ pip install -r requirements.txt
 
 Usage
 -----
-### Online Play (CPU-Version)
-#### Ready to Play: [Alpha Four at Collab](https://colab.research.google.com/drive/1qKZxoU_DjV7CRcB-ir3UXJvf5FCgu1yF#scrollTo=HVa3LSUDDN8s)
-
 
 ### Tune Hyperparameter
 #### Hardware Hyperparameters
@@ -150,61 +182,61 @@ py -m train_model.train
 
 ### Evaluation
 
-1.  **Automated evaluation**: Compare your trained model vs. random, MCTS, or another model:
-
-
+1.  **Automated evaluation**: 
+To evaluate the performance of the AI via a automate testing using a model vs. random, MCTS, and another model:
 ```bash
 py -m auto_evaluation
 ```
 -   Modify arguments (model paths, number of games, etc.) inside `auto_evaluation.py`.
-2.  **Plot results**:\
+
+2.  **Manual evaluation**: Compare your trained model vs. random, MCTS, or another model:
+
+To evaluate the performance of the AI via a GUI:
+```bash
+py -m manual_evaluation
+```
+
+3.  **Plot results**:\
 If you have log files (e.g. `train.log`), you can generate plots by:
 
 ```bash
 py -m plot
 ```
-
 -   This script reads from a log file (like `train.log`) and outputs charts of win rates, rewards, etc.
 
-### Manual Play
-
-To play against the AI via a GUI:
-```bash
-py -m manual_evaluation
-```
 
 -   A **Connect4** window appears, where you can drop your discs, and the AI responds.
 -   Useful for demos or quick sanity checks.
 
-### Plotting/Analysis
+* * * * *
+Data Visualizations
+--------------
 
-##  Data Visualizations & Insights
-
-### Figure 1: Main Values Over Time 
+#### Figure 1: Main Values Over Time 
 ![figure1](data/models/plots/42/figure1.PNG)
 [Interact with Figure 1](https://yutomorimori.com/figure1.html)
 - Visualizes the evolution of decision-making—from initial MCTS dominance to a gradual shift toward DQN and hybrid strategies.  
   
 
- ### Figure 2: Epsilon vs. MCTS Level 
+#### Figure 2: Epsilon vs. MCTS Level 
    ![figure2](data/models/plots/42/figure2.PNG)
    [Interact with Figure 2](https://yutomorimori.com/figure2.html)
 - Shows that higher simulation levels (focusing on long-term planning) correspond to lower epsilon values, indicating a shift in strategy as midterm win scenarios (levels around 500–700) are encountered.  
   
 
-### Figure 3: Contribution to Winning
+#### Figure 3: Contribution to Winning
   ![figure3](data/models/plots/42/figure3.PNG)
   [Interact with Figure 3](https://yutomorimori.com/figure3.html)
    - Illustrates the contributions of pure MCTS, MCTS-supervised DQN, and the hybrid MCTS+DQN to overall win rates.  
   
 
-### Figure 4: 3D Visualization of Models
+#### Figure 4: 3D Visualization of Models
   ![figure4](data/models/plots/42/figure4.PNG)
   [Interact with Figure 4](https://yutomorimori.com/figure4.html)
 - Offers a spatial perspective of performance dynamics across the three models.  
   
 
-### Figure 5: KNN-Predicted Future Win Rate Post-Training Multiplier**
+#### Figure 5: KNN-Predicted Future Win Rate Post-Training Multiplier**
   ![figure5](data/models/plots/42/figure5.PNG)
   [Interact with Figure 5](https://yutomorimori.com/figure5.html)
 - Building on Figure 4, Figure 5 applies a KNN (k-nearest neighbors) regression model to predict future win rate outcomes after applying a training multiplier. The scatter points represent the performance metrics from the three approaches, as seen in Figure 4, where each point corresponds to features such as simulation count, DQN confidence, and the observed win rate.
@@ -213,9 +245,9 @@ py -m manual_evaluation
 
 - The figure contrasts current performance (scatter points) with predicted performance (KNN curve), demonstrating an upward trend in win rate as the hybrid model leverages the enhanced training dynamics.
 
-
-### Analysis
-
+* * * * *
+Analysis
+--------------
 #### Unsupervised DQN Training
 - **Training Stability:** Training was unstable, with ineffective learning and a tendency to overfit.
 - **Performance:** The model could only beat random agents.

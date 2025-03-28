@@ -505,9 +505,9 @@ def plot_figure5(avg_mcts_usage, avg_dqn_usage, avg_hybrid_usage, winners):
             layout=go.Layout(
                 title=f"Figure 5: Prediction Outcome using KNN at Future Time {int(factors[0]*100)}%",
                 scene=dict(
-                    xaxis_title="[z]:Ave MCTS Usage (%)",
+                    xaxis_title="[x]:Ave MCTS Usage (%)",
                     yaxis_title="[y]:Ave DQN Usage (%)",
-                    zaxis_title="[x]:Ave HYBRID Usage (%)"
+                    zaxis_title="[z]:Ave HYBRID Usage (%)"
                 ),
                 template="plotly_dark",
                 sliders=[{

@@ -9,7 +9,6 @@ import logging
 import warnings
 from numba.core.errors import NumbaPerformanceWarning
 from dependencies.environment import Connect4
-from dependencies.models import DQN
 from dependencies.agent import AgentLogic
 from dependencies.replay_buffer import DiskReplayBuffer
 from dependencies.utils import safe_make_dir
@@ -23,8 +22,8 @@ DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 NUM_WORKERS = 6
 REPLAYBUFFER_CAPACITY=10000000
 # --- Model  Hyperparam --- #
-MODEL_VERSION= 42
-BATCH_SIZE = 16
+MODEL_VERSION= 47
+BATCH_SIZE = 1
 GAMMA = 0.90    
 LR = 0.0001
 TARGET_EVALUATE = 100
@@ -35,6 +34,10 @@ EPSILON_MIN = 0.05
 TOTAL_EPISODES = 999999999 # Infinite until it the training completed by trigerring the condition
 DEBUGMODE = True
 TAU=0.001
+if MODEL_VERSION>=45:
+   from dependencies.layer_models.model2 import DQN
+else:
+   from dependencies.layer_models.model1 import DQN
 # --- MCTS  Hyperparam --- #
 WIN_RATE_WINDOW = 100
 MAX_MCTS = 2000
@@ -136,8 +139,9 @@ def train_step(policy_net, target_net, optimizer, replay_buffer):
     safe_q_actions = torch.tensor(q_actions_list, device=states.device, dtype=torch.int64)
     safe_mcts_actions = torch.tensor(mcts_actions_list, device=states.device, dtype=torch.int64)
 
-    q_value_env = policy_outputs.gather(1, safe_q_actions.unsqueeze(1)).squeeze()
-    q_value_mcts = policy_outputs.gather(1, safe_mcts_actions.unsqueeze(1)).squeeze()
+    q_value_env = policy_outputs.gather(1, safe_q_actions.unsqueeze(1)).squeeze(1)
+    q_value_mcts = policy_outputs.gather(1, safe_mcts_actions.unsqueeze(1)).squeeze(1)
+
 
     # For transitions with invalid actions, force Q-values to -1.
     q_value_env[~loss_mask_env] = -1.0
@@ -548,7 +552,8 @@ def run_training():
     policy_net = DQN().to(DEVICE)
     target_net = DQN().to(DEVICE)
     target_net.load_state_dict(policy_net.state_dict())
-    optimizer = optim.Adam(policy_net.parameters(), lr=LR)
+    optimizer = optim.RMSprop(policy_net.parameters(),  lr=LR)
+
 
     global EPSILON, current_mcts_level, current_level_index, episodes_in_current_level,recent_win_results
     recent_win_results = []
