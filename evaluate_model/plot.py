@@ -202,45 +202,77 @@ def plot_figure2(interval_x_full, avg_winrates_full, mcts_levels, epsilons):
         print("An error occurred while plotting Figure 2:", str(e))
 
 def plot_figure3(avg_mcts_usage, avg_dqn_usage, avg_hybrid_usage, avg_winrates, game_index):
+    """
+    Plots three subplots (MCTS, DQN, HYBRID vs. Ave Win Rate) and allows the user
+    to filter by 10 equal sections of the scaled game index (0–10%, 10–20%, etc.).
+
+    Parameters:
+    -----------
+    avg_mcts_usage : list or array
+        Average MCTS usage per game (0 to 100 range).
+    avg_dqn_usage : list or array
+        Average DQN usage per game (0 to 100 range).
+    avg_hybrid_usage : list or array
+        Average HYBRID usage per game (0 to 100 range).
+    avg_winrates : list or array
+        Average win rate per game (0 to 100 range).
+    game_index : list or array
+        The raw game indices (e.g., 0, 1, 2, ...). Will be scaled by 1/1000 here.
+    """
     try:
-        print("Starting Figure 3 plotting with game index filter slider (using interval = 1000 data, game index scaled by 1/1000)...")
-        def compute_trend_line(x, y):
-            if len(x) < 2:
-                return x, y
-            coeffs = np.polyfit(x, y, 1)
+        print("Starting Figure 3 plotting with 10 equal sections of the scaled game index...")
+
+        import numpy as np
+        import os
+        import plotly.graph_objects as go
+        import plotly.offline as pyo
+        from plotly.subplots import make_subplots
+
+        # Helper function to compute a linear trend line unless x has no variation
+        def compute_trend_line(x, y, threshold=1e-8):
+            if len(x) < 2 or np.std(x) < threshold:
+                # If there's not enough variation, return a flat trend line at the mean of y
+                if len(x) > 0:
+                    x_line = np.linspace(np.min(x), np.max(x), 100)
+                    y_line = np.full_like(x_line, np.mean(y))
+                else:
+                    x_line, y_line = [], []
+                return x_line, y_line
+
+            coeffs = np.polyfit(x, y, 1)  # 1 -> linear
             poly = np.poly1d(coeffs)
             x_line = np.linspace(np.min(x), np.max(x), 100)
             y_line = poly(x_line)
             return x_line, y_line
 
-        # Scale game index by 1/1000
+        # Scale the game index by 1/1000
         game_ix = np.array(game_index) / 1000.0
         mcts = np.array(avg_mcts_usage)
         dqn = np.array(avg_dqn_usage)
         hybrid = np.array(avg_hybrid_usage)
         winrates = np.array(avg_winrates)
-        
+
+        # Determine the min and max of the scaled game index
         min_game, max_game = game_ix.min(), game_ix.max()
-        
-        # Use percentage labels for the slider
+
+        # Prepare dictionary to store data for each of the 10 bins
         filter_options = {}
-        filter_options["0-100%"] = {
-            "mcts_x": mcts,
-            "mcts_y": winrates,
-            "dqn_x": dqn,
-            "dqn_y": winrates,
-            "hybrid_x": hybrid,
-            "hybrid_y": winrates,
-            "mcts_trend": compute_trend_line(mcts, winrates),
-            "dqn_trend": compute_trend_line(dqn, winrates),
-            "hybrid_trend": compute_trend_line(hybrid, winrates)
-        }
+
+        # Create 10 bins from 0-10%, 10-20%, ... 90-100% of the scaled range
         for i in range(10):
             lower = min_game + (max_game - min_game) * (i / 10)
             upper = min_game + (max_game - min_game) * ((i + 1) / 10)
-            indices = np.where((game_ix >= lower) & (game_ix <= upper))[0]
+
+            # Label for the slider (e.g., "0-10%", "10-20%", etc.)
+            label = f"{i * 10}-{(i + 1) * 10}%"
+
+            # Select data points whose scaled game index is in [lower, upper]
+            mask = (game_ix >= lower) & (game_ix <= upper)
+            indices = np.where(mask)[0]
+
             if indices.size == 0:
-                filter_options[f"{i*10}-{(i+1)*10}%"] = {
+                # If no data in this bin, keep everything empty
+                filter_options[label] = {
                     "mcts_x": [],
                     "mcts_y": [],
                     "dqn_x": [],
@@ -252,11 +284,14 @@ def plot_figure3(avg_mcts_usage, avg_dqn_usage, avg_hybrid_usage, avg_winrates, 
                     "hybrid_trend": ([], [])
                 }
             else:
+                # Subset for this bin
                 f_mcts = mcts[indices]
                 f_dqn = dqn[indices]
                 f_hybrid = hybrid[indices]
                 f_winrates = winrates[indices]
-                filter_options[f"{i*10}-{(i+1)*10}%"] = {
+
+                # Compute trend lines
+                filter_options[label] = {
                     "mcts_x": f_mcts,
                     "mcts_y": f_winrates,
                     "dqn_x": f_dqn,
@@ -267,60 +302,108 @@ def plot_figure3(avg_mcts_usage, avg_dqn_usage, avg_hybrid_usage, avg_winrates, 
                     "dqn_trend": compute_trend_line(f_dqn, f_winrates),
                     "hybrid_trend": compute_trend_line(f_hybrid, f_winrates)
                 }
-        
-        fig3 = make_subplots(rows=1, cols=3,
-                             subplot_titles=("MCTS vs Ave Win Rate", "DQN vs Ave Win Rate", "HYBRID vs Ave Win Rate"))
-        init = filter_options["0-100%"]
-        fig3.add_trace(go.Scatter(x=init["mcts_x"], y=init["mcts_y"],
-                                  mode='markers', marker=dict(color='red'),
-                                  name="MCTS Usage"), row=1, col=1)
-        mcts_trend_x, mcts_trend_y = init["mcts_trend"]
-        fig3.add_trace(go.Scatter(x=mcts_trend_x, y=mcts_trend_y,
-                                  mode='lines', line=dict(color='red', dash='dash'),
-                                  name="Trend (MCTS)"), row=1, col=1)
-        
-        fig3.add_trace(go.Scatter(x=init["dqn_x"], y=init["dqn_y"],
-                                  mode='markers', marker=dict(color='magenta'),
-                                  name="DQN Usage"), row=1, col=2)
-        dqn_trend_x, dqn_trend_y = init["dqn_trend"]
-        fig3.add_trace(go.Scatter(x=dqn_trend_x, y=dqn_trend_y,
-                                  mode='lines', line=dict(color='magenta', dash='dash'),
-                                  name="Trend (DQN)"), row=1, col=2)
-        
-        fig3.add_trace(go.Scatter(x=init["hybrid_x"], y=init["hybrid_y"],
-                                  mode='markers', marker=dict(color='orange'),
-                                  name="HYBRID Usage"), row=1, col=3)
-        hybrid_trend_x, hybrid_trend_y = init["hybrid_trend"]
-        fig3.add_trace(go.Scatter(x=hybrid_trend_x, y=hybrid_trend_y,
-                                  mode='lines', line=dict(color='orange', dash='dash'),
-                                  name="Trend (HYBRID)"), row=1, col=3)
-        
+
+        # Create the subplots for MCTS, DQN, and HYBRID
+        fig3 = make_subplots(
+            rows=1, cols=3,
+            subplot_titles=("MCTS vs. Avg Win Rate", "DQN vs. Avg Win Rate", "HYBRID vs. Avg Win Rate")
+        )
+
+        # We'll initialize the figure with the first bin: "0-10%"
+        first_bin_label = "0-10%"
+        init_data = filter_options[first_bin_label]
+
+        # --- MCTS Subplot ---
+        fig3.add_trace(go.Scatter(
+            x=init_data["mcts_x"],
+            y=init_data["mcts_y"],
+            mode='markers',
+            marker=dict(color='red'),
+            name="MCTS Usage"
+        ), row=1, col=1)
+
+        mcts_trend_x, mcts_trend_y = init_data["mcts_trend"]
+        fig3.add_trace(go.Scatter(
+            x=mcts_trend_x,
+            y=mcts_trend_y,
+            mode='lines',
+            line=dict(color='red', dash='dash'),
+            name="Trend (MCTS)"
+        ), row=1, col=1)
+
+        # --- DQN Subplot ---
+        fig3.add_trace(go.Scatter(
+            x=init_data["dqn_x"],
+            y=init_data["dqn_y"],
+            mode='markers',
+            marker=dict(color='magenta'),
+            name="DQN Usage"
+        ), row=1, col=2)
+
+        dqn_trend_x, dqn_trend_y = init_data["dqn_trend"]
+        fig3.add_trace(go.Scatter(
+            x=dqn_trend_x,
+            y=dqn_trend_y,
+            mode='lines',
+            line=dict(color='magenta', dash='dash'),
+            name="Trend (DQN)"
+        ), row=1, col=2)
+
+        # --- HYBRID Subplot ---
+        fig3.add_trace(go.Scatter(
+            x=init_data["hybrid_x"],
+            y=init_data["hybrid_y"],
+            mode='markers',
+            marker=dict(color='orange'),
+            name="HYBRID Usage"
+        ), row=1, col=3)
+
+        hybrid_trend_x, hybrid_trend_y = init_data["hybrid_trend"]
+        fig3.add_trace(go.Scatter(
+            x=hybrid_trend_x,
+            y=hybrid_trend_y,
+            mode='lines',
+            line=dict(color='orange', dash='dash'),
+            name="Trend (HYBRID)"
+        ), row=1, col=3)
+
+        # Set axis titles
         for col in [1, 2, 3]:
-            fig3.update_xaxes(title_text="Ave Strategy Usage (%)", row=1, col=col)
-            fig3.update_yaxes(title_text="Ave Win Rate (%)", row=1, col=col)
-        fig3.update_layout(title_text="Figure 3: Relationship Between Strategy Usage and Ave Win Rate (Interval = 1000)",
-                           template="plotly_dark")
-        
+            fig3.update_xaxes(title_text="Strategy Usage (%)", row=1, col=col)
+            fig3.update_yaxes(title_text="Avg Win Rate (%)", row=1, col=col)
+
+        # Main layout
+        fig3.update_layout(
+            title_text="Figure 3: Strategy Usage vs. Win Rate (Divided into 10% Scaled Bins)",
+            template="plotly_dark"
+        )
+
+        # Build the slider steps
         slider_steps = []
         for label, data in filter_options.items():
             step = {
                 "args": [{
-                    "x": [data["mcts_x"], data["mcts_trend"][0],
-                          data["dqn_x"], data["dqn_trend"][0],
-                          data["hybrid_x"], data["hybrid_trend"][0]],
-                    "y": [data["mcts_y"], data["mcts_trend"][1],
-                          data["dqn_y"], data["dqn_trend"][1],
-                          data["hybrid_y"], data["hybrid_trend"][1]]
+                    "x": [
+                        data["mcts_x"], data["mcts_trend"][0],
+                        data["dqn_x"], data["dqn_trend"][0],
+                        data["hybrid_x"], data["hybrid_trend"][0]
+                    ],
+                    "y": [
+                        data["mcts_y"], data["mcts_trend"][1],
+                        data["dqn_y"], data["dqn_trend"][1],
+                        data["hybrid_y"], data["hybrid_trend"][1]
+                    ]
                 }],
                 "label": label,
                 "method": "restyle"
             }
             slider_steps.append(step)
-        
+
+        # Add a single slider with the 10 bins
         fig3.update_layout(
             sliders=[{
                 "active": 0,
-                "currentvalue": {"prefix": "Game Index Filter: "},
+                "currentvalue": {"prefix": "Scaled Game Index Range: "},
                 "pad": {"t": 50},
                 "x": 0.5,
                 "xanchor": "center",
@@ -329,12 +412,13 @@ def plot_figure3(avg_mcts_usage, avg_dqn_usage, avg_hybrid_usage, avg_winrates, 
                 "steps": slider_steps
             }]
         )
+
         print("Displaying Figure 3 in offline mode...")
+        plots_dir = "."  # Adjust directory as needed
         pyo.plot(fig3, filename=os.path.join(plots_dir, "figure3.html"), auto_open=True)
+
     except Exception as e:
         print("An error occurred while plotting Figure 3:", str(e))
-
-
 def plot_figure4(agg_data, total_games, interval):
     try:
         print("Starting Figure 4 (3D scatter with slider filter) plotting...")
@@ -391,9 +475,9 @@ def plot_figure4(agg_data, total_games, interval):
         fig4.update_layout(
             title="Figure 4: 3D Scatter Cube with Game Index Filter (Interval = 1000, Game Index scaled by 1/1000)",
             scene=dict(
-                xaxis_title="Ave MCTS Usage (%)",
-                yaxis_title="Ave DQN Usage (%)",
-                zaxis_title="Ave HYBRID Usage (%)"
+                xaxis_title="[x]Ave MCTS Usage (%)",
+                yaxis_title="[y]Ave DQN Usage (%)",
+                zaxis_title="[z]Ave HYBRID Usage (%)"
             ),
             template="plotly_dark",
             scene_aspectmode="cube",
@@ -416,11 +500,11 @@ def plot_figure4(agg_data, total_games, interval):
     except Exception as e:
         print("An error occurred while plotting Figure 4:", str(e))
 
-
-def plot_figure5(avg_mcts_usage, avg_dqn_usage, avg_hybrid_usage, winners):
+def plot_figure5(avg_mcts_usage, avg_dqn_usage, avg_hybrid_usage, winners,game_index):
     try:
         print("Starting Figure 5 plotting (prediction outcome with slider)...")
         import numpy as np
+        import os
         import plotly.graph_objects as go
         import plotly.offline as pyo
         from sklearn.neighbors import KNeighborsRegressor
@@ -429,7 +513,32 @@ def plot_figure5(avg_mcts_usage, avg_dqn_usage, avg_hybrid_usage, winners):
         X_mcts = np.array(avg_mcts_usage) / 100.0
         X_dqn = np.array(avg_dqn_usage) / 100.0
         X_hybrid = np.array(avg_hybrid_usage) / 100.0
-        y_winrates = np.where(np.array(winners) == 2, 1.0, 0.0)
+
+        # Compute binary wins (1 for win, 0 for loss) for the rolling window calculation.
+        binary_wins = np.where(np.array(winners) == 2, 1.0, 0.0)
+
+        # Create a normalized time array (scaled by 1/5)
+        n = len(X_mcts)
+        time_array = np.linspace(0, 1, n) / 5.0
+
+        # Compute opponent strength over time using a 100-game rolling window.
+        # Start at 20 and, for each window with >= 80% win rate, increase by 20 (up to a cap of 2000).
+        opponent_strength_raw = []
+        current_strength = 20
+        for i in range(n):
+            if i >= 99:
+                window_win_rate = np.mean(binary_wins[i-99:i+1])
+                if window_win_rate >= 0.8:
+                    current_strength = min(2000, current_strength + 20)
+            opponent_strength_raw.append(current_strength)
+        opponent_strength_raw = np.array(opponent_strength_raw)
+        # Normalize opponent strength to [0, 1] by dividing by 2000
+        norm_opponent_strength = opponent_strength_raw / 2000.0
+
+        # Adjust the training target so that a win is 1.0, but a loss is given a value
+        # that increases with opponent strength (i.e. reducing the loss penalty).
+        # For instance, if a game is lost, we assign 0.2 * norm_opponent_strength.
+        y_winrates = np.where(np.array(winners) == 2, 1.0, 0.2 * norm_opponent_strength)
 
         # Enforce MCTS + DQN + HYBRID = 1.0 exactly
         total = X_mcts + X_dqn + X_hybrid
@@ -437,17 +546,18 @@ def plot_figure5(avg_mcts_usage, avg_dqn_usage, avg_hybrid_usage, winners):
         X_dqn /= total
         X_hybrid /= total
 
-        # Create a normalized time array (scaled by 1/5)
-        n = len(X_mcts)
-        time_array = np.linspace(0, 1, n) / 5.0
-        features = np.column_stack([X_mcts, X_dqn, X_hybrid, time_array])
+        # Combine features: [MCTS, DQN, HYBRID, time, opponent_strength]
+        features = np.column_stack([X_mcts, X_dqn, X_hybrid, time_array, norm_opponent_strength])
 
-        # Train KNN model
-        knn_model = KNeighborsRegressor(n_neighbors=5)
+        # Set the n_neibors based on the number of game index
+        n_neighbors_dynamic = max(3, min(int(game_index / 100000), 10))
+
+        # Train the KNN model with the adjusted data
+        knn_model = KNeighborsRegressor(n_neighbors=n_neighbors_dynamic)
         knn_model.fit(features, y_winrates)
-        print("KNN model fitted on raw row data.")
+        print("KNN model fitted on augmented data including opponent strength and adjusted loss penalty.")
 
-        # Create prediction grid: Only combinations where x + y + z = 1.0
+        # Create prediction grid for usage percentages where MCTS + DQN + HYBRID = 1.0
         steps = 100
         grid_vals = np.linspace(0, 1, steps + 1)
         X_list, Y_list, Z_list = [], [], []
@@ -463,15 +573,22 @@ def plot_figure5(avg_mcts_usage, avg_dqn_usage, avg_hybrid_usage, winners):
         Z_grid = np.array(Z_list)
         grid_points = np.column_stack([X_grid, Y_grid, Z_grid])
 
-        # Define future time factors and create animation frames
+        # For future prediction, update time and opponent strength.
+        # Use the last known normalized opponent strength as baseline.
+        baseline_strength = norm_opponent_strength[-1]
+        # Future factors define our prediction steps.
         factors = [1.0, 2.0, 6.0, 12.0, 24.0, 48.0, 100.0]
         frames = []
         slider_steps = []
         for factor in factors:
             future_time = factor / 5.0
+            # Increase opponent strength with future factor.
+            future_strength = min(1.0, baseline_strength + 0.01 * factor)
             future_time_array = np.full((grid_points.shape[0], 1), future_time)
-            grid_points_4d = np.hstack([grid_points, future_time_array])
-            pred_norm = knn_model.predict(grid_points_4d)
+            opponent_strength_array = np.full((grid_points.shape[0], 1), future_strength)
+            # New 5D feature vector for prediction.
+            grid_points_5d = np.hstack([grid_points, future_time_array, opponent_strength_array])
+            pred_norm = knn_model.predict(grid_points_5d)
             pred_percent = np.clip(pred_norm, 0, 1) * 100
 
             frames.append(go.Frame(
@@ -489,25 +606,25 @@ def plot_figure5(avg_mcts_usage, avg_dqn_usage, avg_hybrid_usage, winners):
                         colorbar=dict(title="Predicted Win Rate (%)")
                     )
                 )],
-                name=f"{int(factor * 100)}%"
+                name=f"Time {int(factor*100)}%"
             ))
             slider_steps.append({
-                "args": [[f"{int(factor * 100)}%"],
+                "args": [[f"Time {int(factor*100)}%"],
                          {"frame": {"duration": 0, "redraw": True}, "mode": "immediate"}],
-                "label": f"{int(factor * 100)}%",
+                "label": f"{int(factor*100)}%",
                 "method": "animate"
             })
 
-        # Initialize figure with first frame
+        # Initialize figure with the first frame
         init_frame = frames[0].data[0]
         fig5 = go.Figure(
             data=[init_frame],
             layout=go.Layout(
-                title=f"Figure 5: Prediction Outcome using KNN at Future Time {int(factors[0]*100)}%",
+                title=f"Figure 5: Prediction Outcome with Future Time {int(factors[0]*100)}%",
                 scene=dict(
-                    xaxis_title="[x]:Ave MCTS Usage (%)",
-                    yaxis_title="[y]:Ave DQN Usage (%)",
-                    zaxis_title="[z]:Ave HYBRID Usage (%)"
+                    xaxis_title="[x]: Ave MCTS Usage (%)",
+                    yaxis_title="[y]: Ave DQN Usage (%)",
+                    zaxis_title="[z]: Ave HYBRID Usage (%)"
                 ),
                 template="plotly_dark",
                 sliders=[{
@@ -520,6 +637,7 @@ def plot_figure5(avg_mcts_usage, avg_dqn_usage, avg_hybrid_usage, winners):
             frames=frames
         )
         print("Displaying Figure 5 in offline mode...")
+        plots_dir = "."  # Adjust as needed
         pyo.plot(fig5, filename=os.path.join(plots_dir, "figure5.html"), auto_open=True)
         print("Figure 5 loaded successfully.")
     except Exception as e:
@@ -556,4 +674,4 @@ else:
     plot_figure4(agg_data_fig3, total_games, FIG2_INTERVAL)
     
     # For Figure 5, use raw row data
-    plot_figure5(mcts_used_rate, dqn_rates, hybrid_rates, winners)
+    plot_figure5(mcts_used_rate, dqn_rates, hybrid_rates, winners,game_index=total_games)

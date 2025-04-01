@@ -33,7 +33,7 @@ logger.info("Using device: " + str(device))
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Load model based on a model version (from an environment variable or default)
-model_version = 41
+model_version = 55
 MODEL_PATH = os.path.join(BASE_DIR, "dependencies", "model", "Connect4_Agent_Model.pth")
 logger.info(f"Loading Main DQN Agent from: {MODEL_PATH}")
 if model_version>=45:
