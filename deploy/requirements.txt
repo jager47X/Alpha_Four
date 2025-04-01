@@ -1,16 +1,19 @@
-    # Flask web framework
-    Flask>=2.0
+# Flask web framework
+Flask>=2.0
 
-    # PyTorch (adjust version based on your CUDA / OS environment)
-    torch>=1.10
+# Torch & torchvision built for CUDA 11.8
+torch==2.1.0+cu118
+torchvision==0.16.0+cu118
+torchaudio==2.1.0+cu118
 
-    # Numerical / array processing  
-    numpy>=1.20
+# Numerical / array processing
+numpy>=1.20
 
-    # JIT compiler + CUDA utilities
-    numba>=0.55
+# JIT compiler + CUDA utilities
+numba>=0.55
 
-    # Loading Screen
-    Pillow
+# Image processing
+Pillow
 
-
+# Use PyTorch's official CUDA 11.8 wheel repo
+--extra-index-url https://download.pytorch.org/whl/cu118

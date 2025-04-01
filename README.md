@@ -48,6 +48,30 @@ Features
 Installation
 -----------------
 ## [Download the Alpha-Four (.exe) for Windows](https://drive.google.com/drive/folders/1cpMmDVNIxupyDfqahKbVVV-HXeLRfECK?usp=drive_link)
+
+## Run with Docker (GPU-Accelerated Version)
+If you have Docker installed and prefer a containerized, portable version (especially useful for GPU users):
+
+### Prerequisites:
+Windows 10/11 with Docker Desktop
+
+WSL2 enabled
+
+GPU support turned on in Docker Desktop (Settings → Resources → GPU)
+
+```py
+# Clone the repo or navigate to the project folder
+cd Alpha-Four
+
+# Build the Docker image (includes Python, Flask, and CUDA support)
+docker build -t alpha-four-gpu .
+
+# Run the container with GPU support and expose Flask app on port 5000
+docker run --gpus all -p 5000:5000 alpha-four-gpu
+
+```
+#### Now app is running on http://localhost:5000
+
 ### Minimum Requirements
 **RAM**: 8GB
 
@@ -65,6 +89,7 @@ Installation
 **CPU**: A processor that outperforms a 10th generation Intel i5 (for example, an i5-10400 or similar)
 
 **GPU**: A dedicated graphics card with performance at or above the level of an Nvidia GTX 750 with cuda v11.8 installation 
+
 
 
 * * * * *
@@ -85,6 +110,17 @@ project/
 │   ├── models.py                      # DQN architectures
 │   ├── replay_buffer.py               # Disk-based replay buffer
 │   └── utils.py                       # Common utilities (logging, CUDA kernels, etc.)
+│ 
+├── deploy/
+│   ├── __init__.py
+│   ├── app.py                        # hosting API
+│   ├── dependencies/                
+│   ├── .github/                       
+│   ├── test/
+│   │    ├── test_app.py              # Comprehensive test for app.py
+│   ├──  requirements.txt
+│   ├── .dockerignore
+│   └── Dockerfile                      
 ├── evaluate_model/
 │   ├── __init__.py
 │   ├── logs/

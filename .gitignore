@@ -13,5 +13,9 @@
 **/dist/
 *.spec
 **/venv/
-
+# Ignore the all plotly
 *.html
+
+# Docker-related
+*.tar
+*.img

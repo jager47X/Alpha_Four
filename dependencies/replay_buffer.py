@@ -6,12 +6,12 @@ from dependencies.utils import safe_make_dir
 class DiskReplayBuffer:
     def __init__(self, capacity, state_shape=(6, 7), 
                  device=torch.device("cuda" if torch.cuda.is_available() else "cpu"), 
-                 version=0):
+                 version=0, num_actions=7):
         """
         Initialize a disk-based replay buffer using memory-mapped files.
         Transition order:
             state, action, reward, next_state, done flag, best_q_val,
-            mcts_value, hybrid_value, mcts_action, model_used
+            mcts_value, hybrid_value, mcts_action, model_used, mcts_policy_dist
         Stored in `data/dat/{version}`.
         """
         self.capacity = capacity
@@ -19,6 +19,7 @@ class DiskReplayBuffer:
         self.device = device
         self.ptr = 0
         self.full = False
+        self.num_actions = num_actions
 
         # Define directory for replay buffer files.
         self.data_dir = os.path.join("data", "dat", str(version))
@@ -33,7 +34,7 @@ class DiskReplayBuffer:
         # Allocate memory-mapped arrays for each field.
         self.states = init_memmap("replay_buffer_states.dat", np.float32, (capacity, *state_shape))
         self.actions = init_memmap("replay_buffer_actions.dat", np.int32, (capacity,))
-        self.rewards = init_memmap("replay_buffer_rewards.dat", np.float32, (capacity,))  # reward
+        self.rewards = init_memmap("replay_buffer_rewards.dat", np.float32, (capacity,))
         self.next_states = init_memmap("replay_buffer_next_states.dat", np.float32, (capacity, *state_shape))
         self.dones = init_memmap("replay_buffer_dones.dat", bool, (capacity,))
         self.best_q_vals = init_memmap("replay_buffer_best_q_vals.dat", np.float32, (capacity,))
@@ -42,19 +43,24 @@ class DiskReplayBuffer:
         self.mcts_actions = init_memmap("replay_buffer_mcts_actions.dat", np.int32, (capacity,))
         # Store model_used as an integer code: 0: "dqn", 1: "mcts", 2: "hybrid", 3: None
         self.model_used = init_memmap("replay_buffer_model_used.dat", np.int32, (capacity,))
+        # New: Allocate memmap for MCTS policy distribution (each row is a distribution over actions)
+        self.mcts_policy = init_memmap("replay_buffer_mcts_policy.dat", np.float32, (capacity, num_actions))
 
     def default_if_none(self, value, default=-1):
         """Return value if it is not None; otherwise, return the default."""
         return value if value is not None else default
 
     def push(self, state, action, reward, next_state, done, 
-             best_q_val, mcts_value, hybrid_value, mcts_action, model_used):
+             best_q_val, mcts_value, hybrid_value, mcts_action, model_used,
+             mcts_policy_dist=None):
         """
         Add a transition to the replay buffer.
         Expected order:
             state, action, reward, next_state, done, best_q_val,
-            mcts_value, hybrid_value, mcts_action, model_used
+            mcts_value, hybrid_value, mcts_action, model_used, mcts_policy_dist
         model_used should be a string ("dqn", "mcts", "hybrid") or None.
+        mcts_policy_dist should be a list/array of length equal to the number of actions,
+        representing a probability distribution (summing to 1) over actions.
         """
         # Apply default value (-1) for any None value
         state_val         = self.default_if_none(state)
@@ -66,16 +72,21 @@ class DiskReplayBuffer:
         mcts_value_val    = self.default_if_none(mcts_value)
         hybrid_value_val  = self.default_if_none(hybrid_value)
         mcts_action_val   = self.default_if_none(mcts_action)
+        # For mcts_policy_dist, default to an array of zeros with length num_actions.
+        if mcts_policy_dist is None:
+            mcts_policy_val = np.zeros(self.num_actions, dtype=np.float32)
+        else:
+            mcts_policy_val = np.array(mcts_policy_dist, dtype=np.float32)
 
         self.states[self.ptr]       = state_val
-        self.actions[self.ptr]        = action_val
-        self.rewards[self.ptr]        = reward_val
-        self.next_states[self.ptr]    = next_state_val
-        self.dones[self.ptr]          = done_val
-        self.best_q_vals[self.ptr]    = best_q_val_val
-        self.mcts_values[self.ptr]    = mcts_value_val
-        self.hybrid_values[self.ptr]  = hybrid_value_val
-        self.mcts_actions[self.ptr]   = mcts_action_val
+        self.actions[self.ptr]      = action_val
+        self.rewards[self.ptr]      = reward_val
+        self.next_states[self.ptr]  = next_state_val
+        self.dones[self.ptr]        = done_val
+        self.best_q_vals[self.ptr]  = best_q_val_val
+        self.mcts_values[self.ptr]  = mcts_value_val
+        self.hybrid_values[self.ptr]= hybrid_value_val
+        self.mcts_actions[self.ptr] = mcts_action_val
 
         # Convert model_used string to integer code.
         if model_used is None:
@@ -90,6 +101,9 @@ class DiskReplayBuffer:
             code = 3
         self.model_used[self.ptr] = code
 
+        # Store the MCTS policy distribution.
+        self.mcts_policy[self.ptr] = mcts_policy_val
+
         # Flush changes to disk.
         self.states.flush()
         self.actions.flush()
@@ -101,6 +115,7 @@ class DiskReplayBuffer:
         self.hybrid_values.flush()
         self.mcts_actions.flush()
         self.model_used.flush()
+        self.mcts_policy.flush()
 
         self.ptr += 1
         if self.ptr >= self.capacity:
@@ -124,6 +139,7 @@ class DiskReplayBuffer:
             "hybrid_values": torch.tensor(self.hybrid_values[indices], device=self.device, dtype=torch.float32),
             "mcts_actions": torch.tensor(self.mcts_actions[indices], device=self.device, dtype=torch.int64),
             "model_used": torch.tensor(self.model_used[indices], device=self.device, dtype=torch.int64),
+            "mcts_policy": torch.tensor(self.mcts_policy[indices], device=self.device, dtype=torch.float32),
         }
         return batch
 
