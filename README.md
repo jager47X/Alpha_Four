@@ -61,13 +61,13 @@ GPU support turned on in Docker Desktop (Settings → Resources → GPU)
 
 ```py
 # Clone the repo or navigate to the project folder
-cd Alpha-Four
+cd Alpha_Four
 
 # Build the Docker image (includes Python, Flask, and CUDA support)
-docker build -t alpha-four-gpu .
+docker build -t alpha-four .
 
 # Run the container with GPU support and expose Flask app on port 5000
-docker run --gpus all -p 5000:5000 alpha-four-gpu
+docker run --gpus all -p 5000:5000 alpha-four
 
 ```
 #### Now app is running on http://localhost:5000
