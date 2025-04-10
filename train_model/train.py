@@ -22,8 +22,8 @@ DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 NUM_WORKERS = 6
 REPLAYBUFFER_CAPACITY=10000000
 # --- Model  Hyperparam --- #
-MODEL_VERSION= 55
-BATCH_SIZE = 32
+MODEL_VERSION= 58
+BATCH_SIZE = 128
 GAMMA = 0.99 
 LR = 0.0005
 TARGET_EVALUATE = 100
@@ -34,8 +34,8 @@ EPSILON_MIN = 0.05
 TOTAL_EPISODES = 999999999 # Infinite until it the training completed by trigerring the condition
 DEBUGMODE = True
 TAU=0.001
-Q_THRESHOLD=0.8
-HYBRID_THRESHOLD =1.2
+Q_THRESHOLD=0.6
+HYBRID_THRESHOLD =1.5
 TEMPERATURE=1.0
 TAU = 0.01
 DEBUGMODE = True
@@ -77,17 +77,6 @@ def soft_update(target_net, policy_net, tau=0.001):
         target_param.data.copy_(tau * policy_param.data + (1 - tau) * target_param.data)
 
 # ----------------- train_step Function ----------------- #
-
-
-
-
-
-def soft_update(target_net, policy_net, tau=0.01):
-    """Soft-update target network parameters."""
-    for target_param, local_param in zip(target_net.parameters(), policy_net.parameters()):
-        target_param.data.copy_(
-            tau * local_param.data + (1.0 - tau) * target_param.data
-        )
 
 def train_step(policy_net, target_net, optimizer, replay_buffer):
     """

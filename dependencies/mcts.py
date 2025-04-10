@@ -38,7 +38,8 @@ class MCTS:
         state_tensor = torch.from_numpy(state)
         device = next(self.dqn_model.parameters()).device
         state_tensor = state_tensor.to(device)
-        q_values = self.dqn_model(state_tensor)
+        with torch.no_grad():
+            q_values = self.dqn_model(state_tensor)
         return q_values
 
     def check_immediate_win(self, env, player):
@@ -78,7 +79,7 @@ class MCTS:
         if move is not None:
             if self.debug:
                 self.logger.info(f"Immediate win by playing column {move}")
-            policy_dist = [0.0]*COLUMNS
+            policy_dist = [0.0] * COLUMNS
             policy_dist[move] = 1.0
             return move, 1.0, policy_dist
 
@@ -87,12 +88,12 @@ class MCTS:
         if move is not None:
             if self.debug:
                 self.logger.info(f"Immediate block by playing column {move}")
-            policy_dist = [0.0]*COLUMNS
+            policy_dist = [0.0] * COLUMNS
             policy_dist[move] = 1.0
             return move, 0.5, policy_dist
 
         # 3) DQN-Guided Initialization: compute Q-values to create a bias array.
-        #    We no longer return early here; we simply log the DQN suggestion and build a bias array.
+        #    We log the DQN suggestion and build a bias array that is passed to simulation.
         q_bias = np.zeros(COLUMNS, dtype=np.float32)
         valid_actions = env.get_valid_actions()
         if self.hybrid and self.dqn_model is not None:
@@ -109,23 +110,20 @@ class MCTS:
             best_q_value = dqn_q_values[best_action_dqn]
             if self.debug:
                 self.logger.info(f"DQN suggests best action: {best_action_dqn} with Q-value: {best_q_value:.3f}")
-        else:
-            # If not using DQN-guided bias, leave q_bias as zeros (which will yield uniform randomness)
-            pass
+        # Otherwise, q_bias remains zero for all actions (yielding uniform randomness)
 
         # 4) Run MCTS Simulations on GPU, passing the q_bias to bias move selection.
         if self.debug:
             self.logger.info(f"Running MCTS with {self.num_simulations} simulations using CUDA.")
-
         if not valid_actions:
-            return None, 0.0, [0.0]*COLUMNS
+            return None, 0.0, [0.0] * COLUMNS
 
         simulation_results = run_simulations_cuda(env, self.num_simulations, q_bias=q_bias)
         if simulation_results is None:
             if self.debug:
                 self.logger.error("Simulations failed. Returning random action.")
             ra = random.choice(valid_actions)
-            policy_dist = [0.0]*COLUMNS
+            policy_dist = [0.0] * COLUMNS
             policy_dist[ra] = 1.0
             return ra, 0.0, policy_dist
 
@@ -149,7 +147,7 @@ class MCTS:
                 action_results[action] = 0.0
                 continue
 
-            # Run simulations for this action.
+            # Run simulations for this action with the q_bias provided.
             simulation_outcomes = run_simulations_cuda(temp_env, sims, q_bias=q_bias)
             if simulation_outcomes is None:
                 if self.debug:
@@ -158,7 +156,7 @@ class MCTS:
                 simulations_run[action] = 1  # Prevent division by zero later
                 continue
 
-            # Count only wins for the current_player (do not include draws)
+            # Count wins for the current player (ignoring draws)
             wins = np.sum(simulation_outcomes == current_player)
             action_results[action] = wins
 
@@ -169,7 +167,7 @@ class MCTS:
             if self.debug:
                 self.logger.warning("No valid action results after simulations. Choosing random action.")
             ra = random.choice(valid_actions)
-            policy_dist = [0.0]*COLUMNS
+            policy_dist = [0.0] * COLUMNS
             policy_dist[ra] = 1.0
             return ra, 0.0, policy_dist
 
@@ -187,14 +185,14 @@ class MCTS:
         # 7) Build MCTS policy distribution across all 7 columns
         sum_values = sum(action_results.values())
         if sum_values <= 0:
-            mcts_policy_dist = [0.0]*COLUMNS
+            mcts_policy_dist = [0.0] * COLUMNS
             uniform_prob = 1.0 / len(valid_actions)
             for a in valid_actions:
                 mcts_policy_dist[a] = uniform_prob
         else:
-            mcts_policy_dist = [0.0]*COLUMNS
+            mcts_policy_dist = [0.0] * COLUMNS
             for a in range(COLUMNS):
                 mcts_policy_dist[a] = action_results.get(a, 0.0) / sum_values
 
-        # 8) Return best action, the normalized win ratio, and the distribution
+        # 8) Return best action, normalized win ratio, and the distribution
         return best_action, mcts_value, mcts_policy_dist

@@ -1,19 +1,15 @@
-# Flask web framework
-Flask>=2.0
+# requirements.txt
 
-# Torch & torchvision built for CUDA 11.8
+# Keep this for compatibility with PyTorch and most scientific packages
+numpy==1.26.4
+
+
+# The rest of your packages:
+Flask>=2.0
 torch==2.1.0+cu118
 torchvision==0.16.0+cu118
 torchaudio==2.1.0+cu118
-
-# Numerical / array processing
-numpy>=1.20
-
-# JIT compiler + CUDA utilities
 numba>=0.55
-
-# Image processing
 Pillow
 
-# Use PyTorch's official CUDA 11.8 wheel repo
 --extra-index-url https://download.pytorch.org/whl/cu118

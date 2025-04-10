@@ -1,18 +1,27 @@
 FROM ubuntu:22.04
 
-# Install core system packages
-RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
-    wget curl gnupg lsb-release software-properties-common \
-    python3 python3-pip python3-dev python3-tk build-essential python3-numpy \
-    tzdata && rm -rf /var/lib/apt/lists/*
+# Set non-interactive frontend
+ENV DEBIAN_FRONTEND=noninteractive
 
-# Set up CUDA 11.8 APT repository
+# Install system dependencies & Python 3.10
+RUN apt-get update && apt-get install -y \
+    software-properties-common curl wget gnupg lsb-release build-essential tzdata \
+    python3.10 python3.10-dev python3.10-distutils python3-pip python3-tk python3-numpy \
+    && rm -rf /var/lib/apt/lists/*
+
+# Make python3 point to python3.10
+RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.10 1
+
+# Upgrade pip (ensure Python 3.10 uses it)
+RUN curl -sS https://bootstrap.pypa.io/get-pip.py | python3.10
+
+# Install NVIDIA CUDA repo and toolkit
 RUN wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.0-1_all.deb && \
     dpkg -i cuda-keyring_1.0-1_all.deb && \
     apt-get update && \
     apt-get install -y cuda-toolkit-11-8
 
-# Set environment variables for CUDA
+# Set CUDA paths
 ENV PATH=/usr/local/cuda-11.8/bin:${PATH}
 ENV LD_LIBRARY_PATH=/usr/local/cuda-11.8/lib64:${LD_LIBRARY_PATH}
 
@@ -22,10 +31,11 @@ WORKDIR /app
 # Copy requirements and install Python packages
 COPY requirements.txt .
 
-RUN pip3 install --upgrade pip && \
-    pip3 install -r requirements.txt --no-cache-dir --progress-bar on --verbose
+# Install correct pip packages (with numpy < 2.0 to prevent crash)
+RUN pip3 install --no-cache-dir --progress-bar on --verbose --upgrade pip && \
+    pip3 install --no-cache-dir --progress-bar on --verbose -r requirements.txt
 
-# Copy app source code
+# Copy the rest of the application
 COPY . .
 
 # Set environment variables

@@ -4,8 +4,6 @@ import torch.nn.functional as F
 import numpy as np
 from .mcts import MCTS
 
-
-
 class AgentLogic:
     def __init__(self, policy_net, device, q_threshold=0.9, mcts_simulations=2000, always_mcts=False, always_random=False):
         """

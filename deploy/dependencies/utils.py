@@ -88,7 +88,6 @@ def get_next_index(path: str) -> int:
     return next_index
 
 # ----------------- CUDA Simulation Functions ----------------- #
-
 # Constants for Connect4
 EMPTY = 0
 PLAYER1 = 1
@@ -96,9 +95,6 @@ PLAYER2 = 2
 ROWS = 6
 COLUMNS = 7
 WIN_LENGTH = 4
-
-
-
 
 @cuda.jit
 def simulate_games_kernel(board_states, current_players, results, num_simulations, seeds, flag):
@@ -267,38 +263,113 @@ def prepare_simulation_data(env: Connect4, num_simulations: int):
     return board_states, current_players, results, seeds
 
 
-def run_simulations_cuda(env: Connect4, num_simulations: int = 4096, block_size: int = 256):
+def run_simulations_cuda(env: Connect4, num_simulations: int = 4096, block_size: int = 256, dqn_model=None, hybrid: bool = False):
     """
-    Runs a number of Connect4 game simulations on the GPU using CUDA.
+    Runs a number of Connect4 game simulations.
+    
+    Two modes are available:
+      - Normal MCTS mode (hybrid == False or no dqn_model provided): 
+          Runs random rollouts via the CUDA kernel.
+      - Hybrid mode (hybrid == True and dqn_model provided): 
+          Uses immediate win/block checks and then evaluates states with the DQN.
     
     Args:
-        env (Connect4): The Connect4 environment to simulate from.
-        num_simulations (int, optional): The number of simulations to run. Defaults to 4096.
+        env (Connect4): The Connect4 environment.
+        num_simulations (int, optional): Number of simulations to run. Defaults to 4096.
         block_size (int, optional): CUDA block size. Defaults to 256.
-    
+        dqn_model (optional): A PyTorch DQN model for state evaluation.
+        hybrid (bool, optional): Whether to use hybrid mode (DQN-based simulations). Defaults to False.
+        
     Returns:
-        np.ndarray or None: An array of simulation results (winning player for each simulation)
+        np.ndarray or None: An array of simulation results (either DQN values or winning player IDs),
                             or None if an error occurred.
     """
-    board_states, current_players, _, seeds = prepare_simulation_data(env, num_simulations)
-    d_board_states = cuda.to_device(board_states)
-    d_current_players = cuda.to_device(current_players)
-    d_seeds = cuda.to_device(seeds.astype(np.uint32))
-    d_results = cuda.device_array(num_simulations, dtype=np.int32)
-    grid_size = math.ceil(num_simulations / block_size)
-    flag = np.array([0], dtype=np.int32)
-    d_flag = cuda.to_device(flag)
-    try:
-        simulate_games_kernel[grid_size, block_size](d_board_states, d_current_players, d_results, num_simulations, d_seeds, d_flag)
-        cuda.synchronize()
-    except cuda.CudaSupportError as e:
-        print(f"CUDA Support Error: {e}")
-        return None
-    except cuda.CudaAPIError as e:
-        print(f"CUDA API Error: {e}")
-        return None
-    except Exception as e:
-        print(f"Unexpected error: {e}")
-        return None
-    results = d_results.copy_to_host()
-    return results
+    # If hybrid mode is enabled and a DQN model is provided, run DQN-based simulations.
+    if dqn_model is not None and hybrid:
+        # Helper functions (adapted from your MCTS class)
+        def dqn_evaluate_state(env_local, model):
+            """
+            Evaluate the current state using the DQN model.
+            Assumes that env_local.get_state() returns a 2D board of shape (ROWS, COLUMNS).
+            Reshapes to (1, 1, ROWS, COLUMNS) as expected by the network.
+            """
+            state = np.array(env_local.get_state(), dtype=np.float32)
+            if state.ndim == 2:
+                state = np.expand_dims(state, axis=0)
+            state = np.expand_dims(state, axis=0)  # Now shape: (1, 1, ROWS, COLUMNS)
+            state_tensor = torch.from_numpy(state)
+            device = next(model.parameters()).device
+            state_tensor = state_tensor.to(device)
+            with torch.no_grad():
+                q_values = model(state_tensor)
+            return q_values
+
+        def check_immediate_win(env_local, player):
+            """Check if an immediate winning move is available."""
+            valid_actions = env_local.get_valid_actions()
+            for col in valid_actions:
+                temp_env = env_local.copy()
+                temp_env.make_move(col)
+                if temp_env.check_winner() == player:
+                    return col
+            return None
+
+        def check_immediate_block(env_local, player):
+            """Check if an immediate block is required."""
+            opponent = 3 - player
+            valid_actions = env_local.get_valid_actions()
+            for col in valid_actions:
+                temp_env = env_local.copy()
+                temp_env.make_move(col)
+                if temp_env.check_winner() == opponent:
+                    return col
+            return None
+
+        results = np.zeros(num_simulations, dtype=np.float32)
+        current_player = env.current_player
+
+        # Run simulations sequentially (or batch if desired for performance)
+        for i in range(num_simulations):
+            sim_env = env.copy()
+
+            # Immediate win check
+            if check_immediate_win(sim_env, current_player) is not None:
+                results[i] = 1.0  # Maximal value for an immediate win.
+                continue
+
+            # Immediate block check
+            if check_immediate_block(sim_env, current_player) is not None:
+                results[i] = 0.5  # Moderate value for blocking.
+                continue
+
+            # Use the DQN to evaluate the state.
+            q_values = dqn_evaluate_state(sim_env, dqn_model)
+            results[i] = q_values.max().item()
+
+        return results
+
+    # Otherwise, run normal MCTS simulations via the CUDA kernel.
+    else:
+        board_states, current_players, _, seeds = prepare_simulation_data(env, num_simulations)
+        d_board_states = cuda.to_device(board_states)
+        d_current_players = cuda.to_device(current_players)
+        d_seeds = cuda.to_device(seeds.astype(np.uint32))
+        d_results = cuda.device_array(num_simulations, dtype=np.int32)
+        grid_size = math.ceil(num_simulations / block_size)
+        flag = np.array([0], dtype=np.int32)
+        d_flag = cuda.to_device(flag)
+        try:
+            simulate_games_kernel[grid_size, block_size](d_board_states, d_current_players, d_results, num_simulations, d_seeds, d_flag)
+            cuda.synchronize()
+        except cuda.CudaSupportError as e:
+            print(f"CUDA Support Error: {e}")
+            return None
+        except cuda.CudaAPIError as e:
+            print(f"CUDA API Error: {e}")
+            return None
+        except Exception as e:
+            print(f"Unexpected error: {e}")
+            return None
+
+        results = d_results.copy_to_host()
+        return results
