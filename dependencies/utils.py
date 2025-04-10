@@ -2,11 +2,17 @@ import logging
 import os
 import math
 import numpy as np
-from numba import cuda, int32, float32
+from numba import cuda
+import numba
 import warnings
+import random
+import torch
+import time
 from numba.core.errors import NumbaPerformanceWarning
 from .environment import Connect4
+
 warnings.filterwarnings("ignore", category=NumbaPerformanceWarning)
+
 # ----------------- Utility Functions ----------------- #
 def safe_make_dir(directory: str) -> None:
     """
@@ -22,11 +28,9 @@ def safe_make_dir(directory: str) -> None:
         print(f"Error creating directory {directory}: {e}")
         raise
 
-
 def setup_logger(log_file: str, level: int = logging.INFO) -> logging.Logger:
     """
-    Sets up a logger that logs both to a file (log_file) and the console (stdout).
-    Ensures the directory for log_file exists before creating the FileHandler.
+    Sets up a logger that logs both to a file (log_file) and the console.
     
     Args:
         log_file (str): The path to the log file.
@@ -37,37 +41,26 @@ def setup_logger(log_file: str, level: int = logging.INFO) -> logging.Logger:
     """
     logger = logging.getLogger()
     logger.setLevel(level)
-
-    # Remove any existing handlers to avoid duplicated logs
     if logger.hasHandlers():
         logger.handlers.clear()
-
-    # Ensure the directory for log_file exists
     if log_file:
         log_dir = os.path.dirname(log_file)
         if log_dir and not os.path.exists(log_dir):
             safe_make_dir(log_dir)
-
-    # Create a file handler if log_file is provided
     if log_file:
         fh = logging.FileHandler(log_file)
         fh.setLevel(level)
         fh.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
         logger.addHandler(fh)
-
-    # Always add a stream handler (for console logs)
     sh = logging.StreamHandler()
     sh.setLevel(level)
     sh.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
     logger.addHandler(sh)
-
     return logger
-
 
 def get_next_index(path: str) -> int:
     """
-    Reads the directories in 'path' and returns the next available index as an integer.
-    If no directories exist, returns 0.
+    Reads the directories in 'path' and returns the next available index.
     
     Args:
         path (str): The directory path to search.
@@ -87,6 +80,21 @@ def get_next_index(path: str) -> int:
     return next_index
 
 # ----------------- CUDA Simulation Functions ----------------- #
+# Constants for Connect4
+EMPTY = 0
+PLAYER1 = 1
+PLAYER2 = 2
+ROWS = 6
+COLUMNS = 7
+WIN_LENGTH = 4
+
+import math
+import numpy as np
+from numba import cuda
+import numba
+import random
+import torch
+from .environment import Connect4
 
 # Constants for Connect4
 EMPTY = 0
@@ -94,24 +102,14 @@ PLAYER1 = 1
 PLAYER2 = 2
 ROWS = 6
 COLUMNS = 7
-WIN_LENGTH = 4  
+WIN_LENGTH = 4
 
 @cuda.jit
 def simulate_games_kernel(board_states, current_players, results, num_simulations, seeds, flag, q_bias, q_threshold):
     """
     CUDA kernel to simulate a number of Connect4 games in parallel.
-    The move selection uses the provided q_bias vector to deterministically choose a move
-    if any valid move's bias meets or exceeds q_threshold; otherwise, a weighted random selection is done.
-    
-    Parameters:
-        board_states : 3D int32 array (num_simulations, ROWS, COLUMNS)
-        current_players : 1D int32 array (num_simulations,)
-        results : 1D int32 output array (num_simulations,)
-        num_simulations : total number of simulations
-        seeds : 1D uint32 array used for PRNG for each simulation
-        flag : 1D int32 array (used to flag kernel execution)
-        q_bias : 1D float32 array of shape (COLUMNS,) with Q-values for each column from the root state
-        q_threshold : float32 value that must be met for a move to be deterministically selected
+    For each simulation, if any valid move has a q_bias value that meets or exceeds q_threshold,
+    that move is chosen deterministically; otherwise, the move is selected via weighted random choice.
     """
     idx = cuda.grid(1)
     if idx >= num_simulations:
@@ -120,18 +118,18 @@ def simulate_games_kernel(board_states, current_players, results, num_simulation
     if idx == 0:
         flag[0] = 1
 
-    # Initialize PRNG with a unique seed per simulation.
+    # Initialize PRNG using a simple LCG.
     seed = seeds[idx]
     a = 1664525
     c = 1013904223
     m = 2**32
 
-    # Copy board into local memory.
-    board_sim = cuda.local.array((ROWS, COLUMNS), dtype=int32)
-    for row in range(ROWS):
-        for col in range(COLUMNS):
+    # Copy board state into shared local memory.
+    board_sim = cuda.local.array((6, 7), dtype=numba.int32)
+    for row in range(6):
+        for col in range(7):
             board_sim[row, col] = board_states[idx, row, col]
-    
+
     player = current_players[idx]
     winner = EMPTY
     depth = 0
@@ -139,35 +137,34 @@ def simulate_games_kernel(board_states, current_players, results, num_simulation
 
     while depth < max_depth:
         depth += 1
-        # Build list of valid moves and record corresponding biases.
-        valid = cuda.local.array(7, dtype=int32)
-        biases = cuda.local.array(7, dtype=float32)
+        # Build list of valid actions.
+        valid = cuda.local.array(7, dtype=numba.int32)
         valid_count = 0
-        for col in range(COLUMNS):
+        for col in range(7):
             if board_sim[0, col] == EMPTY:
                 valid[valid_count] = col
-                biases[valid_count] = q_bias[col]  # Use provided Q-bias value.
                 valid_count += 1
 
         if valid_count == 0:
-            break  # Draw – no valid move.
+            break  # Draw
 
-        # Check if any valid move has bias >= q_threshold.
+        # Check if any valid move has a q_bias >= q_threshold.
         best_idx = -1
         best_bias = -1.0
         for i in range(valid_count):
-            if biases[i] >= q_threshold and biases[i] > best_bias:
-                best_bias = biases[i]
+            move = valid[i]
+            bias_val = q_bias[move]
+            if bias_val >= q_threshold and bias_val > best_bias:
+                best_bias = bias_val
                 best_idx = i
 
         if best_idx != -1:
-            # Deterministically choose this move.
             action = valid[best_idx]
         else:
-            # Weighted random selection: sum biases over valid moves.
+            # Fall back to weighted random selection using q_bias as weights.
             total_bias = 0.0
             for i in range(valid_count):
-                total_bias += biases[i]
+                total_bias += q_bias[ valid[i] ]
             if total_bias > 0:
                 rand_num = (a * seed + c) % m
                 seed = rand_num
@@ -175,7 +172,7 @@ def simulate_games_kernel(board_states, current_players, results, num_simulation
                 cum_sum = 0.0
                 selected_action = valid[0]
                 for i in range(valid_count):
-                    cum_sum += biases[i]
+                    cum_sum += q_bias[ valid[i] ]
                     if cum_sum >= threshold:
                         selected_action = valid[i]
                         break
@@ -186,19 +183,19 @@ def simulate_games_kernel(board_states, current_players, results, num_simulation
                 seed = rand_num
                 action = valid[rand_num % valid_count]
 
-        # Execute move: drop piece into first available row from bottom.
+        # Make move: drop the piece in the lowest available row.
         for row in range(ROWS - 1, -1, -1):
             if board_sim[row, action] == EMPTY:
                 board_sim[row, action] = player
                 break
 
-        # Check for win condition.
+        # Check win conditions (horizontal, vertical, and two diagonal checks).
         win = False
-        # Horizontal check.
-        for r in range(ROWS):
+        # Horizontal Check.
+        for r in range(6):
             count = 1
             last = board_sim[r, 0]
-            for c in range(1, COLUMNS):
+            for c in range(1, 7):
                 if board_sim[r, c] == last and board_sim[r, c] != EMPTY:
                     count += 1
                     if count >= WIN_LENGTH:
@@ -211,12 +208,12 @@ def simulate_games_kernel(board_states, current_players, results, num_simulation
             if win:
                 break
 
-        # Vertical check.
         if not win:
-            for c in range(COLUMNS):
+            # Vertical Check.
+            for c in range(7):
                 count = 1
                 last = board_sim[0, c]
-                for r in range(1, ROWS):
+                for r in range(1, 6):
                     if board_sim[r, c] == last and board_sim[r, c] != EMPTY:
                         count += 1
                         if count >= WIN_LENGTH:
@@ -229,16 +226,16 @@ def simulate_games_kernel(board_states, current_players, results, num_simulation
                 if win:
                     break
 
-        # Diagonal Down-Right check.
         if not win:
-            for r in range(ROWS - WIN_LENGTH + 1):
-                for c in range(COLUMNS - WIN_LENGTH + 1):
+            # Diagonal Down-Right Check.
+            for r in range(3):
+                for c in range(4):
                     first = board_sim[r, c]
                     if first == EMPTY:
                         continue
                     match = True
-                    for i in range(1, WIN_LENGTH):
-                        if board_sim[r + i, c + i] != first:
+                    for i in range(1, 4):
+                        if board_sim[r+i, c+i] != first:
                             match = False
                             break
                     if match:
@@ -248,16 +245,16 @@ def simulate_games_kernel(board_states, current_players, results, num_simulation
                 if win:
                     break
 
-        # Diagonal Up-Right check.
         if not win:
-            for r in range(WIN_LENGTH - 1, ROWS):
-                for c in range(COLUMNS - WIN_LENGTH + 1):
+            # Diagonal Up-Right Check.
+            for r in range(3, 6):
+                for c in range(4):
                     first = board_sim[r, c]
                     if first == EMPTY:
                         continue
                     match = True
-                    for i in range(1, WIN_LENGTH):
-                        if board_sim[r - i, c + i] != first:
+                    for i in range(1, 4):
+                        if board_sim[r-i, c+i] != first:
                             match = False
                             break
                     if match:
@@ -270,45 +267,65 @@ def simulate_games_kernel(board_states, current_players, results, num_simulation
         if win:
             break
 
-        # If top row is full then it's a draw.
+        # Check for draw condition: if top row is full.
         draw = True
-        for c in range(COLUMNS):
+        for c in range(7):
             if board_sim[0, c] == EMPTY:
                 draw = False
                 break
         if draw:
             break
 
-        # Switch player.
+        # Toggle player.
         player = 3 - player
 
     results[idx] = winner
 
-def prepare_simulation_data(env: 'Connect4', num_simulations: int):
+def prepare_simulation_data(env: Connect4, num_simulations: int):
     """
-    Prepare data for CUDA-based simulation.
+    Prepares simulation data for running CUDA-based simulations.
     
+    Args:
+        env (Connect4): The current Connect4 environment.
+        num_simulations (int): The number of simulations to run.
+        
     Returns:
-        board_states: (num_simulations, ROWS, COLUMNS) int32 array
-        current_players: (num_simulations,) int32 array
-        results: (num_simulations,) int32 zeros array
-        seeds: (num_simulations,) uint32 array for PRNG seeds.
+        tuple: (board_states, current_players, results, seeds)
     """
-    board = env.get_board()  # Expected shape (ROWS, COLUMNS)
+    board = env.get_board()  # Expected shape: (ROWS, COLUMNS)
     board_states = np.tile(board, (num_simulations, 1, 1)).astype(np.int32)
     current_players = np.full(num_simulations, env.current_player, dtype=np.int32)
     results = np.zeros(num_simulations, dtype=np.int32)
     seeds = np.random.randint(0, 2**32, size=num_simulations, dtype=np.uint32)
     return board_states, current_players, results, seeds
 
-def run_simulations_cuda(env: 'Connect4', num_simulations: int = 4096, block_size: int = 256,
-                         q_bias=None, q_threshold=0.5):
+def run_simulations_cuda(env: Connect4, num_simulations: int = 4096, block_size: int = 256,
+                         dqn_model=None, hybrid: bool = False, q_threshold: float = 0.5, q_bias=None):
     """
-    Run Connect4 game simulations on the GPU using CUDA.
+    Runs a number of Connect4 simulations on the GPU using CUDA.
     
-    If q_bias is provided (a 1D array of Q-values for each column) and moves meet or exceed
-    q_threshold, those moves will be deterministically selected in the simulation.
+    Modes:
+      - Hybrid mode (if dqn_model is provided and hybrid == True):
+          If no q_bias is provided, it should be computed by the caller.
+          The provided q_bias vector and q_threshold are passed to the kernel so that
+          moves with a bias above the threshold are selected deterministically.
+      - Normal mode: Uses random rollouts (q_bias remains a zero vector).
+    
+    Args:
+        env (Connect4): The current Connect4 environment.
+        num_simulations (int): Number of simulations to run.
+        block_size (int): CUDA block size.
+        dqn_model: A PyTorch DQN model (not used here if q_bias is already provided).
+        hybrid (bool): Whether to use hybrid mode.
+        q_threshold (float): Threshold for deterministic move selection.
+        q_bias (np.ndarray or None): A precomputed Q-bias vector (length = COLUMNS). If None, a zero vector is used.
+        
+    Returns:
+        np.ndarray or None: Array of simulation results (winning player IDs) or None on error.
     """
+    if q_bias is None:
+        q_bias = np.zeros(COLUMNS, dtype=np.float32)
+
     board_states, current_players, _, seeds = prepare_simulation_data(env, num_simulations)
     d_board_states = cuda.to_device(board_states)
     d_current_players = cuda.to_device(current_players)
@@ -317,15 +334,13 @@ def run_simulations_cuda(env: 'Connect4', num_simulations: int = 4096, block_siz
     grid_size = math.ceil(num_simulations / block_size)
     flag = np.array([0], dtype=np.int32)
     d_flag = cuda.to_device(flag)
-
-    if q_bias is None:
-        q_bias = np.zeros(COLUMNS, dtype=np.float32)
     d_q_bias = cuda.to_device(q_bias)
+    q_threshold_device = np.float32(q_threshold)
 
     try:
         simulate_games_kernel[grid_size, block_size](d_board_states, d_current_players, d_results,
-                                                      num_simulations, d_seeds, d_flag, d_q_bias,
-                                                      q_threshold)
+                                                      num_simulations, d_seeds, d_flag,
+                                                      d_q_bias, q_threshold_device)
         cuda.synchronize()
     except cuda.CudaSupportError as e:
         print(f"CUDA Support Error: {e}")

@@ -28,6 +28,7 @@ class AgentLogic:
         self.always_mcts = always_mcts
         self.always_random = always_random
         self.hybrid_value_threshold = hybrid_value_threshold
+        self.min_hybrid_value = 0.5  # Minimum hybrid value to consider it a valid action
 
     def pick_action(self, env, epsilon, logger, debug=False, mcts_fallback=True, hybrid=False):
         """
@@ -190,9 +191,10 @@ class AgentLogic:
         # Decide if "hybrid" is better than "mcts"
         # If hybrid_value > mcts_value * threshold => pick hybrid
         
-        self.hybrid_value_threshold  = 1+ epsilon/5 # 1+(0.5 - 0.025)
-        if hybrid_value > mcts_value * self.hybrid_value_threshold:
+        if hybrid_value == 1.0:
             model_used = "hybrid"
+        elif hybrid_value > mcts_value * (1+ epsilon/5) and hybrid_value > self.min_hybrid_value:
+             model_used = "hybrid"
         else:
             model_used = "mcts"
 
