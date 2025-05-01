@@ -22,7 +22,7 @@ DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 NUM_WORKERS = 6
 REPLAYBUFFER_CAPACITY=10000000
 # --- Model  Hyperparam --- #
-MODEL_VERSION= 62
+MODEL_VERSION= 63
 BATCH_SIZE = 64
 GAMMA = 0.99 
 LR = 0.0005
@@ -724,7 +724,7 @@ def run_training():
             simulate_episode,
             args=((episode, EPSILON, current_mcts_level, policy_net.state_dict(), logger),)
         )
-        transitions, ep, winner, total_reward, turn, mcts_count,hybrid_count,dqn_count = async_result.get(timeout=3000)
+        transitions, ep, winner, total_reward, turn, mcts_count,hybrid_count,dqn_count = async_result.get(timeout=30)
         
         if transitions is None and ep is None and winner is None:
             pool.close()

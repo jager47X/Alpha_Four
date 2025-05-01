@@ -77,7 +77,7 @@ class MCTS:
 
         Returns:
             best_action (int): The column index chosen.
-            mcts_value (float): Normalized win ratio or Q-value.
+            mcts_value (float): Normalized win ratio (wintimes/total simulations) in [0.0, 1.0].
             mcts_policy_dist (list of float): Distribution over all 7 columns.
         """
 
@@ -124,8 +124,7 @@ class MCTS:
 
         # 4) Run MCTS Simulations on GPU.
         # The q_bias vector is passed along with the q_threshold so that
-        # each simulation (on GPU) will choose a move deterministically
-        # if the bias for a valid move is above the threshold.
+        # each simulation on GPU will choose a move deterministically if the bias is high.
         simulation_results = run_simulations_cuda(env, self.num_simulations, q_bias=q_bias,
                                                   q_threshold=self.q_threshold)
         if simulation_results is None:
@@ -181,12 +180,13 @@ class MCTS:
 
         # 6) Select the best action based on the simulation win ratio.
         best_action = max(action_results, key=action_results.get)
-        best_score = action_results[best_action]
-        total_sims_for_best = simulations_run.get(best_action, 1)
-        mcts_value = best_score / total_sims_for_best if total_sims_for_best > 0 else 0.0
+        wins = action_results[best_action]
+        total_simulations = simulations_run.get(best_action, 1)
+        mcts_value = wins / float(total_simulations)
+        # Ensure mcts_value is between 0.0 and 1.0.
         mcts_value = min(max(mcts_value, 0.0), 1.0)
 
-        # 7) Build a policy distribution over all columns.
+        # 7) Build a policy distribution over all 7 columns.
         sum_values = sum(action_results.values())
         mcts_policy_dist = [0.0] * COLUMNS
         if sum_values > 0:

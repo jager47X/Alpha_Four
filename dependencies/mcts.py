@@ -17,13 +17,18 @@ WIN_LENGTH = 4
 
 class MCTS:
     def __init__(self, logger=logging, num_simulations=4096, debug=False,
-                 dqn_model=None, hybrid=False, q_threshold=0.5):
+                 dqn_model=None, hybrid=False, q_threshold=0.5, temperature=5.0):
+        """
+        temperature: scaling factor used in the DQN branch for logging purposes.
+                     (Not used for immediate return.)
+        """
         self.num_simulations = num_simulations
         self.debug = debug
         self.logger = logger
         self.dqn_model = dqn_model  # Optional DQN to guide hybrid decisions
         self.hybrid = hybrid        # Use DQN guidance if True
         self.q_threshold = q_threshold
+        self.temperature = temperature
 
     def dqn_evaluate_state(self, env):
         """ 
@@ -47,7 +52,6 @@ class MCTS:
         valid_actions = env.get_valid_actions()
         for col in valid_actions:
             temp_env = env.copy()
-            # Simulate current player's move.
             temp_env.make_move(col)
             if temp_env.check_winner() == player:
                 return col
@@ -59,7 +63,6 @@ class MCTS:
         valid_actions = env.get_valid_actions()
         for col in valid_actions:
             temp_env = env.copy()
-            # Force the move to be made by the opponent.
             temp_env.current_player = opponent
             temp_env.make_move(col)
             if temp_env.check_winner() == opponent:
@@ -70,14 +73,13 @@ class MCTS:
         """
         Select the best action using MCTS with DQN integration.
         
-        If the DQN evaluation for any valid move meets or exceeds the threshold,
-        that move is used for the decision. Otherwise, we rely on CUDA‐simulated
-        MCTS outcomes (which themselves use the q_bias vector to try and select
-        DQN-driven moves where possible).
-
+        In both hybrid and non-hybrid modes, the final value (mcts_value) is computed
+        as a win ratio from simulations (wins/total). In hybrid mode, the DQN is used to 
+        compute a bias vector (q_bias) that influences the simulations.
+        
         Returns:
             best_action (int): The column index chosen.
-            mcts_value (float): Normalized win ratio in the range 0.0 - 1.0.
+            mcts_value (float): Normalized win ratio in the range [0.0, 1.0].
             mcts_policy_dist (list of float): Distribution over all 7 columns.
         """
 
@@ -90,7 +92,7 @@ class MCTS:
             policy_dist[move] = 1.0
             return move, 1.0, policy_dist
 
-        # 2) Immediate block (simulate opponent's move)
+        # 2) Immediate block
         move = self.check_immediate_block(env, current_player)
         if move is not None:
             if self.debug:
@@ -99,7 +101,8 @@ class MCTS:
             policy_dist[move] = 1.0
             return move, 0.5, policy_dist
 
-        # 3) DQN-Guided Decision
+        # 3) DQN-Guided Decision: compute a DQN-based bias vector (q_bias) for the valid moves.
+        # (We log the DQN suggestion but do not short-circuit.)
         q_bias = np.zeros(COLUMNS, dtype=np.float32)
         valid_actions = env.get_valid_actions()
         if self.hybrid and self.dqn_model is not None:
@@ -110,17 +113,15 @@ class MCTS:
                 q_values_tensor = self.dqn_evaluate_state(temp_env)
                 q_value = q_values_tensor.max().item()
                 dqn_q_values[action] = q_value
-                q_bias[action] = q_value  # store the evaluated Q-value as bias
-
-            best_action_dqn = max(dqn_q_values, key=dqn_q_values.get)
-            best_q_value = dqn_q_values[best_action_dqn]
+                q_bias[action] = q_value
             if self.debug:
-                self.logger.info(f"DQN suggests action: {best_action_dqn} with Q-value: {best_q_value:.3f}")
-            # If the best evaluated move passes the threshold, choose it immediately.
-            if best_q_value >= self.q_threshold:
-                policy_dist = [0.0] * COLUMNS
-                policy_dist[best_action_dqn] = 1.0
-                return best_action_dqn, best_q_value, policy_dist
+                best_action_dqn = max(dqn_q_values, key=dqn_q_values.get)
+                best_q_value = dqn_q_values[best_action_dqn]
+                # Optionally, log a normalized version for debugging.
+                clipped_q = max(min(best_q_value, 10.0), -10.0)
+                normalized_debug_value = 1.0 / (1.0 + math.exp(-clipped_q / self.temperature))
+                self.logger.info(f"(Hybrid Mode) DQN suggests action: {best_action_dqn} with raw Q-value: {best_q_value:.3f} and normalized value: {normalized_debug_value:.3f}")
+            # Continue to simulation using the computed q_bias.
 
         # 4) Run MCTS Simulations on GPU.
         simulation_results = run_simulations_cuda(env, self.num_simulations, q_bias=q_bias,
@@ -176,18 +177,14 @@ class MCTS:
             policy_dist[ra] = 1.0
             return ra, 0.0, policy_dist
 
-        # 6) Select the best action based on the simulation win ratio.
+        # 6) Select the best action based on win ratio.
         best_action = max(action_results, key=action_results.get)
         wins = action_results[best_action]
         total_simulations = simulations_run.get(best_action, 1)
         mcts_value = wins / float(total_simulations)
-        # Ensure mcts_value is in the range [0.0, 1.0]
-        if mcts_value < 0.0:
-            mcts_value = 0.0
-        elif mcts_value > 1.0:
-            mcts_value = 1.0
+        mcts_value = min(max(mcts_value, 0.0), 1.0)
 
-        # 7) Build a policy distribution over all 7 columns.
+        # 7) Build a policy distribution over all columns.
         sum_values = sum(action_results.values())
         mcts_policy_dist = [0.0] * COLUMNS
         if sum_values > 0:
