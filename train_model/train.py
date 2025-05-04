@@ -221,8 +221,21 @@ def train_step(policy_net, target_net, optimizer, replay_buffer):
     predicted_q_final = torch.where(loss_mask, predicted_q, torch.full_like(predicted_q, -1.0))
     selected_target_final = torch.where(loss_mask, selected_target, torch.full_like(selected_target, -1.0))
 
-    # --- 7) Q-Learning Loss (MSE or Huber) ---
-    q_loss = nn.MSELoss()(predicted_q_final, selected_target_final)
+    # 7) Classification Loss
+    # assume `policy_outputs` are raw scores (logits) of shape [B, num_actions]
+    # and `actions` are integer labels in [0, num_actions-1]
+    cls_mask   = torch.tensor([a != -1 for a in actions], device=states.device)
+    cls_labels = torch.tensor(
+        [a if a != -1 else 0 for a in actions],
+        dtype=torch.int64,
+        device=states.device
+    )
+
+    # Only compute CE on the valid entries:
+    valid_logits = policy_outputs[cls_mask]           # [N_valid, num_actions]
+    valid_labels = cls_labels[cls_mask]               # [N_valid]
+
+    classification_loss = F.cross_entropy(valid_logits, valid_labels)
 
     # --------------------------------------------------------------------------
     #  8) POLICY DISTILLATION LOSS: cross-entropy between MCTS distribution and 
@@ -261,7 +274,8 @@ def train_step(policy_net, target_net, optimizer, replay_buffer):
     # --------------------------------------------------------------------------
     #  9) Final combined loss
     # --------------------------------------------------------------------------
-    total_loss = q_loss + ALPHA_DISTILL * distill_loss
+    total_loss = classification_loss + ALPHA_DISTILL * distill_loss
+
 
     # --- 10) Backprop + optimize ---
     optimizer.zero_grad()
