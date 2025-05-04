@@ -115,7 +115,7 @@ class AgentLogic:
             # Probably (batch, 6, 7) -> (batch, 1, 6, 7)
             state_tensor = state_tensor.unsqueeze(1)
 
-        # Compute raw Q-values: shape (1,7)
+        # Compute raw Q-values: 
         q_values = self.policy_net(state_tensor).flatten()
 
         # -----------------------------------------

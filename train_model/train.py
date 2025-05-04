@@ -22,8 +22,8 @@ DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 NUM_WORKERS = 6
 REPLAYBUFFER_CAPACITY=10000000
 # --- Model  Hyperparam --- #
-MODEL_VERSION= 55
-BATCH_SIZE = 32
+MODEL_VERSION= 83
+BATCH_SIZE = 64
 GAMMA = 0.99 
 LR = 0.0005
 TARGET_EVALUATE = 100
@@ -41,10 +41,15 @@ TAU = 0.01
 DEBUGMODE = True
 ALPHA_DISTILL = 0.1  # Weight for the policy distillation loss
 DISTILL_TEMPERATURE = 1.0  # Temperature for softmax on DQN Q-values
-if MODEL_VERSION>=45:
-   from dependencies.layer_models.model2 import DQN
-else:
+if MODEL_VERSION<45:
    from dependencies.layer_models.model1 import DQN
+   print("Using Model 1")
+elif MODEL_VERSION>=45 and MODEL_VERSION<80:
+   from dependencies.layer_models.model2 import DQN
+   print("Using Model 2")
+else:
+   from dependencies.layer_models.model3 import DQN
+   print("Using Model 3")
 # --- MCTS  Hyperparam --- #
 WIN_RATE_WINDOW = 100
 MCTS_SIMULATIONS=2000
@@ -77,11 +82,6 @@ def soft_update(target_net, policy_net, tau=0.001):
         target_param.data.copy_(tau * policy_param.data + (1 - tau) * target_param.data)
 
 # ----------------- train_step Function ----------------- #
-
-
-
-
-
 def soft_update(target_net, policy_net, tau=0.01):
     """Soft-update target network parameters."""
     for target_param, local_param in zip(target_net.parameters(), policy_net.parameters()):
@@ -221,21 +221,8 @@ def train_step(policy_net, target_net, optimizer, replay_buffer):
     predicted_q_final = torch.where(loss_mask, predicted_q, torch.full_like(predicted_q, -1.0))
     selected_target_final = torch.where(loss_mask, selected_target, torch.full_like(selected_target, -1.0))
 
-    # 7) Classification Loss
-    # assume `policy_outputs` are raw scores (logits) of shape [B, num_actions]
-    # and `actions` are integer labels in [0, num_actions-1]
-    cls_mask   = torch.tensor([a != -1 for a in actions], device=states.device)
-    cls_labels = torch.tensor(
-        [a if a != -1 else 0 for a in actions],
-        dtype=torch.int64,
-        device=states.device
-    )
-
-    # Only compute CE on the valid entries:
-    valid_logits = policy_outputs[cls_mask]           # [N_valid, num_actions]
-    valid_labels = cls_labels[cls_mask]               # [N_valid]
-
-    classification_loss = F.cross_entropy(valid_logits, valid_labels)
+    # --- 7) Q-Learning Loss (MSE or Huber) ---
+    q_loss = nn.MSELoss()(predicted_q_final, selected_target_final)
 
     # --------------------------------------------------------------------------
     #  8) POLICY DISTILLATION LOSS: cross-entropy between MCTS distribution and 
@@ -274,8 +261,7 @@ def train_step(policy_net, target_net, optimizer, replay_buffer):
     # --------------------------------------------------------------------------
     #  9) Final combined loss
     # --------------------------------------------------------------------------
-    total_loss = classification_loss + ALPHA_DISTILL * distill_loss
-
+    total_loss = q_loss + ALPHA_DISTILL * distill_loss
 
     # --- 10) Backprop + optimize ---
     optimizer.zero_grad()
