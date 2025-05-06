@@ -205,13 +205,13 @@ class AgentLogic:
                 f"Model used: {model_used}, "
                 f"Q Action: {q_action},"
                 f"MCTS Action: {mcts_action}, Hybrid Action: {hybrid_action}, "
-                f"Softmaxed Best Q Val: {best_q_val}, Raw Best Q Val: {raw_best_q_val}, MCTS Value: {mcts_value}, Hybrid Value: {hybrid_value}"
+                f"Softmaxed Best Q Val: {best_q_val}, Raw Best Q Val: {raw_best_q_val}, MCTS Value: {mcts_value}, Hybrid Value: {hybrid_value}\n"
             )
             print(
                 f"Model used: {model_used}, "
                 f"Q Action: {q_action},"
                 f"MCTS Action: {mcts_action}, Hybrid Action: {hybrid_action}, "
-                f"Softmaxed Best Q Val: {best_q_val}, Raw Best Q Val: {raw_best_q_val}, MCTS Value: {mcts_value}, Hybrid Value: {hybrid_value}"
+                f"Softmaxed Best Q Val: {best_q_val}, Raw Best Q Val: {raw_best_q_val}, MCTS Value: {mcts_value}, Hybrid Value: {hybrid_value}\n"
             )
 
         # Decide which policy distribution we want to log in 'extra'.

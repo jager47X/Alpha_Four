@@ -22,7 +22,7 @@ DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 NUM_WORKERS = 6
 REPLAYBUFFER_CAPACITY=10000000
 # --- Model  Hyperparam --- #
-MODEL_VERSION= 83
+MODEL_VERSION= 88
 BATCH_SIZE = 64
 GAMMA = 0.99 
 LR = 0.0005
@@ -34,12 +34,12 @@ EPSILON_MIN = 0.05
 TOTAL_EPISODES = 999999999 # Infinite until it the training completed by trigerring the condition
 DEBUGMODE = True
 TAU=0.001
-Q_THRESHOLD=0.8
-HYBRID_THRESHOLD =1.2
+Q_THRESHOLD=0.6
+HYBRID_THRESHOLD =1.3
 TEMPERATURE=1.0
 TAU = 0.01
 DEBUGMODE = True
-ALPHA_DISTILL = 0.1  # Weight for the policy distillation loss
+DISTILL = 400.0  # Weight for the policy distillation loss
 DISTILL_TEMPERATURE = 1.0  # Temperature for softmax on DQN Q-values
 if MODEL_VERSION<45:
    from dependencies.layer_models.model1 import DQN
@@ -261,7 +261,10 @@ def train_step(policy_net, target_net, optimizer, replay_buffer):
     # --------------------------------------------------------------------------
     #  9) Final combined loss
     # --------------------------------------------------------------------------
-    total_loss = q_loss + ALPHA_DISTILL * distill_loss
+    global EPSILON
+    alpha_distill = DISTILL * EPSILON # Weight for distillation loss
+    total_distill = alpha_distill * distill_loss
+    total_loss = q_loss + total_distill
 
     # --- 10) Backprop + optimize ---
     optimizer.zero_grad()
@@ -275,8 +278,9 @@ def train_step(policy_net, target_net, optimizer, replay_buffer):
     # Debug info
     if DEBUGMODE:
         print("=== DEBUG: Q-Learning and Distillation ===")
-        print(f"Q-Loss: {q_loss.item():.4f} | Distill: {distill_loss.item():.4f} | Total: {total_loss.item():.4f}")
-        print("========================================\n")
+        print(f"Distill LOSS: {distill_loss.item():.4f} | Alpha Distill: {alpha_distill:.4f}")
+        print(f"Total Distill: {total_distill:.4f} | Q-Loss: {q_loss.item():.4f} | Total: {total_loss.item():.4f}")
+        
 
 # ----------------- Checkpoint Functions ----------------- #
 def load_model_checkpoint(model_path, learning_rate, buffer_size, logger, device):
@@ -766,13 +770,14 @@ def run_training():
         if len(recent_win_results) > WIN_RATE_WINDOW:
             recent_win_results.pop(0)
         current_win_rate = compute_win_rate(recent_win_results)
-      
+        logger.info("=======================================================================================================Result========================================================================================================")
         logger.info(f"Episode {ep}: Winner={winner},Win Rate={current_win_rate*100:.2f}%, Turn={turn}, Reward={total_reward:.2f}, "
                         f"EPSILON={EPSILON:.6f}, MCTS LEVEL={current_mcts_level}, "
-                        f"MCTS Rate:{mcts_rate*100:.2f}%, DQN Rate:{dqn_rate*100:.2f}%, HYBRID Rate:{hybrid_rate*100:.2f}%")
+                        f"MCTS Rate:{mcts_rate*100:.2f}%, DQN Rate:{dqn_rate*100:.2f}%, HYBRID Rate:{hybrid_rate*100:.2f}%\n\n")
+        print("=======================================================================================================Result========================================================================================================")
         print(f"Episode {ep}: Winner={winner},Win Rate={current_win_rate*100:.2f}%, Turn={turn}, Reward={total_reward:.2f}, "
                         f"EPSILON={EPSILON:.6f}, MCTS LEVEL={current_mcts_level}, "
-                        f"MCTS Rate:{mcts_rate*100:.2f}, DQN Rate:{dqn_rate*100:.2f}%, HYBRID Rate:{hybrid_rate*100:.2f}%")
+                        f"MCTS Rate:{mcts_rate*100:.2f}, DQN Rate:{dqn_rate*100:.2f}%, HYBRID Rate:{hybrid_rate*100:.2f}%\n\n")
 
         # Possibly advance dynamic training level
         update_dynamic_level(current_win_rate, logger)
