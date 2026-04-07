@@ -1,7 +1,28 @@
 import logging
 import os
+import sys
 import math
 import numpy as np
+
+# Fix Numba CUDA nvvm discovery for CUDA 13.x (nvvm dll moved to nvvm/bin/x64/)
+if sys.platform == 'win32':
+    _cuda_home = os.environ.get('CUDA_HOME') or os.environ.get('CUDA_PATH', '')
+    _nvvm_x64 = os.path.join(_cuda_home, 'nvvm', 'bin', 'x64')
+    if os.path.isdir(_nvvm_x64):
+        try:
+            os.add_dll_directory(_nvvm_x64)
+        except (OSError, AttributeError):
+            pass
+        # Patch numba's nvvm path resolution to include x64 subdir
+        try:
+            import numba.cuda.cuda_paths as _cp
+            _orig_nvvm_lib_dir = _cp._nvvm_lib_dir
+            def _patched_nvvm_lib_dir():
+                return 'nvvm', 'bin', 'x64'
+            _cp._nvvm_lib_dir = _patched_nvvm_lib_dir
+        except Exception:
+            pass
+
 from numba import cuda
 import numba
 import warnings
@@ -323,4 +344,138 @@ def run_simulations_cuda(env: Connect4, num_simulations: int = 4096, block_size:
         return None
     results = d_results.copy_to_host()
     return results
+
+
+def _simulate_one_game_cpu(board, current_player, q_bias, rng):
+    """CPU fallback: simulate one random Connect4 game to completion."""
+    b = board.copy()
+    player = current_player
+    rows, cols = b.shape
+
+    for _ in range(rows * cols):
+        valid = [c for c in range(cols) if b[0, c] == 0]
+        if not valid:
+            return 0  # draw
+
+        # Weighted random selection using q_bias
+        if q_bias is not None and np.any(q_bias != 0):
+            weights = np.array([max(q_bias[c], 0.01) for c in valid])
+            weights /= weights.sum()
+            col = rng.choice(valid, p=weights)
+        else:
+            col = rng.choice(valid)
+
+        # Drop piece
+        for r in range(rows - 1, -1, -1):
+            if b[r, col] == 0:
+                b[r, col] = player
+                break
+
+        # Check winner (simplified inline check)
+        for r in range(rows):
+            for c in range(cols - 3):
+                if b[r, c] == player and b[r, c+1] == player and b[r, c+2] == player and b[r, c+3] == player:
+                    return player
+        for r in range(rows - 3):
+            for c in range(cols):
+                if b[r, c] == player and b[r+1, c] == player and b[r+2, c] == player and b[r+3, c] == player:
+                    return player
+        for r in range(rows - 3):
+            for c in range(cols - 3):
+                if b[r, c] == player and b[r+1, c+1] == player and b[r+2, c+2] == player and b[r+3, c+3] == player:
+                    return player
+        for r in range(3, rows):
+            for c in range(cols - 3):
+                if b[r, c] == player and b[r-1, c+1] == player and b[r-2, c+2] == player and b[r-3, c+3] == player:
+                    return player
+
+        player = 3 - player
+
+    return 0  # draw
+
+
+def run_simulations_cpu(env, num_simulations=4096, q_bias=None):
+    """CPU fallback for run_simulations_cuda when CUDA toolkit is unavailable."""
+    board = env.get_board().astype(np.int32)
+    results = np.zeros(num_simulations, dtype=np.int32)
+    rng = np.random.default_rng()
+    for i in range(num_simulations):
+        results[i] = _simulate_one_game_cpu(board, env.current_player, q_bias, rng)
+    return results
+
+
+def run_batched_simulations_cuda(envs, sims_per_env, block_size=256, q_bias=None):
+    """
+    Run simulations for multiple board states in a single CUDA kernel launch.
+
+    Args:
+        envs: list of Connect4 environments (one per action).
+        sims_per_env: list of int, number of simulations for each env.
+        block_size: CUDA block size.
+        q_bias: optional 1D array of shape (COLUMNS,) with Q-value biases.
+
+    Returns:
+        list of np.ndarray, one results array per env, or None on failure.
+    """
+    total_sims = sum(sims_per_env)
+    if total_sims == 0:
+        return [np.zeros(s, dtype=np.int32) for s in sims_per_env]
+
+    # Build concatenated arrays for all envs
+    all_boards = []
+    all_players = []
+    for env, n in zip(envs, sims_per_env):
+        board = env.get_board().astype(np.int32)
+        all_boards.append(np.tile(board, (n, 1, 1)))
+        all_players.append(np.full(n, env.current_player, dtype=np.int32))
+
+    board_states = np.concatenate(all_boards)
+    current_players = np.concatenate(all_players)
+    seeds = np.random.randint(0, 2**32, size=total_sims, dtype=np.uint32)
+
+    if q_bias is None:
+        q_bias = np.zeros(COLUMNS, dtype=np.float32)
+
+    d_board_states = cuda.to_device(board_states)
+    d_current_players = cuda.to_device(current_players)
+    d_seeds = cuda.to_device(seeds)
+    d_results = cuda.device_array(total_sims, dtype=np.int32)
+    d_q_bias = cuda.to_device(q_bias)
+    flag = np.array([0], dtype=np.int32)
+    d_flag = cuda.to_device(flag)
+
+    grid_size = math.ceil(total_sims / block_size)
+
+    try:
+        simulate_games_kernel[grid_size, block_size](
+            d_board_states, d_current_players, d_results,
+            total_sims, d_seeds, d_flag, d_q_bias
+        )
+        cuda.synchronize()
+    except (cuda.CudaSupportError, cuda.CudaAPIError, Exception) as e:
+        print(f"Batched CUDA simulation error: {e}")
+        return None
+
+    results = d_results.copy_to_host()
+
+    # Split results back per-env
+    split_results = []
+    offset = 0
+    for n in sims_per_env:
+        split_results.append(results[offset:offset + n])
+        offset += n
+    return split_results
+
+
+def run_batched_simulations_cpu(envs, sims_per_env, q_bias=None):
+    """CPU fallback for run_batched_simulations_cuda."""
+    rng = np.random.default_rng()
+    all_results = []
+    for env, n in zip(envs, sims_per_env):
+        board = env.get_board().astype(np.int32)
+        results = np.zeros(n, dtype=np.int32)
+        for i in range(n):
+            results[i] = _simulate_one_game_cpu(board, env.current_player, q_bias, rng)
+        all_results.append(results)
+    return all_results
 
