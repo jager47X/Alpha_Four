@@ -82,12 +82,6 @@ def soft_update(target_net, policy_net, tau=0.001):
         target_param.data.copy_(tau * policy_param.data + (1 - tau) * target_param.data)
 
 # ----------------- train_step Function ----------------- #
-def soft_update(target_net, policy_net, tau=0.01):
-    """Soft-update target network parameters."""
-    for target_param, local_param in zip(target_net.parameters(), policy_net.parameters()):
-        target_param.data.copy_(
-            tau * local_param.data + (1.0 - tau) * target_param.data
-        )
 
 def train_step(policy_net, target_net, optimizer, replay_buffer):
     """
@@ -777,7 +771,7 @@ def run_training():
         print("=======================================================================================================Result========================================================================================================")
         print(f"Episode {ep}: Winner={winner},Win Rate={current_win_rate*100:.2f}%, Turn={turn}, Reward={total_reward:.2f}, "
                         f"EPSILON={EPSILON:.6f}, MCTS LEVEL={current_mcts_level}, "
-                        f"MCTS Rate:{mcts_rate*100:.2f}, DQN Rate:{dqn_rate*100:.2f}%, HYBRID Rate:{hybrid_rate*100:.2f}%\n\n")
+                        f"MCTS Rate:{mcts_rate*100:.2f}%, DQN Rate:{dqn_rate*100:.2f}%, HYBRID Rate:{hybrid_rate*100:.2f}%\n\n")
 
         # Possibly advance dynamic training level
         update_dynamic_level(current_win_rate, logger)
