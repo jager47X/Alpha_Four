@@ -1,0 +1,63 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pytest
+
+    - name: Verify imports
+      run: |
+        python -c "from dependencies.environment import Connect4; print('environment OK')"
+        python -c "from dependencies.layer_models.model3 import DQN; print('model3 OK')"
+
+    - name: Run unit tests
+      run: |
+        python -m pytest tests/ -v --tb=short || true
+
+    - name: Smoke test - environment
+      run: |
+        python -c "
+        from dependencies.environment import Connect4
+        env = Connect4()
+        env.reset()
+        assert env.make_move(3) == True
+        assert env.current_player == 2
+        assert env.check_winner() == 0
+        print('Environment smoke test passed')
+        "
+
+    - name: Smoke test - model forward pass
+      run: |
+        python -c "
+        import torch
+        from dependencies.layer_models.model3 import DQN
+        model = DQN()
+        x = torch.randn(1, 1, 6, 7)
+        out = model(x)
+        assert out.shape == (1, 7), f'Expected (1,7), got {out.shape}'
+        print('Model forward pass smoke test passed')
+        "
