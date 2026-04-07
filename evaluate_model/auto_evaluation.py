@@ -67,14 +67,12 @@ class AutoEvaluator:
         while True:
             # ---------------- AGENT 1 (Player 1) ----------------
             (_, q_action, mcts_action, hybrid_action,
-             best_q_val, mcts_value, hybrid_value, random_action) = agent1.pick_action(
+             best_q_val, mcts_value, hybrid_value, extra) = agent1.pick_action(
                 self.env, epsilon=0, logger=logging, debug=True, mcts_fallback=True, hybrid=True
             )
             # For opponent (agent1) we don't track usage.
             if mcts_action is not None:
                 action1 = mcts_action
-            elif random_action is not None:
-                action1 = random_action
             elif q_action is not None:
                 action1 = q_action
             elif hybrid_action is not None:
@@ -95,7 +93,7 @@ class AutoEvaluator:
 
             # ---------------- AGENT 2 (Player 2 - main agent) ----------------
             (model_used, q_action, mcts_action, hybrid_action,
-             best_q_val, mcts_value, hybrid_value, random_action) = agent2.pick_action(
+             best_q_val, mcts_value, hybrid_value, extra) = agent2.pick_action(
                 self.env, epsilon=0, logger=logging, debug=True, mcts_fallback=True, hybrid=True
             )
             # Track main agent usage.
@@ -105,8 +103,6 @@ class AutoEvaluator:
 
             if model_used == "mcts" and mcts_action is not None:
                 action2 = mcts_action
-            elif model_used == "random" and random_action is not None:
-                action2 = random_action
             elif model_used == "dqn" and q_action is not None:
                 action2 = q_action
             elif model_used == "hybrid" and hybrid_action is not None:
@@ -158,6 +154,7 @@ def main_evaluation(num_games=100):
       3) DQN Model vs Another DQN Model
     Prints overall win rate and usage summary.
     """
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print("\nStarting Model Evaluation")
     evaluator = AutoEvaluator()
 

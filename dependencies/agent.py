@@ -115,8 +115,9 @@ class AgentLogic:
             # Probably (batch, 6, 7) -> (batch, 1, 6, 7)
             state_tensor = state_tensor.unsqueeze(1)
 
-        # Compute raw Q-values: 
-        q_values = self.policy_net(state_tensor).flatten()
+        # Compute raw Q-values:
+        with torch.no_grad():
+            q_values = self.policy_net(state_tensor).flatten()
 
         # -----------------------------------------
         # 4) Mask invalid actions with -inf

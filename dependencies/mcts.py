@@ -6,7 +6,17 @@ import random
 import torch
 
 from .environment import Connect4
-from .utils import run_simulations_cuda 
+from .utils import run_simulations_cuda, run_simulations_cpu
+
+def _run_simulations(env, num_simulations, q_bias=None):
+    """Try CUDA first, fall back to CPU."""
+    try:
+        result = run_simulations_cuda(env, num_simulations, q_bias=q_bias)
+        if result is not None:
+            return result
+    except Exception:
+        pass
+    return run_simulations_cpu(env, num_simulations, q_bias=q_bias)
 
 EMPTY = 0
 PLAYER1 = 1
@@ -26,7 +36,7 @@ class MCTS:
         self.q_threshold = q_threshold
 
     def dqn_evaluate_state(self, env):
-        """ 
+        """
         Evaluate the current state using the DQN model.
         Assumes that env.get_state() returns a 2D board of shape (ROWS, COLUMNS).
         The state is then reshaped to (1, 1, ROWS, COLUMNS) as expected by a CNN.
@@ -38,7 +48,8 @@ class MCTS:
         state_tensor = torch.from_numpy(state)
         device = next(self.dqn_model.parameters()).device
         state_tensor = state_tensor.to(device)
-        q_values = self.dqn_model(state_tensor)
+        with torch.no_grad():
+            q_values = self.dqn_model(state_tensor)
         return q_values
 
     def check_immediate_win(self, env, player):
@@ -113,21 +124,12 @@ class MCTS:
             # If not using DQN-guided bias, leave q_bias as zeros (which will yield uniform randomness)
             pass
 
-        # 4) Run MCTS Simulations on GPU, passing the q_bias to bias move selection.
+        # 4) Run MCTS Simulations per action
         if self.debug:
             self.logger.info(f"Running MCTS with {self.num_simulations} simulations using CUDA.")
 
         if not valid_actions:
             return None, 0.0, [0.0]*COLUMNS
-
-        simulation_results = run_simulations_cuda(env, self.num_simulations, q_bias=q_bias)
-        if simulation_results is None:
-            if self.debug:
-                self.logger.error("Simulations failed. Returning random action.")
-            ra = random.choice(valid_actions)
-            policy_dist = [0.0]*COLUMNS
-            policy_dist[ra] = 1.0
-            return ra, 0.0, policy_dist
 
         # 5) Evaluate each action with sub-simulations
         simulations_per_action = self.num_simulations // len(valid_actions)
@@ -150,7 +152,7 @@ class MCTS:
                 continue
 
             # Run simulations for this action.
-            simulation_outcomes = run_simulations_cuda(temp_env, sims, q_bias=q_bias)
+            simulation_outcomes = _run_simulations(temp_env, sims, q_bias=q_bias)
             if simulation_outcomes is None:
                 if self.debug:
                     self.logger.warning(f"Simulations for action {action} failed. Skipping.")
